@@ -1,0 +1,838 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DBCTIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Campaing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdType" Type="int" Nullable="false" />
+          <Property Name="IdCompany" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CampaingSkills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSkill" Type="int" Nullable="false" />
+          <Property Name="IdCampaing" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CampaingType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="SwitchCompanyId" Type="int" Nullable="false" />
+          <Property Name="SwitchId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CompanySkills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSkill" Type="int" Nullable="false" />
+          <Property Name="IdCompany" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Switch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WebSocketIP" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="ApiServerIP" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdRole" Type="int" Nullable="false" />
+          <Property Name="IdLocation" Type="int" Nullable="false" />
+          <Property Name="IdCompany" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdSkill" Type="int" Nullable="false" />
+          <Property Name="IdUser" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VDN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="IdCampaing" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Campaing_CampaingType">
+          <End Role="CampaingType" Type="Self.CampaingType" Multiplicity="1" />
+          <End Role="Campaing" Type="Self.Campaing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaing">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campaing_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Campaing" Type="Self.Campaing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaing">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaingSkills_Campaing">
+          <End Role="Campaing" Type="Self.Campaing" Multiplicity="1" />
+          <End Role="CampaingSkills" Type="Self.CampaingSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaingSkills">
+              <PropertyRef Name="IdCampaing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaingSkills_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="CampaingSkills" Type="Self.CampaingSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaingSkills">
+              <PropertyRef Name="IdSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Switch">
+          <End Role="Switch" Type="Self.Switch" Multiplicity="1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Switch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="SwitchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySkills_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="CompanySkills" Type="Self.CompanySkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanySkills">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySkills_Skills">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="CompanySkills" Type="Self.CompanySkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanySkills">
+              <PropertyRef Name="IdSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Company">
+          <End Role="Company" Type="Self.Company" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Location">
+          <End Role="UserLocation" Type="Self.UserLocation" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_Skill">
+          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
+          <End Role="UserSkill" Type="Self.UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="IdSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_User">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UserSkill" Type="Self.UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VDN_Campaing">
+          <End Role="Campaing" Type="Self.Campaing" Multiplicity="1" />
+          <End Role="VDN" Type="Self.VDN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VDN">
+              <PropertyRef Name="IdCampaing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBCTIModelStoreContainer">
+          <EntitySet Name="Campaing" EntityType="Self.Campaing" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CampaingSkills" EntityType="Self.CampaingSkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CampaingType" EntityType="Self.CampaingType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CompanySkills" EntityType="Self.CompanySkills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Switch" EntityType="Self.Switch" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserLocation" EntityType="Self.UserLocation" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserSkill" EntityType="Self.UserSkill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VDN" EntityType="Self.VDN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Campaing_CampaingType" Association="Self.FK_Campaing_CampaingType">
+            <End Role="CampaingType" EntitySet="CampaingType" />
+            <End Role="Campaing" EntitySet="Campaing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campaing_Company" Association="Self.FK_Campaing_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Campaing" EntitySet="Campaing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaingSkills_Campaing" Association="Self.FK_CampaingSkills_Campaing">
+            <End Role="Campaing" EntitySet="Campaing" />
+            <End Role="CampaingSkills" EntitySet="CampaingSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaingSkills_Skills" Association="Self.FK_CampaingSkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="CampaingSkills" EntitySet="CampaingSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Switch" Association="Self.FK_Company_Switch">
+            <End Role="Switch" EntitySet="Switch" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySkills_Company" Association="Self.FK_CompanySkills_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanySkills" EntitySet="CompanySkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySkills_Skills" Association="Self.FK_CompanySkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="CompanySkills" EntitySet="CompanySkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Company" Association="Self.FK_Users_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Location" Association="Self.FK_Users_Location">
+            <End Role="UserLocation" EntitySet="UserLocation" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_Skill" Association="Self.FK_UserSkill_Skill">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_User" Association="Self.FK_UserSkill_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VDN_Campaing" Association="Self.FK_VDN_Campaing">
+            <End Role="Campaing" EntitySet="Campaing" />
+            <End Role="VDN" EntitySet="VDN" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBCTIModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBCTIEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Campaing" EntityType="DBCTIModel.Campaing" />
+          <EntitySet Name="CampaingSkills" EntityType="DBCTIModel.CampaingSkills" />
+          <EntitySet Name="CampaingType" EntityType="DBCTIModel.CampaingType" />
+          <EntitySet Name="Company" EntityType="DBCTIModel.Company" />
+          <EntitySet Name="CompanySkills" EntityType="DBCTIModel.CompanySkills" />
+          <EntitySet Name="Roles" EntityType="DBCTIModel.Roles" />
+          <EntitySet Name="Skills" EntityType="DBCTIModel.Skills" />
+          <EntitySet Name="Switch" EntityType="DBCTIModel.Switch" />
+          <EntitySet Name="UserLocation" EntityType="DBCTIModel.UserLocation" />
+          <EntitySet Name="UserSkill" EntityType="DBCTIModel.UserSkill" />
+          <EntitySet Name="VDN" EntityType="DBCTIModel.VDN" />
+          <AssociationSet Name="FK_Campaing_CampaingType" Association="DBCTIModel.FK_Campaing_CampaingType">
+            <End Role="CampaingType" EntitySet="CampaingType" />
+            <End Role="Campaing" EntitySet="Campaing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Campaing_Company" Association="DBCTIModel.FK_Campaing_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Campaing" EntitySet="Campaing" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaingSkills_Campaing" Association="DBCTIModel.FK_CampaingSkills_Campaing">
+            <End Role="Campaing" EntitySet="Campaing" />
+            <End Role="CampaingSkills" EntitySet="CampaingSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VDN_Campaing" Association="DBCTIModel.FK_VDN_Campaing">
+            <End Role="Campaing" EntitySet="Campaing" />
+            <End Role="VDN" EntitySet="VDN" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaingSkills_Skills" Association="DBCTIModel.FK_CampaingSkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="CampaingSkills" EntitySet="CampaingSkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Company_Switch" Association="DBCTIModel.FK_Company_Switch">
+            <End Role="Switch" EntitySet="Switch" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySkills_Company" Association="DBCTIModel.FK_CompanySkills_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="CompanySkills" EntitySet="CompanySkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CompanySkills_Skills" Association="DBCTIModel.FK_CompanySkills_Skills">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="CompanySkills" EntitySet="CompanySkills" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_Skill" Association="DBCTIModel.FK_UserSkill_Skill">
+            <End Role="Skills" EntitySet="Skills" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+          <EntitySet Name="Users" EntityType="DBCTIModel.Users" />
+          <AssociationSet Name="FK_Users_Company" Association="DBCTIModel.FK_Users_Company">
+            <End Role="Company" EntitySet="Company" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Role" Association="DBCTIModel.FK_Users_Role">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Location" Association="DBCTIModel.FK_Users_Location">
+            <End Role="UserLocation" EntitySet="UserLocation" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserSkill_User" Association="DBCTIModel.FK_UserSkill_User">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Campaing">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdType" Type="Int32" Nullable="false" />
+          <Property Name="IdCompany" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CampaingType" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="Campaing" ToRole="CampaingType" />
+          <NavigationProperty Name="Company" Relationship="DBCTIModel.FK_Campaing_Company" FromRole="Campaing" ToRole="Company" />
+          <NavigationProperty Name="CampaingSkills" Relationship="DBCTIModel.FK_CampaingSkills_Campaing" FromRole="Campaing" ToRole="CampaingSkills" />
+          <NavigationProperty Name="VDN" Relationship="DBCTIModel.FK_VDN_Campaing" FromRole="Campaing" ToRole="VDN" />
+        </EntityType>
+        <EntityType Name="CampaingSkills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSkill" Type="Int32" Nullable="false" />
+          <Property Name="IdCampaing" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campaing" Relationship="DBCTIModel.FK_CampaingSkills_Campaing" FromRole="CampaingSkills" ToRole="Campaing" />
+          <NavigationProperty Name="Skills" Relationship="DBCTIModel.FK_CampaingSkills_Skills" FromRole="CampaingSkills" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="CampaingType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campaing" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="CampaingType" ToRole="Campaing" />
+        </EntityType>
+        <EntityType Name="Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SwitchCompanyId" Type="Int32" Nullable="false" />
+          <Property Name="SwitchId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campaing" Relationship="DBCTIModel.FK_Campaing_Company" FromRole="Company" ToRole="Campaing" />
+          <NavigationProperty Name="Switch" Relationship="DBCTIModel.FK_Company_Switch" FromRole="Company" ToRole="Switch" />
+          <NavigationProperty Name="CompanySkills" Relationship="DBCTIModel.FK_CompanySkills_Company" FromRole="Company" ToRole="CompanySkills" />
+          <NavigationProperty Name="Users" Relationship="DBCTIModel.FK_Users_Company" FromRole="Company" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="CompanySkills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSkill" Type="Int32" Nullable="false" />
+          <Property Name="IdCompany" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="DBCTIModel.FK_CompanySkills_Company" FromRole="CompanySkills" ToRole="Company" />
+          <NavigationProperty Name="Skills" Relationship="DBCTIModel.FK_CompanySkills_Skills" FromRole="CompanySkills" ToRole="Skills" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="DBCTIModel.FK_Users_Role" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Skills">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CampaingSkills" Relationship="DBCTIModel.FK_CampaingSkills_Skills" FromRole="Skills" ToRole="CampaingSkills" />
+          <NavigationProperty Name="CompanySkills" Relationship="DBCTIModel.FK_CompanySkills_Skills" FromRole="Skills" ToRole="CompanySkills" />
+          <NavigationProperty Name="UserSkill" Relationship="DBCTIModel.FK_UserSkill_Skill" FromRole="Skills" ToRole="UserSkill" />
+        </EntityType>
+        <EntityType Name="Switch">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="WebSocketIP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ApiServerIP" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Company" Relationship="DBCTIModel.FK_Company_Switch" FromRole="Switch" ToRole="Company" />
+        </EntityType>
+        <EntityType Name="UserLocation">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="DBCTIModel.FK_Users_Location" FromRole="UserLocation" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="UserSkill">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdSkill" Type="Int32" Nullable="false" />
+          <Property Name="IdUser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Skills" Relationship="DBCTIModel.FK_UserSkill_Skill" FromRole="UserSkill" ToRole="Skills" />
+          <NavigationProperty Name="Users" Relationship="DBCTIModel.FK_UserSkill_User" FromRole="UserSkill" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="VDN">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdCampaing" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Campaing" Relationship="DBCTIModel.FK_VDN_Campaing" FromRole="VDN" ToRole="Campaing" />
+        </EntityType>
+        <Association Name="FK_Campaing_CampaingType">
+          <End Type="DBCTIModel.CampaingType" Role="CampaingType" Multiplicity="1" />
+          <End Type="DBCTIModel.Campaing" Role="Campaing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaingType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaing">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Campaing_Company">
+          <End Type="DBCTIModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="DBCTIModel.Campaing" Role="Campaing" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaing">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaingSkills_Campaing">
+          <End Type="DBCTIModel.Campaing" Role="Campaing" Multiplicity="1" />
+          <End Type="DBCTIModel.CampaingSkills" Role="CampaingSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaingSkills">
+              <PropertyRef Name="IdCampaing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VDN_Campaing">
+          <End Type="DBCTIModel.Campaing" Role="Campaing" Multiplicity="1" />
+          <End Type="DBCTIModel.VDN" Role="VDN" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaing">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="VDN">
+              <PropertyRef Name="IdCampaing" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaingSkills_Skills">
+          <End Type="DBCTIModel.Skills" Role="Skills" Multiplicity="1" />
+          <End Type="DBCTIModel.CampaingSkills" Role="CampaingSkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaingSkills">
+              <PropertyRef Name="IdSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Company_Switch">
+          <End Type="DBCTIModel.Switch" Role="Switch" Multiplicity="1" />
+          <End Type="DBCTIModel.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Switch">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="SwitchId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySkills_Company">
+          <End Type="DBCTIModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="DBCTIModel.CompanySkills" Role="CompanySkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanySkills">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CompanySkills_Skills">
+          <End Type="DBCTIModel.Skills" Role="Skills" Multiplicity="1" />
+          <End Type="DBCTIModel.CompanySkills" Role="CompanySkills" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CompanySkills">
+              <PropertyRef Name="IdSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_Skill">
+          <End Type="DBCTIModel.Skills" Role="Skills" Multiplicity="1" />
+          <End Type="DBCTIModel.UserSkill" Role="UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Skills">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="IdSkill" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IdRole" Type="Int32" Nullable="false" />
+          <Property Name="IdLocation" Type="Int32" Nullable="false" />
+          <Property Name="IdCompany" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Company" Relationship="DBCTIModel.FK_Users_Company" FromRole="Users" ToRole="Company" />
+          <NavigationProperty Name="Roles" Relationship="DBCTIModel.FK_Users_Role" FromRole="Users" ToRole="Roles" />
+          <NavigationProperty Name="UserLocation" Relationship="DBCTIModel.FK_Users_Location" FromRole="Users" ToRole="UserLocation" />
+          <NavigationProperty Name="UserSkill" Relationship="DBCTIModel.FK_UserSkill_User" FromRole="Users" ToRole="UserSkill" />
+        </EntityType>
+        <Association Name="FK_Users_Company">
+          <End Type="DBCTIModel.Company" Role="Company" Multiplicity="1" />
+          <End Type="DBCTIModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Company">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdCompany" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Role">
+          <End Type="DBCTIModel.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="DBCTIModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdRole" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Location">
+          <End Type="DBCTIModel.UserLocation" Role="UserLocation" Multiplicity="1" />
+          <End Type="DBCTIModel.Users" Role="Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserLocation">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="IdLocation" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserSkill_User">
+          <End Type="DBCTIModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="DBCTIModel.UserSkill" Role="UserSkill" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserSkill">
+              <PropertyRef Name="IdUser" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBCTIModelStoreContainer" CdmEntityContainer="DBCTIEntities">
+          <EntitySetMapping Name="Campaing">
+            <EntityTypeMapping TypeName="DBCTIModel.Campaing">
+              <MappingFragment StoreEntitySet="Campaing">
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="IdType" ColumnName="IdType" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaingSkills">
+            <EntityTypeMapping TypeName="DBCTIModel.CampaingSkills">
+              <MappingFragment StoreEntitySet="CampaingSkills">
+                <ScalarProperty Name="IdCampaing" ColumnName="IdCampaing" />
+                <ScalarProperty Name="IdSkill" ColumnName="IdSkill" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaingType">
+            <EntityTypeMapping TypeName="DBCTIModel.CampaingType">
+              <MappingFragment StoreEntitySet="CampaingType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Company">
+            <EntityTypeMapping TypeName="DBCTIModel.Company">
+              <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="SwitchId" ColumnName="SwitchId" />
+                <ScalarProperty Name="SwitchCompanyId" ColumnName="SwitchCompanyId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CompanySkills">
+            <EntityTypeMapping TypeName="DBCTIModel.CompanySkills">
+              <MappingFragment StoreEntitySet="CompanySkills">
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="IdSkill" ColumnName="IdSkill" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DBCTIModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Skills">
+            <EntityTypeMapping TypeName="DBCTIModel.Skills">
+              <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Switch">
+            <EntityTypeMapping TypeName="DBCTIModel.Switch">
+              <MappingFragment StoreEntitySet="Switch">
+                <ScalarProperty Name="ApiServerIP" ColumnName="ApiServerIP" />
+                <ScalarProperty Name="WebSocketIP" ColumnName="WebSocketIP" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLocation">
+            <EntityTypeMapping TypeName="DBCTIModel.UserLocation">
+              <MappingFragment StoreEntitySet="UserLocation">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserSkill">
+            <EntityTypeMapping TypeName="DBCTIModel.UserSkill">
+              <MappingFragment StoreEntitySet="UserSkill">
+                <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+                <ScalarProperty Name="IdSkill" ColumnName="IdSkill" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VDN">
+            <EntityTypeMapping TypeName="DBCTIModel.VDN">
+              <MappingFragment StoreEntitySet="VDN">
+                <ScalarProperty Name="IdCampaing" ColumnName="IdCampaing" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DBCTIModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
+                <ScalarProperty Name="IdLocation" ColumnName="IdLocation" />
+                <ScalarProperty Name="IdRole" ColumnName="IdRole" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
