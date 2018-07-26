@@ -34,8 +34,8 @@ namespace GestCTI.Models
         public virtual DbSet<Skills> Skills { get; set; }
         public virtual DbSet<Switch> Switch { get; set; }
         public virtual DbSet<UserLocation> UserLocation { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserSkill> UserSkill { get; set; }
         public virtual DbSet<VDN> VDN { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
     }
 }

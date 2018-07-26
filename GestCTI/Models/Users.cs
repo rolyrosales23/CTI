@@ -30,6 +30,7 @@ namespace GestCTI.Models
         public int IdRole { get; set; }
         public int IdLocation { get; set; }
         public int IdCompany { get; set; }
+        public bool Active { get; set; }
     
         public virtual Company Company { get; set; }
         public virtual Roles Roles { get; set; }

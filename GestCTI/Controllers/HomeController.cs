@@ -43,19 +43,19 @@ namespace GestCTI.Controllers
         {
 
             Users usuario = new Users();
-            usuario.User = user;
+            usuario.Username = user;
             usuario.Password = Seguridad.EncryptMD5(pass);
             usuario = UserDAO.VerifyUser(usuario);
             if (usuario != null)
             {
-                if (usuario.IdState == 1)          // UserState = ACTIVE
+                if (usuario.Active)          // UserState = ACTIVE
                 {
                     Session["UserActive"] = usuario;
                     //TrazasDAO.AddTraza
-                    return Json(new { msg = "log_ok", Roll = usuario.IdRoll }, JsonRequestBehavior.AllowGet);
+                    return Json(new { msg = "log_ok", Roll = usuario.IdRole }, JsonRequestBehavior.AllowGet);
                 }
                 else
-                    return Json(new { msg = "inactive", Roll = usuario.IdRoll }, JsonRequestBehavior.AllowGet);
+                    return Json(new { msg = "inactive", Roll = usuario.IdRole }, JsonRequestBehavior.AllowGet);
             }
             else return null;
         }

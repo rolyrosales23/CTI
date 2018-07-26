@@ -156,9 +156,18 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\CampaingsController.cs" />
+    <Compile Include="Controllers\CampaingTypesController.cs" />
+    <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\Seguridad.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
+    <Compile Include="Controllers\SwitchesController.cs" />
+    <Compile Include="Controllers\UserLocationsController.cs" />
+    <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VDNsController.cs" />
     <Compile Include="DAO\UserDAO.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -875,8 +884,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -927,13 +936,6 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <EntityDeploy Include="Models\Model1.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Model1.edmx.diagram">
-      <DependentUpon>Model1.edmx</DependentUpon>
-    </Content>
     <Content Include="assets\assets\filetree\jqueryFileTree.cf" />
     <Content Include="assets\assets\filetree\jqueryFileTree.jsp" />
     <Content Include="assets\assets\filetree\jqueryFileTree.pl" />
@@ -1022,6 +1024,13 @@
     <Content Include="assets\Icons\fonts\icomoon.ttf" />
     <Content Include="assets\Icons\fonts\icomoon.woff" />
     <Content Include="assets\Icons\selection.json" />
+    <EntityDeploy Include="Models\Model1.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />
@@ -1794,6 +1803,51 @@
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Supervisor\Supervisor.cshtml" />
+    <Content Include="Views\Roles\Create.cshtml" />
+    <Content Include="Views\Roles\Delete.cshtml" />
+    <Content Include="Views\Roles\Details.cshtml" />
+    <Content Include="Views\Roles\Edit.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Campaings\Create.cshtml" />
+    <Content Include="Views\Campaings\Delete.cshtml" />
+    <Content Include="Views\Campaings\Details.cshtml" />
+    <Content Include="Views\Campaings\Edit.cshtml" />
+    <Content Include="Views\Campaings\Index.cshtml" />
+    <Content Include="Views\CampaingTypes\Create.cshtml" />
+    <Content Include="Views\CampaingTypes\Delete.cshtml" />
+    <Content Include="Views\CampaingTypes\Details.cshtml" />
+    <Content Include="Views\CampaingTypes\Edit.cshtml" />
+    <Content Include="Views\CampaingTypes\Index.cshtml" />
+    <Content Include="Views\Companies\Create.cshtml" />
+    <Content Include="Views\Companies\Delete.cshtml" />
+    <Content Include="Views\Companies\Details.cshtml" />
+    <Content Include="Views\Companies\Edit.cshtml" />
+    <Content Include="Views\Companies\Index.cshtml" />
+    <Content Include="Views\Skills\Create.cshtml" />
+    <Content Include="Views\Skills\Delete.cshtml" />
+    <Content Include="Views\Skills\Details.cshtml" />
+    <Content Include="Views\Skills\Edit.cshtml" />
+    <Content Include="Views\Skills\Index.cshtml" />
+    <Content Include="Views\Switches\Create.cshtml" />
+    <Content Include="Views\Switches\Delete.cshtml" />
+    <Content Include="Views\Switches\Details.cshtml" />
+    <Content Include="Views\Switches\Edit.cshtml" />
+    <Content Include="Views\Switches\Index.cshtml" />
+    <Content Include="Views\UserLocations\Create.cshtml" />
+    <Content Include="Views\UserLocations\Delete.cshtml" />
+    <Content Include="Views\UserLocations\Details.cshtml" />
+    <Content Include="Views\UserLocations\Edit.cshtml" />
+    <Content Include="Views\UserLocations\Index.cshtml" />
+    <Content Include="Views\Users\Create.cshtml" />
+    <Content Include="Views\Users\Delete.cshtml" />
+    <Content Include="Views\Users\Details.cshtml" />
+    <Content Include="Views\Users\Edit.cshtml" />
+    <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\VDNs\Create.cshtml" />
+    <Content Include="Views\VDNs\Delete.cshtml" />
+    <Content Include="Views\VDNs\Details.cshtml" />
+    <Content Include="Views\VDNs\Edit.cshtml" />
+    <Content Include="Views\VDNs\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
