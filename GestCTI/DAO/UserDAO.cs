@@ -14,7 +14,7 @@ namespace GestCTI.DAO
         public static Users VerifyUser(Users user)
         {
             db = new DBCTIEntities();
-            var res = db.Users.SingleOrDefault(a=>a.User == user.User && a.Password == user.Password);
+            var res = db.Users.SingleOrDefault(a=>a.Username == user.Username && a.Password == user.Password);
 
             return res;
         }
@@ -22,7 +22,7 @@ namespace GestCTI.DAO
         public static IEnumerable<object> GetAllRolls()
         {
             db = new DBCTIEntities();
-            return db.Rolls.Select(p => new { IdRoll = p.IdRoll, Description = p.Description});
+            return db.Roles.Select(p => new { IdRoll = p.Id, Description = p.Name});
         }
     }
 }
