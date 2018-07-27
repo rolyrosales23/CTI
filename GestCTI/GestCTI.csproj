@@ -235,6 +235,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="Util\WebServicesAgent.cs" />
+    <Compile Include="Util\WebServicesCapaign.cs" />
+    <Compile Include="Util\WebServicesSkill.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DBCTI.mdf" />
