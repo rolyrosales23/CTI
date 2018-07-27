@@ -18,7 +18,6 @@ namespace GestCTI.Models
         public Skills()
         {
             this.CampaingSkills = new HashSet<CampaingSkills>();
-            this.CompanySkills = new HashSet<CompanySkills>();
             this.UserSkill = new HashSet<UserSkill>();
         }
     
@@ -28,8 +27,6 @@ namespace GestCTI.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampaingSkills> CampaingSkills { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CompanySkills> CompanySkills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSkill> UserSkill { get; set; }
     }

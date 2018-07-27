@@ -18,7 +18,6 @@ namespace GestCTI.Models
         public Company()
         {
             this.Campaing = new HashSet<Campaing>();
-            this.CompanySkills = new HashSet<CompanySkills>();
             this.Users = new HashSet<Users>();
         }
     
@@ -26,13 +25,13 @@ namespace GestCTI.Models
         public string Name { get; set; }
         public int SwitchCompanyId { get; set; }
         public int SwitchId { get; set; }
+        public Nullable<int> CreateBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Campaing> Campaing { get; set; }
         public virtual Switch Switch { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CompanySkills> CompanySkills { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Users> Users { get; set; }
+        public virtual Users Users1 { get; set; }
     }
 }

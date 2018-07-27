@@ -38,14 +38,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="SwitchCompanyId" Type="int" Nullable="false" />
           <Property Name="SwitchId" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="CompanySkills">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="IdSkill" Type="int" Nullable="false" />
-          <Property Name="IdCompany" Type="int" Nullable="false" />
+          <Property Name="CreateBy" Type="int" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -171,27 +164,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CompanySkills_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="CompanySkills" Type="Self.CompanySkills" Multiplicity="*" />
+        <Association Name="FK_Company_UserCreated">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="Company" Type="Self.Company" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Company">
+            <Principal Role="Users">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="CompanySkills">
-              <PropertyRef Name="IdCompany" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CompanySkills_Skills">
-          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
-          <End Role="CompanySkills" Type="Self.CompanySkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Skills">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CompanySkills">
-              <PropertyRef Name="IdSkill" />
+            <Dependent Role="Company">
+              <PropertyRef Name="CreateBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -272,7 +253,6 @@
           <EntitySet Name="CampaingSkills" EntityType="Self.CampaingSkills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CampaingType" EntityType="Self.CampaingType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CompanySkills" EntityType="Self.CompanySkills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Switch" EntityType="Self.Switch" Schema="dbo" store:Type="Tables" />
@@ -300,13 +280,9 @@
             <End Role="Switch" EntitySet="Switch" />
             <End Role="Company" EntitySet="Company" />
           </AssociationSet>
-          <AssociationSet Name="FK_CompanySkills_Company" Association="Self.FK_CompanySkills_Company">
+          <AssociationSet Name="FK_Company_UserCreated" Association="Self.FK_Company_UserCreated">
+            <End Role="Users" EntitySet="Users" />
             <End Role="Company" EntitySet="Company" />
-            <End Role="CompanySkills" EntitySet="CompanySkills" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CompanySkills_Skills" Association="Self.FK_CompanySkills_Skills">
-            <End Role="Skills" EntitySet="Skills" />
-            <End Role="CompanySkills" EntitySet="CompanySkills" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Company" Association="Self.FK_Users_Company">
             <End Role="Company" EntitySet="Company" />
@@ -379,18 +355,9 @@
           <Property Name="SwitchId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Campaing" Relationship="Self.FK_Campaing_Company" FromRole="Company" ToRole="Campaing" />
           <NavigationProperty Name="Switch" Relationship="Self.FK_Company_Switch" FromRole="Company" ToRole="Switch" />
-          <NavigationProperty Name="CompanySkills" Relationship="Self.FK_CompanySkills_Company" FromRole="Company" ToRole="CompanySkills" />
           <NavigationProperty Name="Users" Relationship="Self.FK_Users_Company" FromRole="Company" ToRole="Users" />
-        </EntityType>
-        <EntityType Name="CompanySkills">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="IdSkill" Type="Int32" Nullable="false" />
-          <Property Name="IdCompany" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Company" Relationship="Self.FK_CompanySkills_Company" FromRole="CompanySkills" ToRole="Company" />
-          <NavigationProperty Name="Skills" Relationship="Self.FK_CompanySkills_Skills" FromRole="CompanySkills" ToRole="Skills" />
+          <Property Name="CreateBy" Type="Int32" />
+          <NavigationProperty Name="Users1" Relationship="DBCTIModel.FK_Company_UserCreated" FromRole="Company" ToRole="Users" />
         </EntityType>
         <EntityType Name="Roles">
           <Key>
@@ -408,7 +375,6 @@
           <Property Name="Value" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CampaingSkills" Relationship="Self.FK_CampaingSkills_Skills" FromRole="Skills" ToRole="CampaingSkills" />
-          <NavigationProperty Name="CompanySkills" Relationship="Self.FK_CompanySkills_Skills" FromRole="Skills" ToRole="CompanySkills" />
           <NavigationProperty Name="UserSkill" Relationship="Self.FK_UserSkill_Skill" FromRole="Skills" ToRole="UserSkill" />
         </EntityType>
         <EntityType Name="Switch">
@@ -448,6 +414,7 @@
           <NavigationProperty Name="UserLocation" Relationship="Self.FK_Users_Location" FromRole="Users" ToRole="UserLocation" />
           <NavigationProperty Name="UserSkill" Relationship="Self.FK_UserSkill_User" FromRole="Users" ToRole="UserSkill" />
           <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Company1" Relationship="DBCTIModel.FK_Company_UserCreated" FromRole="Users" ToRole="Company" />
         </EntityType>
         <EntityType Name="UserSkill">
           <Key>
@@ -541,18 +508,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_CompanySkills_Company">
-          <End Role="Company" Type="Self.Company" Multiplicity="1" />
-          <End Role="CompanySkills" Type="Self.CompanySkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Company">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CompanySkills">
-              <PropertyRef Name="IdCompany" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Users_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -562,18 +517,6 @@
             </Principal>
             <Dependent Role="Users">
               <PropertyRef Name="IdCompany" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CompanySkills_Skills">
-          <End Role="Skills" Type="Self.Skills" Multiplicity="1" />
-          <End Role="CompanySkills" Type="Self.CompanySkills" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Skills">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="CompanySkills">
-              <PropertyRef Name="IdSkill" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -630,7 +573,6 @@
           <EntitySet Name="CampaingSkills" EntityType="Self.CampaingSkills" />
           <EntitySet Name="CampaingType" EntityType="Self.CampaingType" />
           <EntitySet Name="Company" EntityType="Self.Company" />
-          <EntitySet Name="CompanySkills" EntityType="Self.CompanySkills" />
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Skills" EntityType="Self.Skills" />
           <EntitySet Name="Switch" EntityType="Self.Switch" />
@@ -662,17 +604,9 @@
             <End Role="Switch" EntitySet="Switch" />
             <End Role="Company" EntitySet="Company" />
           </AssociationSet>
-          <AssociationSet Name="FK_CompanySkills_Company" Association="Self.FK_CompanySkills_Company">
-            <End Role="Company" EntitySet="Company" />
-            <End Role="CompanySkills" EntitySet="CompanySkills" />
-          </AssociationSet>
           <AssociationSet Name="FK_Users_Company" Association="Self.FK_Users_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Users" EntitySet="Users" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CompanySkills_Skills" Association="Self.FK_CompanySkills_Skills">
-            <End Role="Skills" EntitySet="Skills" />
-            <End Role="CompanySkills" EntitySet="CompanySkills" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Role" Association="Self.FK_Users_Role">
             <End Role="Roles" EntitySet="Roles" />
@@ -690,7 +624,23 @@
             <End Role="Users" EntitySet="Users" />
             <End Role="UserSkill" EntitySet="UserSkill" />
           </AssociationSet>
+          <AssociationSet Name="FK_Company_UserCreated" Association="DBCTIModel.FK_Company_UserCreated">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Company_UserCreated">
+          <End Type="DBCTIModel.Users" Role="Users" Multiplicity="0..1" />
+          <End Type="DBCTIModel.Company" Role="Company" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Company">
+              <PropertyRef Name="CreateBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -728,19 +678,11 @@
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="DBCTIModel.Company">
               <MappingFragment StoreEntitySet="Company">
+                <ScalarProperty Name="CreateBy" ColumnName="CreateBy" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="SwitchCompanyId" ColumnName="SwitchCompanyId" />
                 <ScalarProperty Name="SwitchId" ColumnName="SwitchId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CompanySkills">
-            <EntityTypeMapping TypeName="DBCTIModel.CompanySkills">
-              <MappingFragment StoreEntitySet="CompanySkills">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="IdSkill" ColumnName="IdSkill" />
-                <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using GestCTI.Models;
-using GestCTI.DAO;
 
 namespace GestCTI.Controllers
 {
     public class HomeController : Controller
     {
+        public static DBCTIEntities db;
+
         public ActionResult Index()
         {
             return View();
@@ -43,12 +44,13 @@ namespace GestCTI.Controllers
         {
 
             Users usuario = new Users();
-            usuario.Username = user;
-            usuario.Password = Seguridad.EncryptMD5(pass);
-            usuario = UserDAO.VerifyUser(usuario);
+            db = new DBCTIEntities();
+
+            pass = Seguridad.EncryptMD5(pass);
+            usuario = db.Users.SingleOrDefault(a => a.Username == user && a.Password == pass);
             if (usuario != null)
             {
-                if (usuario.Active)          // UserState = ACTIVE
+                if (usuario.Active)
                 {
                     Session["UserActive"] = usuario;
                     //TrazasDAO.AddTraza
@@ -61,7 +63,8 @@ namespace GestCTI.Controllers
         }
 
         public JsonResult GetAllRolls() {
-            var listRolls = UserDAO.GetAllRolls().ToList();
+            db = new DBCTIEntities();
+            var listRolls = db.Roles.Select(p => new { IdRoll = p.Id, Description = p.Name }).ToList();
             return Json(listRolls, JsonRequestBehavior.AllowGet);
         }
     }
