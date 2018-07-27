@@ -235,6 +235,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.en.resx</DependentUpon>
     </Compile>
+    <Compile Include="Util\AgentHandling.cs" />
+    <Compile Include="Util\CallHandling.cs" />
+    <Compile Include="Util\DeviceHandling.cs" />
+    <Compile Include="Util\HandlingBase.cs" />
+    <Compile Include="Util\SystemHandling.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DBCTI.mdf" />
