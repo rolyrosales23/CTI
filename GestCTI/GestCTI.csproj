@@ -238,6 +238,11 @@
     <Compile Include="Util\WebServicesAgent.cs" />
     <Compile Include="Util\WebServicesCapaign.cs" />
     <Compile Include="Util\WebServicesSkill.cs" />
+    <Compile Include="Util\AgentHandling.cs" />
+    <Compile Include="Util\CallHandling.cs" />
+    <Compile Include="Util\DeviceHandling.cs" />
+    <Compile Include="Util\HandlingBase.cs" />
+    <Compile Include="Util\SystemHandling.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\DBCTI.mdf" />
