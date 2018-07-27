@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using GestCTI.Models;
-using GestCTI.DAO;
 
 namespace GestCTI.Controllers
 {
