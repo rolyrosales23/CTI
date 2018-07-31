@@ -61,20 +61,38 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No existe un usuario con esas características..
+        ///   Looks up a localized string similar to  Añadir Nuevo.
         /// </summary>
-        public static string MsjUpdateUserError {
+        public static string ActionCreateNew {
             get {
-                return ResourceManager.GetString("MsjUpdateUserError", resourceCulture);
+                return ResourceManager.GetString("ActionCreateNew", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to El usuario ha sido actualizado correctamente..
+        ///   Looks up a localized string similar to Eliminar.
         /// </summary>
-        public static string MsjUpdateUserOk {
+        public static string ActionDelete {
             get {
-                return ResourceManager.GetString("MsjUpdateUserOk", resourceCulture);
+                return ResourceManager.GetString("ActionDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detalles.
+        /// </summary>
+        public static string ActionDetails {
+            get {
+                return ResourceManager.GetString("ActionDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Editar.
+        /// </summary>
+        public static string ActionEdit {
+            get {
+                return ResourceManager.GetString("ActionEdit", resourceCulture);
             }
         }
     }

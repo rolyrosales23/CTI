@@ -277,6 +277,31 @@
     <!-- START TEMPLATE -->
     <script type="text/javascript" src="~/assets/js/plugins.js"></script>
     <script type="text/javascript" src="~/assets/js/actions.js"></script>
+    <script type="text/javascript">
+        $.each($('.info'), function (pos, obj) {
+            var placement = 'bottom';
+            if ($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');
+            $(obj).tooltip({ placement: placement, html: true });
+        });
+    </script>
+    <script src="~/assets/js/plugins/datatables/dataTablesLanguages.js"></script>
+    <script>
+        var lan = navigator.language || navigator.userLanguage;
+        if (lan.includes("es")) {
+            $('.Mydatatable').DataTable({
+                language: datatableSpanish
+            });
+        }
+        else if (lan.includes("fr")) {
+            $('.Mydatatable').DataTable({
+                language: dataTableFrench
+            });
+        }
+        else {
+            $('.Mydatatable').dataTable({
+            });
+        }
+    </script>
     <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
 </body>

@@ -117,10 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="MsjUpdateUserError" xml:space="preserve">
-    <value>There is not a user with those characteristics.</value>
+  <data name="ActionCreateNew" xml:space="preserve">
+    <value> Create New</value>
   </data>
-  <data name="MsjUpdateUserOk" xml:space="preserve">
-    <value>The user has been successfully updated</value>
+  <data name="ActionDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="ActionDetails" xml:space="preserve">
+    <value>Datails</value>
+  </data>
+  <data name="ActionEdit" xml:space="preserve">
+    <value>Edit</value>
   </data>
 </root>
