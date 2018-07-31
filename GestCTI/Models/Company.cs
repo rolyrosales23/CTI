@@ -17,8 +17,8 @@ namespace GestCTI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Company()
         {
-            this.Campaing = new HashSet<Campaing>();
-            this.Users = new HashSet<Users>();
+            this.Campaign = new HashSet<Campaign>();
+            this.Users1 = new HashSet<Users>();
         }
     
         public int Id { get; set; }
@@ -28,10 +28,10 @@ namespace GestCTI.Models
         public Nullable<int> CreateBy { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Campaing> Campaing { get; set; }
+        public virtual ICollection<Campaign> Campaign { get; set; }
         public virtual Switch Switch { get; set; }
+        public virtual Users Users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
-        public virtual Users Users1 { get; set; }
+        public virtual ICollection<Users> Users1 { get; set; }
     }
 }

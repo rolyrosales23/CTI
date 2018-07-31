@@ -17,7 +17,7 @@ namespace GestCTI.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var users = db.Users.Include(u => u.Company).Include(u => u.Roles).Include(u => u.UserLocation);
+            var users = db.Users.Include(u => u.UserLocation).Include(u => u.Company1);
             return View(users.ToList());
         }
 
@@ -39,9 +39,9 @@ namespace GestCTI.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
-            ViewBag.IdRole = new SelectList(db.Roles, "Id", "Name");
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name");
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
+            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View();
         }
 
@@ -50,18 +50,19 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,IdRole,IdLocation,IdCompany,Active")] Users users)
+        public ActionResult Create([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users)
         {
             if (ModelState.IsValid)
             {
+                users.Password = Seguridad.EncryptMD5(users.Password);
                 db.Users.Add(users);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.IdRole = new SelectList(db.Roles, "Id", "Name", users.IdRole);
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View(users);
         }
 
@@ -77,9 +78,9 @@ namespace GestCTI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.IdRole = new SelectList(db.Roles, "Id", "Name", users.IdRole);
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View(users);
         }
 
@@ -88,17 +89,18 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,IdRole,IdLocation,IdCompany,Active")] Users users)
+        public ActionResult Edit([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users)
         {
             if (ModelState.IsValid)
             {
+                users.Password = Seguridad.EncryptMD5(users.Password);
                 db.Entry(users).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.IdRole = new SelectList(db.Roles, "Id", "Name", users.IdRole);
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View(users);
         }
 

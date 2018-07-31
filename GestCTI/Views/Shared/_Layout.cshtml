@@ -124,9 +124,12 @@
                 </li>
                 <!-- END SEARCH -->
                 <!-- SIGN OUT -->
-                <li class="xn-icon-button pull-right">
-                    <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
-                </li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li class="xn-icon-button pull-right">
+                        <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
+                    </li>
+                }
                 <!-- END SIGN OUT -->
                 <!-- MESSAGES -->
                 <li class="xn-icon-button pull-right">
@@ -251,8 +254,14 @@
                 </div>
                 <div class="mb-footer">
                     <div class="pull-right">
-                        <a href="pages-login.html" class="btn btn-success btn-lg">@Resources.Login.Yes</a>
-                        <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        @using Microsoft.AspNet.Identity
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        {
+                            @Html.AntiForgeryToken()
+
+                            <a class="btn btn-success btn-lg" href="javascript:document.getElementById('logoutForm').submit()">@Resources.Login.Yes</a>
+                            <button class="btn btn-default btn-lg mb-control-close">No</button>
+                        }
                     </div>
                 </div>
             </div>

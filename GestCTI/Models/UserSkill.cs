@@ -18,7 +18,7 @@ namespace GestCTI.Models
         public int IdSkill { get; set; }
         public int IdUser { get; set; }
     
-        public virtual Skills Skills { get; set; }
         public virtual Users Users { get; set; }
+        public virtual Skills Skills { get; set; }
     }
 }

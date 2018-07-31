@@ -4,30 +4,28 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="7f0d0074bc4f436785f6339fe1496bb3" Name="Diagram1">
-        <EntityTypeShape EntityType="DBCTIModel.Campaing" Width="1.5" PointX="5.25" PointY="6" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.CampaingSkills" Width="1.5" PointX="8" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.CampaingType" Width="1.5" PointX="3" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.Company" Width="1.5" PointX="3" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.Roles" Width="1.5" PointX="3.5" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.Skills" Width="1.5" PointX="7.75" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="7f0d0074bc4f436785f6339fe1496bb3" Name="Diagram1" ZoomLevel="94">
         <EntityTypeShape EntityType="DBCTIModel.Switch" Width="1.5" PointX="0.75" PointY="6.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.UserLocation" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.Users" Width="1.5" PointX="0.625" PointY="0.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBCTIModel.UserLocation" Width="1.5" PointX="2.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBCTIModel.UserSkill" Width="1.5" PointX="5.5" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBCTIModel.VDN" Width="1.5" PointX="7.5" PointY="9.125" IsExpanded="true" />
-        <AssociationConnector Association="DBCTIModel.FK_Campaing_CampaingType" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_Campaing_Company" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_CampaingSkills_Campaing" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_VDN_Campaing" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_CampaingSkills_Skills" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_Company_Switch" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_Users_Company" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_Users_Role" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_UserSkill_Skill" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_Users_Location" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_UserSkill_User" ManuallyRouted="false" />
-        <AssociationConnector Association="DBCTIModel.FK_Company_UserCreated" />
+        <EntityTypeShape EntityType="DBCTIModel.Users" Width="1.5" PointX="0.625" PointY="1.25" />
+        <AssociationConnector Association="DBCTIModel.FK_Users_Location" />
+        <AssociationConnector Association="DBCTIModel.FK_UserSkill_User" />
+        <EntityTypeShape EntityType="DBCTIModel.Campaign" Width="1.5" PointX="7.625" PointY="0.5" />
+        <EntityTypeShape EntityType="DBCTIModel.CampaignSkills" Width="1.5" PointX="10.75" PointY="3.25" />
+        <EntityTypeShape EntityType="DBCTIModel.CampaignType" Width="1.5" PointX="10.125" PointY="0.5" />
+        <EntityTypeShape EntityType="DBCTIModel.Company" Width="1.5" PointX="3.625" PointY="5.625" />
+        <EntityTypeShape EntityType="DBCTIModel.Skills" Width="1.5" PointX="8.5" PointY="7.875" />
+        <EntityTypeShape EntityType="DBCTIModel.VDN" Width="1.5" PointX="8.875" PointY="4.75" />
+        <AssociationConnector Association="DBCTIModel.FK_Campaing_CampaingType" />
+        <AssociationConnector Association="DBCTIModel.FK_Campaing_Company" />
+        <AssociationConnector Association="DBCTIModel.FK_CampaingSkills_Campaing" />
+        <AssociationConnector Association="DBCTIModel.FK_VDN_Campaing" />
+        <AssociationConnector Association="DBCTIModel.FK_CampaingSkills_Skills" />
+        <AssociationConnector Association="DBCTIModel.FK_Company_Switch" />
+        <AssociationConnector Association="DBCTIModel.FK_Company_Users" />
+        <AssociationConnector Association="DBCTIModel.FK_Users_Company" />
+        <AssociationConnector Association="DBCTIModel.FK_UserSkill_Skill" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
