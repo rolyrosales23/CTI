@@ -17,7 +17,7 @@ namespace GestCTI.Controllers
         // GET: VDNs
         public ActionResult Index()
         {
-            var vDN = db.VDN.Include(v => v.Campaing);
+            var vDN = db.VDN.Include(v => v.Campaign);
             return View(vDN.ToList());
         }
 
@@ -39,7 +39,7 @@ namespace GestCTI.Controllers
         // GET: VDNs/Create
         public ActionResult Create()
         {
-            ViewBag.IdCampaing = new SelectList(db.Campaing, "Id", "Code");
+            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code");
             return View();
         }
 
@@ -48,7 +48,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Value,Description,IdCampaing")] VDN vDN)
+        public ActionResult Create([Bind(Include = "Id,Value,Description,IdCampaign")] VDN vDN)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +57,7 @@ namespace GestCTI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdCampaing = new SelectList(db.Campaing, "Id", "Code", vDN.IdCampaing);
+            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", vDN.IdCampaign);
             return View(vDN);
         }
 
@@ -73,7 +73,7 @@ namespace GestCTI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCampaing = new SelectList(db.Campaing, "Id", "Code", vDN.IdCampaing);
+            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", vDN.IdCampaign);
             return View(vDN);
         }
 
@@ -82,7 +82,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Value,Description,IdCampaing")] VDN vDN)
+        public ActionResult Edit([Bind(Include = "Id,Value,Description,IdCampaign")] VDN vDN)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace GestCTI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdCampaing = new SelectList(db.Campaing, "Id", "Code", vDN.IdCampaing);
+            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", vDN.IdCampaign);
             return View(vDN);
         }
 

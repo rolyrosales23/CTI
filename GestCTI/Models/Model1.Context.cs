@@ -25,16 +25,15 @@ namespace GestCTI.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Campaing> Campaing { get; set; }
-        public virtual DbSet<CampaingSkills> CampaingSkills { get; set; }
-        public virtual DbSet<CampaingType> CampaingType { get; set; }
-        public virtual DbSet<Company> Company { get; set; }
-        public virtual DbSet<Roles> Roles { get; set; }
-        public virtual DbSet<Skills> Skills { get; set; }
         public virtual DbSet<Switch> Switch { get; set; }
         public virtual DbSet<UserLocation> UserLocation { get; set; }
-        public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<UserSkill> UserSkill { get; set; }
+        public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Campaign> Campaign { get; set; }
+        public virtual DbSet<CampaignSkills> CampaignSkills { get; set; }
+        public virtual DbSet<CampaignType> CampaignType { get; set; }
+        public virtual DbSet<Company> Company { get; set; }
+        public virtual DbSet<Skills> Skills { get; set; }
         public virtual DbSet<VDN> VDN { get; set; }
     }
 }

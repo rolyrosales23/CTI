@@ -17,7 +17,7 @@ namespace GestCTI.Controllers
         // GET: Companies
         public ActionResult Index()
         {
-            var company = db.Company.Include(c => c.Switch);
+            var company = db.Company.Include(c => c.Switch).Include(c => c.Users);
             return View(company.ToList());
         }
 
@@ -40,6 +40,7 @@ namespace GestCTI.Controllers
         public ActionResult Create()
         {
             ViewBag.SwitchId = new SelectList(db.Switch, "Id", "Name");
+            ViewBag.CreateBy = new SelectList(db.Users, "Id", "Username");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,SwitchCompanyId,SwitchId")] Company company)
+        public ActionResult Create([Bind(Include = "Id,Name,SwitchCompanyId,SwitchId,CreateBy")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -58,6 +59,7 @@ namespace GestCTI.Controllers
             }
 
             ViewBag.SwitchId = new SelectList(db.Switch, "Id", "Name", company.SwitchId);
+            ViewBag.CreateBy = new SelectList(db.Users, "Id", "Username", company.CreateBy);
             return View(company);
         }
 
@@ -74,6 +76,7 @@ namespace GestCTI.Controllers
                 return HttpNotFound();
             }
             ViewBag.SwitchId = new SelectList(db.Switch, "Id", "Name", company.SwitchId);
+            ViewBag.CreateBy = new SelectList(db.Users, "Id", "Username", company.CreateBy);
             return View(company);
         }
 
@@ -82,7 +85,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,SwitchCompanyId,SwitchId")] Company company)
+        public ActionResult Edit([Bind(Include = "Id,Name,SwitchCompanyId,SwitchId,CreateBy")] Company company)
         {
             if (ModelState.IsValid)
             {
@@ -91,6 +94,7 @@ namespace GestCTI.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.SwitchId = new SelectList(db.Switch, "Id", "Name", company.SwitchId);
+            ViewBag.CreateBy = new SelectList(db.Users, "Id", "Username", company.CreateBy);
             return View(company);
         }
 

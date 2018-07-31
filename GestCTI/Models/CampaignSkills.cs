@@ -12,18 +12,13 @@ namespace GestCTI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Roles
+    public partial class CampaignSkills
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Roles()
-        {
-            this.Users = new HashSet<Users>();
-        }
-    
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int IdSkill { get; set; }
+        public int IdCampaign { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual Campaign Campaign { get; set; }
+        public virtual Skills Skills { get; set; }
     }
 }

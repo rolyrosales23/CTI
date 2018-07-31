@@ -17,7 +17,7 @@ namespace GestCTI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Skills()
         {
-            this.CampaingSkills = new HashSet<CampaingSkills>();
+            this.CampaignSkills = new HashSet<CampaignSkills>();
             this.UserSkill = new HashSet<UserSkill>();
         }
     
@@ -26,7 +26,7 @@ namespace GestCTI.Models
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<CampaingSkills> CampaingSkills { get; set; }
+        public virtual ICollection<CampaignSkills> CampaignSkills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserSkill> UserSkill { get; set; }
     }

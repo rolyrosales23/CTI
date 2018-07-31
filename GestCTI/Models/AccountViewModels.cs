@@ -3,18 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GestCTI.Models
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "Email")]
-        public string Email { get; set; }
-    }
-
-    public class ExternalLoginListViewModel
-    {
-        public string ReturnUrl { get; set; }
-    }
-
     public class SendCodeViewModel
     {
         public string SelectedProvider { get; set; }
@@ -49,9 +37,8 @@ namespace GestCTI.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Username")]
+        public string Username { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

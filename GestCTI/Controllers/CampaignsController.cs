@@ -10,107 +10,116 @@ using GestCTI.Models;
 
 namespace GestCTI.Controllers
 {
-    public class RolesController : Controller
+    public class CampaignsController : Controller
     {
         private DBCTIEntities db = new DBCTIEntities();
 
-        // GET: Roles
+        // GET: Campaigns
         public ActionResult Index()
         {
-            return View(db.Roles.ToList());
+            var campaign = db.Campaign.Include(c => c.CampaignType).Include(c => c.Company);
+            return View(campaign.ToList());
         }
 
-        // GET: Roles/Details/5
+        // GET: Campaigns/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Roles roles = db.Roles.Find(id);
-            if (roles == null)
+            Campaign campaign = db.Campaign.Find(id);
+            if (campaign == null)
             {
                 return HttpNotFound();
             }
-            return View(roles);
+            return View(campaign);
         }
 
-        // GET: Roles/Create
+        // GET: Campaigns/Create
         public ActionResult Create()
         {
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id");
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: Campaigns/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name")] Roles roles)
+        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,IdCompany")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
-                db.Roles.Add(roles);
+                db.Campaign.Add(campaign);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(roles);
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id", campaign.IdType);
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
+            return View(campaign);
         }
 
-        // GET: Roles/Edit/5
+        // GET: Campaigns/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Roles roles = db.Roles.Find(id);
-            if (roles == null)
+            Campaign campaign = db.Campaign.Find(id);
+            if (campaign == null)
             {
                 return HttpNotFound();
             }
-            return View(roles);
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id", campaign.IdType);
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
+            return View(campaign);
         }
 
-        // POST: Roles/Edit/5
+        // POST: Campaigns/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name")] Roles roles)
+        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,IdCompany")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(roles).State = EntityState.Modified;
+                db.Entry(campaign).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(roles);
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id", campaign.IdType);
+            ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
+            return View(campaign);
         }
 
-        // GET: Roles/Delete/5
+        // GET: Campaigns/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Roles roles = db.Roles.Find(id);
-            if (roles == null)
+            Campaign campaign = db.Campaign.Find(id);
+            if (campaign == null)
             {
                 return HttpNotFound();
             }
-            return View(roles);
+            return View(campaign);
         }
 
-        // POST: Roles/Delete/5
+        // POST: Campaigns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Roles roles = db.Roles.Find(id);
-            db.Roles.Remove(roles);
+            Campaign campaign = db.Campaign.Find(id);
+            db.Campaign.Remove(campaign);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

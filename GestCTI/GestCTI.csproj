@@ -202,31 +202,30 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\CampaingsController.cs" />
-    <Compile Include="Controllers\CampaingTypesController.cs" />
+    <Compile Include="Controllers\CampaignsController.cs" />
+    <Compile Include="Controllers\CampaignTypesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\Seguridad.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\SwitchesController.cs" />
     <Compile Include="Controllers\UserLocationsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Controllers\VDNsController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\VDNsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Campaing.cs">
+    <Compile Include="Models\Campaign.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CampaingSkills.cs">
+    <Compile Include="Models\CampaignSkills.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\CampaingType.cs">
+    <Compile Include="Models\CampaignType.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs">
@@ -246,9 +245,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Roles.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Skills.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -1853,28 +1849,10 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Admin\Admin.cshtml" />
     <Content Include="Views\Supervisor\Supervisor.cshtml" />
-    <Content Include="Views\Roles\Create.cshtml" />
-    <Content Include="Views\Roles\Delete.cshtml" />
-    <Content Include="Views\Roles\Details.cshtml" />
-    <Content Include="Views\Roles\Edit.cshtml" />
-    <Content Include="Views\Roles\Index.cshtml" />
-    <Content Include="Views\Campaings\Create.cshtml" />
-    <Content Include="Views\Campaings\Delete.cshtml" />
-    <Content Include="Views\Campaings\Details.cshtml" />
-    <Content Include="Views\Campaings\Edit.cshtml" />
-    <Content Include="Views\Campaings\Index.cshtml" />
-    <Content Include="Views\CampaingTypes\Create.cshtml" />
-    <Content Include="Views\CampaingTypes\Delete.cshtml" />
-    <Content Include="Views\CampaingTypes\Details.cshtml" />
-    <Content Include="Views\CampaingTypes\Edit.cshtml" />
-    <Content Include="Views\CampaingTypes\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Delete.cshtml" />
     <Content Include="Views\Companies\Details.cshtml" />
@@ -1905,10 +1883,7 @@
     <Content Include="Views\VDNs\Details.cshtml" />
     <Content Include="Views\VDNs\Edit.cshtml" />
     <Content Include="Views\VDNs\Index.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ForgotPassword.cshtml" />
     <Content Include="Views\Account\ForgotPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
@@ -1925,11 +1900,18 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Campaigns\Create.cshtml" />
+    <Content Include="Views\Campaigns\Delete.cshtml" />
+    <Content Include="Views\Campaigns\Details.cshtml" />
+    <Content Include="Views\Campaigns\Edit.cshtml" />
+    <Content Include="Views\Campaigns\Index.cshtml" />
+    <Content Include="Views\CampaignTypes\Create.cshtml" />
+    <Content Include="Views\CampaignTypes\Delete.cshtml" />
+    <Content Include="Views\CampaignTypes\Details.cshtml" />
+    <Content Include="Views\CampaignTypes\Edit.cshtml" />
+    <Content Include="Views\CampaignTypes\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="DAL\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
