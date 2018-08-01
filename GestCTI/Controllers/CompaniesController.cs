@@ -7,9 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GestCTI.Models;
+using GestCTI.Controllers.Auth;
 
 namespace GestCTI.Controllers
 {
+    [CustomAuthorize(Roles = "admin")]
     public class CompaniesController : Controller
     {
         private DBCTIEntities db = new DBCTIEntities();

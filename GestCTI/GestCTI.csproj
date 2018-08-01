@@ -212,13 +212,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Auth\CustomAuthorize.cs" />
     <Compile Include="Controllers\CampaignsController.cs" />
     <Compile Include="Controllers\CampaignTypesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Seguridad.cs" />
+    <Compile Include="Util\Seguridad.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\SwitchesController.cs" />
@@ -1862,8 +1863,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Admin\Admin.cshtml" />
-    <Content Include="Views\Supervisor\Supervisor.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Delete.cshtml" />
     <Content Include="Views\Companies\Details.cshtml" />
@@ -1921,8 +1921,11 @@
     <Content Include="Views\CampaignTypes\Details.cshtml" />
     <Content Include="Views\CampaignTypes\Edit.cshtml" />
     <Content Include="Views\CampaignTypes\Index.cshtml" />
+    <Content Include="Views\Supervisor\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\App\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
