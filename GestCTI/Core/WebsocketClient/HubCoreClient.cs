@@ -12,11 +12,9 @@ namespace GestCTI.Core.WebsocketClient
 
         public HubCoreClient(String url, String hubName)
         {
-            Init();
             HubConnectionUrl = url;
             HubProxyName = hubName;
-            
-
+            Init();
         }
         public override void StartHub()
         {

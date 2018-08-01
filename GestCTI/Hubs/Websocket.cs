@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using GestCTI.Core.WebsocketClient;
 using Microsoft.AspNet.SignalR;
+using System.Net.WebSockets;
 
 namespace GestCTI.Hubs
 {
@@ -15,11 +17,11 @@ namespace GestCTI.Hubs
     public class Websocket : Hub
     {
         static List<User> Users = new List<User>();
-        
-        public void Send()
+
+        public void Send(String v1, String v2)
         {
-            // Call the addNewMessageToPage method to update clients.
-            Clients.All.addNotification();
+            // Call the Notification method to update clients.
+            Clients.All.addNotification(v1, v2);
         }
         public override Task OnConnected()
         {
@@ -27,6 +29,7 @@ namespace GestCTI.Hubs
             {
                 idConnection = Context.ConnectionId
             });
+            var ws = new WebsocketCore();
             Clients.Client(Context.ConnectionId).addNotification("Server", "Conectado satisfactoriamente");
             return base.OnConnected();
         }

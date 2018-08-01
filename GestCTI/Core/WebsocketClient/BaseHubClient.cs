@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
+
 namespace GestCTI.Core.WebsocketClient
 {
     public abstract class BaseHubClient
@@ -20,7 +21,7 @@ namespace GestCTI.Core.WebsocketClient
         {
             get { return _hubConnection.State; }
         }
-
+        
         protected void Init()
         {
             _hubConnection = new HubConnection(HubConnectionUrl);

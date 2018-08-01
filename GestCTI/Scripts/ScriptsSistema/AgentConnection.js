@@ -10,78 +10,78 @@
     agent.client.addInitialize = function (response) {
         // Accept device
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIMakeCallRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     // Answer a call request
     agent.client.addCTIAnswerCallRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIRetrieveConnectionRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIHoldConnectionRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIRetrieveConnectionRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIClearConnectionRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIClearCallRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTISingleStepConferenceRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTISingleStepConferenceRequestV2 = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIConferenceRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTITransferRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIWhisperRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agent.client.addCTIListenHoldAllRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
     agen.client.addCTIListenRetrieveAllRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
-    }
+    };
 
 
     // Start the connection.
