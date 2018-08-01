@@ -47,6 +47,12 @@ namespace GestCTI.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+        [Display(Name = "Phone Login")]
+        public bool PhoneLogin { get; set; }
+
+        [Display(Name = "Phone Extension")]
+        public string PhoneExtension { get; set; }
     }
 
     public class RegisterViewModel

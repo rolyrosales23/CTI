@@ -55,10 +55,19 @@
                     </div>
                     -->
 
+                    <div class="form-group" style="display: none" id="phone_extension">
+                        <div class="col-md-12">
+                            @Html.TextBoxFor(m => m.PhoneExtension, new { @class = "form-control", placeholder = "Phone Extension" })
+                            @Html.ValidationMessageFor(m => m.PhoneExtension, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <div class="col-md-6">
-                            @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", null, new { @class = "btn btn-link btn-block" })
-                            <!-- <a href="#" class="btn btn-link btn-block">Forgot your password?</a>  -->
+                            @Html.CheckBoxFor(m => m.PhoneLogin, new { id = "phone_login", @class = "icheckbox" })
+                            @Html.LabelFor(m => m.PhoneLogin, new { style = "color: white" })
+
+                            @* @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", null, new { @class = "btn btn-link btn-block" }) *@
                         </div>
                         <div class="col-md-6">
                             <input type="submit" value="Log In" class="btn btn-info btn-block" />
@@ -80,5 +89,20 @@
 
     </div>
 
+    <script src="~/assets/js/plugins/jquery/jquery.min.js"></script>
+    <script src="~/assets/js/plugins/jquery/jquery-ui.min.js"></script>
+    <script src="~/assets/js/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="~/assets/js/plugins/icheck/icheck.min.js"></script>
+    <script src="~/assets/js/plugins.js"></script>
+     
+    <script type="text/javascript">
+        $('#phone_login').on("ifChanged", function () {
+            if ( $(this).is(':checked') )
+                $('#phone_extension').css('display', 'block');
+            else
+                $('#phone_extension').css('display', 'none');
+        });
+    </script>
+    
 </body>
 </html>

@@ -17,7 +17,7 @@ using System.Text.RegularExpressions;
 using GestCTI.Models;
 using System.Web.SessionState;
 
-namespace GestCTI.Controllers
+namespace GestCTI.Util
 {
     public class Seguridad
     {
