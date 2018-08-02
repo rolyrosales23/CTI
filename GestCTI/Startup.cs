@@ -9,7 +9,7 @@ namespace GestCTI
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            // Websockets
+            // Signalr
             app.MapSignalR();
         }
     }
