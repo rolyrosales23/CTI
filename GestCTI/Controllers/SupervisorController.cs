@@ -5,12 +5,14 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using GestCTI.Models;
+using GestCTI.Controllers.Auth;
 
 namespace GestCTI.Controllers
 {
+    [CustomAuthorize(Roles = "supervisor")]
     public class SupervisorController : Controller
     {
-        public ActionResult Supervisor()
+        public ActionResult Index()
         {
             return View();
         }

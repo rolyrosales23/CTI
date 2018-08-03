@@ -7,10 +7,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GestCTI.Models;
+using GestCTI.Controllers.Auth;
 
 namespace GestCTI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize(Roles = "admin")]
     public class ManageController : Controller
     {
         private ApplicationSignInManager _signInManager;

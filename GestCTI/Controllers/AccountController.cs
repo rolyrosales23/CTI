@@ -10,10 +10,12 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using GestCTI.Models;
 using System.Web.Security;
+using GestCTI.Controllers.Auth;
+using GestCTI.Util;
 
 namespace GestCTI.Controllers
 {
-    [Authorize]
+    [CustomAuthorize(Roles = "admin")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -67,7 +69,7 @@ namespace GestCTI.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -77,7 +79,7 @@ namespace GestCTI.Controllers
             Users user = new Users();
             DBCTIEntities db = new DBCTIEntities();
             model.Password = Seguridad.EncryptMD5(model.Password);
-            user = db.Users.SingleOrDefault(a => a.Username == model.Username && a.Password == model.Password);
+            user = db.Users.SingleOrDefault(a => a.Username == model.Username && a.Password == model.Password && a.Active == true);
 
             if (user != null)
             {
@@ -315,12 +317,13 @@ namespace GestCTI.Controllers
         //
         // POST: /Account/LogOff
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
         {
             //AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
 

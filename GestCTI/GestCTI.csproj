@@ -52,13 +52,35 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Client, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Client.2.3.0\lib\net45\Microsoft.AspNet.SignalR.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.3.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.3.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.1.0.0\lib\netstandard1.1\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.1.0.0\lib\netstandard1.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Net.Http.Server, Version=0.1.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Net.Http.Server.0.1.0\lib\net451\Microsoft.Net.Http.Server.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.WebSockets, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Net.WebSockets.4.3.0\lib\net46\System.Net.WebSockets.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -217,13 +239,14 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\Auth\CustomAuthorize.cs" />
     <Compile Include="Controllers\CampaignsController.cs" />
     <Compile Include="Controllers\CampaignTypesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Seguridad.cs" />
+    <Compile Include="Util\Seguridad.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\SwitchesController.cs" />
@@ -231,9 +254,15 @@
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VDNsController.cs" />
+    <Compile Include="Core\WebsocketClient\BaseHubClient.cs" />
+    <Compile Include="Core\WebsocketClient\HubCoreClient.cs" />
+    <Compile Include="Core\WebsocketClient\Interface\IRecieveHubSync.cs" />
+    <Compile Include="Core\WebsocketClient\Interface\ISendHubSync.cs" />
+    <Compile Include="Core\WebsocketClient\WebsocketCore.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Hubs\Websocket.cs" />
     <Compile Include="Models\Campaign.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -298,14 +327,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Login.resx</DependentUpon>
     </Compile>
-    <Compile Include="Util\WebServicesAgent.cs" />
-    <Compile Include="Util\WebServicesCapaign.cs" />
-    <Compile Include="Util\WebServicesSkill.cs" />
-    <Compile Include="Util\AgentHandling.cs" />
-    <Compile Include="Util\CallHandling.cs" />
-    <Compile Include="Util\DeviceHandling.cs" />
-    <Compile Include="Util\HandlingBase.cs" />
-    <Compile Include="Util\SystemHandling.cs" />
+    <Compile Include="Core\Handle\WebServicesAgent.cs" />
+    <Compile Include="Core\Handle\WebServicesCapaign.cs" />
+    <Compile Include="Core\Handle\WebServicesSkill.cs" />
+    <Compile Include="Core\Handle\AgentHandling.cs" />
+    <Compile Include="Core\Handle\CallHandling.cs" />
+    <Compile Include="Core\Handle\DeviceHandling.cs" />
+    <Compile Include="Core\Handle\HandlingBase.cs" />
+    <Compile Include="Core\Handle\SystemHandling.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -1842,6 +1871,8 @@
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.3.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.3.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -1851,6 +1882,7 @@
     <Content Include="Scripts\q.min.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\ScriptsSistema\AgentConnection.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
     <Content Include="Scripts\ScriptsSistema\Login.js" />
     <Content Include="Scripts\sitemap.xml" />
@@ -1867,8 +1899,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\version.json" />
-    <Content Include="Views\Admin\Admin.cshtml" />
-    <Content Include="Views\Supervisor\Supervisor.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />
     <Content Include="Views\Companies\Delete.cshtml" />
     <Content Include="Views\Companies\Details.cshtml" />
@@ -1926,8 +1957,11 @@
     <Content Include="Views\CampaignTypes\Details.cshtml" />
     <Content Include="Views\CampaignTypes\Edit.cshtml" />
     <Content Include="Views\CampaignTypes\Index.cshtml" />
+    <Content Include="Views\Supervisor\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\App\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
