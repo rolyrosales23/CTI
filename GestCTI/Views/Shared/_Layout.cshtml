@@ -225,7 +225,6 @@
             <!-- END X-NAVIGATION VERTICAL -->
             <!-- START BREADCRUMB -->
             <ul class="breadcrumb">
-                <li><a href="/">@Resources.Login.Home</a></li>
                 @RenderSection("breadcrumb", required: false)
             </ul>
             <!-- END BREADCRUMB -->
@@ -295,13 +294,26 @@
     </script>
     <script src="~/assets/js/plugins/datatables/dataTablesLanguages.js"></script>
     <script>
-        var lan = navigator.language || navigator.userLanguage;
-        if (lan.includes("es")) {
+        var lang = "";
+
+        if (navigator.languages == undefined) {
+            if (navigator.language == undefined) {
+                // Internet Explorer Compatibility
+                lang = navigator.userLanguage.slice(0, 2);
+            } else {
+                // Old navigator compatibility
+                lang = navigator.language.slice(0, 2);
+            }
+        } else {
+            lang = navigator.languages[0].slice(0, 2);
+        }
+
+        if (lang.includes("es")) {
             $('.Mydatatable').DataTable({
                 language: datatableSpanish
             });
         }
-        else if (lan.includes("fr")) {
+        else if (lang.includes("fr")) {
             $('.Mydatatable').DataTable({
                 language: dataTableFrench
             });

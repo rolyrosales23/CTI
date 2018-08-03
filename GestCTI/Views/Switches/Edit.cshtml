@@ -5,50 +5,79 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Edit</h2>
+@section breadcrumb{
+    <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li>@Html.ActionLink("Switches", "Index")</li>
+    <li class="active">@Resources.Admin.ActionEdit</li>
+}
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Switch</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+<div class="page-title">
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ActionEdit Switches</h2>
+</div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
+<div class="panel panel-default tabs">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">Switch</a></li>
+    </ul>
+    <div class="panel-body tab-content">
+        <div class="col-md-6 col-lg-offset-3">
+            <div class="tab-pane active" id="tab1">
+                @using (Html.BeginForm("Edit", "Switches", FormMethod.Post, new { id = "myform" }))
+                {
+                    @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.WebSocketIP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.WebSocketIP, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.WebSocketIP, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.Id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ApiServerIP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ApiServerIP, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ApiServerIP, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.WebSocketIP, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.WebSocketIP, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.WebSocketIP, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ApiServerIP, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.ApiServerIP, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.ApiServerIP, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                <input type="submit" value="Save" class="btn btn-default" />
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type='text/javascript' src='~/assets/js/plugins/icheck/icheck.min.js'></script>
+    <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+
+    <script type='text/javascript' src='~/assets/js/plugins/bootstrap/bootstrap-datepicker.js'></script>
+    <script type='text/javascript' src='~/assets/js/plugins/bootstrap/bootstrap-select.js'></script>
+    <script type='text/javascript' src='~/assets/js/plugins/jquery-validation/jquery.validate.js'></script>
+    <script type='text/javascript' src='~/assets/js/plugins/maskedinput/jquery.maskedinput.min.js'></script>
+
+    <script type="text/javascript">
+        $('#myform').validate({});
+    </script>
+}

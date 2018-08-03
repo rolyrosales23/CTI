@@ -12,7 +12,6 @@ namespace GestCTI.Controllers
     {
         public ActionResult Admin()
         {
-            string lan = Request.UserLanguages[0];
             return View();
         }
     }

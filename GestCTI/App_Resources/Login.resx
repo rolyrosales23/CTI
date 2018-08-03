@@ -118,57 +118,57 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Login_btn" xml:space="preserve">
-    <value>Aceptar</value>
+    <value>Login</value>
   </data>
   <data name="Login_header" xml:space="preserve">
-    <value>Por favor ingrese sus datos</value>
+    <value>Please Enter Your Information</value>
   </data>
   <data name="Login_Password" xml:space="preserve">
-    <value>Contraseña</value>
+    <value>Password</value>
   </data>
   <data name="Login_user" xml:space="preserve">
-    <value>Usuario</value>
+    <value>User</value>
   </data>
   <data name="Login_ValidAgent" xml:space="preserve">
-    <value>Debe introducir un usuario</value>
+    <value>The User field is required</value>
   </data>
   <data name="Login_ValidPass" xml:space="preserve">
-    <value>Debe introducir una contraseña</value>
+    <value>The Password field is required</value>
   </data>
   <data name="Login_Roll" xml:space="preserve">
-    <value>Seleccione su Roll...</value>
+    <value>Choose your Roll...</value>
   </data>
   <data name="Login_ValidRoll" xml:space="preserve">
-    <value>Debe seleccionar su Rol</value>
+    <value>Should choose your Roll</value>
   </data>
   <data name="Login_Station" xml:space="preserve">
-    <value>Estación</value>
+    <value>Station</value>
   </data>
   <data name="Login_ValidStation" xml:space="preserve">
-    <value>Debe introducir una Estación</value>
+    <value>The Station field is required</value>
   </data>
   <data name="SelectVal1" xml:space="preserve">
-    <value>Agente</value>
+    <value>Agent</value>
   </data>
   <data name="SelectVal2" xml:space="preserve">
-    <value>Usuario Local</value>
+    <value>Local User</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Inicio</value>
+    <value>Home</value>
   </data>
   <data name="Desea" xml:space="preserve">
-    <value>¿ Desea</value>
+    <value>Log</value>
   </data>
   <data name="Salir" xml:space="preserve">
-    <value>Salir</value>
+    <value>Out</value>
   </data>
   <data name="LogoutMessage" xml:space="preserve">
-    <value>Seleccione No si quiere seguir trabajando. Seleccione Si para desloguear el usuario actual.</value>
+    <value>Press No if you want to continue work. Press Yes to logout current user.</value>
   </data>
   <data name="LogoutTitle" xml:space="preserve">
-    <value>¿ Está seguro que desea salir ?</value>
+    <value>Are you sure you want to log out?</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Si</value>
+    <value>Yes</value>
   </data>
 </root>

@@ -5,7 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+@section breadcrumb{
+    <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li>@Html.ActionLink(Resources.Admin.UserLocation, "Index")</li>
+    <li class="active">@Resources.Admin.ActionDetails</li>
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ActionDetails</h2>
+</div>
 
 <div>
     <h4>UserLocation</h4>
@@ -22,6 +30,5 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
 </p>

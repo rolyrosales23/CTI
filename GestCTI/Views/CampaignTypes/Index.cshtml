@@ -4,17 +4,17 @@
     ViewBag.Title = "Index";
 }
 
+@section breadcrumb{
+    <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li class="active">@Resources.Admin.CampaignTypes</li>
+}
+
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left"></span> Roles</h2>
+    <h2><span class="fa fa-arrow-circle-o-left"></span>@Resources.Admin.CampaignTypes</h2>
 </div>
 
 
 <div class="panel panel-default tabs">
-    @*<ul class="nav nav-tabs" role="tablist">
-        <li id="tab1" class="active">
-            <a href="#tab-first" role="tab" data-toggle="tab">Listado de Agencias</a>
-        </li>
-    </ul>*@
 
     <div class="panel-body tab-content">
         <div class="tab-pane active" id="tab-first">
@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th>
-                            Roles
+                            Types
                         </th>
                         <th></th>
                         <th></th>
