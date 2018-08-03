@@ -117,13 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Menu_Calllog" xml:space="preserve">
-    <value>Calllogs</value>
+  <data name="ActionCreateNew" xml:space="preserve">
+    <value> Añadir</value>
   </data>
-  <data name="Menu_Calls" xml:space="preserve">
-    <value>Calls</value>
+  <data name="ActionDelete" xml:space="preserve">
+    <value>Eliminar</value>
   </data>
-  <data name="Menu_Contacts" xml:space="preserve">
-    <value>Contacts</value>
+  <data name="ActionDetails" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="ActionEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Campaña</value>
+  </data>
+  <data name="Campaigns" xml:space="preserve">
+    <value>Campañas</value>
+  </data>
+  <data name="CampaignType" xml:space="preserve">
+    <value>Tipo de Campaña</value>
+  </data>
+  <data name="CampaignTypes" xml:space="preserve">
+    <value>Tipos de Campañas</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Compañías</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Compañía</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Skill" xml:space="preserve">
+    <value>Habilidad</value>
+  </data>
+  <data name="Skills" xml:space="preserve">
+    <value>Habilidades</value>
+  </data>
+  <data name="UserLocation" xml:space="preserve">
+    <value>Ubicaciones</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Usuarios</value>
   </data>
 </root>

@@ -118,15 +118,54 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ActionCreateNew" xml:space="preserve">
-    <value> Añadir Nuevo</value>
+    <value> Create new</value>
   </data>
   <data name="ActionDelete" xml:space="preserve">
-    <value>Eliminar</value>
+    <value>Delete</value>
   </data>
   <data name="ActionDetails" xml:space="preserve">
-    <value>Detalles</value>
+    <value>Datails</value>
   </data>
   <data name="ActionEdit" xml:space="preserve">
-    <value>Editar</value>
+    <value>Edit</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Campaign</value>
+  </data>
+  <data name="Campaigns" xml:space="preserve">
+    <value>Campaigns</value>
+  </data>
+  <data name="CampaignType" xml:space="preserve">
+    <value>Type of Campaign</value>
+  </data>
+  <data name="CampaignTypes" xml:space="preserve">
+    <value>Types of Campaigns</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Companies</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Skill" xml:space="preserve">
+    <value>Skill</value>
+  </data>
+  <data name="Skills" xml:space="preserve">
+    <value>Skills</value>
+  </data>
+  <data name="UserLocation" xml:space="preserve">
+    <value>Locations</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Users</value>
   </data>
 </root>

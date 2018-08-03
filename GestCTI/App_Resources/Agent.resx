@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Menu_Calllog" xml:space="preserve">
-    <value>Registro de llamadas</value>
+    <value>Calllogs</value>
   </data>
   <data name="Menu_Calls" xml:space="preserve">
-    <value>Llamadas</value>
+    <value>Calls</value>
   </data>
   <data name="Menu_Contacts" xml:space="preserve">
-    <value>Contactos</value>
+    <value>Contacts</value>
   </data>
 </root>

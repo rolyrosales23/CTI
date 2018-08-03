@@ -4,6 +4,12 @@
     ViewBag.Title = "Delete";
 }
 
+@section breadcrumb{
+    <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li>@Html.ActionLink("VDN", "Index")</li>
+    <li class="active">@Resources.Admin.ActionDelete</li>
+}
+
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>

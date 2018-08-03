@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ¿ Desea.
+        ///   Looks up a localized string similar to Log.
         /// </summary>
         public static string Desea {
             get {
@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Inicio.
+        ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Home {
             get {
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Aceptar.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
         public static string Login_btn {
             get {
@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Por favor ingrese sus datos.
+        ///   Looks up a localized string similar to Please Enter Your Information.
         /// </summary>
         public static string Login_header {
             get {
@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contraseña.
+        ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Login_Password {
             get {
@@ -106,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione su Roll....
+        ///   Looks up a localized string similar to Choose your Roll....
         /// </summary>
         public static string Login_Roll {
             get {
@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Estación.
+        ///   Looks up a localized string similar to Station.
         /// </summary>
         public static string Login_Station {
             get {
@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuario.
+        ///   Looks up a localized string similar to User.
         /// </summary>
         public static string Login_user {
             get {
@@ -133,7 +133,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe introducir un usuario.
+        ///   Looks up a localized string similar to The User field is required.
         /// </summary>
         public static string Login_ValidAgent {
             get {
@@ -142,7 +142,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe introducir una contraseña.
+        ///   Looks up a localized string similar to The Password field is required.
         /// </summary>
         public static string Login_ValidPass {
             get {
@@ -151,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe seleccionar su Rol.
+        ///   Looks up a localized string similar to Should choose your Roll.
         /// </summary>
         public static string Login_ValidRoll {
             get {
@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe introducir una Estación.
+        ///   Looks up a localized string similar to The Station field is required.
         /// </summary>
         public static string Login_ValidStation {
             get {
@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Seleccione No si quiere seguir trabajando. Seleccione Si para desloguear el usuario actual..
+        ///   Looks up a localized string similar to Press No if you want to continue work. Press Yes to logout current user..
         /// </summary>
         public static string LogoutMessage {
             get {
@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ¿ Está seguro que desea salir ?.
+        ///   Looks up a localized string similar to Are you sure you want to log out?.
         /// </summary>
         public static string LogoutTitle {
             get {
@@ -187,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Salir.
+        ///   Looks up a localized string similar to Out.
         /// </summary>
         public static string Salir {
             get {
@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Agente.
+        ///   Looks up a localized string similar to Agent.
         /// </summary>
         public static string SelectVal1 {
             get {
@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Usuario Local.
+        ///   Looks up a localized string similar to Local User.
         /// </summary>
         public static string SelectVal2 {
             get {
@@ -214,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Si.
+        ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string Yes {
             get {

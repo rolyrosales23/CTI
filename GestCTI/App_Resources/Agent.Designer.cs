@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Registro de llamadas.
+        ///   Looks up a localized string similar to Calllogs.
         /// </summary>
         public static string Menu_Calllog {
             get {
@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Llamadas.
+        ///   Looks up a localized string similar to Calls.
         /// </summary>
         public static string Menu_Calls {
             get {
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Contactos.
+        ///   Looks up a localized string similar to Contacts.
         /// </summary>
         public static string Menu_Contacts {
             get {
