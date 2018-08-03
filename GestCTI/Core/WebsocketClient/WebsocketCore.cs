@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Web;
 using GestCTI.Core.Enum;
 using GestCTI.Hubs;
+using GestCTI.Util;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 
@@ -48,7 +49,7 @@ namespace GestCTI.Core.WebsocketClient
                 {
                     Thread.Sleep(1000);
                 }
-                Task.WhenAll(Receive(_ws));
+                Task.WhenAll(Receive(_ws),HeartBeat());
             }
             catch (Exception ex)
             {
@@ -56,6 +57,9 @@ namespace GestCTI.Core.WebsocketClient
             }
         }
 
+        /// <summary>
+        /// Disconnect from websocket
+        /// </summary>
         public void Disconnect()
         {
             if (_ws != null)
@@ -63,8 +67,26 @@ namespace GestCTI.Core.WebsocketClient
                 _ws.Dispose();
             }
         }
+
         static UTF8Encoding encoder = new UTF8Encoding();
 
+        /// <summary>
+        /// Sending heartbeat to core app
+        /// </summary>
+        /// <returns></returns>
+        private async Task HeartBeat()
+        {
+            while(true)
+            {
+                Thread.Sleep(10000);
+                // get heartbeat
+                var toSend = SystemHandling.CTIHeartbeatRequest();
+                if (!(await Send(toSend, Guid.NewGuid(), MessageType.HeartBeat)))
+                {
+                    break;
+                }
+            }
+        }
         /// <summary>
         /// Send message to websocket core
         /// </summary>
@@ -80,7 +102,10 @@ namespace GestCTI.Core.WebsocketClient
                 try
                 {
                     // Save invokeId
-                    InvokeId.Add(guid, messageType);
+                    if (messageType != MessageType.HeartBeat)
+                    {
+                        InvokeId.Add(guid, messageType);
+                    }
                     await _ws.SendAsync(
                         new ArraySegment<byte>(buffer),
                         WebSocketMessageType.Text,

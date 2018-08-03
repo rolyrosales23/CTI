@@ -101,6 +101,7 @@
 
         // Send initialize device
         $('#sendInitialize').click(function () {
+            console.log("Sending initialize");
             // agent.server.sendInitialize(string deviceId);
         });
 

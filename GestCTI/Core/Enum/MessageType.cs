@@ -9,6 +9,7 @@ namespace GestCTI.Core.Enum
     {
         CallIn,
         Initialize,
-        CTIMakeCallRequest
+        CTIMakeCallRequest,
+        HeartBeat
     }
 }
