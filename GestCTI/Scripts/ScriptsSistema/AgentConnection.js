@@ -78,7 +78,7 @@
         console.log("No implemented yet", response);
     };
 
-    agen.client.addCTIListenRetrieveAllRequest = function (response) {
+    agent.client.addCTIListenRetrieveAllRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
     };
@@ -86,6 +86,7 @@
 
     // Start the connection.
     $.connection.hub.start().done(function () {
+        alert("I'm working...");
 
         $('#sendmessage').click(function () {
             // Call the Send method on the hub.
@@ -102,7 +103,7 @@
         // Send initialize device
         $('#sendInitialize').click(function () {
             console.log("Sending initialize");
-            // agent.server.sendInitialize(string deviceId);
+            agent.server.sendInitialize("8006"  /*string deviceId*/);
         });
 
         $('#sendCTIAnswerCallRequest').click(function () {
