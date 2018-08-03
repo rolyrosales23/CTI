@@ -20,6 +20,7 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIMakeCallRequest:
                     return;
                 case MessageType.Initialize:
+                    hubContext.Clients.Client(clientId).addInitialize(message);
                     return;
             }
         }
