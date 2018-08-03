@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- META SECTION -->
     <title>@ViewBag.Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -292,7 +292,6 @@
             $(obj).tooltip({ placement: placement, html: true });
         });
     </script>
-    <script src="~/assets/js/plugins/datatables/dataTablesLanguages.js"></script>
     @if (this.User.IsInRole("agent"))
     {
         <!--Reference the SignalR library. -->
@@ -302,9 +301,10 @@
         <!--SignalR script to update the chat page and send messages.-->
         <script src="~/Scripts/ScriptsSistema/AgentConnection.js"></script>
     }
-    <script>
-        /*var lang = "";
 
+    <script>
+        var lang = "";
+        
         if (navigator.languages == undefined) {
             if (navigator.language == undefined) {
                 // Internet Explorer Compatibility
@@ -318,20 +318,14 @@
         }
 
         if (lang.includes("es")) {
-            $('.Mydatatable').DataTable({
-                language: datatableSpanish
-            });
+            $.getScript('../../assets/js/plugins/jquery-validation/localization/messages_es.js', function () { });
         }
         else if (lang.includes("fr")) {
-            $('.Mydatatable').DataTable({
-                language: dataTableFrench
-            });
+            $.getScript('../../assets/js/plugins/jquery-validation/localization/messages_fr.js', function () { });
         }
-        else {
-            $('.Mydatatable').dataTable({
-            });
-        }*/
     </script>
+
+
     
     <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
