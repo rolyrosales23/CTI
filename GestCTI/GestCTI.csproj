@@ -259,6 +259,8 @@
     <Compile Include="Core\WebsocketClient\Interface\IRecieveHubSync.cs" />
     <Compile Include="Core\WebsocketClient\Interface\ISendHubSync.cs" />
     <Compile Include="Core\WebsocketClient\WebsocketCore.cs" />
+    <Compile Include="Core\Enum\MessageType.cs" />
+    <Compile Include="Core\Message\MessageFactory.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

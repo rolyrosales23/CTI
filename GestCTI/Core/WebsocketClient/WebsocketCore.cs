@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using GestCTI.Core.Enum;
 using GestCTI.Hubs;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
@@ -18,23 +19,25 @@ namespace GestCTI.Core.WebsocketClient
 
         private const int receiveChunkSize = 256;
 
-        private const bool verbose = true;
-
         private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(30000);
 
         private readonly ClientWebSocket _ws = null;
-
-        private static IHubContext hubContext =
-        GlobalHost.ConnectionManager.GetHubContext<Websocket>();
-
+        
+        /// <summary>
+        /// Structure to tracker a message
+        /// </summary>
+        private Dictionary<Guid, MessageType> InvokeId = new Dictionary<Guid, MessageType>();
         public WebsocketCore(String Client)
         {
             _ws = new ClientWebSocket();
             //Connect("ws://199.47.69.35:9102");
-            hubContext.Clients.All.addNotification("Server", "Esto es una prueba");
-
             Connect("ws://localhost:8000");
         }
+
+        /// <summary>
+        /// Connect to Websocket core 
+        /// </summary>
+        /// <param name="uri">Core url </param>
         private void Connect(string uri)
         {
             try
@@ -62,14 +65,22 @@ namespace GestCTI.Core.WebsocketClient
         }
         static UTF8Encoding encoder = new UTF8Encoding();
 
-        public async Task Send(String Message)
+        /// <summary>
+        /// Send message to websocket core
+        /// </summary>
+        /// <param name="Message">Message to send</param>
+        /// <param name="guid">Generated guid for message</param>
+        /// <param name="messageType">Typeof message</param>
+        /// <returns>Flag if is send succefull</returns>
+        public async Task<bool> Send(String Message, Guid guid, MessageType messageType)
         {
-            //byte[] buffer = encoder.GetBytes("{\"op\":\"blocks_sub\"}"); //"{\"op\":\"unconfirmed_sub\"}");
             if (_ws != null && _ws.State == WebSocketState.Open)
             {
                 byte[] buffer = encoder.GetBytes(Message);
                 try
                 {
+                    // Save invokeId
+                    InvokeId.Add(guid, messageType);
                     await _ws.SendAsync(
                         new ArraySegment<byte>(buffer),
                         WebSocketMessageType.Text,
@@ -80,10 +91,21 @@ namespace GestCTI.Core.WebsocketClient
                 catch (Exception ex)
                 {
                     Console.WriteLine("Exception: {0}", ex);
+                    InvokeId.Remove(guid);
+                    return false;
                 }
+            } else
+            {
+                return false;
             }
+            return true;
         }
 
+        /// <summary>
+        /// Receive message from websocket
+        /// </summary>
+        /// <param name="webSocket">Client for websocket</param>
+        /// <returns>void</returns>
         private static async Task Receive(ClientWebSocket webSocket)
         {
             byte[] buffer = new byte[receiveChunkSize];
@@ -111,7 +133,7 @@ namespace GestCTI.Core.WebsocketClient
                         }
                     } while (!result.EndOfMessage);
                 }
-            
+            // message process
                 
             } catch(Exception)
             {

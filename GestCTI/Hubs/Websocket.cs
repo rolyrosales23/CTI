@@ -8,6 +8,7 @@ using Microsoft.AspNet.SignalR;
 using System.Net.WebSockets;
 using GestCTI.Util;
 using System.Collections.Concurrent;
+using GestCTI.Core.Enum;
 
 namespace GestCTI.Hubs
 {
@@ -17,18 +18,59 @@ namespace GestCTI.Hubs
         public async Task Send(String v1, String v2)
         {
             WebsocketCore ws = null;
-            if (socks.TryGetValue(Context.ConnectionId, out ws))
+            if (socks.TryGetValue(Context.ConnectionId, out ws) && ws != null)
             {
                 // var ws = new HubCoreClient("ws://localhost:8000", "tester");
                 String toSend = SystemHandling.Initialize("8006");
-                await ws.Send("{\"request\":\"Initialize\",\"args\":[\"8006\"],\"invokedId\":\"07f25e72-d2d3-4a48-ff80-b5f9b1f84ae5\"}");
+                await ws.Send(toSend, Guid.NewGuid(), MessageType.Initialize);
                 // Call the Notification method to update clients.
-                Clients.Client(Context.ConnectionId).addNotification(v1, v2);
-            } else
+                Clients.Client(Context.ConnectionId).Notification("Sended initialize command");
+            }
+            else
             {
                 Clients.Client(Context.ConnectionId).Notification("No connection with websocket");
             }
-            
+
+        }
+
+        /// <summary>
+        /// Send command Initialize
+        /// </summary>
+        /// <param name="deviceId">Device id to initialize</param>
+        /// <returns>void</returns>
+        public async Task sendInitialize(String deviceId)
+        {
+            String toSend = SystemHandling.Initialize(deviceId);
+            String I18n = "COMMAND_INITIALIZE";
+            await genericSender(Guid.NewGuid(), toSend, MessageType.Initialize, I18n);
+        }
+
+        /// <summary>
+        /// Generic sender to websocket core
+        /// </summary>
+        /// <param name="guid">messsage guid</param>
+        /// <param name="toSend">Object to send</param>
+        /// <param name="messageType">Typeof message</param>
+        /// <param name="I18n">Internationalization</param>
+        /// <returns>void</returns>
+        private async Task genericSender(Guid guid, String toSend, MessageType messageType, String I18n)
+        {
+            WebsocketCore ws = null;
+            if (socks.TryGetValue(Context.ConnectionId, out ws))
+            {
+                if (await ws.Send(toSend, guid, messageType))
+                {
+                    Clients.Client(Context.ConnectionId).Notification(I18n);
+                }
+                else
+                {
+                    Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET");
+                }
+            }
+            else
+            {
+                Clients.Client(Context.ConnectionId).Notification("NO_CONNECTION_WEBSOCKET");
+            }
         }
 
         public void ConnectWebsocket()
@@ -39,7 +81,8 @@ namespace GestCTI.Hubs
 
         public override Task OnConnected()
         {
-            Clients.Client(Context.ConnectionId).addNotification("Server", "Conectado satisfactoriamente");
+            ConnectWebsocket();
+            Clients.Client(Context.ConnectionId).Notification("Conectado satisfactoriamente");
             return base.OnConnected();
         }
 
@@ -47,7 +90,7 @@ namespace GestCTI.Hubs
         {
             WebsocketCore core = null;
             socks.TryRemove(Context.ConnectionId, out core);
-            core.Send("Test").Wait();
+            // core.Send("Test").Wait();
             core.Disconnect();
             Clients.All.addNotification("Server", "Desconexión satisfactoria");
             return base.OnDisconnected(stopCalled);
