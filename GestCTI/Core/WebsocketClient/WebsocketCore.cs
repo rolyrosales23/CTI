@@ -22,14 +22,14 @@ namespace GestCTI.Core.WebsocketClient
 
         private static readonly TimeSpan delay = TimeSpan.FromMilliseconds(30000);
 
-        ClientWebSocket webSocket = null;
+        private readonly ClientWebSocket _ws = null;
 
         private static IHubContext hubContext =
         GlobalHost.ConnectionManager.GetHubContext<Websocket>();
 
         public WebsocketCore(String Client)
         {
-            webSocket = new ClientWebSocket();
+            _ws = new ClientWebSocket();
             //Connect("ws://199.47.69.35:9102");
             hubContext.Clients.All.addNotification("Server", "Esto es una prueba");
 
@@ -40,12 +40,12 @@ namespace GestCTI.Core.WebsocketClient
             try
             {
                 Uri url = new Uri(uri);
-                webSocket.ConnectAsync(url, CancellationToken.None);
-                while (webSocket.State != WebSocketState.Open)
+                _ws.ConnectAsync(url, CancellationToken.None);
+                while (_ws.State != WebSocketState.Open)
                 {
                     Thread.Sleep(1000);
                 }
-                Task.WhenAll(Receive(webSocket));
+                Task.WhenAll(Receive(_ws));
             }
             catch (Exception ex)
             {
@@ -53,11 +53,11 @@ namespace GestCTI.Core.WebsocketClient
             }
         }
 
-        private void Disconnect()
+        public void Disconnect()
         {
-            if (webSocket != null)
+            if (_ws != null)
             {
-                webSocket.Dispose();
+                _ws.Dispose();
             }
         }
         static UTF8Encoding encoder = new UTF8Encoding();
@@ -65,12 +65,12 @@ namespace GestCTI.Core.WebsocketClient
         public async Task Send(String Message)
         {
             //byte[] buffer = encoder.GetBytes("{\"op\":\"blocks_sub\"}"); //"{\"op\":\"unconfirmed_sub\"}");
-            if (webSocket != null && webSocket.State == WebSocketState.Open)
+            if (_ws != null && _ws.State == WebSocketState.Open)
             {
                 byte[] buffer = encoder.GetBytes(Message);
                 try
                 {
-                    await webSocket.SendAsync(
+                    await _ws.SendAsync(
                         new ArraySegment<byte>(buffer),
                         WebSocketMessageType.Text,
                         true,
@@ -87,22 +87,41 @@ namespace GestCTI.Core.WebsocketClient
         private static async Task Receive(ClientWebSocket webSocket)
         {
             byte[] buffer = new byte[receiveChunkSize];
-            while (webSocket.State == WebSocketState.Open)
+            try
             {
-                var result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
-                if (result.MessageType == WebSocketMessageType.Close)
+                while (webSocket.State == WebSocketState.Open)
                 {
-                    await webSocket.CloseAsync(
-                        WebSocketCloseStatus.NormalClosure,
-                        string.Empty,
-                        CancellationToken.None
-                    );
+                    var stringResult = new StringBuilder();
+                    WebSocketReceiveResult result;
+                    do
+                    {
+                        result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                        if (result.MessageType == WebSocketMessageType.Close)
+                        {
+                            await webSocket.CloseAsync(
+                                WebSocketCloseStatus.NormalClosure,
+                                string.Empty,
+                                CancellationToken.None
+                            );
+                        }
+                        else
+                        {
+                            var str = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                            stringResult.Append(str);
+                        }
+                    } while (!result.EndOfMessage);
                 }
-                else
-                {
-                    var resultJson = (new UTF8Encoding()).GetString(buffer);
-                }
+            
+                
+            } catch(Exception)
+            {
+                // Disconnect
             }
+            finally
+            {
+                webSocket.Dispose();
+            }
+            // call factory receive message
         }
     }
 }
