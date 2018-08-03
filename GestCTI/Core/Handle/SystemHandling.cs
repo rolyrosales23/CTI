@@ -7,12 +7,14 @@ namespace GestCTI.Util
 {
     public class SystemHandling : HandlingBase
     {
-        public static String Initialize(String deviceId){
-            return builder.AppendFormat(format, "Initialize", '"' + deviceId + '"').ToString();
+        public static Tuple<Guid, String> Initialize(String deviceId){
+            String[] Params = { deviceId };
+            return makeRequest("Initialize", Params);
         }
 
-        public static String CTIHeartbeatRequest(){
-            return builder.AppendFormat(format, "CTIHeartbeatRequest", "").ToString();
+        public static Tuple<Guid, String> CTIHeartbeatRequest(){
+            String[] Params = { };
+            return makeRequest("CTIHeartbeatRequest", Params);
         }
     }
 }

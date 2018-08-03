@@ -7,106 +7,89 @@ namespace GestCTI.Util
 {
     public class CallHandling : HandlingBase
     {
-        public static String CTIGetDevices(String ucid){
+        public static Tuple<Guid, String> CTIGetDevices(String ucid){
             String[] Params = { ucid };
-
-            return builder.AppendFormat(format, "CTIGetDevices", joinParams(Params)).ToString();
+            return makeRequest("CTIGetDevices", Params);
         }
 
-        public static String CTIMakeCallRequest(String fromDevice, String toDevice, String callerId){
+        public static Tuple<Guid, String> CTIMakeCallRequest(String fromDevice, String toDevice, String callerId){
             String[] Params = { fromDevice, toDevice, callerId };
-
-            return builder.AppendFormat(format, "CTIMakeCallRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIMakeCallRequest", Params);
         }
 
-        public static String CTIAnswerCallRequest(String ucid, String deviceId){
+        public static Tuple<Guid, String> CTIAnswerCallRequest(String ucid, String deviceId){
             String[] Params = { ucid, deviceId };
-
-            return builder.AppendFormat(format, "CTIAnswerCallRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIAnswerCallRequest", Params);
         }
 
-        public static String CTIDeflectCallRequest(String ucid, String fromDeviceId, String toDeviceId){
+        public static Tuple<Guid, String> CTIDeflectCallRequest(String ucid, String fromDeviceId, String toDeviceId){
             String[] Params = { ucid, fromDeviceId, toDeviceId };
-
-            return builder.AppendFormat(format, "CTIDeflectCallRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIDeflectCallRequest", Params);
         }
 
-        public static String CTIRetrieveConnectionRequest(String ucid, String deviceId){
+        public static Tuple<Guid, String> CTIRetrieveConnectionRequest(String ucid, String deviceId){
             String[] Params = { ucid, deviceId };
-
-            return builder.AppendFormat(format, "CTIRetrieveConnectionRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIRetrieveConnectionRequest", Params);
         }
 
-        public static String CTIHoldConnectionRequest(String ucid, String deviceId){
+        public static Tuple<Guid, String> CTIHoldConnectionRequest(String ucid, String deviceId){
             String[] Params = { ucid, deviceId };
-
-            return builder.AppendFormat(format, "CTIHoldConnectionRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIHoldConnectionRequest", Params);
         }
 
-        public static String CTIClearConnectionRequest(String ucid, String deviceId) {
+        public static Tuple<Guid, String> CTIClearConnectionRequest(String ucid, String deviceId) {
             String[] Params = { ucid, deviceId };
-
-            return builder.AppendFormat(format, "CTIClearConnectionRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIClearConnectionRequest", Params);
         }
 
-        public static String CTIClearCallRequest(String ucid) {
+        public static Tuple<Guid, String> CTIClearCallRequest(String ucid) {
             String[] Params = { ucid };
-
-            return builder.AppendFormat(format, "CTIClearCallRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIClearCallRequest", Params);
         }
 
-        public static String CTISingleStepConferenceRequest(String ucid, String deviceId){
+        public static Tuple<Guid, String> CTISingleStepConferenceRequest(String ucid, String deviceId){
             String[] Params = { ucid, deviceId };
-
-            return builder.AppendFormat(format, "CTISingleStepConferenceRequest", joinParams(Params)).ToString();
+            return makeRequest("CTISingleStepConferenceRequest", Params);
         }
 
-        public static String CTISingleStepConferenceRequestV2(String ucid, String deviceId){
+        public static Tuple<Guid, String> CTISingleStepConferenceRequestV2(String ucid, String deviceId){
             String[] Params = { ucid, deviceId };
-
-            return builder.AppendFormat(format, "CTISingleStepConferenceRequestV2", joinParams(Params)).ToString();
+            return makeRequest("CTISingleStepConferenceRequestV2", Params);
         }
 
-        public static String CTIConferenceRequest(String heldUcid, String activeUcid, String deviceId){
+        public static Tuple<Guid, String> CTIConferenceRequest(String heldUcid, String activeUcid, String deviceId){
             String[] Params = { heldUcid, activeUcid, deviceId };
-
-            return builder.AppendFormat(format, "CTIConferenceRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIConferenceRequest", Params);
         }
 
-        public static String CTISingleStepTransferRequest(String ucid, String transferringDeviceId, String deviceId){
+        public static Tuple<Guid, String> CTISingleStepTransferRequest(String ucid, String transferringDeviceId, String deviceId){
             String[] Params = { ucid, transferringDeviceId, deviceId };
-
-            return builder.AppendFormat(format, "CTISingleStepTransferRequest", joinParams(Params)).ToString();
+            return makeRequest("CTISingleStepTransferRequest", Params);
         }
 
-        public static String CTITransferRequest(String heldUcid, String activeUcid, String deviceId){
+        public static Tuple<Guid, String> CTITransferRequest(String heldUcid, String activeUcid, String deviceId){
             String[] Params = { heldUcid, activeUcid, deviceId };
-
-            return builder.AppendFormat(format, "CTITransferRequest", joinParams(Params)).ToString();
+            return makeRequest("CTITransferRequest", Params);
         }
 
-        public static String CTIWhisperRequest(String deviceId, String ucid, String selectedParty){
+        public static Tuple<Guid, String> CTIWhisperRequest(String deviceId, String ucid, String selectedParty){
             String[] Params = { deviceId, ucid, selectedParty };
-
-            return builder.AppendFormat(format, "CTIWhisperRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIWhisperRequest", Params);
         }
 
-        public static String CTIListenHoldAllRequest(String deviceId, String ucid){
+        public static Tuple<Guid, String> CTIListenHoldAllRequest(String deviceId, String ucid){
             String[] Params = { deviceId, ucid };
-
-            return builder.AppendFormat(format, "CTIListenHoldAllRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIListenHoldAllRequest", Params);
         }
 
-        public static String CTIListenRetrieveAllRequest(String deviceId, String ucid){
+        public static Tuple<Guid, String> CTIListenRetrieveAllRequest(String deviceId, String ucid){
             String[] Params = { deviceId, ucid };
-
-            return builder.AppendFormat(format, "CTIListenRetrieveAllRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIListenRetrieveAllRequest", Params);
         }
 
-        public static String CTIMuteRequest(String deviceId, String ucid){
+        public static Tuple<Guid, String> CTIMuteRequest(String deviceId, String ucid){
             String[] Params = { deviceId, ucid };
-
-            return builder.AppendFormat(format, "CTIMuteRequest", joinParams(Params)).ToString();
+            return makeRequest("CTIMuteRequest", Params);
         }
     }
 }
