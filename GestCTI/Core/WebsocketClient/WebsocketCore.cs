@@ -81,7 +81,7 @@ namespace GestCTI.Core.WebsocketClient
                 Thread.Sleep(10000);
                 // get heartbeat
                 var toSend = SystemHandling.CTIHeartbeatRequest();
-                if (!(await Send(toSend, Guid.NewGuid(), MessageType.HeartBeat)))
+                if (!(await Send(toSend.Item1, toSend.Item2, MessageType.HeartBeat)))
                 {
                     break;
                 }
@@ -94,7 +94,7 @@ namespace GestCTI.Core.WebsocketClient
         /// <param name="guid">Generated guid for message</param>
         /// <param name="messageType">Typeof message</param>
         /// <returns>Flag if is send succefull</returns>
-        public async Task<bool> Send(String Message, Guid guid, MessageType messageType)
+        public async Task<bool> Send(Guid guid, String Message, MessageType messageType)
         {
             if (_ws != null && _ws.State == WebSocketState.Open)
             {

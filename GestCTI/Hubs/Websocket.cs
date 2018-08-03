@@ -21,8 +21,8 @@ namespace GestCTI.Hubs
             if (socks.TryGetValue(Context.ConnectionId, out ws) && ws != null)
             {
                 // var ws = new HubCoreClient("ws://localhost:8000", "tester");
-                String toSend = SystemHandling.Initialize("8006");
-                await ws.Send(toSend, Guid.NewGuid(), MessageType.Initialize);
+                var toSend = SystemHandling.Initialize("8006");
+                await ws.Send(toSend.Item1, toSend.Item2, MessageType.Initialize);
                 // Call the Notification method to update clients.
                 Clients.Client(Context.ConnectionId).Notification("Sended initialize command");
             }
@@ -40,9 +40,9 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task sendInitialize(String deviceId)
         {
-            String toSend = SystemHandling.Initialize(deviceId);
+            var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
-            await genericSender(Guid.NewGuid(), toSend, MessageType.Initialize, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n);
         }
 
         /// <summary>
@@ -53,12 +53,12 @@ namespace GestCTI.Hubs
         /// <param name="messageType">Typeof message</param>
         /// <param name="I18n">Internationalization</param>
         /// <returns>void</returns>
-        private async Task genericSender(Guid guid, String toSend, MessageType messageType, String I18n)
+        private async Task genericSender(Guid guid, String message, MessageType messageType, String I18n)
         {
             WebsocketCore ws = null;
             if (socks.TryGetValue(Context.ConnectionId, out ws))
             {
-                if (await ws.Send(toSend, guid, messageType))
+                if (await ws.Send(guid, message, messageType))
                 {
                     Clients.Client(Context.ConnectionId).Notification(I18n);
                 }
