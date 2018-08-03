@@ -17,6 +17,7 @@ namespace GestCTI.Hubs
         static ConcurrentDictionary<String, WebsocketCore> socks = new ConcurrentDictionary<string, WebsocketCore>();
         public async Task Send(String v1, String v2)
         {
+            ConnectWebsocket();
             WebsocketCore ws = null;
             if (socks.TryGetValue(Context.ConnectionId, out ws) && ws != null)
             {
@@ -30,9 +31,8 @@ namespace GestCTI.Hubs
             {
                 Clients.Client(Context.ConnectionId).Notification("No connection with websocket");
             }
-
         }
-
+        
         /// <summary>
         /// Send command Initialize
         /// </summary>
@@ -40,6 +40,7 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task sendInitialize(String deviceId)
         {
+            ConnectWebsocket();
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n);
@@ -73,15 +74,20 @@ namespace GestCTI.Hubs
             }
         }
 
+        /// <summary>
+        /// Conection to websocket core
+        /// </summary>
         public void ConnectWebsocket()
         {
-            var ws = new WebsocketCore(Context.ConnectionId);
-            socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
+            if (!socks.ContainsKey(Context.ConnectionId))
+            {
+                var ws = new WebsocketCore(Context.ConnectionId);
+                socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
+            }
         }
 
         public override Task OnConnected()
-        {
-            ConnectWebsocket();
+        {            
             Clients.Client(Context.ConnectionId).Notification("Conectado satisfactoriamente");
             return base.OnConnected();
         }
@@ -91,7 +97,10 @@ namespace GestCTI.Hubs
             WebsocketCore core = null;
             socks.TryRemove(Context.ConnectionId, out core);
             // core.Send("Test").Wait();
-            core.Disconnect();
+            if (core != null)
+            {
+                core.Disconnect();
+            }            
             Clients.All.addNotification("Server", "Desconexión satisfactoria");
             return base.OnDisconnected(stopCalled);
         }

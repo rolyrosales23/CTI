@@ -86,7 +86,7 @@
 
     // Start the connection.
     $.connection.hub.start().done(function () {
-        alert("I'm working...");
+        agent.server.send();
 
         $('#sendmessage').click(function () {
             // Call the Send method on the hub.
