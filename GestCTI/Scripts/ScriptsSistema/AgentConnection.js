@@ -9,6 +9,7 @@
     // Function to get response for Initialize
     agent.client.addInitialize = function (response) {
         // Accept device
+        alert("Initialize", response);
         console.log("No implemented yet", response);
     };
 
