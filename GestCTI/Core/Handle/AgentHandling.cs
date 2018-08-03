@@ -7,22 +7,19 @@ namespace GestCTI.Util
 {
     public class AgentHandling : HandlingBase
     {
-        public static String CTIGetAgentInfo(String agentId){
+        public static Tuple<Guid, String> CTIGetAgentInfo(String agentId){
             String[] Params = { agentId };
-
-            return builder.AppendFormat(format, "CTIGetAgentInfo", joinParams(Params)).ToString();
+            return makeRequest("CTIGetAgentInfo", Params);
         }
 
-        public static String CTIGetAgentState(String agentId){
+        public static Tuple<Guid, String> CTIGetAgentState(String agentId){
             String[] Params = { agentId };
-
-            return builder.AppendFormat(format, "CTIGetAgentState", joinParams(Params)).ToString();
+            return makeRequest("CTIGetAgentState", Params);
         }
 
-        public static String CTISetAgentState(String deviceId, String agentId, String password, long agentMode, long workMode, long reason){
+        public static Tuple<Guid, String> CTISetAgentState(String deviceId, String agentId, String password, long agentMode, long workMode, long reason){
             String[] Params = { deviceId, agentId, password, agentMode.ToString(), workMode.ToString(), reason.ToString() };
-
-            return builder.AppendFormat(format, "CTISetAgentState", joinParams(Params)).ToString();
+            return makeRequest("CTISetAgentState", Params);
         }
 
     }

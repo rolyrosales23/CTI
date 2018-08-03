@@ -7,16 +7,14 @@ namespace GestCTI.Util
 {
     public class DeviceHandling : HandlingBase
     {
-        public static String CTIGetCalls(String deviceId){
+        public static Tuple<Guid, String> CTIGetCalls(String deviceId){
             String[] Params = { deviceId };
-
-            return builder.AppendFormat(format, "CTIGetCalls", joinParams(Params)).ToString();
+            return makeRequest("CTIGetCalls", Params);
         }
 
-        public static String CTIGetDeviceInfo(String deviceId){
+        public static Tuple<Guid, String> CTIGetDeviceInfo(String deviceId){
             String[] Params = { deviceId };
-
-            return builder.AppendFormat(format, "CTIGetDeviceInfo", joinParams(Params)).ToString();
+            return makeRequest("CTIGetDeviceInfo", Params);
         }
     }
 }
