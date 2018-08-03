@@ -8,9 +8,12 @@ namespace GestCTI.Util
 {
     public class HandlingBase
     {
-        protected static String format = "{{ request: \"{0}\", args: [{1}] }}";
-        protected static StringBuilder builder = new StringBuilder();
+        protected static String format = "{{\"request\":\"{0}\",\"args\":[{1}],\"invokedId\":{2}}}";
+        StringBuilder builder = new StringBuilder();
 
+        HandlingBase() {
+
+        }
         protected static String joinParams(String[] Params) {
             return '"' + string.Join("\",\"", Params) + '"';
         }

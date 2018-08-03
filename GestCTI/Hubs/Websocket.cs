@@ -47,6 +47,7 @@ namespace GestCTI.Hubs
         {
             WebsocketCore core = null;
             socks.TryRemove(Context.ConnectionId, out core);
+            core.Send("Test").Wait();
             core.Disconnect();
             Clients.All.addNotification("Server", "Desconexión satisfactoria");
             return base.OnDisconnected(stopCalled);
