@@ -6,10 +6,26 @@
         // Active buttom in call
         console.log("No implemented yet", response);
     };
+
+    agent.client.Notification = function (response) {
+        noty(
+            {
+                text: response,
+                layout: 'topRight',
+                type: 'success',
+                maxVisible: 5,
+                animation: {
+                    open: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceInLeft'
+                    close: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceOutLeft'
+                    easing: 'swing',
+                    speed: 500 // opening & closing animation speed
+                },
+                timeout: 2000
+            });
+    }
     // Function to get response for Initialize
     agent.client.addInitialize = function (response) {
         // Accept device
-        alert("Initialize", response);
         console.log("No implemented yet", response);
     };
 
@@ -87,8 +103,6 @@
 
     // Start the connection.
     $.connection.hub.start().done(function () {
-        agent.server.send();
-
         $('#sendmessage').click(function () {
             // Call the Send method on the hub.
             agent.server.send($('#displayname').val(), $('#message').val());

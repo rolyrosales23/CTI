@@ -1,38 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using GestCTI.Core.WebsocketClient;
 using Microsoft.AspNet.SignalR;
-using System.Net.WebSockets;
 using GestCTI.Util;
 using System.Collections.Concurrent;
 using GestCTI.Core.Enum;
 
 namespace GestCTI.Hubs
 {
+    /// <summary>
+    /// Class to get all websocket connection with Web App and core
+    /// </summary>
     public class Websocket : Hub
     {
+        // all core connection
         static ConcurrentDictionary<String, WebsocketCore> socks = new ConcurrentDictionary<string, WebsocketCore>();
-        public async Task Send(String v1, String v2)
-        {
-            ConnectWebsocket();
-            WebsocketCore ws = null;
-            if (socks.TryGetValue(Context.ConnectionId, out ws) && ws != null)
-            {
-                // var ws = new HubCoreClient("ws://localhost:8000", "tester");
-                var toSend = SystemHandling.Initialize("8006");
-                await ws.Send(toSend.Item1, toSend.Item2, MessageType.Initialize);
-                // Call the Notification method to update clients.
-                Clients.Client(Context.ConnectionId).Notification("Sended initialize command");
-            }
-            else
-            {
-                Clients.Client(Context.ConnectionId).Notification("No connection with websocket");
-            }
-        }
-        
         /// <summary>
         /// Send command Initialize
         /// </summary>
@@ -40,7 +23,6 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task sendInitialize(String deviceId)
         {
-            ConnectWebsocket();
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n);
@@ -56,6 +38,7 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         private async Task genericSender(Guid guid, String message, MessageType messageType, String I18n)
         {
+            // ConnectWebsocket();
             WebsocketCore ws = null;
             if (socks.TryGetValue(Context.ConnectionId, out ws))
             {
@@ -79,29 +62,41 @@ namespace GestCTI.Hubs
         /// </summary>
         public void ConnectWebsocket()
         {
-            if (!socks.ContainsKey(Context.ConnectionId))
+            WebsocketCore core;
+            bool answ = socks.TryGetValue(Context.ConnectionId, out core);
+            if (!answ) 
             {
                 var ws = new WebsocketCore(Context.ConnectionId);
                 socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
+                Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
             }
         }
 
+        /// <summary>
+        /// On connection with Web App
+        /// </summary>
+        /// <returns></returns>
         public override Task OnConnected()
-        {            
-            Clients.Client(Context.ConnectionId).Notification("Conectado satisfactoriamente");
+        {
+            ConnectWebsocket();
+            Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_CONNECTED");
             return base.OnConnected();
         }
 
+        /// <summary>
+        /// On disconect with  Web App
+        /// </summary>
+        /// <param name="stopCalled"></param>
+        /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
             WebsocketCore core = null;
             socks.TryRemove(Context.ConnectionId, out core);
-            // core.Send("Test").Wait();
             if (core != null)
             {
                 core.Disconnect();
             }            
-            Clients.All.addNotification("Server", "Desconexión satisfactoria");
+            // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
         }
     }

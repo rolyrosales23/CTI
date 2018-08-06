@@ -276,7 +276,6 @@
     <script type="text/javascript" src="~/assets/js/plugins/jquery/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/assets/js/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- END PLUGINS -->
-
     <!-- START THIS PAGE PLUGINS-->
     <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
     @RenderSection("scripts", required: false)    
@@ -292,6 +291,11 @@
             $(obj).tooltip({ placement: placement, html: true });
         });
     </script>
+    <script src="~/assets/js/plugins/noty/jquery.noty.js"></script>
+    <script src="~/assets/js/plugins/noty/layouts/topLeft.js"></script>
+    <script src="~/assets/js/plugins/noty/layouts/topCenter.js"></script>
+    <script src="~/assets/js/plugins/noty/layouts/topRight.js"></script>
+    <script src="~/assets/js/plugins/noty/themes/default.js"></script>
     @if (this.User.IsInRole("agent"))
     {
         <!--Reference the SignalR library. -->

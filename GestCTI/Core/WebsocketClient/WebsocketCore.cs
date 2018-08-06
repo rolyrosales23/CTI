@@ -27,6 +27,7 @@ namespace GestCTI.Core.WebsocketClient
 
         private readonly ClientWebSocket _ws = null;
 
+        private SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
         /// <summary>
         /// Structure to tracker a message
         /// </summary>
@@ -35,7 +36,7 @@ namespace GestCTI.Core.WebsocketClient
         public WebsocketCore(String Client)
         {
             _ws = new ClientWebSocket();
-            //Connect("ws://199.47.69.35:9102");
+            // Connect("ws://199.47.69.35:9102");
             Connect("ws://localhost:8000");
             clientSessionId = Client;
         }
@@ -52,9 +53,11 @@ namespace GestCTI.Core.WebsocketClient
                 _ws.ConnectAsync(url, CancellationToken.None);
                 while (_ws.State != WebSocketState.Open)
                 {
-                    Thread.Sleep(1000);
+                    Thread.Sleep(100);
                 }
-                Task.WhenAll(Receive(_ws), HeartBeat());
+                // Task.WhenAll(Receive(_ws), HeartBeat());
+                RunInTask(() => Receive());
+                RunInTask(() => HeartBeat());
             }
             catch (Exception ex)
             {
@@ -101,16 +104,16 @@ namespace GestCTI.Core.WebsocketClient
         /// <returns>Flag if is send succefull</returns>
         public async Task<bool> Send(Guid guid, String Message, MessageType messageType)
         {
+            // Only send one at a time
+            await semaphoreSlim.WaitAsync();
             if (_ws != null && _ws.State == WebSocketState.Open)
             {
                 byte[] buffer = encoder.GetBytes(Message);
                 try
                 {
                     // Save invokeId
-                    if (messageType != MessageType.HeartBeat)
-                    {
-                        InvokeId.Add(guid, messageType);
-                    }
+                    InvokeId.Add(guid, messageType);
+
                     await _ws.SendAsync(
                         new ArraySegment<byte>(buffer),
                         WebSocketMessageType.Text,
@@ -123,6 +126,10 @@ namespace GestCTI.Core.WebsocketClient
                     Console.WriteLine("Exception: {0}", ex);
                     InvokeId.Remove(guid);
                     return false;
+                }
+                finally
+                {
+                    semaphoreSlim.Release();
                 }
             }
             else
@@ -137,21 +144,21 @@ namespace GestCTI.Core.WebsocketClient
         /// </summary>
         /// <param name="webSocket">Client for websocket</param>
         /// <returns>void</returns>
-        private async Task Receive(ClientWebSocket webSocket)
+        private async Task Receive()
         {
             byte[] buffer = new byte[receiveChunkSize];
             try
             {
-                while (webSocket.State == WebSocketState.Open)
+                while (_ws.State == WebSocketState.Open)
                 {
                     var stringResult = new StringBuilder();
                     WebSocketReceiveResult result;
                     do
                     {
-                        result = await webSocket.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+                        result = await _ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
                         if (result.MessageType == WebSocketMessageType.Close)
                         {
-                            await webSocket.CloseAsync(
+                            await _ws.CloseAsync(
                                 WebSocketCloseStatus.NormalClosure,
                                 string.Empty,
                                 CancellationToken.None
@@ -167,7 +174,6 @@ namespace GestCTI.Core.WebsocketClient
                     //Process a message
                     OnMessage(stringResult.ToString());
                 }
-
             }
             catch (Exception)
             {
@@ -175,9 +181,13 @@ namespace GestCTI.Core.WebsocketClient
             }
             finally
             {
-                webSocket.Dispose();
+                _ws.Dispose();
             }
-            // call factory receive message
+        }
+
+        private static void RunInTask(Action action)
+        {
+            Task.Factory.StartNew(action);
         }
 
         /// <summary>
@@ -186,7 +196,6 @@ namespace GestCTI.Core.WebsocketClient
         /// <param name="message">Message from websocket core</param>
         private void OnMessage(String message)
         {
-            // message process
             // Getting message type
             MessageType messageType = MessageType.HeartBeat;
             Guid guid;
@@ -198,9 +207,10 @@ namespace GestCTI.Core.WebsocketClient
                 String guidString = token.ToString();
                 guid = new Guid(guidString);
                 if (guid != null)
-                InvokeId.TryGetValue(guid, out messageType);
+                    InvokeId.TryGetValue(guid, out messageType);
                 MessageFactory.WebsocksCoreFactory(messageType, message, clientSessionId);
-            } catch(Exception)
+            }
+            catch (Exception)
             {
                 return;
             }

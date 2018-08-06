@@ -1905,7 +1905,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\WebConnect.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Companies\Create.cshtml" />

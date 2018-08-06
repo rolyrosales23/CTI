@@ -16,10 +16,5 @@ namespace GestCTI.Controllers
         {
             return View();
         }
-
-        public ActionResult WebConnect()
-        {
-            return View();
-        }
     }
 }
