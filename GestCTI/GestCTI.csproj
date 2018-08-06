@@ -468,12 +468,17 @@
     <Content Include="assets\css\theme-brown.css" />
     <Content Include="assets\css\theme-default.css" />
     <Content Include="assets\css\theme-white.css" />
+    <Content Include="assets\favicon.ico" />
     <Content Include="assets\Icons\demo-files\demo.css" />
     <Content Include="assets\Icons\demo-files\demo.js" />
     <Content Include="assets\Icons\demo.html" />
     <Content Include="assets\Icons\fonts\icomoon.svg" />
     <Content Include="assets\Icons\Read Me.txt" />
     <Content Include="assets\Icons\style.css" />
+    <Content Include="assets\images\users\user.jpg" />
+    <Content Include="assets\images\users\user2.jpg" />
+    <Content Include="assets\images\users\user3.jpg" />
+    <Content Include="assets\images\users\user6.jpg" />
     <Content Include="assets\img\backgrounds\wall_1.jpg" />
     <Content Include="assets\img\bg-dot.png" />
     <Content Include="assets\img\bg.png" />
