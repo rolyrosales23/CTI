@@ -1,9 +1,9 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <!-- META SECTION -->
     <title>@ViewBag.Title</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -278,8 +278,9 @@
     <!-- END PLUGINS -->
     <!-- START THIS PAGE PLUGINS-->
     <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-    @RenderSection("scripts", required: false)
+    @RenderSection("scripts", required: false)    
     <!-- END THIS PAGE PLUGINS-->
+    
     <!-- START TEMPLATE -->
     <script type="text/javascript" src="~/assets/js/plugins.js"></script>
     <script type="text/javascript" src="~/assets/js/actions.js"></script>
@@ -290,7 +291,6 @@
             $(obj).tooltip({ placement: placement, html: true });
         });
     </script>
-    <script src="~/assets/js/plugins/datatables/dataTablesLanguages.js"></script>
     <script src="~/assets/js/plugins/noty/jquery.noty.js"></script>
     <script src="~/assets/js/plugins/noty/layouts/topLeft.js"></script>
     <script src="~/assets/js/plugins/noty/layouts/topCenter.js"></script>
@@ -305,37 +305,32 @@
         <!--SignalR script to update the chat page and send messages.-->
         <script src="~/Scripts/ScriptsSistema/AgentConnection.js"></script>
     }
+
     <script>
-                                /*var lang = "";
+        var lang = "";
+        
+        if (navigator.languages == undefined) {
+            if (navigator.language == undefined) {
+                // Internet Explorer Compatibility
+                lang = navigator.userLanguage.slice(0, 2);
+            } else {
+                // Old navigator compatibility
+                lang = navigator.language.slice(0, 2);
+            }
+        } else {
+            lang = navigator.languages[0].slice(0, 2);
+        }
 
-                                if (navigator.languages == undefined) {
-                                    if (navigator.language == undefined) {
-                                        // Internet Explorer Compatibility
-                                        lang = navigator.userLanguage.slice(0, 2);
-                                    } else {
-                                        // Old navigator compatibility
-                                        lang = navigator.language.slice(0, 2);
-                                    }
-                                } else {
-                                    lang = navigator.languages[0].slice(0, 2);
-                                }
-
-                                if (lang.includes("es")) {
-                                    $('.Mydatatable').DataTable({
-                                        language: datatableSpanish
-                                    });
-                                }
-                                else if (lang.includes("fr")) {
-                                    $('.Mydatatable').DataTable({
-                                        language: dataTableFrench
-                                    });
-                                }
-                                else {
-                                    $('.Mydatatable').dataTable({
-                                    });
-                                }*/
+        if (lang.includes("es")) {
+            $.getScript('../../assets/js/plugins/jquery-validation/localization/messages_es.js', function () { });
+        }
+        else if (lang.includes("fr")) {
+            $.getScript('../../assets/js/plugins/jquery-validation/localization/messages_fr.js', function () { });
+        }
     </script>
 
+
+    
     <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
 </body>
