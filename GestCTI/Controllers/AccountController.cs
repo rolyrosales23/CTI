@@ -83,6 +83,10 @@ namespace GestCTI.Controllers
 
             if (user != null)
             {
+                Session["user_id"] = user.Id;
+                if(model.PhoneLogin)
+                    Session["phone_extension"] = model.PhoneExtension;
+
                 FormsAuthentication.SetAuthCookie(model.Username, false);
 
                 var authTicket = new FormsAuthenticationTicket(1, user.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false, user.Role);

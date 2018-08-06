@@ -277,8 +277,7 @@
     <script type="text/javascript" src="~/assets/js/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- END PLUGINS -->
     <!-- START THIS PAGE PLUGINS-->
-    <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-    @RenderSection("scripts", required: false)    
+    <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>    
     <!-- END THIS PAGE PLUGINS-->
     
     <!-- START TEMPLATE -->
@@ -292,10 +291,9 @@
         });
     </script>
     <script src="~/assets/js/plugins/noty/jquery.noty.js"></script>
-    <script src="~/assets/js/plugins/noty/layouts/topLeft.js"></script>
-    <script src="~/assets/js/plugins/noty/layouts/topCenter.js"></script>
     <script src="~/assets/js/plugins/noty/layouts/topRight.js"></script>
     <script src="~/assets/js/plugins/noty/themes/default.js"></script>
+    <script src="~/Scripts/ScriptsSistema/notyTypes.js"></script>
     @if (this.User.IsInRole("agent"))
     {
         <!--Reference the SignalR library. -->
@@ -332,6 +330,7 @@
 
     
     <!-- END TEMPLATE -->
+    @RenderSection("scripts", required: false)
     <!-- END SCRIPTS -->
 </body>
 </html>
