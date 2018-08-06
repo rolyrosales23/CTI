@@ -1887,6 +1887,7 @@
     <Content Include="Scripts\ScriptsSistema\AgentConnection.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
     <Content Include="Scripts\ScriptsSistema\Login.js" />
+    <Content Include="Scripts\ScriptsSistema\LogInCore.js" />
     <Content Include="Scripts\ScriptsSistema\notyTypes.js" />
     <Content Include="Scripts\sitemap.xml" />
     <Content Include="Web.config" />

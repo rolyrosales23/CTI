@@ -28,7 +28,7 @@ namespace GestCTI.Core.Message
                     client.Notification(message);
                     return;
                 case MessageType.CTISetAgentState:
-                    client.Notification(message);
+                    client.LogInAgent(message);
                     return;
             }
         }
