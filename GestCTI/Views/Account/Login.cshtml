@@ -27,7 +27,7 @@
             <div class="login-logo"></div>
             <div class="login-body">
                 <div class="login-title"><strong>Welcome</strong>, Please login</div>
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "LogInForm" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
@@ -70,7 +70,7 @@
                             @* @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", null, new { @class = "btn btn-link btn-block" }) *@
                         </div>
                         <div class="col-md-6">
-                            <input type="submit" value="Log In" class="btn btn-info btn-block" />
+                            <input type="submit" value="Log In" class="btn btn-info btn-block" id="LogInCore"/>
                         </div>
                     </div>
                 }
