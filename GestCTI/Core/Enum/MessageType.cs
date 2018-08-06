@@ -10,6 +10,7 @@ namespace GestCTI.Core.Enum
         CallIn,
         Initialize,
         CTIMakeCallRequest,
-        HeartBeat
+        HeartBeat,
+        CTISetAgentState
     }
 }

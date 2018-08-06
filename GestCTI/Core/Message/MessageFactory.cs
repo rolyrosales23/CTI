@@ -27,6 +27,9 @@ namespace GestCTI.Core.Message
                 case MessageType.HeartBeat:
                     client.Notification(message);
                     return;
+                case MessageType.CTISetAgentState:
+                    client.Notification(message);
+                    return;
             }
         }
     }

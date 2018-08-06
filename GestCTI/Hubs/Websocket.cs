@@ -6,9 +6,20 @@ using Microsoft.AspNet.SignalR;
 using GestCTI.Util;
 using System.Collections.Concurrent;
 using GestCTI.Core.Enum;
+using System.Web;
+using System.Web.SessionState;
 
 namespace GestCTI.Hubs
 {
+    class Cti_User
+    {
+        WebsocketCore Core;
+        String user_name;
+        String phone_extension;
+        Cti_User()
+        {
+        }
+    }
     /// <summary>
     /// Class to get all websocket connection with Web App and core
     /// </summary>
@@ -16,6 +27,30 @@ namespace GestCTI.Hubs
     {
         // all core connection
         static ConcurrentDictionary<String, WebsocketCore> socks = new ConcurrentDictionary<string, WebsocketCore>();
+
+        /// <summary>
+        /// Log in an user in core app
+        /// </summary>
+        /// <param name="deviceId">Device id</param>
+        /// <param name="agentId">Agent id</param>
+        /// <param name="password">Password</param>
+        /// <returns>void</returns>
+        public async Task sendLogInAgent(String deviceId, String agentId, String password)
+        {
+            // await CTISetAgentState(deviceId, agentId, password,)
+        }
+
+        private async Task CTISetAgentState(String deviceId, String agentId, String password, long agentMode, long workMode, long reason)
+        {
+            var toSend = AgentHandling.CTISetAgentState(deviceId, agentId, password, agentMode, workMode, reason);
+            String I18n = "COMMAND_LOG_IN";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n);
+        }
+
+        public async Task sendLockOutAgent()
+        {
+        }
+
         /// <summary>
         /// Send command Initialize
         /// </summary>
@@ -64,7 +99,7 @@ namespace GestCTI.Hubs
         {
             WebsocketCore core;
             bool answ = socks.TryGetValue(Context.ConnectionId, out core);
-            if (!answ) 
+            if (!answ)
             {
                 var ws = new WebsocketCore(Context.ConnectionId);
                 socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
@@ -78,7 +113,7 @@ namespace GestCTI.Hubs
         /// <returns></returns>
         public override Task OnConnected()
         {
-            ConnectWebsocket();
+            // ConnectWebsocket();
             Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_CONNECTED");
             return base.OnConnected();
         }
@@ -95,7 +130,7 @@ namespace GestCTI.Hubs
             if (core != null)
             {
                 core.Disconnect();
-            }            
+            }
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
         }
