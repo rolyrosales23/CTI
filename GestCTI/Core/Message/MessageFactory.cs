@@ -13,6 +13,8 @@ namespace GestCTI.Core.Message
         public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId)
         {
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
+            var client = hubContext.Clients.Client(clientId);
+
             switch (messageType)
             {
                 case MessageType.CallIn:
@@ -20,7 +22,10 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIMakeCallRequest:
                     return;
                 case MessageType.Initialize:
-                    hubContext.Clients.Client(clientId).addInitialize(message);
+                    client.addInitialize(message);
+                    return;
+                case MessageType.HeartBeat:
+                    client.Notification(message);
                     return;
             }
         }

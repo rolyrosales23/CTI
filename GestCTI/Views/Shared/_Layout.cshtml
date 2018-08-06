@@ -276,12 +276,10 @@
     <script type="text/javascript" src="~/assets/js/plugins/jquery/jquery-ui.min.js"></script>
     <script type="text/javascript" src="~/assets/js/plugins/bootstrap/bootstrap.min.js"></script>
     <!-- END PLUGINS -->
-
     <!-- START THIS PAGE PLUGINS-->
     <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
-    @RenderSection("scripts", required: false)    
+    @RenderSection("scripts", required: false)
     <!-- END THIS PAGE PLUGINS-->
-    
     <!-- START TEMPLATE -->
     <script type="text/javascript" src="~/assets/js/plugins.js"></script>
     <script type="text/javascript" src="~/assets/js/actions.js"></script>
@@ -293,6 +291,11 @@
         });
     </script>
     <script src="~/assets/js/plugins/datatables/dataTablesLanguages.js"></script>
+    <script src="~/assets/js/plugins/noty/jquery.noty.js"></script>
+    <script src="~/assets/js/plugins/noty/layouts/topLeft.js"></script>
+    <script src="~/assets/js/plugins/noty/layouts/topCenter.js"></script>
+    <script src="~/assets/js/plugins/noty/layouts/topRight.js"></script>
+    <script src="~/assets/js/plugins/noty/themes/default.js"></script>
     @if (this.User.IsInRole("agent"))
     {
         <!--Reference the SignalR library. -->
@@ -303,36 +306,36 @@
         <script src="~/Scripts/ScriptsSistema/AgentConnection.js"></script>
     }
     <script>
-        /*var lang = "";
+                                /*var lang = "";
 
-        if (navigator.languages == undefined) {
-            if (navigator.language == undefined) {
-                // Internet Explorer Compatibility
-                lang = navigator.userLanguage.slice(0, 2);
-            } else {
-                // Old navigator compatibility
-                lang = navigator.language.slice(0, 2);
-            }
-        } else {
-            lang = navigator.languages[0].slice(0, 2);
-        }
+                                if (navigator.languages == undefined) {
+                                    if (navigator.language == undefined) {
+                                        // Internet Explorer Compatibility
+                                        lang = navigator.userLanguage.slice(0, 2);
+                                    } else {
+                                        // Old navigator compatibility
+                                        lang = navigator.language.slice(0, 2);
+                                    }
+                                } else {
+                                    lang = navigator.languages[0].slice(0, 2);
+                                }
 
-        if (lang.includes("es")) {
-            $('.Mydatatable').DataTable({
-                language: datatableSpanish
-            });
-        }
-        else if (lang.includes("fr")) {
-            $('.Mydatatable').DataTable({
-                language: dataTableFrench
-            });
-        }
-        else {
-            $('.Mydatatable').dataTable({
-            });
-        }*/
+                                if (lang.includes("es")) {
+                                    $('.Mydatatable').DataTable({
+                                        language: datatableSpanish
+                                    });
+                                }
+                                else if (lang.includes("fr")) {
+                                    $('.Mydatatable').DataTable({
+                                        language: dataTableFrench
+                                    });
+                                }
+                                else {
+                                    $('.Mydatatable').dataTable({
+                                    });
+                                }*/
     </script>
-    
+
     <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->
 </body>
