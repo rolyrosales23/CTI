@@ -11,6 +11,7 @@ namespace GestCTI.Core.Enum
         Initialize,
         CTIMakeCallRequest,
         HeartBeat,
-        CTISetAgentState
+        CTISetAgentState,
+        UNDEFINED
     }
 }
