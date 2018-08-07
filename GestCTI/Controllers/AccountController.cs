@@ -81,11 +81,11 @@ namespace GestCTI.Controllers
             model.Password = Seguridad.EncryptMD5(model.Password);
             user = db.Users.SingleOrDefault(a => a.Username == model.Username && a.Password == model.Password && a.Active == true);
 
-            if (user != null)
+            if (user != null && (user.Role != "agent" || model.PhoneExtension != "") )
             {
-                Session["user_id"] = user.Id;
+                /*Session["user_id"] = user.Id;
                 if(model.PhoneLogin)
-                    Session["phone_extension"] = model.PhoneExtension;
+                    Session["phone_extension"] = model.PhoneExtension;*/
 
                 FormsAuthentication.SetAuthCookie(model.Username, false);
 

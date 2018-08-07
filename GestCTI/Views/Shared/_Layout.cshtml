@@ -258,11 +258,16 @@
                 <div class="mb-footer">
                     <div class="pull-right">
                         @using Microsoft.AspNet.Identity
-                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "LogOutForm", @class = "navbar-right" }))
                         {
                             @Html.AntiForgeryToken()
-
-                            <a class="btn btn-success btn-lg" href="javascript:document.getElementById('logoutForm').submit()">@Resources.Login.Yes</a>
+                            
+                            if(this.User.IsInRole("agent")){
+                                <a id="LogOutCore" class="btn btn-success btn-lg" href="#!">@Resources.Login.Yes</a>
+                            }
+                            else{
+                                <a id="LogOutCore" class="btn btn-success btn-lg" href="javascript: document.getElementById('LogOutForm').submit()">@Resources.Login.Yes</a>
+                            }
                             <button class="btn btn-default btn-lg mb-control-close">No</button>
                         }
                     </div>
