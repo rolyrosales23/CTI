@@ -1,4 +1,6 @@
-﻿$(function () {
+﻿import { local } from "../../../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/d3";
+
+$(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
     // Function to get response for CallIn
@@ -100,14 +102,21 @@
         console.log("No implemented yet", response);
     };
 
+    // Logout from web app
+    agent.client.logOutCore = function (response) {
+        json = JSON.parse(message);
+        if (json['succes'] === true) {
+            $('#LogOutForm').submit();
+        } else {
+            // Notificar error
+        }
+    }
 
     // Start the connection.
     $.connection.hub.start().done(function () {
-        $('#sendmessage').click(function () {
-            // Call the Send method on the hub.
-            agent.server.send($('#displayname').val(), $('#message').val());
-            // Clear text box and reset focus for next comment.
-            $('#message').val('').focus();
+        $('#LogOutCore').click(function () {
+            var deviceId = localStorage.getItem('deviceId');
+            agent.server.sendLogOutCore(deviceId);
         });
 
         // Send CTIMakeCallRequest
