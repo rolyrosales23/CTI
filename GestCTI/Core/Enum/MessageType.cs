@@ -13,6 +13,7 @@ namespace GestCTI.Core.Enum
         HeartBeat,
         CTISetAgentState,
         UNDEFINED,
-        CTILogOut
+        CTILogOut,
+        CTIGetAgentInfo
     }
 }

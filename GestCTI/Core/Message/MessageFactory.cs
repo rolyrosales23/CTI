@@ -33,6 +33,9 @@ namespace GestCTI.Core.Message
                 case MessageType.CTILogOut:
                     client.logOutCore(message);
                     return;
+                case MessageType.CTIGetAgentInfo:
+                    client.getAgentInfo(message);
+                    return;
             }
         }
     }

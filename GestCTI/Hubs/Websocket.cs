@@ -37,6 +37,18 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
+        /// Get Agent info
+        /// </summary>
+        /// <param name="agentId"></param>
+        /// <returns></returns>
+        public async Task sendCTIGetAgentInfo(String agentId)
+        {
+            var toSend = AgentHandling.CTIGetAgentInfo(agentId);
+            String I18n = "COMMAND_GET_AGENT_STATE";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIGetAgentInfo, I18n);
+        }
+
+        /// <summary>
         /// Change state of user
         /// </summary>
         /// <param name="deviceId">Device id</param>
