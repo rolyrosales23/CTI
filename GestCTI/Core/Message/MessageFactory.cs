@@ -30,6 +30,9 @@ namespace GestCTI.Core.Message
                 case MessageType.CTISetAgentState:
                     client.logInAgent(message);
                     return;
+                case MessageType.CTILogOut:
+                    client.logOutCore(message);
+                    return;
             }
         }
     }

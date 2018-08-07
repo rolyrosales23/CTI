@@ -53,8 +53,16 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTISetAgentState, I18n);
         }
 
-        public async Task sendLockOutAgent()
+        /// <summary>
+        /// Log out
+        /// </summary>
+        /// <param name="deviceId">Device id</param>
+        /// <returns>void</returns>
+        public async Task sendLogOutCore(String deviceId)
         {
+            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int) AgentMode.AM_LOG_OUT, 0, 0);
+            String I18n = "COMMAND_LOG_OUT";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n);
         }
 
         /// <summary>
