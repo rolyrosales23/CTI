@@ -1,6 +1,4 @@
-﻿import { local } from "../../../../../../../AppData/Local/Microsoft/TypeScript/2.6/node_modules/@types/d3";
-
-$(function () {
+﻿$(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
     // Function to get response for CallIn
@@ -104,8 +102,8 @@ $(function () {
 
     // Logout from web app
     agent.client.logOutCore = function (response) {
-        json = JSON.parse(message);
-        if (json['succes'] === true) {
+        json = JSON.parse(response);
+        if (json['success'] === true) {
             $('#LogOutForm').submit();
         } else {
             // Notificar error

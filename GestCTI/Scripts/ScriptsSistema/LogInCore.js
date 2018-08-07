@@ -24,7 +24,7 @@
         spinnerHide();
         if (json['success'] === true) {
             console.log("Login Core sucess");
-            localStorage.setItem('deviceID', $("#LoginPhoneExtension").val());
+            localStorage.setItem('deviceId', $("#LoginPhoneExtension").val());
             $("#LogInForm").submit();
         } else {
             // send message error
