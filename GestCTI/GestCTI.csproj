@@ -1891,6 +1891,7 @@
     <Content Include="Scripts\ScriptsSistema\Login.js" />
     <Content Include="Scripts\ScriptsSistema\LogInCore.js" />
     <Content Include="Scripts\ScriptsSistema\notyTypes.js" />
+    <Content Include="Scripts\ScriptsSistema\spinner.js" />
     <Content Include="Scripts\sitemap.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1964,6 +1965,7 @@
     <Content Include="Views\CampaignTypes\Edit.cshtml" />
     <Content Include="Views\CampaignTypes\Index.cshtml" />
     <Content Include="Views\Supervisor\Index.cshtml" />
+    <Content Include="Views\Shared\Spinner.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
