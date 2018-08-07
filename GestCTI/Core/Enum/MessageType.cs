@@ -14,6 +14,8 @@ namespace GestCTI.Core.Enum
         CTISetAgentState,
         UNDEFINED,
         CTILogOut,
-        CTIGetAgentInfo
+        CTIGetAgentInfo,
+        LoginAuxWork, // Change state of agent AM_LOG_IN with AUX_MODE
+        AM_READY
     }
 }

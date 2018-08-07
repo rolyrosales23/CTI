@@ -37,6 +37,23 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
+        /// Set the first mode of agent
+        /// </summary>
+        /// <param name="deviceId">Device id</param>
+        /// <returns>void</returns>
+        public async Task sendStateLoginAuxWork(String deviceId) {
+            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_LOG_IN, (int)WorkMode.WM_WORK, 0);
+            String I18n = "AGENT_LOGIN_AUX_MODE";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.LoginAuxWork, I18n);
+        }
+
+        public async Task sendStateReadyManual(String deviceId) {
+            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_READY, (int) WorkMode.WM_MANUAL, 0);
+            String I18n = "AGENT_AM_READY";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.AM_READY, I18n);
+        }
+
+        /// <summary>
         /// Get Agent info
         /// </summary>
         /// <param name="agentId"></param>

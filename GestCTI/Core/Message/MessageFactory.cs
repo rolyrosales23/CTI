@@ -25,7 +25,7 @@ namespace GestCTI.Core.Message
                     client.addInitialize(message);
                     return;
                 case MessageType.HeartBeat:
-                    client.Notification(message);
+                    // client.Notification(message);
                     return;
                 case MessageType.CTISetAgentState:
                     client.logInAgent(message);
@@ -36,6 +36,14 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIGetAgentInfo:
                     client.getAgentInfo(message);
                     return;
+                case MessageType.LoginAuxWork:
+                    client.getLoginAuxWork(message);
+                    client.Notification("AM_LOG_IN_AUX_WORK_SUCCESS");
+                    break;
+                case MessageType.AM_READY:
+                    client.getAmReady(message);
+                    client.Notification("READY_TO_WORK_SUCCESS");
+                    break;
             }
         }
     }
