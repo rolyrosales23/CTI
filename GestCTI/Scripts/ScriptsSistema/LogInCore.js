@@ -8,19 +8,20 @@
             var phone = $("#LoginPhoneExtension").val();
             if (phone === "") {
                 console.error("Not phone specify");
+                spinnerHide();
             } else {
                 agent.server.sendInitialize(phone);
             }
         } else {
             // stop spinner and send message error
             console.error("Error");
-            console.log("Stop spinner");
+            spinnerHide();
         }
     }
 
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
-        console.log("Stop spinner");
+        spinnerHide();
         if (json['success'] === true) {
             console.log("Login Core sucess");
             $("#LogInForm").submit();
@@ -33,12 +34,13 @@
     // Start the connection.
     $.connection.hub.start().done(function () {
         $('#LogInCore').click(function () {
-            // run spinner
+            spinnerShow();
             var phone = $("#LoginPhoneExtension").val();
             if (phone !== null && phone !== undefined && phone !== "") {
                 agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
             } else
             {
+                spinnerHide();
                 $("#LogInForm").submit();
             }
         });
