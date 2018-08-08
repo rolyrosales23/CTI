@@ -50,6 +50,9 @@ namespace GestCTI.Core.Message
                     client.getAmReady(message);
                     client.Notification("READY_TO_WORK_SUCCESS");
                     break;
+                case MessageType.ON_EVENT:
+                    client.receiveEventHandler(message);
+                    break;
             }
         }
     }

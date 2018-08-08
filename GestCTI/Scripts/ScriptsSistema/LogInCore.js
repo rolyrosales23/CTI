@@ -45,7 +45,6 @@
 
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
-        spinnerHide();
         if (json['success'] === true) {
             console.log("Login Core sucess");
             // Save deviceId
@@ -55,6 +54,7 @@
             // send message error
             console.error("Error");
         }
+        spinnerHide();
     }
 
     // Start the connection.

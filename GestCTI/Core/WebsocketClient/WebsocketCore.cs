@@ -208,6 +208,7 @@ namespace GestCTI.Core.WebsocketClient
                 } else
                 {
                     //Handle event
+                    MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId);
                 }
             }
             catch (Exception)
