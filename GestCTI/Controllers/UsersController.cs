@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GestCTI.Models;
+using GestCTI.Util;
 
 namespace GestCTI.Controllers
 {
@@ -53,6 +54,7 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
+                users.Password = Seguridad.EncryptMD5(users.Password);
                 db.Users.Add(users);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -89,6 +91,7 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
+                users.Password = Seguridad.EncryptMD5(users.Password);
                 db.Entry(users).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
