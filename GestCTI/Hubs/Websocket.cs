@@ -23,7 +23,7 @@ namespace GestCTI.Hubs
         /// DB Connection
         /// </summary>
         private static readonly DBCTIEntities db = new DBCTIEntities();
-        
+
         /// <summary>
         /// Log in an user in core app
         /// </summary>
@@ -36,7 +36,8 @@ namespace GestCTI.Hubs
             if (baseConnectWebsocket(agentId))
             {
                 await CTISetAgentState(deviceId, agentId, password, (int)AgentMode.AM_LOG_IN, (int)WorkMode.WM_WORK, 0);
-            } else
+            }
+            else
             {
                 Clients.Client(Context.ConnectionId).Notification("SERVER_LOGIN_ERROR");
             }
@@ -47,7 +48,8 @@ namespace GestCTI.Hubs
         /// </summary>
         /// <param name="deviceId">Device id</param>
         /// <returns>void</returns>
-        public async Task sendStateLoginAuxWork(String deviceId) {
+        public async Task sendStateLoginAuxWork(String deviceId)
+        {
             var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_LOG_IN, (int)WorkMode.WM_WORK, 0);
             String I18n = "AGENT_LOGIN_AUX_MODE";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.LoginAuxWork, I18n);
@@ -58,8 +60,9 @@ namespace GestCTI.Hubs
         /// </summary>
         /// <param name="deviceId"></param>
         /// <returns></returns>
-        public async Task sendStateReadyManual(String deviceId) {
-            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_READY, (int) WorkMode.WM_MANUAL, 0);
+        public async Task sendStateReadyManual(String deviceId)
+        {
+            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_READY, (int)WorkMode.WM_MANUAL, 0);
             String I18n = "AGENT_AM_READY";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.AM_READY, I18n);
         }
@@ -93,6 +96,13 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTISetAgentState, I18n);
         }
 
+        public async Task CTIAnswerCallRequest(String ucid, String deviceId)
+        {
+            var toSend = CallHandling.CTIAnswerCallRequest(ucid, deviceId);
+            String I18n = "COMMAND_ANSWER_CALL";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIAnswerCallRequest, I18n);
+        }
+
         /// <summary>
         /// Log out
         /// </summary>
@@ -100,7 +110,7 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task sendLogOutCore(String deviceId)
         {
-            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int) AgentMode.AM_LOG_OUT, 0, 0);
+            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_LOG_OUT, 0, 0);
             String I18n = "COMMAND_LOG_OUT";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n);
         }
@@ -174,14 +184,14 @@ namespace GestCTI.Hubs
                 cti_User.WebsocketUrl = User.Company1.Switch.WebSocketIP;
                 cti_User.HttpUrl = User.Company1.Switch.ApiServerIP;
                 cti_User.ConnectionId = Context.ConnectionId;
-                
+
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
 
                 socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
                 Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
             }
-            
+
             return true;
         }
         /// <summary>

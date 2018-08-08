@@ -202,10 +202,17 @@ namespace GestCTI.Core.WebsocketClient
                 json.TryGetValue("invokedId", out token);
                 guid = new Guid(token.ToString());
                 if (guid != null)
-                    InvokeId.TryGetValue(guid, out messageType);
-                if (messageType != MessageType.UNDEFINED) {
+                {
+                    if (!InvokeId.TryGetValue(guid, out messageType))
+                    {
+                        messageType = MessageType.UNDEFINED;
+                    }
+                }
+                if (messageType != MessageType.UNDEFINED)
+                {
                     MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId);
-                } else
+                }
+                else
                 {
                     //Handle event
                     MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId);
