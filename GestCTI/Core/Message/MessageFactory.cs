@@ -53,6 +53,9 @@ namespace GestCTI.Core.Message
                 case MessageType.ON_EVENT:
                     client.receiveEventHandler(message);
                     break;
+                case MessageType.CTIAnswerCallRequest:
+                    client.receiveResponseCallRequest(message);
+                    break;
             }
         }
     }

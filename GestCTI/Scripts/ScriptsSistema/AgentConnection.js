@@ -101,6 +101,16 @@
             agent.server.sendInitialize("8006"  /*string deviceId*/);
         });
 
+        $("#acceptCallRequest").click(function () {
+            var ucid = localStorage.getItem('ucid');
+            if (ucid === undefined && ucid !== "") {
+                agent.server.CTIAnswerCallRequest(ucid, deviceId);
+                localStorage.removeItem('ucid');
+            } else {
+                console.error("Call id request (ucid) not specify");
+            }
+        });
+
         $('#sendCTIAnswerCallRequest').click(function () {
             // agent.server.sendCTIAnswerCallRequest(string ucid, string fromDeviceId, string toDeviceId);
         });

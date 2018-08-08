@@ -17,6 +17,7 @@ namespace GestCTI.Core.Enum
         CTIGetAgentInfo,
         LoginAuxWork, // Change state of agent AM_LOG_IN with AUX_MODE
         AM_READY,
-        ON_EVENT // When receive an event
+        ON_EVENT, // When receive an event
+        CTIAnswerCallRequest, // Handle call request
     }
 }
