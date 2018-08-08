@@ -7,12 +7,9 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using GestCTI.Models;
-using GestCTI.Util;
-using GestCTI.Controllers.Auth;
 
 namespace GestCTI.Controllers
 {
-    [CustomAuthorize(Roles = "admin")]
     public class UsersController : Controller
     {
         private DBCTIEntities db = new DBCTIEntities();
@@ -44,7 +41,6 @@ namespace GestCTI.Controllers
         {
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
-            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View();
         }
 
@@ -57,7 +53,6 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                users.Password = Seguridad.EncryptMD5(users.Password);
                 db.Users.Add(users);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -65,7 +60,6 @@ namespace GestCTI.Controllers
 
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View(users);
         }
 
@@ -83,7 +77,6 @@ namespace GestCTI.Controllers
             }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View(users);
         }
 
@@ -96,14 +89,12 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                users.Password = Seguridad.EncryptMD5(users.Password);
                 db.Entry(users).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.Role = new SelectList(new string[] { "admin", "supervisor", "agent" });
             return View(users);
         }
 

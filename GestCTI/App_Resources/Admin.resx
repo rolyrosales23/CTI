@@ -168,4 +168,16 @@
   <data name="Users" xml:space="preserve">
     <value>Users</value>
   </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>Delete record</value>
+  </data>
+  <data name="QuestionDeleteF" xml:space="preserve">
+    <value>Are you sure you want to delete</value>
+  </data>
+  <data name="QuestionDeleteM" xml:space="preserve">
+    <value>Are you sure you want to delete</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>with</value>
+  </data>
 </root>

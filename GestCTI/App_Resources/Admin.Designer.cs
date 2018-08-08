@@ -160,11 +160,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete record.
+        /// </summary>
+        public static string DeleteRecord {
+            get {
+                return ResourceManager.GetString("DeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         public static string Location {
             get {
                 return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete.
+        /// </summary>
+        public static string QuestionDeleteF {
+            get {
+                return ResourceManager.GetString("QuestionDeleteF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete.
+        /// </summary>
+        public static string QuestionDeleteM {
+            get {
+                return ResourceManager.GetString("QuestionDeleteM", resourceCulture);
             }
         }
         
@@ -210,6 +237,15 @@ namespace Resources {
         public static string Users {
             get {
                 return ResourceManager.GetString("Users", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to with.
+        /// </summary>
+        public static string With {
+            get {
+                return ResourceManager.GetString("With", resourceCulture);
             }
         }
     }

@@ -28,7 +28,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -332,14 +332,9 @@
           </AssociationSet>
           <EntitySet Name="Campaign" EntityType="DBCTIModel.Campaign" />
           <EntitySet Name="CampaignSkills" EntityType="DBCTIModel.CampaignSkills" />
-          <EntitySet Name="CampaignType" EntityType="DBCTIModel.CampaignType" />
           <EntitySet Name="Company" EntityType="DBCTIModel.Company" />
           <EntitySet Name="Skills" EntityType="DBCTIModel.Skills" />
           <EntitySet Name="VDN" EntityType="DBCTIModel.VDN" />
-          <AssociationSet Name="FK_Campaing_CampaingType" Association="DBCTIModel.FK_Campaing_CampaingType">
-            <End Role="CampaignType" EntitySet="CampaignType" />
-            <End Role="Campaign" EntitySet="Campaign" />
-          </AssociationSet>
           <AssociationSet Name="FK_Campaing_Company" Association="DBCTIModel.FK_Campaing_Company">
             <End Role="Company" EntitySet="Company" />
             <End Role="Campaign" EntitySet="Campaign" />
@@ -371,6 +366,11 @@
           <AssociationSet Name="FK_UserSkill_Skill" Association="DBCTIModel.FK_UserSkill_Skill">
             <End Role="Skills" EntitySet="Skills" />
             <End Role="UserSkill" EntitySet="UserSkill" />
+          </AssociationSet>
+          <EntitySet Name="CampaignType" EntityType="DBCTIModel.CampaignType" />
+          <AssociationSet Name="FK_Campaing_CampaingType" Association="DBCTIModel.FK_Campaing_CampaingType">
+            <End Role="CampaignType" EntitySet="CampaignType" />
+            <End Role="Campaign" EntitySet="Campaign" />
           </AssociationSet>
           </EntityContainer>
         <EntityType Name="Users">
@@ -426,10 +426,10 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="IdType" Type="Int32" Nullable="false" />
           <Property Name="IdCompany" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="CampaignType" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="Campaign" ToRole="CampaignType" />
           <NavigationProperty Name="Company" Relationship="DBCTIModel.FK_Campaing_Company" FromRole="Campaign" ToRole="Company" />
           <NavigationProperty Name="CampaignSkills" Relationship="DBCTIModel.FK_CampaingSkills_Campaing" FromRole="Campaign" ToRole="CampaignSkills" />
           <NavigationProperty Name="VDN" Relationship="DBCTIModel.FK_VDN_Campaing" FromRole="Campaign" ToRole="VDN" />
+          <NavigationProperty Name="CampaignType" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="Campaign" ToRole="CampaignType" />
         </EntityType>
         <EntityType Name="CampaignSkills">
           <Key>
@@ -440,14 +440,6 @@
           <Property Name="IdCampaign" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Campaign" Relationship="DBCTIModel.FK_CampaingSkills_Campaing" FromRole="CampaignSkills" ToRole="Campaign" />
           <NavigationProperty Name="Skills" Relationship="DBCTIModel.FK_CampaingSkills_Skills" FromRole="CampaignSkills" ToRole="Skills" />
-        </EntityType>
-        <EntityType Name="CampaignType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Campaign" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="CampaignType" ToRole="Campaign" />
         </EntityType>
         <EntityType Name="Company">
           <Key>
@@ -483,18 +475,6 @@
           <Property Name="IdCampaign" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Campaign" Relationship="DBCTIModel.FK_VDN_Campaing" FromRole="VDN" ToRole="Campaign" />
         </EntityType>
-        <Association Name="FK_Campaing_CampaingType">
-          <End Type="DBCTIModel.CampaignType" Role="CampaignType" Multiplicity="1" />
-          <End Type="DBCTIModel.Campaign" Role="Campaign" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CampaignType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Campaign">
-              <PropertyRef Name="IdType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Campaing_Company">
           <End Type="DBCTIModel.Company" Role="Company" Multiplicity="1" />
           <End Type="DBCTIModel.Campaign" Role="Campaign" Multiplicity="*" />
@@ -591,6 +571,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CampaignType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Campaign" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="CampaignType" ToRole="Campaign" />
+        </EntityType>
+        <Association Name="FK_Campaing_CampaingType">
+          <End Type="DBCTIModel.CampaignType" Role="CampaignType" Multiplicity="1" />
+          <End Type="DBCTIModel.Campaign" Role="Campaign" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CampaignType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Campaign">
+              <PropertyRef Name="IdType" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -661,14 +661,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="CampaignType">
-            <EntityTypeMapping TypeName="DBCTIModel.CampaignType">
-              <MappingFragment StoreEntitySet="CampaignType">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Company">
             <EntityTypeMapping TypeName="DBCTIModel.Company">
               <MappingFragment StoreEntitySet="Company">
@@ -695,6 +687,14 @@
                 <ScalarProperty Name="IdCampaign" ColumnName="IdCampaign" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaignType">
+            <EntityTypeMapping TypeName="DBCTIModel.CampaignType">
+              <MappingFragment StoreEntitySet="CampaignType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

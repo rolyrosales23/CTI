@@ -1959,12 +1959,13 @@
     <Content Include="Views\Campaigns\Details.cshtml" />
     <Content Include="Views\Campaigns\Edit.cshtml" />
     <Content Include="Views\Campaigns\Index.cshtml" />
+    <Content Include="Views\Supervisor\Index.cshtml" />
     <Content Include="Views\CampaignTypes\Create.cshtml" />
     <Content Include="Views\CampaignTypes\Delete.cshtml" />
     <Content Include="Views\CampaignTypes\Details.cshtml" />
     <Content Include="Views\CampaignTypes\Edit.cshtml" />
     <Content Include="Views\CampaignTypes\Index.cshtml" />
-    <Content Include="Views\Supervisor\Index.cshtml" />
+    <Content Include="Views\Account\Notifications.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\App\" />

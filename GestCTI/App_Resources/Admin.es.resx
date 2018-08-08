@@ -151,7 +151,7 @@
     <value>Compañía</value>
   </data>
   <data name="Location" xml:space="preserve">
-    <value>Location</value>
+    <value>Ubicación</value>
   </data>
   <data name="Save" xml:space="preserve">
     <value>Guardar</value>
@@ -167,5 +167,17 @@
   </data>
   <data name="Users" xml:space="preserve">
     <value>Usuarios</value>
+  </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>Eliminar registro</value>
+  </data>
+  <data name="QuestionDeleteF" xml:space="preserve">
+    <value>¿Seguro que desea eliminar la</value>
+  </data>
+  <data name="QuestionDeleteM" xml:space="preserve">
+    <value>¿Seguro que desea eliminar el</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>con</value>
   </data>
 </root>

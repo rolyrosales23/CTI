@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section breadcrumb{
@@ -13,7 +14,6 @@
     <h2><span class="fa fa-arrow-circle-o-left"></span>@Resources.Admin.CampaignTypes</h2>
 </div>
 
-
 <div class="panel panel-default tabs">
 
     <div class="panel-body tab-content">
@@ -22,35 +22,35 @@
                 @Html.ActionLink(Resources.Admin.ActionCreateNew, "Create", null, new { @class = "fa fa-plus" })
             </h3>
             <table class="table Mydatatable" id="tabla-index">
-                <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            Types
-                        </th>
-                        <th></th>
-                        <th></th>
-                        <th></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-eye info", title = Resources.Admin.ActionDetails })
+                        </td>
+                        <td>
+                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                            @Html.Partial("../Account/Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "CampaignTypes" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Admin.CampaignType + " " + Resources.Admin.With + " Name: " + item.Name + "?" } })
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title=Resources.Admin.ActionEdit})
-                            </td>
-                            <td>
-                                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-eye info", title = Resources.Admin.ActionDetails})
-                            </td>
-                            <td>
-                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm info fa fa-trash-o", title= Resources.Admin.ActionDelete })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                }
+
             </table>
         </div>
     </div>
@@ -60,4 +60,4 @@
 
     <script type='text/javascript' src="~/assets/js/plugins/icheck/icheck.min.js"></script>
     <script src="~/assets/js/plugins/datatables/dataTablesLang.js"></script>
- }
+}

@@ -13,11 +13,9 @@
         <AssociationConnector Association="DBCTIModel.FK_UserSkill_User" />
         <EntityTypeShape EntityType="DBCTIModel.Campaign" Width="1.5" PointX="7.625" PointY="0.5" />
         <EntityTypeShape EntityType="DBCTIModel.CampaignSkills" Width="1.5" PointX="10.75" PointY="3.25" />
-        <EntityTypeShape EntityType="DBCTIModel.CampaignType" Width="1.5" PointX="10.125" PointY="0.5" />
         <EntityTypeShape EntityType="DBCTIModel.Company" Width="1.5" PointX="3.625" PointY="5.625" />
         <EntityTypeShape EntityType="DBCTIModel.Skills" Width="1.5" PointX="8.5" PointY="7.875" />
         <EntityTypeShape EntityType="DBCTIModel.VDN" Width="1.5" PointX="8.875" PointY="4.75" />
-        <AssociationConnector Association="DBCTIModel.FK_Campaing_CampaingType" />
         <AssociationConnector Association="DBCTIModel.FK_Campaing_Company" />
         <AssociationConnector Association="DBCTIModel.FK_CampaingSkills_Campaing" />
         <AssociationConnector Association="DBCTIModel.FK_VDN_Campaing" />
@@ -26,6 +24,8 @@
         <AssociationConnector Association="DBCTIModel.FK_Company_Users" />
         <AssociationConnector Association="DBCTIModel.FK_Users_Company" />
         <AssociationConnector Association="DBCTIModel.FK_UserSkill_Skill" />
+        <EntityTypeShape EntityType="DBCTIModel.CampaignType" Width="1.5" PointX="10" PointY="0.5" />
+        <AssociationConnector Association="DBCTIModel.FK_Campaing_CampaingType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -31,9 +31,9 @@ namespace GestCTI.Models
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Campaign> Campaign { get; set; }
         public virtual DbSet<CampaignSkills> CampaignSkills { get; set; }
-        public virtual DbSet<CampaignType> CampaignType { get; set; }
         public virtual DbSet<Company> Company { get; set; }
         public virtual DbSet<Skills> Skills { get; set; }
         public virtual DbSet<VDN> VDN { get; set; }
+        public virtual DbSet<CampaignType> CampaignType { get; set; }
     }
 }

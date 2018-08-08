@@ -27,11 +27,11 @@ namespace GestCTI.Models
         public int IdType { get; set; }
         public int IdCompany { get; set; }
     
-        public virtual CampaignType CampaignType { get; set; }
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampaignSkills> CampaignSkills { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VDN> VDN { get; set; }
+        public virtual CampaignType CampaignType { get; set; }
     }
 }

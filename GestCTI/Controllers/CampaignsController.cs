@@ -41,7 +41,7 @@ namespace GestCTI.Controllers
         // GET: Campaigns/Create
         public ActionResult Create()
         {
-            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id");
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
             return View();
         }
@@ -60,7 +60,7 @@ namespace GestCTI.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id", campaign.IdType);
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
             return View(campaign);
         }
@@ -77,7 +77,7 @@ namespace GestCTI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id", campaign.IdType);
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
             return View(campaign);
         }
@@ -95,7 +95,7 @@ namespace GestCTI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Id", campaign.IdType);
+            ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
             return View(campaign);
         }

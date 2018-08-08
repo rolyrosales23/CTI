@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section breadcrumb{
@@ -21,85 +22,85 @@
                 @Html.ActionLink(Resources.Admin.ActionCreateNew, "Create", null, new { @class = "fa fa-plus" })
             </h3>
             <table class="table Mydatatable" id="tabla-index">
-                <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Username)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Password)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MiddleName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Role)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserLocation.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Company1.Name)
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model)
+                {
                     <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Username)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Password)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.email)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.FirstName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MiddleName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LastName)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Role)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Active)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.UserLocation.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Company1.Name)
-                        </th>
-                        <th></th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Password)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MiddleName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Role)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Active)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserLocation.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Company1.Name)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+
+                            @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-eye info", title = Resources.Admin.ActionDetails })
+
+                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                            @Html.Partial("../Account/Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " Username: " + item.Username + "?" } })
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Username)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Password)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.email)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FirstName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MiddleName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.LastName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Role)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Active)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.UserLocation.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Company1.Name)
-                            </td>
-                            <td>
-                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+                }
 
-                                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-eye info", title = Resources.Admin.ActionDetails })
-
-                                @Html.ActionLink(" ", "Delete", new { id = item.Id }, new { @class = "btn btn-danger btn-sm info fa fa-trash-o", title = Resources.Admin.ActionDelete })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
             </table>
         </div>
     </div>
