@@ -246,7 +246,9 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Util\Seguridad.cs" />
+    <Compile Include="Core\Enum\LoginTypes.cs" />
+    <Compile Include="Core\WebsocketClient\CtiUser.cs" />
+    <Compile Include="Core\Util\Seguridad.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\SupervisorController.cs" />
     <Compile Include="Controllers\SwitchesController.cs" />
@@ -1892,6 +1894,9 @@
     <Content Include="Scripts\ScriptsSistema\AgentConnection.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
     <Content Include="Scripts\ScriptsSistema\Login.js" />
+    <Content Include="Scripts\ScriptsSistema\LogInCore.js" />
+    <Content Include="Scripts\ScriptsSistema\notyTypes.js" />
+    <Content Include="Scripts\ScriptsSistema\spinner.js" />
     <Content Include="Scripts\sitemap.xml" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1966,10 +1971,9 @@
     <Content Include="Views\CampaignTypes\Edit.cshtml" />
     <Content Include="Views\CampaignTypes\Index.cshtml" />
     <Content Include="Views\Account\Notifications.cshtml" />
+    <Content Include="Views\Shared\Spinner.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\App\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>

@@ -10,6 +10,12 @@ namespace GestCTI.Core.Message
 {
     public static class MessageFactory
     {
+        /// <summary>
+        /// Factory of message
+        /// </summary>
+        /// <param name="messageType">Typeof message</param>
+        /// <param name="message">Message</param>
+        /// <param name="clientId">Client connection id</param>
         public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId)
         {
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
@@ -25,8 +31,25 @@ namespace GestCTI.Core.Message
                     client.addInitialize(message);
                     return;
                 case MessageType.HeartBeat:
-                    client.Notification(message);
+                    // client.Notification(message);
                     return;
+                case MessageType.CTISetAgentState:
+                    client.logInAgent(message);
+                    return;
+                case MessageType.CTILogOut:
+                    client.logOutCore(message);
+                    return;
+                case MessageType.CTIGetAgentInfo:
+                    client.getAgentInfo(message);
+                    return;
+                case MessageType.LoginAuxWork:
+                    client.getLoginAuxWork(message);
+                    client.Notification("AM_LOG_IN_AUX_WORK_SUCCESS");
+                    break;
+                case MessageType.AM_READY:
+                    client.getAmReady(message);
+                    client.Notification("READY_TO_WORK_SUCCESS");
+                    break;
             }
         }
     }

@@ -23,12 +23,6 @@
                 timeout: 2000
             });
     }
-    // Function to get response for Initialize
-    agent.client.addInitialize = function (response) {
-        // Accept device
-        console.log("No implemented yet", response);
-    };
-
     agent.client.addCTIMakeCallRequest = function (response) {
         // get response
         console.log("No implemented yet", response);
@@ -50,64 +44,50 @@
         console.log("No implemented yet", response);
     };
 
-    agent.client.addCTIRetrieveConnectionRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
+    // Logout from web app
+    agent.client.logOutCore = function (response) {
+        json = JSON.parse(response);
+        if (json['success'] === true) {
+            $('#LogOutForm').submit();
+        } else {
+            // Notificar error
+        }
+    }
 
-    agent.client.addCTIClearConnectionRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
+    /*agent.client.getLoginAuxWork = function (response) {
+        json = JSON.parse(response);
+        if (json['success'] === true) {
+            console.log("LOGIN AUX WORK SUCESS");
+        } else {
+            console.error("FAILLOGIN AUX WORK");
+        }
+    }*/
 
-    agent.client.addCTIClearCallRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTISingleStepConferenceRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTISingleStepConferenceRequestV2 = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIConferenceRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTITransferRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIWhisperRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIListenHoldAllRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIListenRetrieveAllRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
+    agent.client.getAmReady = function (response) {
+        json = JSON.parse(response);
+        if (json['success'] === true) {
+            console.log("SET STATE AM READY SUCESS");
+        } else {
+            console.error("FAIL SET STATE AM READY ")
+        }
+    }
 
     // Start the connection.
     $.connection.hub.start().done(function () {
-        $('#sendmessage').click(function () {
-            // Call the Send method on the hub.
-            agent.server.send($('#displayname').val(), $('#message').val());
-            // Clear text box and reset focus for next comment.
-            $('#message').val('').focus();
+        var deviceId = localStorage.getItem('deviceId');
+        /*if (deviceId !== undefined && deviceId !== "") {
+            // Put the Agent to login aux_work
+            agent.server.sendStateLoginAuxWork(deviceId);
+        }*/
+
+        $('#ReadyToWork').click(function () {
+            // Put de agent to AM_READY and MANUAL_IN
+            agent.server.sendStateReadyManual(deviceId);
+        });
+
+        $('#LogOutCore').click(function () {
+            var deviceId = localStorage.getItem('deviceId');
+            agent.server.sendLogOutCore(deviceId);
         });
 
         // Send CTIMakeCallRequest

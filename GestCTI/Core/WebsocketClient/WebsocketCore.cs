@@ -5,20 +5,16 @@ using System.Net.WebSockets;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web;
-using System.Web.Script.Serialization;
 using GestCTI.Core.Enum;
 using GestCTI.Core.Message;
-using GestCTI.Hubs;
 using GestCTI.Util;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
 using Newtonsoft.Json.Linq;
 
 namespace GestCTI.Core.WebsocketClient
 {
     public class WebsocketCore
     {
+        private CtiUser CtiUser;
         private const int sendChunkSize = 256;
 
         private const int receiveChunkSize = 256;
@@ -32,13 +28,13 @@ namespace GestCTI.Core.WebsocketClient
         /// Structure to tracker a message
         /// </summary>
         private Dictionary<Guid, MessageType> InvokeId = new Dictionary<Guid, MessageType>();
-        private String clientSessionId;
-        public WebsocketCore(String Client)
+        public WebsocketCore(CtiUser ctiUser)
         {
             _ws = new ClientWebSocket();
             // Connect("ws://199.47.69.35:9102");
-            Connect("ws://localhost:8000");
-            clientSessionId = Client;
+            // Connect("ws://localhost:8000");
+            CtiUser = ctiUser;
+            Connect(ctiUser.WebsocketUrl);
         }
 
         /// <summary>
@@ -197,18 +193,22 @@ namespace GestCTI.Core.WebsocketClient
         private void OnMessage(String message)
         {
             // Getting message type
-            MessageType messageType = MessageType.HeartBeat;
+            MessageType messageType = MessageType.UNDEFINED;
             Guid guid;
             try
             {
                 JObject json = JObject.Parse(message);
                 JToken token;
                 json.TryGetValue("invokedId", out token);
-                String guidString = token.ToString();
-                guid = new Guid(guidString);
+                guid = new Guid(token.ToString());
                 if (guid != null)
                     InvokeId.TryGetValue(guid, out messageType);
-                MessageFactory.WebsocksCoreFactory(messageType, message, clientSessionId);
+                if (messageType != MessageType.UNDEFINED) {
+                    MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId);
+                } else
+                {
+                    //Handle event
+                }
             }
             catch (Exception)
             {

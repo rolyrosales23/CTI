@@ -10,6 +10,12 @@ namespace GestCTI.Core.Enum
         CallIn,
         Initialize,
         CTIMakeCallRequest,
-        HeartBeat
+        HeartBeat,
+        CTISetAgentState,
+        UNDEFINED,
+        CTILogOut,
+        CTIGetAgentInfo,
+        LoginAuxWork, // Change state of agent AM_LOG_IN with AUX_MODE
+        AM_READY
     }
 }
