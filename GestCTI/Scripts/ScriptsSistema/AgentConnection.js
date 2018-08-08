@@ -72,6 +72,74 @@
         }
     }
 
+    agent.client.receiveEventHandler = function (response) {
+        json = JSON.parse(response);
+        var eventName = json.request.request;
+        var eventArgs = json.request.args;
+
+        switch (eventName) {
+            case 'onServiceInitiated':
+            break;
+
+            case 'onCallOriginated':
+            break;
+
+            case 'onCallDelivered':
+                localStorage.setItem('ucid', eventArgs[0]);
+                $('#acceptCallRequest').removeAttr('disabled');
+                notify('info', "LLamada Entrante!!");
+            break;
+
+            case 'onCallDiverted':
+            break;
+
+            case 'onCallFailed':
+            break;
+
+            case 'onEstablishedConnection':
+            break;
+
+            case 'onHoldConnection':
+            break;
+
+            case 'onHoldPartyConnection':
+            break;
+
+            case 'onRetrieveConnection':
+            break;
+
+            case 'onRetrievePartyConnection':
+            break;
+
+            case 'onEndConnection':
+            break;
+
+            case 'onEndPartyConnection':
+            break;
+
+            case 'onEndCall':
+            break;
+
+            case 'onTransferredCall':
+            break;
+
+            case 'onConferencedCall':
+            break;
+
+            case 'onAgentChangedState':
+            break;
+
+            case 'onRecordingStartedPlaying':
+            break;
+
+            case 'onRecordingEndedPlaying':
+            break;
+
+            case 'onCollectedDigits':
+            break;
+        }
+    }
+
     // Start the connection.
     $.connection.hub.start().done(function () {
         var deviceId = localStorage.getItem('deviceId');
