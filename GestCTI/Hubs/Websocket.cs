@@ -15,9 +15,15 @@ namespace GestCTI.Hubs
     /// </summary>
     public class Websocket : Hub
     {
-        // all core connection
+        /// <summary>
+        /// all core connection
+        /// </summary>
         static readonly ConcurrentDictionary<String, WebsocketCore> socks = new ConcurrentDictionary<string, WebsocketCore>();
+        /// <summary>
+        /// DB Connection
+        /// </summary>
         private static readonly DBCTIEntities db = new DBCTIEntities();
+        
         /// <summary>
         /// Log in an user in core app
         /// </summary>
@@ -37,7 +43,7 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
-        /// Set the first mode of agent
+        /// Set the first mode of agent LOG_IN AUX_WORK
         /// </summary>
         /// <param name="deviceId">Device id</param>
         /// <returns>void</returns>
@@ -47,6 +53,11 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.LoginAuxWork, I18n);
         }
 
+        /// <summary>
+        /// Change agent to state READY
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
         public async Task sendStateReadyManual(String deviceId) {
             var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_READY, (int) WorkMode.WM_MANUAL, 0);
             String I18n = "AGENT_AM_READY";
@@ -153,6 +164,7 @@ namespace GestCTI.Hubs
             bool answ = socks.TryGetValue(Context.ConnectionId, out core);
             if (!answ)
             {
+                //Getting user from databse
                 var User = db.Users.Where(p => p.Username == nameUser).FirstOrDefault();
                 if (User == null)
                 {
@@ -162,7 +174,8 @@ namespace GestCTI.Hubs
                 cti_User.WebsocketUrl = User.Company1.Switch.WebSocketIP;
                 cti_User.HttpUrl = User.Company1.Switch.ApiServerIP;
                 cti_User.ConnectionId = Context.ConnectionId;
-
+                
+                //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
 
                 socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
@@ -187,7 +200,7 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
-        /// On disconect with  Web App
+        /// On disconect with Web App
         /// </summary>
         /// <param name="stopCalled"></param>
         /// <returns></returns>

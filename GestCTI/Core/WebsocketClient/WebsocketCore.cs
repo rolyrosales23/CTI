@@ -200,8 +200,7 @@ namespace GestCTI.Core.WebsocketClient
                 JObject json = JObject.Parse(message);
                 JToken token;
                 json.TryGetValue("invokedId", out token);
-                String guidString = token.ToString();
-                guid = new Guid(guidString);
+                guid = new Guid(token.ToString());
                 if (guid != null)
                     InvokeId.TryGetValue(guid, out messageType);
                 if (messageType != MessageType.UNDEFINED) {

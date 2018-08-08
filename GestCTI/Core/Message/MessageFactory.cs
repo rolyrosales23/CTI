@@ -10,6 +10,12 @@ namespace GestCTI.Core.Message
 {
     public static class MessageFactory
     {
+        /// <summary>
+        /// Factory of message
+        /// </summary>
+        /// <param name="messageType">Typeof message</param>
+        /// <param name="message">Message</param>
+        /// <param name="clientId">Client connection id</param>
         public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId)
         {
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
