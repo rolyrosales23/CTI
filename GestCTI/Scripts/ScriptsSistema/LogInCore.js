@@ -11,36 +11,37 @@
                 console.error("Not phone specify");
                 spinnerHide();
             } else {
-                agent.server.sendInitialize(phone);
+                agent.server.sendInitialize(phone, user);
             }
         } else {
             if (phone !== "") {
                 // Check in if loggued
                 agent.server.sendCTIGetAgentInfo(user);
+            } else {
+                console.error("Error");
+                // stop spinner and send message error
+                spinnerHide();
             }
-            // stop spinner and send message error
-            console.error("Error");
-            spinnerHide();
         }
     }
 
     agent.client.getAgentInfo = function (message) {
         json = JSON.parse(message);
+        var user = $("#LoginUsername").val();
         var phone = $("#LoginPhoneExtension").val();
         var tmp = json['result'];
         var tmp2 = JSON.parse(tmp);
         var deviceId = tmp2[0].AssociatedDeviceId;
         if (json['success'] === true && phone === deviceId && deviceId !== "") {
-            // Save deviceId
-            localStorage.setItem('deviceId', phone);
-            $("#LogInForm").submit();
+            agent.server.sendInitialize(phone, user);
         } else if (phone !== deviceId && deviceId !== "") {
             // Show login problem: Loggued with different deviceId
             // Do you want to lockout and sing in 
+            spinnerHide();
         } else {
             // Show error
+            spinnerHide();
         }
-        spinnerHide();
     }
 
     agent.client.addInitialize = function (message) {
@@ -64,8 +65,7 @@
             var phone = $("#LoginPhoneExtension").val();
             if (phone !== null && phone !== undefined && phone !== "") {
                 agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
-            } else
-            {
+            } else {
                 $("#LogInForm").submit();
                 spinnerHide();
             }

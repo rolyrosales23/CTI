@@ -52,7 +52,7 @@ namespace GestCTI.Hubs
         {
             var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_LOG_IN, (int)WorkMode.WM_WORK, 0);
             String I18n = "AGENT_LOGIN_AUX_MODE";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.LoginAuxWork, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.LoginAuxWork, I18n, Context.User.Identity.Name);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace GestCTI.Hubs
         {
             var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_READY, (int)WorkMode.WM_MANUAL, 0);
             String I18n = "AGENT_AM_READY";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.AM_READY, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.AM_READY, I18n, Context.User.Identity.Name);
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace GestCTI.Hubs
         {
             var toSend = AgentHandling.CTIGetAgentInfo(agentId);
             String I18n = "COMMAND_GET_AGENT_STATE";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIGetAgentInfo, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIGetAgentInfo, I18n, agentId);
         }
 
         /// <summary>
@@ -93,14 +93,21 @@ namespace GestCTI.Hubs
         {
             var toSend = AgentHandling.CTISetAgentState(deviceId, agentId, password, agentMode, workMode, reason);
             String I18n = "COMMAND_LOG_IN";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTISetAgentState, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTISetAgentState, I18n, agentId);
         }
 
-        public async Task CTIAnswerCallRequest(String ucid, String deviceId)
+        public async Task sendCTIAnswerCallRequest(String ucid, String deviceId)
         {
             var toSend = CallHandling.CTIAnswerCallRequest(ucid, deviceId);
             String I18n = "COMMAND_ANSWER_CALL";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIAnswerCallRequest, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIAnswerCallRequest, I18n, Context.User.Identity.Name);
+        }
+
+        public async Task sendCTIClearConnectionRequest(String ucid, String deviceId)
+        {
+            var toSend = CallHandling.CTIClearConnectionRequest(ucid, deviceId);
+            String I18n = "COMMAND_CLEAR_CONNECTION";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIClearConnectionRequest, I18n, Context.User.Identity.Name);
         }
 
         /// <summary>
@@ -112,7 +119,21 @@ namespace GestCTI.Hubs
         {
             var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_LOG_OUT, 0, 0);
             String I18n = "COMMAND_LOG_OUT";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n, Context.User.Identity.Name);
+        }
+
+        /// <summary>
+        /// If accept logout
+        /// </summary>
+        private void acceptLogout() {
+            WebsocketCore core = null;
+            if (socks.TryGetValue(Context.User.Identity.Name, out core) && !core.attendRequest) {
+                socks.TryRemove(Context.User.Identity.Name, out core);
+                if (core != null)
+                {
+                    core.Disconnect();
+                }
+            }
         }
 
         /// <summary>
@@ -120,11 +141,11 @@ namespace GestCTI.Hubs
         /// </summary>
         /// <param name="deviceId">Device id to initialize</param>
         /// <returns>void</returns>
-        public async Task sendInitialize(String deviceId)
+        public async Task sendInitialize(String deviceId, String user)
         {
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n, user);
         }
 
         /// <summary>
@@ -135,10 +156,10 @@ namespace GestCTI.Hubs
         /// <param name="messageType">Typeof message</param>
         /// <param name="I18n">Internationalization</param>
         /// <returns>void</returns>
-        private async Task genericSender(Guid guid, String message, MessageType messageType, String I18n)
+        private async Task genericSender(Guid guid, String message, MessageType messageType, String I18n, String User)
         {
             WebsocketCore ws = null;
-            if (socks.TryGetValue(Context.ConnectionId, out ws))
+            if (socks.TryGetValue(User, out ws))
             {
                 if (await ws.Send(guid, message, messageType))
                 {
@@ -171,7 +192,7 @@ namespace GestCTI.Hubs
         private bool baseConnectWebsocket(String nameUser)
         {
             WebsocketCore core;
-            bool answ = socks.TryGetValue(Context.ConnectionId, out core);
+            bool answ = socks.TryGetValue(nameUser, out core);
             if (!answ)
             {
                 //Getting user from databse
@@ -188,8 +209,11 @@ namespace GestCTI.Hubs
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
 
-                socks.AddOrUpdate(Context.ConnectionId, ws, (key, oldValue) => ws);
+                socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
                 Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
+            } else
+            {
+                core.setConnectionId(Context.ConnectionId);
             }
 
             return true;
@@ -216,12 +240,7 @@ namespace GestCTI.Hubs
         /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
-            WebsocketCore core = null;
-            socks.TryRemove(Context.ConnectionId, out core);
-            if (core != null)
-            {
-                core.Disconnect();
-            }
+            acceptLogout();
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
         }
