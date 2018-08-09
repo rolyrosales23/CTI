@@ -33,17 +33,15 @@
         var tmp2 = JSON.parse(tmp);
         var deviceId = tmp2[0].AssociatedDeviceId;
         if (json['success'] === true && phone === deviceId && deviceId !== "") {
-            // Save deviceId
-            // localStorage.setItem('deviceId', phone);
             agent.server.sendInitialize(phone, user);
-            // $("#LogInForm").submit();
         } else if (phone !== deviceId && deviceId !== "") {
             // Show login problem: Loggued with different deviceId
             // Do you want to lockout and sing in 
+            spinnerHide();
         } else {
             // Show error
+            spinnerHide();
         }
-        spinnerHide();
     }
 
     agent.client.addInitialize = function (message) {
@@ -52,9 +50,7 @@
             console.log("Login Core sucess");
             // Save deviceId
             localStorage.setItem('deviceId', $("#LoginPhoneExtension").val());
-            //$.connection.hub.stop().done(function () {
             $("#LogInForm").submit();
-            //});
         } else {
             // send message error
             console.error("Error");

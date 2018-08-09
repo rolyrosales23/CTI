@@ -28,22 +28,11 @@
     agent.client.logOutCore = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-            // $.connection.hub.stop().done(function () {
             $('#LogOutForm').submit();
-            //});
         } else {
             // Notificar error
         }
     }
-
-    /*agent.client.getLoginAuxWork = function (response) {
-        json = JSON.parse(response);
-        if (json['success'] === true) {
-            console.log("LOGIN AUX WORK SUCESS");
-        } else {
-            console.error("FAILLOGIN AUX WORK");
-        }
-    }*/
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -73,7 +62,7 @@
             case 'onCallDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
-                notify('info', "LLamada Entrante!!");
+                notify("LLamada Entrante!!", 'info');
                 break;
 
             case 'onCallDiverted':
@@ -83,6 +72,8 @@
                 break;
 
             case 'onEstablishedConnection':
+                $("#hangoutCallRequest").removeAttr("disabled");
+                $("#acceptCallRequest").attr("disabled", "disabled");
                 break;
 
             case 'onHoldConnection':
@@ -104,6 +95,8 @@
                 break;
 
             case 'onEndCall':
+                $("#hangoutCallRequest").attr("disabled", "disabled");                
+                $("#ReadyToWork").removeAttr("disabled");
                 break;
 
             case 'onTransferredCall':
@@ -113,6 +106,7 @@
                 break;
 
             case 'onAgentChangedState':
+                console.log(response);
                 break;
 
             case 'onRecordingStartedPlaying':
@@ -137,6 +131,7 @@
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
+            $("#ReadyToWork").attr("disabled", "disabled");
             agent.server.sendStateReadyManual(deviceId);
         });
 
@@ -153,9 +148,18 @@
 
         $("#acceptCallRequest").click(function () {
             var ucid = localStorage.getItem('ucid');
-            if (ucid === undefined && ucid !== "") {
-                agent.server.CTIAnswerCallRequest(ucid, deviceId);
-                localStorage.removeItem('ucid');
+            if (ucid !== undefined && ucid !== "") {                
+                agent.server.sendCTIAnswerCallRequest(ucid, deviceId);
+                //localStorage.removeItem('ucid');
+            } else {
+                console.error("Call id request (ucid) not specify");
+            }
+        });
+
+        $("#hangoutCallRequest").click(function () {
+            var ucid = localStorage.getItem('ucid');
+            if (ucid !== undefined && ucid !== "") {
+                agent.server.sendCTIClearConnectionRequest(ucid, deviceId);
             } else {
                 console.error("Call id request (ucid) not specify");
             }

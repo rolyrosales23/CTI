@@ -96,11 +96,18 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTISetAgentState, I18n, agentId);
         }
 
-        public async Task CTIAnswerCallRequest(String ucid, String deviceId)
+        public async Task sendCTIAnswerCallRequest(String ucid, String deviceId)
         {
             var toSend = CallHandling.CTIAnswerCallRequest(ucid, deviceId);
             String I18n = "COMMAND_ANSWER_CALL";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIAnswerCallRequest, I18n, Context.User.Identity.Name);
+        }
+
+        public async Task sendCTIClearConnectionRequest(String ucid, String deviceId)
+        {
+            var toSend = CallHandling.CTIClearConnectionRequest(ucid, deviceId);
+            String I18n = "COMMAND_CLEAR_CONNECTION";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIClearConnectionRequest, I18n, Context.User.Identity.Name);
         }
 
         /// <summary>

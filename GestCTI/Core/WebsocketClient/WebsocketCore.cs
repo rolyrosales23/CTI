@@ -216,12 +216,16 @@ namespace GestCTI.Core.WebsocketClient
                     if (!InvokeId.TryGetValue(guid, out messageType))
                     {
                         messageType = MessageType.UNDEFINED;
-                        //Handle event
-                        MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId, this);
-                    } else
-                    {
-                        MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId, this);
                     }
+                }
+                if (messageType != MessageType.UNDEFINED)
+                {
+                    MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId, this);
+                }
+                else
+                {
+                    //Handle event
+                    MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId, this);
                 }
             }
             catch (Exception)

@@ -58,6 +58,8 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIAnswerCallRequest:
                     client.receiveAcceptCallRequest(message);
                     break;
+                case MessageType.CTIClearConnectionRequest:
+                    break;
             }
         }
     }
