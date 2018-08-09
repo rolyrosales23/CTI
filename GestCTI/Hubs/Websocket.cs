@@ -122,6 +122,12 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n, Context.User.Identity.Name);
         }
 
+        public async Task sendCTIMakeCallRequest(String fromDevice, String toDevice, String callerId){
+            var toSend = CallHandling.CTIMakeCallRequest(fromDevice, toDevice, callerId);
+            String I18n = "COMMAND_MAKE_CALL_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIMakeCallRequest, I18n, Context.User.Identity.Name);
+        }
+
         /// <summary>
         /// If accept logout
         /// </summary>

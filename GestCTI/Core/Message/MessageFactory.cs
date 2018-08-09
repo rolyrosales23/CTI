@@ -27,6 +27,7 @@ namespace GestCTI.Core.Message
                 case MessageType.CallIn:
                     return;
                 case MessageType.CTIMakeCallRequest:
+                    client.addCTIMakeCallRequest(message);
                     return;
                 case MessageType.Initialize:
                     client.addInitialize(message);
