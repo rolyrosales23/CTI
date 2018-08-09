@@ -11,10 +11,12 @@ namespace GestCTI.Core.Enum
         AM_LOG_OUT,
         AM_NOT_READY,
         AM_READY,
-        AM_WORK_NOT_READY
+        AM_WORK_NOT_READY,
+        AM_WORK_READY
     }
 
     public enum WorkMode{
+        WM_NONE = -1,
         WM_WORK = 1,
         WM_AFTER_CALL,
         WM_AUTO_IN,
@@ -27,5 +29,10 @@ namespace GestCTI.Core.Enum
         AS_READY,
         AS_AFTER_CALL,
         AS_WORK_READY
+    }
+
+    public enum TalkState{
+        TS_ON_CALL,
+        TS_IDLE
     }
 }

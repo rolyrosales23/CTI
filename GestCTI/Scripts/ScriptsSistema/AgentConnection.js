@@ -1,4 +1,13 @@
-﻿$(function () {
+﻿var AgentState = {
+    AS_NOT_READY:  0,
+    AS_LOGGED_OUT: 1,
+    AS_READY:      2,
+    AS_AFTER_CALL: 3,
+    AS_WORK_READY: 4
+};
+
+
+$(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
     // Function to get response for CallIn
@@ -8,41 +17,8 @@
     };
 
     agent.client.Notification = function (response) {
-        noty(
-            {
-                text: response,
-                layout: 'topRight',
-                type: 'success',
-                maxVisible: 5,
-                animation: {
-                    open: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceInLeft'
-                    close: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceOutLeft'
-                    easing: 'swing',
-                    speed: 500 // opening & closing animation speed
-                },
-                timeout: 2000
-            });
+        notySuccess(response);
     }
-    agent.client.addCTIMakeCallRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    // Answer a call request
-    agent.client.addCTIAnswerCallRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIRetrieveConnectionRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIHoldConnectionRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
 
     // Logout from web app
     agent.client.logOutCore = function (response) {
@@ -54,15 +30,6 @@
         }
     }
 
-    /*agent.client.getLoginAuxWork = function (response) {
-        json = JSON.parse(response);
-        if (json['success'] === true) {
-            console.log("LOGIN AUX WORK SUCESS");
-        } else {
-            console.error("FAILLOGIN AUX WORK");
-        }
-    }*/
-
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
@@ -71,6 +38,103 @@
             console.error("FAIL SET STATE AM READY ")
         }
     }
+
+    agent.client.receiveAcceptCallRequest = function (response) {
+        // Do nothing or check is fail call request 
+    }
+
+    agent.client.onEventHandler = function (response) {
+        json = JSON.parse(response);
+        var eventName = json.request.request;
+        var eventArgs = json.request.args;
+
+        switch (eventName) {
+            case 'onServiceInitiated':
+                break;
+
+            case 'onCallOriginated':
+                break;
+
+            case 'onCallDelivered':
+                localStorage.setItem('ucid', eventArgs[0]);
+                $('#acceptCallRequest').removeAttr('disabled');
+                notyInfo("LLamada Entrante!!");
+                break;
+
+            case 'onCallDiverted':
+                break;
+
+            case 'onCallFailed':
+                break;
+
+            case 'onEstablishedConnection':
+                $("#hangoutCallRequest").removeAttr("disabled");
+                $("#acceptCallRequest").attr("disabled", "disabled");
+                break;
+
+            case 'onHoldConnection':
+                break;
+
+            case 'onHoldPartyConnection':
+                break;
+
+            case 'onRetrieveConnection':
+                break;
+
+            case 'onRetrievePartyConnection':
+                break;
+
+            case 'onEndConnection':
+                break;
+
+            case 'onEndPartyConnection':
+                break;
+
+            case 'onEndCall':
+                $("#hangoutCallRequest").attr("disabled", "disabled");
+                $("#ReadyToWork").removeAttr("disabled");
+                $("#inputPhone").removeAttr("disabled");
+                $("#doCallBtn").removeAttr("disabled");
+                break;
+
+            case 'onTransferredCall':
+                break;
+
+            case 'onConferencedCall':
+                break;
+
+            case 'onAgentChangedState': {
+                var agentState = eventArgs[1];
+                switch (agentState) {
+                    case AgentState.AS_READY:
+                        $("#ReadyToWork").attr("disabled", "disabled");
+                        break;
+                }
+                break;
+            }
+
+            case 'onRecordingStartedPlaying':
+                break;
+
+            case 'onRecordingEndedPlaying':
+                break;
+
+            case 'onCollectedDigits':
+                break;
+        }
+    }
+
+    agent.client.addCTIMakeCallRequest = function (response) {
+        json = JSON.parse(response);
+        if (json['success'] === true) {
+            $('#inputPhone').attr('disabled', 'disabled');
+            $('#doCallBtn').attr('disabled', 'disabled');
+            console.log("MAKE CALL SUCCESS");
+        } else {
+            console.error("FAIL SET STATE AM READY ")
+        }
+    }
+
 
     // Start the connection.
     $.connection.hub.start().done(function () {
@@ -90,15 +154,40 @@
             agent.server.sendLogOutCore(deviceId);
         });
 
-        // Send CTIMakeCallRequest
-        $('#sendCTIMakeCallRequest').click(function () {
-            // agent.server.sendCTIMakeCallRequest(string fromDevice, string toDevice, string callerId)
-        });
-
         // Send initialize device
         $('#sendInitialize').click(function () {
             console.log("Sending initialize");
             agent.server.sendInitialize("8006"  /*string deviceId*/);
+        });
+
+        $("#acceptCallRequest").click(function () {
+            var ucid = localStorage.getItem('ucid');
+            if (ucid !== undefined && ucid !== "") {                
+                agent.server.sendCTIAnswerCallRequest(ucid, deviceId);
+                //localStorage.removeItem('ucid');
+            } else {
+                console.error("Call id request (ucid) not specify");
+            }
+        });
+
+        $("#hangoutCallRequest").click(function () {
+            var ucid = localStorage.getItem('ucid');
+            if (ucid !== undefined && ucid !== "") {
+                agent.server.sendCTIClearConnectionRequest(ucid, deviceId);
+            } else {
+                console.error("Call id request (ucid) not specify");
+            }
+        });
+
+        $("#doCallBtn").click(function () {
+            var toDevice = $('#inputPhone').val();
+            if (deviceId !== undefined && deviceId !== "" && toDevice !== undefined && toDevice !== "") {
+                agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
+            }
+            else {
+                console.error("Call id request (fromDevice or toDevice) not specify");
+            }
+
         });
 
         $('#sendCTIAnswerCallRequest').click(function () {

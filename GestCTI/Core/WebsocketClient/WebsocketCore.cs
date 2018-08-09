@@ -28,15 +28,21 @@ namespace GestCTI.Core.WebsocketClient
         /// Structure to tracker a message
         /// </summary>
         private Dictionary<Guid, MessageType> InvokeId = new Dictionary<Guid, MessageType>();
+        /// <summary>
+        /// If websocket attend request
+        /// </summary>
+        public bool attendRequest { get;  set; }
         public WebsocketCore(CtiUser ctiUser)
         {
             _ws = new ClientWebSocket();
-            // Connect("ws://199.47.69.35:9102");
-            // Connect("ws://localhost:8000");
             CtiUser = ctiUser;
+            attendRequest = true;
             Connect(ctiUser.WebsocketUrl);
         }
 
+        public void setConnectionId(String connection) {
+            CtiUser.ConnectionId = connection;
+        }
         /// <summary>
         /// Connect to Websocket core 
         /// </summary>
@@ -192,6 +198,10 @@ namespace GestCTI.Core.WebsocketClient
         /// <param name="message">Message from websocket core</param>
         private void OnMessage(String message)
         {
+            if (!attendRequest)
+            {
+                return;
+            }
             // Getting message type
             MessageType messageType = MessageType.UNDEFINED;
             Guid guid;
@@ -202,12 +212,20 @@ namespace GestCTI.Core.WebsocketClient
                 json.TryGetValue("invokedId", out token);
                 guid = new Guid(token.ToString());
                 if (guid != null)
-                    InvokeId.TryGetValue(guid, out messageType);
-                if (messageType != MessageType.UNDEFINED) {
-                    MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId);
-                } else
+                {
+                    if (!InvokeId.TryGetValue(guid, out messageType))
+                    {
+                        messageType = MessageType.UNDEFINED;
+                    }
+                }
+                if (messageType != MessageType.UNDEFINED)
+                {
+                    MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId, this);
+                }
+                else
                 {
                     //Handle event
+                    MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId, this);
                 }
             }
             catch (Exception)

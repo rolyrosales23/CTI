@@ -1,4 +1,5 @@
 ﻿using GestCTI.Core.Enum;
+using GestCTI.Core.WebsocketClient;
 using GestCTI.Hubs;
 using Microsoft.AspNet.SignalR;
 using System;
@@ -16,7 +17,7 @@ namespace GestCTI.Core.Message
         /// <param name="messageType">Typeof message</param>
         /// <param name="message">Message</param>
         /// <param name="clientId">Client connection id</param>
-        public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId)
+        public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId, WebsocketCore core)
         {
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
             var client = hubContext.Clients.Client(clientId);
@@ -26,6 +27,7 @@ namespace GestCTI.Core.Message
                 case MessageType.CallIn:
                     return;
                 case MessageType.CTIMakeCallRequest:
+                    client.addCTIMakeCallRequest(message);
                     return;
                 case MessageType.Initialize:
                     client.addInitialize(message);
@@ -37,6 +39,7 @@ namespace GestCTI.Core.Message
                     client.logInAgent(message);
                     return;
                 case MessageType.CTILogOut:
+                    core.attendRequest = false;
                     client.logOutCore(message);
                     return;
                 case MessageType.CTIGetAgentInfo:
@@ -49,6 +52,14 @@ namespace GestCTI.Core.Message
                 case MessageType.AM_READY:
                     client.getAmReady(message);
                     client.Notification("READY_TO_WORK_SUCCESS");
+                    break;
+                case MessageType.ON_EVENT:
+                    client.onEventHandler(message);
+                    break;
+                case MessageType.CTIAnswerCallRequest:
+                    client.receiveAcceptCallRequest(message);
+                    break;
+                case MessageType.CTIClearConnectionRequest:
                     break;
             }
         }
