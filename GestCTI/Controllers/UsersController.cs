@@ -8,9 +8,11 @@ using System.Web;
 using System.Web.Mvc;
 using GestCTI.Models;
 using GestCTI.Util;
+using GestCTI.Controllers.Auth;
 
 namespace GestCTI.Controllers
 {
+    [CustomAuthorize(Roles = "admin")]
     public class UsersController : Controller
     {
         private DBCTIEntities db = new DBCTIEntities();
@@ -101,8 +103,8 @@ namespace GestCTI.Controllers
             return View(users);
         }
 
-        // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+    // GET: Users/Delete/5
+    public ActionResult Delete(int? id)
         {
             if (id == null)
             {

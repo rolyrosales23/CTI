@@ -1970,7 +1970,7 @@
     <Content Include="Views\CampaignTypes\Details.cshtml" />
     <Content Include="Views\CampaignTypes\Edit.cshtml" />
     <Content Include="Views\CampaignTypes\Index.cshtml" />
-    <Content Include="Views\Account\Notifications.cshtml" />
+    <Content Include="Views\Shared\Notifications.cshtml" />
     <Content Include="Views\Shared\Spinner.cshtml" />
   </ItemGroup>
   <ItemGroup />
