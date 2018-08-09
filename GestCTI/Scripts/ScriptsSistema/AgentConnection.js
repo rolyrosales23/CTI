@@ -23,32 +23,14 @@
                 timeout: 2000
             });
     }
-    agent.client.addCTIMakeCallRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    // Answer a call request
-    agent.client.addCTIAnswerCallRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIRetrieveConnectionRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
-
-    agent.client.addCTIHoldConnectionRequest = function (response) {
-        // get response
-        console.log("No implemented yet", response);
-    };
 
     // Logout from web app
     agent.client.logOutCore = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
+            // $.connection.hub.stop().done(function () {
             $('#LogOutForm').submit();
+            //});
         } else {
             // Notificar error
         }
@@ -72,73 +54,78 @@
         }
     }
 
-    agent.client.receiveEventHandler = function (response) {
+    agent.client.receiveAcceptCallRequest = function (response) {
+        // Do nothing or check is fail call request 
+    }
+
+    agent.client.onEventHandler = function (response) {
         json = JSON.parse(response);
         var eventName = json.request.request;
         var eventArgs = json.request.args;
 
         switch (eventName) {
             case 'onServiceInitiated':
-            break;
+                break;
 
             case 'onCallOriginated':
-            break;
+                break;
 
             case 'onCallDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
                 notify('info', "LLamada Entrante!!");
-            break;
+                break;
 
             case 'onCallDiverted':
-            break;
+                break;
 
             case 'onCallFailed':
-            break;
+                break;
 
             case 'onEstablishedConnection':
-            break;
+                break;
 
             case 'onHoldConnection':
-            break;
+                break;
 
             case 'onHoldPartyConnection':
-            break;
+                break;
 
             case 'onRetrieveConnection':
-            break;
+                break;
 
             case 'onRetrievePartyConnection':
-            break;
+                break;
 
             case 'onEndConnection':
-            break;
+                break;
 
             case 'onEndPartyConnection':
-            break;
+                break;
 
             case 'onEndCall':
-            break;
+                break;
 
             case 'onTransferredCall':
-            break;
+                break;
 
             case 'onConferencedCall':
-            break;
+                break;
 
             case 'onAgentChangedState':
-            break;
+                break;
 
             case 'onRecordingStartedPlaying':
-            break;
+                break;
 
             case 'onRecordingEndedPlaying':
-            break;
+                break;
 
             case 'onCollectedDigits':
-            break;
+                break;
         }
     }
+
 
     // Start the connection.
     $.connection.hub.start().done(function () {
@@ -156,11 +143,6 @@
         $('#LogOutCore').click(function () {
             var deviceId = localStorage.getItem('deviceId');
             agent.server.sendLogOutCore(deviceId);
-        });
-
-        // Send CTIMakeCallRequest
-        $('#sendCTIMakeCallRequest').click(function () {
-            // agent.server.sendCTIMakeCallRequest(string fromDevice, string toDevice, string callerId)
         });
 
         // Send initialize device
