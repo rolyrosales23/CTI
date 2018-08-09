@@ -87,7 +87,7 @@
             case 'onCallDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
-                notify('info', "LLamada Entrante!!");
+                notyInfo("LLamada Entrante!!");
             break;
 
             case 'onCallDiverted':
