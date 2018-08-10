@@ -17,13 +17,14 @@ $(function () {
     };
 
     agent.client.Notification = function (response) {
-        notySuccess(response);
+        successNoty(response);
     }
 
     // Logout from web app
     agent.client.logOutCore = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
+            // agent.server.stop();
             $('#LogOutForm').submit();
         } else {
             // Notificar error
@@ -58,7 +59,7 @@ $(function () {
             case 'onCallDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
-                notyInfo("LLamada Entrante!!");
+                infoNoty("LLamada Entrante!!");
                 break;
 
             case 'onCallDiverted':

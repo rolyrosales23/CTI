@@ -33,8 +33,12 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task sendLogInAgent(String deviceId, String agentId, String password)
         {
+            acceptLogout(agentId);
             if (baseConnectWebsocket(agentId))
             {
+                WebsocketCore core;
+                socks.TryGetValue(agentId, out core);
+                core.CtiUser.DeviceId = deviceId;
                 await CTISetAgentState(deviceId, agentId, password, (int)AgentMode.AM_LOG_IN, (int)WorkMode.WM_WORK, 0);
             }
             else
@@ -96,6 +100,12 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTISetAgentState, I18n, agentId);
         }
 
+        /// <summary>
+        /// Make a call
+        /// </summary>
+        /// <param name="ucid"></param>
+        /// <param name="deviceId"></param>
+        /// <returns></returns>
         public async Task sendCTIAnswerCallRequest(String ucid, String deviceId)
         {
             var toSend = CallHandling.CTIAnswerCallRequest(ucid, deviceId);
@@ -122,19 +132,17 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n, Context.User.Identity.Name);
         }
 
-        public async Task sendCTIMakeCallRequest(String fromDevice, String toDevice, String callerId){
-            var toSend = CallHandling.CTIMakeCallRequest(fromDevice, toDevice, callerId);
-            String I18n = "COMMAND_MAKE_CALL_REQUEST";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIMakeCallRequest, I18n, Context.User.Identity.Name);
-        }
+
 
         /// <summary>
         /// If accept logout
         /// </summary>
-        private void acceptLogout() {
+        private void acceptLogout(String agentId)
+        {
             WebsocketCore core = null;
-            if (socks.TryGetValue(Context.User.Identity.Name, out core) && !core.attendRequest) {
-                socks.TryRemove(Context.User.Identity.Name, out core);
+            if (socks.TryGetValue(agentId, out core) && !core.attendRequest)
+            {
+                socks.TryRemove(agentId, out core);
                 if (core != null)
                 {
                     core.Disconnect();
@@ -197,7 +205,7 @@ namespace GestCTI.Hubs
         /// <returns>bool</returns>
         private bool baseConnectWebsocket(String nameUser)
         {
-            WebsocketCore core;
+            WebsocketCore core;            
             bool answ = socks.TryGetValue(nameUser, out core);
             if (!answ)
             {
@@ -211,13 +219,15 @@ namespace GestCTI.Hubs
                 cti_User.WebsocketUrl = User.Company1.Switch.WebSocketIP;
                 cti_User.HttpUrl = User.Company1.Switch.ApiServerIP;
                 cti_User.ConnectionId = Context.ConnectionId;
+                cti_User.user_name = nameUser;
 
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
 
                 socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
                 Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
-            } else
+            }
+            else
             {
                 core.setConnectionId(Context.ConnectionId);
             }
@@ -246,7 +256,6 @@ namespace GestCTI.Hubs
         /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
-            acceptLogout();
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
         }
