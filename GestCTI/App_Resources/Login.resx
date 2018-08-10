@@ -171,4 +171,7 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="List" xml:space="preserve">
+    <value>List</value>
+  </data>
 </root>

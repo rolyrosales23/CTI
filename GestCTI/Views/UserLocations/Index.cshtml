@@ -48,7 +48,7 @@
                             <td>
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
-                                @Html.Partial("../Account/Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "UserLocations" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Location + " " + Resources.Admin.With + " Name: " + item.Name + "?" } })
+                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "UserLocations" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Location + " " + Resources.Admin.With + " Name: " + item.Name + "?" } })
                             </td>
                         </tr>
                     }
