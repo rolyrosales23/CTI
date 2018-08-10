@@ -2,6 +2,7 @@
 using GestCTI.Core.WebsocketClient;
 using GestCTI.Hubs;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
