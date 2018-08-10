@@ -41,6 +41,11 @@ $(function () {
     }
 
     agent.client.receiveAcceptCallRequest = function (response) {
+        json = JSON.parse(response);
+        if (json.success === false) {
+            $("#acceptCallRequest").attr("disabled", "disabled");
+            localStorage.removeItem('ucid');
+        }
         // Do nothing or check is fail call request 
     }
 
@@ -95,7 +100,8 @@ $(function () {
                 $("#hangoutCallRequest").attr("disabled", "disabled");
                 $("#ReadyToWork").removeAttr("disabled");
                 $("#inputPhone").removeAttr("disabled");
-                $("#doCallBtn").removeAttr("disabled");
+                // $("#doCallBtn").removeAttr("disabled");
+                $("#inputPhone").val('');
                 break;
 
             case 'onTransferredCall':
@@ -130,6 +136,7 @@ $(function () {
         if (json['success'] === true) {
             $('#inputPhone').attr('disabled', 'disabled');
             $('#doCallBtn').attr('disabled', 'disabled');
+            localStorage.setItem('ucid', json.result.ucid);
             console.log("MAKE CALL SUCCESS");
         } else {
             console.error("FAIL SET STATE AM READY ")
@@ -155,17 +162,10 @@ $(function () {
             agent.server.sendLogOutCore(deviceId);
         });
 
-        // Send initialize device
-        $('#sendInitialize').click(function () {
-            console.log("Sending initialize");
-            agent.server.sendInitialize("8006"  /*string deviceId*/);
-        });
-
         $("#acceptCallRequest").click(function () {
             var ucid = localStorage.getItem('ucid');
             if (ucid !== undefined && ucid !== "") {                
                 agent.server.sendCTIAnswerCallRequest(ucid, deviceId);
-                //localStorage.removeItem('ucid');
             } else {
                 console.error("Call id request (ucid) not specify");
             }
@@ -188,63 +188,6 @@ $(function () {
             else {
                 console.error("Call id request (fromDevice or toDevice) not specify");
             }
-
-        });
-
-        $('#sendCTIAnswerCallRequest').click(function () {
-            // agent.server.sendCTIAnswerCallRequest(string ucid, string fromDeviceId, string toDeviceId);
-        });
-
-        $('#sendCTIRetrieveConnectionRequest').click(function () {
-            // agent.server.sendCTIRetrieveConnectionRequest(string ucid, string deviceId)
-        });
-
-        $('#sendCTIHoldConnectionRequest').click(function () {
-            // agent.server.sendCTIHoldConnectionRequest(string ucid, string deviceId)
-        });
-
-        $('#sendCTIRetrieveConnectionRequest').click(function () {
-            // agent.server.sendCTIRetrieveConnectionRequest(string ucid, string deviceId)
-        });
-
-        $('#sendCTIClearConnectionRequest').click(function () {
-            // agent.server.sendCTIClearConnectionRequest(string ucid, string deviceId)
-        });
-
-        $('#sendCTIClearCallRequest').click(function () {
-            // agent.server.sendCTIClearCallRequest(string ucid)
-        });
-
-        $('#sendCTISingleStepConferenceRequest').click(function () {
-            // agent.server.sendCTISingleStepConferenceRequest(string ucid, string deviceId)
-        });
-
-        $('#sendCTISingleStepConferenceRequestV2').click(function () {
-            // agent.server.sendCTISingleStepConferenceRequestV2(string ucid, string deviceId)
-        });
-
-        $('#sendCTIConferenceRequest').click(function () {
-            // agent.server.sendCTIConferenceRequest(string heldUcid, string activeUcid, string deviceId)
-        });
-
-        $('#sendCTISingleStepTransferRequest').click(function () {
-            // agent.server.sendCTISingleStepTransferRequest(string ucid, string transferringDeviceId, string deviceId)
-        });
-
-        $('#sendCTITransferRequest').click(function () {
-            // agent.server.sendCTITransferRequest(string heldUcid, string activeUcid, string deviceId)
-        });
-
-        $('#sendCTIWhisperRequest').click(function () {
-            // agent.server.sendCTIWhisperRequest(string deviceId, string ucid, string selectedParty)
-        });
-
-        $('#sendCTIListenHoldAllRequest').click(function () {
-            // agent.server.sendCTIListenHoldAllRequest(string deviceId, string ucid)
-        });
-
-        $('#sendCTIListenRetrieveAllRequest').click(function () {
-            // agent.server.sendCTIListenRetrieveAllRequest(string deviceId, string ucid)
         });
     });
 });

@@ -101,7 +101,7 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
-        /// Make a call
+        /// Accept a call
         /// </summary>
         /// <param name="ucid"></param>
         /// <param name="deviceId"></param>
@@ -132,7 +132,18 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTILogOut, I18n, Context.User.Identity.Name);
         }
 
-
+        /// <summary>
+        /// Make a call
+        /// </summary>
+        /// <param name="fromDevice">this deviceId</param>
+        /// <param name="toDevice">To another Device</param>
+        /// <param name="callerId">Identifier of this call</param>
+        /// <returns>void</returns>
+        public async Task sendCTIMakeCallRequest(String fromDevice, String toDevice, String callerId){
+            var toSend = CallHandling.CTIMakeCallRequest(fromDevice, toDevice, callerId);
+            String I18n = "COMMAND_MAKE_CALL_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIMakeCallRequest, I18n, Context.User.Identity.Name);
+        }
 
         /// <summary>
         /// If accept logout
