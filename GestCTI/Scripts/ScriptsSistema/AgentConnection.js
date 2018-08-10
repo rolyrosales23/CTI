@@ -17,7 +17,7 @@ $(function () {
     };
 
     agent.client.Notification = function (response) {
-        notySuccess(response);
+        successNoty(response);
     }
 
     // Logout from web app
@@ -58,7 +58,7 @@ $(function () {
             case 'onCallDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
-                notyInfo("LLamada Entrante!!");
+                infoNoty("LLamada Entrante!!");
                 break;
 
             case 'onCallDiverted':
