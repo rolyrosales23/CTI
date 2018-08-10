@@ -50,6 +50,7 @@
             console.log("Login Core sucess");
             // Save deviceId
             localStorage.setItem('deviceId', $("#LoginPhoneExtension").val());
+            // agent.server.stop();
             $("#LogInForm").submit();
         } else {
             // send message error

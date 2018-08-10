@@ -407,7 +407,22 @@
         }
     </script>
 
+    <!-- RESALTAR EL ELEMENTO CORRESPONDIENTE DEL MAIN MENU -->
+    <script type="text/javascript">
+        var controller = "@ViewContext.RouteData.Values["controller"].ToString().ToLower()";
+        var action = "@ViewContext.RouteData.Values["action"].ToString().ToLower()";
 
+        var element = $('li[action="' + action + '"][controller="' + controller + '"]');
+        while (element.length) {
+            if (element[0].localName == 'li')
+                element.addClass('active');
+
+            if (element.attr('x-navigation'))
+                break;
+
+            element = element.parent();
+        }
+    </script>
 
     <!-- END TEMPLATE -->
     @RenderSection("scripts", required: false)

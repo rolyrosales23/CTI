@@ -14,7 +14,7 @@ namespace GestCTI.Core.WebsocketClient
 {
     public class WebsocketCore
     {
-        private CtiUser CtiUser;
+        public CtiUser CtiUser;
         private const int sendChunkSize = 256;
 
         private const int receiveChunkSize = 256;
