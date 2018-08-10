@@ -7,9 +7,22 @@ using GestCTI.Util;
 using System.Collections.Concurrent;
 using GestCTI.Core.Enum;
 using GestCTI.Models;
+using System.Collections.Generic;
 
 namespace GestCTI.Hubs
 {
+    public class HoldConnection {
+        private string deviceId;
+
+        public HoldConnection(string ucid, string deviceId)
+        {
+            this.ucid = ucid;
+            this.deviceId = deviceId;
+        }
+
+        public String ucid { get; set; }
+        public String toDevice { get; set; }
+    }
     /// <summary>
     /// Class to get all websocket connection with Web App and core
     /// </summary>
@@ -23,7 +36,10 @@ namespace GestCTI.Hubs
         /// DB Connection
         /// </summary>
         private static readonly DBCTIEntities db = new DBCTIEntities();
-
+        /// <summary>
+        /// List of hold connections
+        /// </summary>
+        private List<HoldConnection> holdConnections = new List<HoldConnection>();
         /// <summary>
         /// Log in an user in core app
         /// </summary>
@@ -118,6 +134,27 @@ namespace GestCTI.Hubs
             var toSend = CallHandling.CTIClearConnectionRequest(ucid, deviceId);
             String I18n = "COMMAND_CLEAR_CONNECTION";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIClearConnectionRequest, I18n, Context.User.Identity.Name);
+        }
+
+        /// <summary>
+        /// Send hold request
+        /// </summary>
+        /// <param name="ucid">Ucid</param>
+        /// <param name="deviceId">Device id</param>
+        /// <returns>void</returns>
+        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId) {
+            holdConnections.Add(new HoldConnection(ucid, deviceId));
+            var toSend = CallHandling.CTIHoldConnectionRequest(ucid, deviceId);
+            String I18n = "COMMAND_HOLD_CONNECTION";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
+        }
+
+        /// <summary>
+        /// Get all holded connections for an user in this context
+        /// </summary>
+        /// <returns>void</returns>
+        public List<HoldConnection> getHoldConnections() {
+            return holdConnections;
         }
 
         /// <summary>

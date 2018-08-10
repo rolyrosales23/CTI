@@ -1,7 +1,7 @@
 ﻿var AgentState = {
-    AS_NOT_READY:  0,
+    AS_NOT_READY: 0,
     AS_LOGGED_OUT: 1,
-    AS_READY:      2,
+    AS_READY: 2,
     AS_AFTER_CALL: 3,
     AS_WORK_READY: 4
 };
@@ -49,7 +49,7 @@ $(function () {
         // Do nothing or check is fail call request 
     }
 
-    agent.client.onEventHandler = function (response) {
+    agent.client.onEventHandler = function (response, data) {
         json = JSON.parse(response);
         var eventName = json.request.request;
         var eventArgs = json.request.args;
@@ -64,6 +64,7 @@ $(function () {
             case 'onCallDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
+                $('#doHoldConnection').removeAttr('disabled');
                 infoNoty("LLamada Entrante!!");
                 break;
 
@@ -79,6 +80,8 @@ $(function () {
                 break;
 
             case 'onHoldConnection':
+                // Repinta la lista de hold
+                console.log(data);
                 break;
 
             case 'onHoldPartyConnection':
@@ -100,8 +103,8 @@ $(function () {
                 $("#hangoutCallRequest").attr("disabled", "disabled");
                 $("#ReadyToWork").removeAttr("disabled");
                 $("#inputPhone").removeAttr("disabled");
-                // $("#doCallBtn").removeAttr("disabled");
                 $("#inputPhone").val('');
+                $('#doHoldConnection').attr('disabled', 'disabled');
                 break;
 
             case 'onTransferredCall':
@@ -147,10 +150,6 @@ $(function () {
     // Start the connection.
     $.connection.hub.start().done(function () {
         var deviceId = localStorage.getItem('deviceId');
-        /*if (deviceId !== undefined && deviceId !== "") {
-            // Put the Agent to login aux_work
-            agent.server.sendStateLoginAuxWork(deviceId);
-        }*/
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
@@ -164,7 +163,7 @@ $(function () {
 
         $("#acceptCallRequest").click(function () {
             var ucid = localStorage.getItem('ucid');
-            if (ucid !== undefined && ucid !== "") {                
+            if (ucid !== undefined && ucid !== "") {
                 agent.server.sendCTIAnswerCallRequest(ucid, deviceId);
             } else {
                 console.error("Call id request (ucid) not specify");
@@ -174,6 +173,7 @@ $(function () {
         $("#hangoutCallRequest").click(function () {
             var ucid = localStorage.getItem('ucid');
             if (ucid !== undefined && ucid !== "") {
+                $("#hangoutCallRequest").attr("disabled", "disabled");
                 agent.server.sendCTIClearConnectionRequest(ucid, deviceId);
             } else {
                 console.error("Call id request (ucid) not specify");
@@ -187,6 +187,14 @@ $(function () {
             }
             else {
                 console.error("Call id request (fromDevice or toDevice) not specify");
+            }
+        });
+
+        $("#doHoldConnection").click(function () {
+            var ucid = localStorage.getItem('ucid');
+            if (ucid !== undefined && ucid !== "" && deviceId !== undefined && deviceId !== "") {
+                $("#doHoldConnection").attr("disabled", "disabled");
+                agent.server.sendCTIHoldConnectionRequest(ucid, deviceId);
             }
         });
     });
