@@ -24,7 +24,7 @@
             <table class="table Mydatatable" id="tabla-index">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Name)
+                        @Resources.Admin.Name
                     </th>
                     <th></th>
                     <th></th>
@@ -46,7 +46,7 @@
                         <td>
                             <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "CampaignTypes" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Admin.CampaignType + " " + Resources.Admin.With + " Name: " + item.Name + "?" } })
+                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "CampaignTypes" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Admin.CampaignType + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
                         </td>
                     </tr>
                 }

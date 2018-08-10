@@ -24,34 +24,31 @@
             <table class="table Mydatatable" id="tabla-index">
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.Username)
+                        @Resources.Admin.Username
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Password)
+                        @Resources.Admin.Email
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.email)
+                        @Resources.Admin.FirstName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.FirstName)
+                        @Resources.Admin.MiddleName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.MiddleName)
+                        @Resources.Admin.LastName
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.LastName)
+                        @Resources.Admin.Role
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Role)
+                        @Resources.Admin.Active
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Active)
+                        @Resources.Admin.Location
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UserLocation.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Company1.Name)
+                        @Resources.Admin.Company
                     </th>
                     <th></th>
                 </tr>
@@ -61,9 +58,6 @@
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Username)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Password)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.email)
@@ -96,7 +90,7 @@
 
                             <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " Username: " + item.Username + "?" } })
+                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " " + Resources.Admin.Username + ": " + item.Username + "?" } })
                         </td>
                     </tr>
                 }

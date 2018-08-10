@@ -6,7 +6,7 @@
 }
 
 @section breadcrumb{
-    <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li>@Html.ActionLink(Resources.Login.Home, "Index", "Admin")</li>
     <li class="active">Switches</li>
 }
 
@@ -25,13 +25,13 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Name)
+                            @Resources.Admin.Name
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.WebSocketIP)
+                            @Resources.Admin.WebSocketIP
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.ApiServerIP)
+                            @Resources.Admin.ApiServerIP
                         </th>
                         <th></th>
                     </tr>
@@ -56,7 +56,7 @@
 
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
-                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Switches" }, { "Menssage", Resources.Admin.QuestionDeleteM + " Switch " + Resources.Admin.With + " Name: " + item.Name + "?" } })
+                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Switches" }, { "Menssage", Resources.Admin.QuestionDeleteM + " Switch " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
                             </td>
                         </tr>
                     }

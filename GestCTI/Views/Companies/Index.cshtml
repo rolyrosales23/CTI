@@ -25,16 +25,16 @@
                 <thead>
                     <tr>
                         <th>
-                            @Html.DisplayNameFor(model => model.Name)
+                            @Resources.Admin.Name
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.SwitchCompanyId)
+                           @Resources.Admin.SwitchCompany
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Switch.Name)
+                            Switch
                         </th>
                         <th>
-                            @Html.DisplayNameFor(model => model.Users.Username)
+                            @Resources.Admin.CretedBy
                         </th>
                         <th></th>
                     </tr>
@@ -62,7 +62,7 @@
 
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
-                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Companies" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Company + " " + Resources.Admin.With + " Name: " + item.Name + "?" } })
+                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Companies" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Company + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
                             </td>
                         </tr>
                     }

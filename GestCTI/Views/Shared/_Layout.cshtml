@@ -66,25 +66,26 @@
                 {
                     <!-- BEGING MENU ADMISTRATOR -->
                     <li class="active">
-                        <a href="../Admin/Index"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                        <a href="@Url.Action("Index", "Admin")"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                        
                     </li>
 
                     <li class="xn-openable">
                         <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Campaigns</span></a>
                         <ul>
-                            <li><a href="../Campaigns/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li><a href="@Url.Action("Index", "Campaigns")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li><a href="../Campaigns/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li><a href="@Url.Action("Create", "Campaigns")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
                         <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
                         <ul>
-                            <li><a href="../CampaignTypes/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li><a href="@Url.Action("Index", "CampaignTypes")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li><a href="../CampaignTypes/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li><a href="@Url.Action("Create", "CampaignTypes")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
