@@ -28,7 +28,7 @@
             <!-- START X-NAVIGATION -->
             <ul class="x-navigation">
                 <li class="xn-logo">
-                    <a href="index.html">CTI</a>
+                    <a href="#">CTI</a>
                     <a href="#" class="x-navigation-control"></a>
                 </li>
                 <li class="xn-profile">
@@ -40,72 +40,139 @@
                             <img src="~/assets/img/no-image.jpg" alt="User" />
                         </div>
                         <div class="profile-data">
-                            <div class="profile-data-name">John Doe</div>
-                            <div class="profile-data-title">Web Developer/Designer</div>
+                            <div class="profile-data-name">@this.User.Identity.Name</div>
+                            @if (this.User.IsInRole("admin"))
+                            {
+                                <div class="profile-data-title">@Resources.Admin.Administrator</div>
+                            }
+                            else if(this.User.IsInRole("agent"))
+                            {
+                                <div class="profile-data-title">@Resources.Agent.Agente</div>
+                            }
+                            else
+                            {
+                                <div class="profile-data-title">Supervisor</div>
+                            }
                         </div>
                         <div class="profile-controls">
-                            <a href="pages-profile.html" class="profile-control-left"><span class="fa fa-info"></span></a>
-                            <a href="pages-messages.html" class="profile-control-right"><span class="fa fa-envelope"></span></a>
+                            <a href="#" class="profile-control-left"><span class="fa fa-info"></span></a>
+                            <a href="#" class="profile-control-right"><span class="fa fa-envelope"></span></a>
                         </div>
                     </div>
                 </li>
-                <li class="xn-title">Navigation</li>
-                <li class="active">
-                    <a href="index.html"><span class="fa fa-desktop"></span> <span class="xn-text">Dashboard</span></a>
-                </li>
-                <li class="xn-openable">
-                    <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Pages</span></a>
-                    <ul>
-                        <li><a href="pages-gallery.html"><span class="fa fa-image"></span> Gallery</a></li>
-                        <li><a href="pages-profile.html"><span class="fa fa-user"></span> Profile</a></li>
-                        <li><a href="pages-address-book.html"><span class="fa fa-users"></span> Address Book</a></li>
-                        <li class="xn-openable">
-                            <a href="#"><span class="fa fa-clock-o"></span> Timeline</a>
-                            <ul>
-                                <li><a href="pages-timeline.html"><span class="fa fa-align-center"></span> Default</a></li>
-                                <li><a href="pages-timeline-simple.html"><span class="fa fa-align-justify"></span> Full Width</a></li>
-                            </ul>
-                        </li>
-                        <li class="xn-openable">
-                            <a href="#"><span class="fa fa-envelope"></span> Mailbox</a>
-                            <ul>
-                                <li><a href="pages-mailbox-inbox.html"><span class="fa fa-inbox"></span> Inbox</a></li>
-                                <li><a href="pages-mailbox-message.html"><span class="fa fa-file-text"></span> Message</a></li>
-                                <li><a href="pages-mailbox-compose.html"><span class="fa fa-pencil"></span> Compose</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="pages-messages.html"><span class="fa fa-comments"></span> Messages</a></li>
-                        <li><a href="pages-calendar.html"><span class="fa fa-calendar"></span> Calendar</a></li>
-                        <li><a href="pages-tasks.html"><span class="fa fa-edit"></span> Tasks</a></li>
-                        <li><a href="pages-content-table.html"><span class="fa fa-columns"></span> Content Table</a></li>
-                        <li><a href="pages-faq.html"><span class="fa fa-question-circle"></span> FAQ</a></li>
-                        <li><a href="pages-search.html"><span class="fa fa-search"></span> Search</a></li>
-                        <li class="xn-openable">
-                            <a href="#"><span class="fa fa-file"></span> Blog</a>
+                <li class="xn-title">Menu</li>
 
-                            <ul>
-                                <li><a href="pages-blog-list.html"><span class="fa fa-copy"></span> List of Posts</a></li>
-                                <li><a href="pages-blog-post.html"><span class="fa fa-file-o"></span>Single Post</a></li>
-                            </ul>
-                        </li>
-                        <li class="xn-openable">
-                            <a href="#"><span class="fa fa-sign-in"></span> Login</a>
-                            <ul>
-                                <li><a href="pages-login.html">App Login</a></li>
-                                <li><a href="pages-login-website.html">Website Login</a></li>
-                                <li><a href="pages-login-website-light.html"> Website Login Light</a></li>
-                            </ul>
-                        </li>
-                        <li class="xn-openable">
-                            <a href="#"><span class="fa fa-warning"></span> Error Pages</a>
-                            <ul>
-                                <li><a href="pages-error-404.html">Error 404 Sample 1</a></li>
-                                <li><a href="pages-error-404-2.html">Error 404 Sample 2</a></li>
-                                <li><a href="pages-error-500.html"> Error 500</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
+                @if (this.User.IsInRole("admin"))
+                {
+                    <!-- BEGING MENU ADMISTRATOR -->
+                    <li class="active">
+                        <a href="../Admin/Index"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                    </li>
+
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Campaigns</span></a>
+                        <ul>
+                            <li><a href="../Campaigns/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../Campaigns/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
+                        <ul>
+                            <li><a href="../CampaignTypes/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../CampaignTypes/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a>
+                        <ul>
+                            <li><a href="../Companies/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../Companies/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Skills</span></a>
+                        <ul>
+                            <li><a href="../Skills/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../Skills/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">Switches</span></a>
+                        <ul>
+                            <li><a href="../Switches/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../Switches/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.UserLocation</span></a>
+                        <ul>
+                            <li><a href="../UserLocations/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../UserLocations/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Users</span></a>
+                        <ul>
+                            <li><a href="../Users/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../Users/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">VDNs</span></a>
+                        <ul>
+                            <li><a href="../VDNs/Index"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li><a href="../VDNs/Create"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                <!-- END MENU ADMISTRATOR -->
+                }
+                else if (this.User.IsInRole("agent"))
+                {
+                <!-- BEGING MENU AGENT -->
+                    <li class="active">
+                        <a href="../Home/Index"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                    </li>
+
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Pages</span></a>
+                        <ul>
+                            <li><a href="#"><span class="fa fa-image"></span> Sub Page</a></li>
+                        </ul>
+                    </li>
+                <!-- END MENU AGENT -->
+                }
+                else
+                {
+                <!-- BEGING MENU SUPERVISOR -->
+                    <li class="active">
+                        <a href="../Home/Index"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                    </li>
+
+                    <li class="xn-openable">
+                        <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Pages</span></a>
+                        <ul>
+                            <li><a href="#"><span class="fa fa-image"></span> Sub Page</a></li>
+                        </ul>
+                    </li>
+                <!-- END MENU SUPERVISOR -->
+                }
             </ul>
             <!-- END X-NAVIGATION -->
         </div>

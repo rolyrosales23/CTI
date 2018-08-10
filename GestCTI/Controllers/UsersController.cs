@@ -103,8 +103,8 @@ namespace GestCTI.Controllers
             return View(users);
         }
 
-        // GET: Users/Delete/5
-        public ActionResult Delete(int? id)
+    // GET: Users/Delete/5
+    public ActionResult Delete(int? id)
         {
             if (id == null)
             {

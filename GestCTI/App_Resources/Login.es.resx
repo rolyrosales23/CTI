@@ -163,12 +163,15 @@
     <value>Salir</value>
   </data>
   <data name="LogoutMessage" xml:space="preserve">
-    <value>Seleccione No si quiere seguir trabajando. Seleccione Si para desloguear el usuario actual.</value>
+    <value>Seleccione No si quiere seguir trabajando. Seleccione Sí para desloguear el usuario actual.</value>
   </data>
   <data name="LogoutTitle" xml:space="preserve">
     <value>¿ Está seguro que desea salir ?</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Si</value>
+    <value>Sí</value>
+  </data>
+  <data name="List" xml:space="preserve">
+    <value>Listado</value>
   </data>
 </root>
