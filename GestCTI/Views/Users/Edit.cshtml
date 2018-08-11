@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 @section breadcrumb{
     <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
     <li>@Html.ActionLink(@Resources.Admin.Users, "Index")</li>
@@ -189,9 +191,7 @@
             }
         });
 
-        var myr = @Html.Raw(Model.Role);
-
-        @*$('#Rol').val(@Html.Raw(Json.Encode(Model.Role)));*@
+        $('#Rol').val(@Html.Raw(Json.Encode(Model.Role)));
     </script>
 
 }

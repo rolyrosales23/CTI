@@ -66,80 +66,80 @@
                 {
                     <!-- BEGING MENU ADMISTRATOR -->
                     <li action="index" controller="admin">
-                        <a href="@Url.Action("Index", "Admin")"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                        <a href="@Url.Action("Index", "Admin")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
                         
                     </li>
 
                     <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Campaigns</span></a>
+                        <a href=""><span class="fa fa-inbox"></span> <span class="xn-text">@Resources.Admin.Campaigns</span></a>
                         <ul>
-                            <li action="index" controller="campaigns"><a href="@Url.Action("Index", "Campaigns")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li action="index" controller="campaigns"><a href="@Url.Action("Index", "Campaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li action="create" controller="campaigns"><a href="@Url.Action("Create", "Campaigns")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
-                        <ul>
-                            <li action="index" controller="campaigntypes"><a href="@Url.Action("Index", "CampaignTypes")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
-                        </ul>
-                        <ul>
-                            <li action="create" controller="campaigntypes"><a href="@Url.Action("Create", "CampaignTypes")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li action="create" controller="campaigns"><a href="@Url.Action("Create", "Campaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a>
+                        <a href=""><span class="glyphicon glyphicon-filter"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
                         <ul>
-                            <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li action="index" controller="campaigntypes"><a href="@Url.Action("Index", "CampaignTypes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li action="create" controller="companies"><a href="@Url.Action("Create", "Companies")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Skills</span></a>
-                        <ul>
-                            <li action="index" controller="skills"><a href="@Url.Action("Index", "Skills")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
-                        </ul>
-                        <ul>
-                            <li action="create" controller="skills"><a href="@Url.Action("Create", "Skills")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li action="create" controller="campaigntypes"><a href="@Url.Action("Create", "CampaignTypes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">Switches</span></a>
+                        <a href=""><span class="fa fa-building-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a>
                         <ul>
-                            <li action="index" controller="switches"><a href="@Url.Action("Index", "Switches")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li action="create" controller="switches"><a href="@Url.Action("Create", "Switches")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.UserLocation</span></a>
-                        <ul>
-                            <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
-                        </ul>
-                        <ul>
-                            <li action="create" controller="userlocations"><a href="@Url.Action("Create", "UserLocations")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li action="create" controller="companies"><a href="@Url.Action("Create", "Companies")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">@Resources.Admin.Users</span></a>
+                        <a href=""><span class="fa fa-star"></span> <span class="xn-text">@Resources.Admin.Skills</span></a>
                         <ul>
-                            <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li action="index" controller="skills"><a href="@Url.Action("Index", "Skills")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li action="create" controller="users"><a href="@Url.Action("Create", "Users")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li action="create" controller="skills"><a href="@Url.Action("Create", "Skills")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
-                        <a href=""><span class="fa fa-files-o"></span> <span class="xn-text">VDNs</span></a>
+                        <a href=""><span class="fa fa-sitemap"></span> <span class="xn-text">Switches</span></a>
                         <ul>
-                            <li action="index" controller="vdns"><a href="@Url.Action("Index", "VDNs")"><span class="fa fa-image"></span>@Resources.Login.List</a></li>
+                            <li action="index" controller="switches"><a href="@Url.Action("Index", "Switches")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
                         </ul>
                         <ul>
-                            <li action="create" controller="vdns"><a href="@Url.Action("Create", "VDNs")"><span class="fa fa-image"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li action="create" controller="switches"><a href="@Url.Action("Create", "Switches")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-map-marker"></span> <span class="xn-text">@Resources.Admin.UserLocation</span></a>
+                        <ul>
+                            <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li action="create" controller="userlocations"><a href="@Url.Action("Create", "UserLocations")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-users"></span> <span class="xn-text">@Resources.Admin.Users</span></a>
+                        <ul>
+                            <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li action="create" controller="users"><a href="@Url.Action("Create", "Users")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
+                        <a href=""><span class="fa fa-tags"></span> <span class="xn-text">VDNs</span></a>
+                        <ul>
+                            <li action="index" controller="vdns"><a href="@Url.Action("Index", "VDNs")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+                        </ul>
+                        <ul>
+                            <li action="create" controller="vdns"><a href="@Url.Action("Create", "VDNs")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                 <!-- END MENU ADMISTRATOR -->
@@ -148,7 +148,7 @@
                 {
                 <!-- BEGING MENU AGENT -->
                     <li action="index" controller="home">
-                        <a href="@Url.Action("Index", "Home")"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                        <a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
                     </li>
 
                     <li class="xn-openable">
@@ -163,7 +163,7 @@
                 {
                 <!-- BEGING MENU SUPERVISOR -->
                     <li action="index" controller="supervisor">
-                        <a href="@Url.Action("Index", "Supervisor")"><span class="fa fa-desktop"></span> <span class="xn-text">@Resources.Login.Home</span></a>
+                        <a href="@Url.Action("Index", "Supervisor")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
                     </li>
 
                     <li class="xn-openable">
