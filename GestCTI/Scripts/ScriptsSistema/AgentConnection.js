@@ -37,7 +37,7 @@ $(function () {
 
     agent.client.resultHoldConnections = function (response) {
         //painting in this position
-    }
+    };
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -85,6 +85,7 @@ $(function () {
             case 'onEstablishedConnection':
                 $("#hangoutCallRequest").removeAttr("disabled");
                 $("#acceptCallRequest").attr("disabled", "disabled");
+                $("#doHoldConnection").removeAttr("disabled");
                 break;
 
             case 'onHoldConnection':
@@ -191,6 +192,7 @@ $(function () {
         $("#doCallBtn").click(function () {
             var toDevice = $('#inputPhone').val();
             if (deviceId !== undefined && deviceId !== "" && toDevice !== undefined && toDevice !== "") {
+                $("#hangoutCallRequest").removeAttr("disabled");
                 agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
             }
             else {
