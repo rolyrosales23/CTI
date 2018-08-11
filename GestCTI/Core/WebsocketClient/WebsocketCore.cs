@@ -53,13 +53,21 @@ namespace GestCTI.Core.WebsocketClient
             {
                 Uri url = new Uri(uri);
                 _ws.ConnectAsync(url, CancellationToken.None);
-                while (_ws.State != WebSocketState.Open)
+                while (_ws.State != WebSocketState.Open && 
+                    _ws.State != WebSocketState.Closed &&
+                    _ws.State != WebSocketState.Aborted)
                 {
                     Thread.Sleep(100);
                 }
-                // Task.WhenAll(Receive(_ws), HeartBeat());
-                RunInTask(() => Receive());
-                RunInTask(() => HeartBeat());
+                if (_ws.State == WebSocketState.Closed ||
+                    _ws.State == WebSocketState.Aborted) {
+                    attendRequest = false;
+                } else
+                {
+                    // Task.WhenAll(Receive(_ws), HeartBeat());
+                    RunInTask(() => Receive());
+                    RunInTask(() => HeartBeat());
+                }
             }
             catch (Exception ex)
             {

@@ -17,7 +17,7 @@ namespace GestCTI.Hubs
         public HoldConnection(string ucid, string deviceId)
         {
             this.ucid = ucid;
-            this.deviceId = deviceId;
+            this.toDevice = deviceId;
         }
 
         public String ucid { get; set; }
@@ -155,6 +155,8 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public void getHoldConnections() {
             // Sending message
+            //holdConnections.Add(new HoldConnection("2508", "3025"));
+            //holdConnections.Add(new HoldConnection("9009", "3003"));
             Clients.Client(Context.ConnectionId).resultHoldConnections(holdConnections);
         }
 
@@ -209,6 +211,12 @@ namespace GestCTI.Hubs
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n, user);
+        }
+
+        public async Task sendTransferCall(String heldUcid, String activeUcid, String deviceId) {
+            var toSend = CallHandling.CTITransferRequest(heldUcid, activeUcid, deviceId);
+            String I18n = "COMMAND_TRANSFER_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTITransferRequest, I18n, Context.User.Identity.Name);
         }
 
         /// <summary>

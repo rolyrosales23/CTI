@@ -62,6 +62,8 @@ namespace GestCTI.Core.Message
                     break;
                 case MessageType.CTIClearConnectionRequest:
                     break;
+                case MessageType.CTITransferRequest:
+                    break;
             }
         }
     }

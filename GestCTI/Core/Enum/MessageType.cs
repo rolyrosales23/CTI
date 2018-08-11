@@ -20,6 +20,7 @@ namespace GestCTI.Core.Enum
         ON_EVENT, // When receive an event
         CTIAnswerCallRequest, // Handle call request
         CTIClearConnectionRequest,
-        CTIHoldConnectionRequest
+        CTIHoldConnectionRequest,
+        CTITransferRequest
     }
 }

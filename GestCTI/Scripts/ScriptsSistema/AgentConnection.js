@@ -36,8 +36,19 @@ $(function () {
     };
 
     agent.client.resultHoldConnections = function (response) {
-        //painting in this position
-    }
+        spinnerHide();
+        if (response.length) {
+            //llenar select
+            var select = $('#transfer-modal select');
+            select.find('option').remove();
+            for (var i in response) {
+                select.append(new Option(response[i].toDevice, response[i].ucid));
+            }
+            select.selectpicker('refresh');
+
+            $('#transfer-modal').modal();
+        }
+    };
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -85,6 +96,7 @@ $(function () {
             case 'onEstablishedConnection':
                 $("#hangoutCallRequest").removeAttr("disabled");
                 $("#acceptCallRequest").attr("disabled", "disabled");
+                $("#doHoldConnection").removeAttr("disabled");
                 break;
 
             case 'onHoldConnection':
@@ -191,6 +203,7 @@ $(function () {
         $("#doCallBtn").click(function () {
             var toDevice = $('#inputPhone').val();
             if (deviceId !== undefined && deviceId !== "" && toDevice !== undefined && toDevice !== "") {
+                $("#hangoutCallRequest").removeAttr("disabled");
                 agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
             }
             else {
@@ -204,6 +217,21 @@ $(function () {
                 $("#doHoldConnection").attr("disabled", "disabled");
                 agent.server.sendCTIHoldConnectionRequest(ucid, deviceId);
             }
+        });
+
+        $('#doTransfer').click(function () {
+            agent.server.getHoldConnections();
+            spinnerShow();
+        });
+
+        $('#modal-transfer-btn').click(function () {
+            $('#transfer-modal').modal('hide');
+            var heldUcid = $('#transfer-modal select').val();
+            var activeUcid = localStorage.getItem('ucid');
+            if (notEmpty(heldUcid) && notEmpty(activeUcid) && notEmpty(deviceId)) {
+                agent.server.sendTransferCall(heldUcid, activeUcid, deviceId);
+            }
+            spinnerShow();
         });
     });
 });

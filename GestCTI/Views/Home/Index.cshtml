@@ -82,17 +82,17 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo">
+                        <button class="btn btn-success btn-redondo" id="doHoldConnection">
                             <i class="fa icon-phone_paused icono-grande"></i><br />
                             Hold
                         </button>
                     </div>
 
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo">
-                            <i class="fa icon-phone_missed icono-grande"></i><br/>
+                        <a class="btn btn-success btn-redondo" id="doTransfer">
+                            <i class="fa icon-phone_missed icono-grande"></i><br />
                             Transfer
-                        </button>
+                        </a>
                     </div>
                 </div>
 
@@ -125,6 +125,8 @@
 
     </div>
 </div>
+
+@Html.Partial("TransferModal")
 
 @section scripts{
     <script type="text/javascript">
