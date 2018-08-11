@@ -1972,6 +1972,7 @@
     <Content Include="Views\CampaignTypes\Index.cshtml" />
     <Content Include="Views\Shared\Notifications.cshtml" />
     <Content Include="Views\Shared\Spinner.cshtml" />
+    <Content Include="Views\Shared\TransferModal.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
