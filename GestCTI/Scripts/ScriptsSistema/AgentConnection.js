@@ -18,17 +18,25 @@ $(function () {
 
     agent.client.Notification = function (response) {
         successNoty(response);
-    }
+    };
 
     // Logout from web app
     agent.client.logOutCore = function (response) {
-        json = JSON.parse(response);
-        if (json['success'] === true) {
-            // agent.server.stop();
+        if (response === null) {
             $('#LogOutForm').submit();
         } else {
-            // Notificar error
+            json = JSON.parse(response);
+            if (json['success'] === true) {
+                // agent.server.stop();
+                $('#LogOutForm').submit();
+            } else {
+                // Notificar error
+            }
         }
+    };
+
+    agent.client.resultHoldConnections = function (response) {
+        //painting in this position
     }
 
     agent.client.getAmReady = function (response) {
@@ -36,9 +44,9 @@ $(function () {
         if (json['success'] === true) {
             console.log("SET STATE AM READY SUCESS");
         } else {
-            console.error("FAIL SET STATE AM READY ")
+            console.error("FAIL SET STATE AM READY");
         }
-    }
+    };
 
     agent.client.receiveAcceptCallRequest = function (response) {
         json = JSON.parse(response);
@@ -47,7 +55,7 @@ $(function () {
             localStorage.removeItem('ucid');
         }
         // Do nothing or check is fail call request 
-    }
+    };
 
     agent.client.onEventHandler = function (response, data) {
         json = JSON.parse(response);
@@ -132,7 +140,7 @@ $(function () {
             case 'onCollectedDigits':
                 break;
         }
-    }
+    };
 
     agent.client.addCTIMakeCallRequest = function (response) {
         json = JSON.parse(response);
@@ -142,9 +150,9 @@ $(function () {
             localStorage.setItem('ucid', json.result.ucid);
             console.log("MAKE CALL SUCCESS");
         } else {
-            console.error("FAIL SET STATE AM READY ")
+            console.error("FAIL SET STATE AM READY ");
         }
-    }
+    };
 
 
     // Start the connection.

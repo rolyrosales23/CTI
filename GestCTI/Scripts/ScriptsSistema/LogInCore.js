@@ -23,7 +23,7 @@
                 spinnerHide();
             }
         }
-    }
+    };
 
     agent.client.getAgentInfo = function (message) {
         json = JSON.parse(message);
@@ -42,7 +42,7 @@
             // Show error
             spinnerHide();
         }
-    }
+    };
 
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
@@ -57,7 +57,7 @@
             console.error("Error");
         }
         spinnerHide();
-    }
+    };
 
     // Start the connection.
     $.connection.hub.start().done(function () {

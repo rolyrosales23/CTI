@@ -46,7 +46,7 @@ namespace GestCTI.Core.WebsocketClient
             {
                 _hubConnection.Start().Wait();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // HubClientEvents.Log.Warning(ex.Message + " " + ex.StackTrace);
                 

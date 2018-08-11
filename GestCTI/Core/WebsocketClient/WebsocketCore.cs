@@ -127,6 +127,7 @@ namespace GestCTI.Core.WebsocketClient
                 {
                     Console.WriteLine("Exception: {0}", ex);
                     InvokeId.Remove(guid);
+                    attendRequest = false;
                     return false;
                 }
                 finally
@@ -136,6 +137,7 @@ namespace GestCTI.Core.WebsocketClient
             }
             else
             {
+                attendRequest = false;
                 return false;
             }
             return true;
