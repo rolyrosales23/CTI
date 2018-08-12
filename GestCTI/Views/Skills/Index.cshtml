@@ -46,8 +46,6 @@
                             <td>
                                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
 
-                                @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-eye info", title = Resources.Admin.ActionDetails })
-
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
                                 @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Skills" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Value + "?" } })

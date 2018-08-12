@@ -22,21 +22,6 @@ namespace GestCTI.Controllers
             return View(db.CampaignType.ToList());
         }
 
-        // GET: CampaignTypes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CampaignType campaignType = db.CampaignType.Find(id);
-            if (campaignType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(campaignType);
-        }
-
         // GET: CampaignTypes/Create
         public ActionResult Create()
         {
@@ -87,21 +72,6 @@ namespace GestCTI.Controllers
                 db.Entry(campaignType).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(campaignType);
-        }
-
-        // GET: CampaignTypes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CampaignType campaignType = db.CampaignType.Find(id);
-            if (campaignType == null)
-            {
-                return HttpNotFound();
             }
             return View(campaignType);
         }

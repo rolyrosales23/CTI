@@ -22,21 +22,6 @@ namespace GestCTI.Controllers
             return View(db.Skills.ToList());
         }
 
-        // GET: Skills/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Skills skills = db.Skills.Find(id);
-            if (skills == null)
-            {
-                return HttpNotFound();
-            }
-            return View(skills);
-        }
-
         // GET: Skills/Create
         public ActionResult Create()
         {
@@ -87,21 +72,6 @@ namespace GestCTI.Controllers
                 db.Entry(skills).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(skills);
-        }
-
-        // GET: Skills/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Skills skills = db.Skills.Find(id);
-            if (skills == null)
-            {
-                return HttpNotFound();
             }
             return View(skills);
         }

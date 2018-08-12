@@ -103,28 +103,14 @@ namespace GestCTI.Controllers
             return View(users);
         }
 
-    // GET: Users/Delete/5
-    public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Users users = db.Users.Find(id);
-            if (users == null)
-            {
-                return HttpNotFound();
-            }
-            return View(users);
-        }
-
         // POST: Users/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
             Users users = db.Users.Find(id);
-            db.Users.Remove(users);
+            users.Active = false;
+            //db.Users.Remove(users);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
