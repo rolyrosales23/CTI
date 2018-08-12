@@ -53,13 +53,21 @@ namespace GestCTI.Core.WebsocketClient
             {
                 Uri url = new Uri(uri);
                 _ws.ConnectAsync(url, CancellationToken.None);
-                while (_ws.State != WebSocketState.Open)
+                while (_ws.State != WebSocketState.Open && 
+                    _ws.State != WebSocketState.Closed &&
+                    _ws.State != WebSocketState.Aborted)
                 {
                     Thread.Sleep(100);
                 }
-                // Task.WhenAll(Receive(_ws), HeartBeat());
-                RunInTask(() => Receive());
-                RunInTask(() => HeartBeat());
+                if (_ws.State == WebSocketState.Closed ||
+                    _ws.State == WebSocketState.Aborted) {
+                    attendRequest = false;
+                } else
+                {
+                    // Task.WhenAll(Receive(_ws), HeartBeat());
+                    RunInTask(() => Receive());
+                    RunInTask(() => HeartBeat());
+                }
             }
             catch (Exception ex)
             {
@@ -127,6 +135,7 @@ namespace GestCTI.Core.WebsocketClient
                 {
                     Console.WriteLine("Exception: {0}", ex);
                     InvokeId.Remove(guid);
+                    attendRequest = false;
                     return false;
                 }
                 finally
@@ -136,6 +145,7 @@ namespace GestCTI.Core.WebsocketClient
             }
             else
             {
+                attendRequest = false;
                 return false;
             }
             return true;

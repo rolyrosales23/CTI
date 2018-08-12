@@ -8,8 +8,8 @@
         var user = $("#LoginUsername").val();
         if (json['success'] === true) {
             if (phone === "") {
-                console.error("Not phone specify");
                 spinnerHide();
+                errorNoty("Not phone specify");
             } else {
                 agent.server.sendInitialize(phone, user);
             }
@@ -18,12 +18,12 @@
                 // Check in if loggued
                 agent.server.sendCTIGetAgentInfo(user);
             } else {
-                console.error("Error");
                 // stop spinner and send message error
                 spinnerHide();
+                errorNoty("Se está intentando loguear un usuario sin id dispositvo");
             }
         }
-    }
+    };
 
     agent.client.getAgentInfo = function (message) {
         json = JSON.parse(message);
@@ -36,13 +36,15 @@
             agent.server.sendInitialize(phone, user);
         } else if (phone !== deviceId && deviceId !== "") {
             // Show login problem: Loggued with different deviceId
-            // Do you want to lockout and sing in 
+            // Do you want to lockout and sing in
             spinnerHide();
+            infoNoty("Estas logueado con un dispositivo diferente " + deviceId);
         } else {
             // Show error
             spinnerHide();
+            errorNoty("Problemas al tratar de loguearte");
         }
-    }
+    };
 
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
@@ -51,13 +53,15 @@
             // Save deviceId
             localStorage.setItem('deviceId', $("#LoginPhoneExtension").val());
             // agent.server.stop();
-            $("#LogInForm").submit();
+            $("#LogInForm").submit().done(function () {
+                spinnerHide();
+            });
         } else {
+            spinnerHide();
             // send message error
-            console.error("Error");
+            errorNoty("No se pudo inicializar el dispositivo");
         }
-        spinnerHide();
-    }
+    };
 
     // Start the connection.
     $.connection.hub.start().done(function () {
@@ -67,8 +71,9 @@
             if (phone !== null && phone !== undefined && phone !== "") {
                 agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
             } else {
-                $("#LogInForm").submit();
-                spinnerHide();
+                $("#LogInForm").submit().done(function () {
+                    spinnerHide();
+                });
             }
         });
     });

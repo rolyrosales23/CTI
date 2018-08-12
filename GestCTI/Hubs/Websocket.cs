@@ -153,8 +153,9 @@ namespace GestCTI.Hubs
         /// Get all holded connections for an user in this context
         /// </summary>
         /// <returns>void</returns>
-        public List<HoldConnection> getHoldConnections() {
-            return holdConnections;
+        public void getHoldConnections() {
+            // Sending message
+            Clients.Client(Context.ConnectionId).resultHoldConnections(holdConnections);
         }
 
         /// <summary>
@@ -229,7 +230,15 @@ namespace GestCTI.Hubs
                 }
                 else
                 {
-                    Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET");
+                    //Don't have connection with core but you need to logout
+                    if (messageType == MessageType.CTILogOut)
+                    {
+                        Clients.Client(Context.ConnectionId).logOutCore(null);
+                    } else
+                    {
+                        Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET");
+                    }
+                    
                 }
             }
             else
