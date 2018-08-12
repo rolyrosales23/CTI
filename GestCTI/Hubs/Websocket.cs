@@ -289,8 +289,15 @@ namespace GestCTI.Hubs
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
 
-                socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
-                Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
+                //Check if websocket connection with core is completed
+                if (!ws.attendRequest)
+                {
+                    Clients.Client(Context.ConnectionId).errorCoreConnection();
+                } else
+                {
+                    socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
+                    Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
+                }                
             }
             else
             {

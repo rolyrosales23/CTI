@@ -14,6 +14,7 @@
                 agent.server.sendInitialize(phone, user);
             }
         } else {
+            localStorage.setItem('error', json.result);
             if (phone !== "") {
                 // Check in if loggued
                 agent.server.sendCTIGetAgentInfo(user);
@@ -23,6 +24,11 @@
                 errorNoty("Se está intentando loguear un usuario sin id dispositvo");
             }
         }
+    };
+
+    agent.client.errorCoreConnection = function (message) {
+        spinnerHide();
+        errorNoty("No se puede establecer conexión con el core");
     };
 
     agent.client.getAgentInfo = function (message) {
@@ -38,11 +44,14 @@
             // Show login problem: Loggued with different deviceId
             // Do you want to lockout and sing in
             spinnerHide();
-            infoNoty("Estas logueado con un dispositivo diferente " + deviceId);
+            localStorage.removeItem('error');
+            errorNoty("Estas logueado con un dispositivo diferente: " + deviceId);
         } else {
             // Show error
             spinnerHide();
-            errorNoty("Problemas al tratar de loguearte");
+            var error = localStorage.getItem('error');
+            localStorage.removeItem('error');
+            errorNoty('Error ' + error);
         }
     };
 
@@ -59,7 +68,7 @@
         } else {
             spinnerHide();
             // send message error
-            errorNoty("No se pudo inicializar el dispositivo");
+            errorNoty("I can't initialize this device: " + $("#LoginPhoneExtension").val());
         }
     };
 

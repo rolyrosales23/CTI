@@ -32,11 +32,13 @@ namespace GestCTI.Core.WebsocketClient
         /// If websocket attend request
         /// </summary>
         public bool attendRequest { get;  set; }
+        private bool healtCheckState;
         public WebsocketCore(CtiUser ctiUser)
         {
             _ws = new ClientWebSocket();
             CtiUser = ctiUser;
             attendRequest = true;
+            healtCheckState = true;
             Connect(ctiUser.WebsocketUrl);
         }
 
@@ -96,9 +98,19 @@ namespace GestCTI.Core.WebsocketClient
         {
             while (true)
             {
-                Thread.Sleep(10000);
+                Thread.Sleep(30000);
+                if (!healtCheckState)
+                {
+                    attendRequest = false;
+                    return;
+                }
                 // get heartbeat
                 var toSend = SystemHandling.CTIHeartbeatRequest();
+                // Changing flag, this is a wait for receive 
+                // HeartBeat from core. if Threat.sleep is finish and healtCheckState stay in
+                // false then it is a websocket death
+                healtCheckState = false;
+
                 if (!(await Send(toSend.Item1, toSend.Item2, MessageType.HeartBeat)))
                 {
                     break;
@@ -145,6 +157,7 @@ namespace GestCTI.Core.WebsocketClient
             }
             else
             {
+                // Close connection
                 attendRequest = false;
                 return false;
             }
@@ -228,6 +241,11 @@ namespace GestCTI.Core.WebsocketClient
                         messageType = MessageType.UNDEFINED;
                     }
                 }
+
+                if (messageType == MessageType.HeartBeat) {
+                    healtCheckState = true;
+                }
+
                 if (messageType != MessageType.UNDEFINED)
                 {
                     MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId, this);

@@ -10,11 +10,6 @@
 $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
-    // Function to get response for CallIn
-    agent.client.addCallIn = function (response) {
-        // Active buttom in call
-        console.log("No implemented yet", response);
-    };
 
     agent.client.Notification = function (response) {
         successNoty(response);
@@ -31,6 +26,7 @@ $(function () {
                 $('#LogOutForm').submit();
             } else {
                 // Notificar error
+                errorNoty(json.response);
             }
         }
     };
@@ -53,9 +49,10 @@ $(function () {
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-            console.log("SET STATE AM READY SUCESS");
+            errorNoty("SET STATE AM READY SUCESS");
         } else {
-            console.error("FAIL SET STATE AM READY");
+            errorNoty("FAIL SET STATE AM READY");
+            $("#ReadyToWork").removeAttr("disabled");
         }
     };
 
@@ -64,6 +61,7 @@ $(function () {
         if (json.success === false) {
             $("#acceptCallRequest").attr("disabled", "disabled");
             localStorage.removeItem('ucid');
+            successNoty('In a call...');
         }
         // Do nothing or check is fail call request 
     };
@@ -85,6 +83,13 @@ $(function () {
                 $('#acceptCallRequest').removeAttr('disabled');
                 $('#doHoldConnection').removeAttr('disabled');
                 infoNoty("LLamada Entrante!!");
+                break;
+
+            case 'onCallExternalDelivered':
+                localStorage.setItem('ucid', eventArgs[0]);
+                $('#acceptCallRequest').removeAttr('disabled');
+                $('#doHoldConnection').removeAttr('disabled');
+                infoNoty("LLamada externa entrante!!");
                 break;
 
             case 'onCallDiverted':
@@ -160,9 +165,9 @@ $(function () {
             $('#inputPhone').attr('disabled', 'disabled');
             $('#doCallBtn').attr('disabled', 'disabled');
             localStorage.setItem('ucid', json.result.ucid);
-            console.log("MAKE CALL SUCCESS");
+            successNoty("Calling...");
         } else {
-            console.error("FAIL SET STATE AM READY ");
+            errorNoty("Can't do this call");
         }
     };
 
@@ -173,6 +178,7 @@ $(function () {
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
+            $("#ReadyToWork").attr("disabled", "disabled");
             agent.server.sendStateReadyManual(deviceId);
         });
 
@@ -196,7 +202,7 @@ $(function () {
                 $("#hangoutCallRequest").attr("disabled", "disabled");
                 agent.server.sendCTIClearConnectionRequest(ucid, deviceId);
             } else {
-                console.error("Call id request (ucid) not specify");
+                errorNoty("Call id request (ucid) not specify");
             }
         });
 
@@ -207,7 +213,7 @@ $(function () {
                 agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
             }
             else {
-                console.error("Call id request (fromDevice or toDevice) not specify");
+                errorNoty("Call id request (fromDevice or toDevice) not specify");
             }
         });
 
@@ -235,8 +241,3 @@ $(function () {
         });
     });
 });
-// This optional function html-encodes messages for display in the page.
-function htmlEncode(value) {
-    var encodedValue = $('<div />').text(value).html();
-    return encodedValue;
-}
