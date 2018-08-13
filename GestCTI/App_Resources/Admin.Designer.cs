@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deactivate.
+        /// </summary>
+        public static string Deactivate {
+            get {
+                return ResourceManager.GetString("Deactivate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete record.
         /// </summary>
         public static string DeleteRecord {
@@ -264,6 +273,15 @@ namespace Resources {
         public static string Name {
             get {
                 return ResourceManager.GetString("Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to deactivate.
+        /// </summary>
+        public static string QuestionDeactivate {
+            get {
+                return ResourceManager.GetString("QuestionDeactivate", resourceCulture);
             }
         }
         

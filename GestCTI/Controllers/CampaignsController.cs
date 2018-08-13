@@ -100,21 +100,6 @@ namespace GestCTI.Controllers
             return View(campaign);
         }
 
-        // GET: Campaigns/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Campaign campaign = db.Campaign.Find(id);
-            if (campaign == null)
-            {
-                return HttpNotFound();
-            }
-            return View(campaign);
-        }
-
         // POST: Campaigns/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

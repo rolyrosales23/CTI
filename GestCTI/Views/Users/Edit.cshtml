@@ -118,11 +118,9 @@
 
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Active">@Resources.Admin.Active</label>
-                            <div class="col-md-9">
-                                <div class="checkbox">
-                                    @Html.EditorFor(model => model.Active)
-                                    @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
-                                </div>
+                            <div class="col-md-9" style="padding-top: 5px">
+                                @Html.CheckBoxFor(model => model.Active, new { @class = "icheckbox" })
+                                @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
                             </div>
                         </div>
 

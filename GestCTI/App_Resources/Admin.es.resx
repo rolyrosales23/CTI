@@ -231,4 +231,10 @@
   <data name="WebSocketIP" xml:space="preserve">
     <value>IP del WebSocket</value>
   </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="QuestionDeactivate" xml:space="preserve">
+    <value>¿Seguro que desea desactivar el</value>
+  </data>
 </root>

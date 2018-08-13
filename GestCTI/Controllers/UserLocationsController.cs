@@ -22,21 +22,6 @@ namespace GestCTI.Controllers
             return View(db.UserLocation.ToList());
         }
 
-        // GET: UserLocations/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserLocation userLocation = db.UserLocation.Find(id);
-            if (userLocation == null)
-            {
-                return HttpNotFound();
-            }
-            return View(userLocation);
-        }
-
         // GET: UserLocations/Create
         public ActionResult Create()
         {
@@ -87,21 +72,6 @@ namespace GestCTI.Controllers
                 db.Entry(userLocation).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(userLocation);
-        }
-
-        // GET: UserLocations/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UserLocation userLocation = db.UserLocation.Find(id);
-            if (userLocation == null)
-            {
-                return HttpNotFound();
             }
             return View(userLocation);
         }

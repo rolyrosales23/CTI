@@ -23,21 +23,6 @@ namespace GestCTI.Controllers
             return View(company.ToList());
         }
 
-        // GET: Companies/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Company company = db.Company.Find(id);
-            if (company == null)
-            {
-                return HttpNotFound();
-            }
-            return View(company);
-        }
-
         // GET: Companies/Create
         public ActionResult Create()
         {
@@ -97,21 +82,6 @@ namespace GestCTI.Controllers
             }
             ViewBag.SwitchId = new SelectList(db.Switch, "Id", "Name", company.SwitchId);
             ViewBag.CreateBy = new SelectList(db.Users, "Id", "Username", company.CreateBy);
-            return View(company);
-        }
-
-        // GET: Companies/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Company company = db.Company.Find(id);
-            if (company == null)
-            {
-                return HttpNotFound();
-            }
             return View(company);
         }
 

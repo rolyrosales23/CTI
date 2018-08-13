@@ -23,21 +23,6 @@ namespace GestCTI.Controllers
             return View(vDN.ToList());
         }
 
-        // GET: VDNs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VDN vDN = db.VDN.Find(id);
-            if (vDN == null)
-            {
-                return HttpNotFound();
-            }
-            return View(vDN);
-        }
-
         // GET: VDNs/Create
         public ActionResult Create()
         {
@@ -93,21 +78,6 @@ namespace GestCTI.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", vDN.IdCampaign);
-            return View(vDN);
-        }
-
-        // GET: VDNs/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            VDN vDN = db.VDN.Find(id);
-            if (vDN == null)
-            {
-                return HttpNotFound();
-            }
             return View(vDN);
         }
 

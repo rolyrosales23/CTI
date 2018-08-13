@@ -22,21 +22,6 @@ namespace GestCTI.Controllers
             return View(db.Switch.ToList());
         }
 
-        // GET: Switches/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Switch @switch = db.Switch.Find(id);
-            if (@switch == null)
-            {
-                return HttpNotFound();
-            }
-            return View(@switch);
-        }
-
         // GET: Switches/Create
         public ActionResult Create()
         {
@@ -87,21 +72,6 @@ namespace GestCTI.Controllers
                 db.Entry(@switch).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(@switch);
-        }
-
-        // GET: Switches/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Switch @switch = db.Switch.Find(id);
-            if (@switch == null)
-            {
-                return HttpNotFound();
             }
             return View(@switch);
         }
