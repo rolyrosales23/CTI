@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Login_btn" xml:space="preserve">
-    <value>Aceptar</value>
+    <value>Entrar</value>
   </data>
   <data name="Login_header" xml:space="preserve">
     <value>Por favor ingrese sus datos</value>
@@ -173,5 +173,62 @@
   </data>
   <data name="List" xml:space="preserve">
     <value>Listado</value>
+  </data>
+  <data name="NotConnectCore" xml:space="preserve">
+    <value>No se puede establecer conexión con el core.</value>
+  </data>
+  <data name="NotphoneError" xml:space="preserve">
+    <value>No ha especificado ninguna estación.</value>
+  </data>
+  <data name="PhoneExtension" xml:space="preserve">
+    <value>Estación telefónica</value>
+  </data>
+  <data name="PlesaseLogin" xml:space="preserve">
+    <value>, Por favor entre sus datos</value>
+  </data>
+  <data name="RequireDevice" xml:space="preserve">
+    <value>Se está intentando loguear un usuario sin Id de dispositvo.</value>
+  </data>
+  <data name="RequirePassword" xml:space="preserve">
+    <value>El campo Contraseña es obligatorio.</value>
+  </data>
+  <data name="RequireUsername" xml:space="preserve">
+    <value>El campo Nombre de Usuario es obligatorio.</value>
+  </data>
+  <data name="Welcome" xml:space="preserve">
+    <value>Bienvenido</value>
+  </data>
+  <data name="Calling" xml:space="preserve">
+    <value>Llamando...</value>
+  </data>
+  <data name="CanNotInitialize" xml:space="preserve">
+    <value>No se puede inicializar este dispositivo:</value>
+  </data>
+  <data name="ChangeToReadyFail" xml:space="preserve">
+    <value>Fallo al cambiar a estado Listo.</value>
+  </data>
+  <data name="ChangeToReadyOk" xml:space="preserve">
+    <value>Cambio a estado Listo realizado satisfactoriamente.</value>
+  </data>
+  <data name="InCall" xml:space="preserve">
+    <value>En una llamada!</value>
+  </data>
+  <data name="IncomingCall" xml:space="preserve">
+    <value>LLamada Entrante!</value>
+  </data>
+  <data name="InExternalCall" xml:space="preserve">
+    <value>LLamada externa entrante!</value>
+  </data>
+  <data name="LoggedOtherDevice" xml:space="preserve">
+    <value>Este usuario está logueado con un dispositivo diferente:</value>
+  </data>
+  <data name="MakeCallFail" xml:space="preserve">
+    <value>No se puede realizar esta llamada.</value>
+  </data>
+  <data name="NotDevice" xml:space="preserve">
+    <value>Identificador de dispositivo (de origen o destino) no especificado.</value>
+  </data>
+  <data name="NotUcid" xml:space="preserve">
+    <value>Identificador de llamada (ucid) no especificado.</value>
   </data>
 </root>

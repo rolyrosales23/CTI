@@ -1973,6 +1973,7 @@
     <Content Include="Views\Shared\Notifications.cshtml" />
     <Content Include="Views\Shared\Spinner.cshtml" />
     <Content Include="Views\Shared\TransferModal.cshtml" />
+    <Content Include="Views\Shared\ResourcesJS.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

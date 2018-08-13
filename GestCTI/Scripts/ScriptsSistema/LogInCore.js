@@ -9,7 +9,7 @@
         if (json['success'] === true) {
             if (phone === "") {
                 spinnerHide();
-                errorNoty("Not phone specify");
+                errorNoty(Resources.NotphoneError);
             } else {
                 agent.server.sendInitialize(phone, user);
             }
@@ -21,14 +21,14 @@
             } else {
                 // stop spinner and send message error
                 spinnerHide();
-                errorNoty("Se está intentando loguear un usuario sin id dispositvo");
+                errorNoty(Resources.RequireDevice);
             }
         }
     };
 
     agent.client.errorCoreConnection = function (message) {
         spinnerHide();
-        errorNoty("No se puede establecer conexión con el core");
+        errorNoty(Resources.NotConnectCore);
     };
 
     agent.client.getAgentInfo = function (message) {
@@ -45,7 +45,7 @@
             // Do you want to lockout and sing in
             spinnerHide();
             localStorage.removeItem('error');
-            errorNoty("Estas logueado con un dispositivo diferente: " + deviceId);
+            errorNoty(Resources.LoggedOtherDevice + " " + deviceId);
         } else {
             // Show error
             spinnerHide();
@@ -68,7 +68,7 @@
         } else {
             spinnerHide();
             // send message error
-            errorNoty("I can't initialize this device: " + $("#LoginPhoneExtension").val());
+            errorNoty(Resources.CanNotInitialize + " " + $("#LoginPhoneExtension").val());
         }
     };
 

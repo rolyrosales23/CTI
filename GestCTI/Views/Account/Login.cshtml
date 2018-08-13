@@ -29,20 +29,20 @@
         <div class="login-box animated fadeInDown">
             <div class="login-logo"></div>
             <div class="login-body">
-                <div class="login-title"><strong>Welcome</strong>, Please login</div>
+                <div class="login-title"><strong>@Resources.Login.Welcome</strong>@Resources.Login.PlesaseLogin</div>
                 @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "LogInForm" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
                         <div class="col-md-12">
-                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username", id = "LoginUsername" })
+                            @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = Resources.Admin.Username, id = "LoginUsername", name="usuario" })
                             @Html.ValidationMessageFor(m => m.Username, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-12">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password", id = "LoginPassword" })
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = Resources.Login.Login_Password, id = "LoginPassword" })
                             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -60,7 +60,7 @@
 
                     <div class="form-group" style="display: none" id="phone_extension">
                         <div class="col-md-12">
-                            @Html.TextBoxFor(m => m.PhoneExtension, new { @class = "form-control", placeholder = "Phone Extension", id = "LoginPhoneExtension" })
+                            @Html.TextBoxFor(m => m.PhoneExtension, new { @class = "form-control", placeholder = Resources.Login.PhoneExtension, id = "LoginPhoneExtension" })
                             @Html.ValidationMessageFor(m => m.PhoneExtension, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -68,12 +68,12 @@
                     <div class="form-group">
                         <div class="col-md-6">
                             @Html.CheckBoxFor(m => m.PhoneLogin, new { id = "phone_login", @class = "icheckbox" })
-                            @Html.LabelFor(m => m.PhoneLogin, new { style = "color: white" })
+                            @Html.LabelFor(m => m.PhoneLogin, Resources.Login.PhoneExtension,new { style = "color: white" })
 
                             @* @Html.ActionLink("Forgot your password?", "ForgotPassword", "Account", null, new { @class = "btn btn-link btn-block" }) *@
                         </div>
                         <div class="col-md-6">
-                            <input type="button" value="Log In" class="btn btn-info btn-block" id="LogInCore" />
+                            <input type="button" value=@Resources.Login.Login_btn class="btn btn-info btn-block" id="LogInCore" />
                         </div>
                     </div>
                 }
@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-
+        @Html.Partial("ResourcesJS")
     </div>
 
     <script src="~/assets/js/plugins/jquery/jquery.min.js"></script>

@@ -61,6 +61,42 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calling....
+        /// </summary>
+        public static string Calling {
+            get {
+                return ResourceManager.GetString("Calling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can not initialize this device:.
+        /// </summary>
+        public static string CanNotInitialize {
+            get {
+                return ResourceManager.GetString("CanNotInitialize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to change to Ready status..
+        /// </summary>
+        public static string ChangeToReadyFail {
+            get {
+                return ResourceManager.GetString("ChangeToReadyFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change to Ready state successfully completed..
+        /// </summary>
+        public static string ChangeToReadyOk {
+            get {
+                return ResourceManager.GetString("ChangeToReadyOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Log.
         /// </summary>
         public static string Desea {
@@ -79,11 +115,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In a call!.
+        /// </summary>
+        public static string InCall {
+            get {
+                return ResourceManager.GetString("InCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incoming call!.
+        /// </summary>
+        public static string IncomingCall {
+            get {
+                return ResourceManager.GetString("IncomingCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to External incoming call!.
+        /// </summary>
+        public static string InExternalCall {
+            get {
+                return ResourceManager.GetString("InExternalCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List.
         /// </summary>
         public static string List {
             get {
                 return ResourceManager.GetString("List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You are logged in with a different device:.
+        /// </summary>
+        public static string LoggedOtherDevice {
+            get {
+                return ResourceManager.GetString("LoggedOtherDevice", resourceCulture);
             }
         }
         
@@ -196,6 +268,96 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can not make this call..
+        /// </summary>
+        public static string MakeCallFail {
+            get {
+                return ResourceManager.GetString("MakeCallFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Can not connect to the core..
+        /// </summary>
+        public static string NotConnectCore {
+            get {
+                return ResourceManager.GetString("NotConnectCore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Device ID (source or destination) not specified..
+        /// </summary>
+        public static string NotDevice {
+            get {
+                return ResourceManager.GetString("NotDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not phone specify.
+        /// </summary>
+        public static string NotphoneError {
+            get {
+                return ResourceManager.GetString("NotphoneError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Caller ID (ucid) not specified..
+        /// </summary>
+        public static string NotUcid {
+            get {
+                return ResourceManager.GetString("NotUcid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone Extension.
+        /// </summary>
+        public static string PhoneExtension {
+            get {
+                return ResourceManager.GetString("PhoneExtension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to , Please login.
+        /// </summary>
+        public static string PlesaseLogin {
+            get {
+                return ResourceManager.GetString("PlesaseLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An attempt is being made to log in a user without a device Id..
+        /// </summary>
+        public static string RequireDevice {
+            get {
+                return ResourceManager.GetString("RequireDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Password field is required..
+        /// </summary>
+        public static string RequirePassword {
+            get {
+                return ResourceManager.GetString("RequirePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Username field is required..
+        /// </summary>
+        public static string RequireUsername {
+            get {
+                return ResourceManager.GetString("RequireUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Out.
         /// </summary>
         public static string Salir {
@@ -219,6 +381,15 @@ namespace Resources {
         public static string SelectVal2 {
             get {
                 return ResourceManager.GetString("SelectVal2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome.
+        /// </summary>
+        public static string Welcome {
+            get {
+                return ResourceManager.GetString("Welcome", resourceCulture);
             }
         }
         

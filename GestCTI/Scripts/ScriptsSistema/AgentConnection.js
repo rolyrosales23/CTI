@@ -49,9 +49,9 @@ $(function () {
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-            errorNoty("SET STATE AM READY SUCESS");
+            successNoty(Resources.ChangeToReadyOk);
         } else {
-            errorNoty("FAIL SET STATE AM READY");
+            errorNoty(Resources.ChangeToReadyFail);
             $("#ReadyToWork").removeAttr("disabled");
         }
     };
@@ -61,7 +61,7 @@ $(function () {
         if (json.success === false) {
             $("#acceptCallRequest").attr("disabled", "disabled");
             localStorage.removeItem('ucid');
-            successNoty('In a call...');
+            successNoty(Resources.InCall);
         }
         // Do nothing or check is fail call request 
     };
@@ -82,14 +82,14 @@ $(function () {
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
                 $('#doHoldConnection').removeAttr('disabled');
-                infoNoty("LLamada Entrante!!");
+                infoNoty(Resources.IncomingCall);
                 break;
 
             case 'onCallExternalDelivered':
                 localStorage.setItem('ucid', eventArgs[0]);
                 $('#acceptCallRequest').removeAttr('disabled');
                 $('#doHoldConnection').removeAttr('disabled');
-                infoNoty("LLamada externa entrante!!");
+                infoNoty(Resources.InExternalCall);
                 break;
 
             case 'onCallDiverted':
@@ -165,9 +165,9 @@ $(function () {
             $('#inputPhone').attr('disabled', 'disabled');
             $('#doCallBtn').attr('disabled', 'disabled');
             localStorage.setItem('ucid', json.result.ucid);
-            successNoty("Calling...");
+            successNoty(Resources.Calling);
         } else {
-            errorNoty("Can't do this call");
+            errorNoty(Resources.MakeCallFail);
         }
     };
 
@@ -192,7 +192,7 @@ $(function () {
             if (ucid !== undefined && ucid !== "") {
                 agent.server.sendCTIAnswerCallRequest(ucid, deviceId);
             } else {
-                console.error("Call id request (ucid) not specify");
+                console.error(Resources.NotUcid);
             }
         });
 
@@ -202,7 +202,7 @@ $(function () {
                 $("#hangoutCallRequest").attr("disabled", "disabled");
                 agent.server.sendCTIClearConnectionRequest(ucid, deviceId);
             } else {
-                errorNoty("Call id request (ucid) not specify");
+                errorNoty(Resources.NotUcid);
             }
         });
 
@@ -213,7 +213,7 @@ $(function () {
                 agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
             }
             else {
-                errorNoty("Call id request (fromDevice or toDevice) not specify");
+                errorNoty(Resources.NotDevice);
             }
         });
 
