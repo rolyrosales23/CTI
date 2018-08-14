@@ -99,6 +99,7 @@ $(function () {
                 break;
 
             case 'onEstablishedConnection':
+                localStorage.setItem('calledDeviceId', eventArgs[5]);
                 $("#hangoutCallRequest").removeAttr("disabled");
                 $("#acceptCallRequest").attr("disabled", "disabled");
                 $("#doHoldConnection").removeAttr("disabled");
@@ -219,6 +220,7 @@ $(function () {
 
         $("#doHoldConnection").click(function () {
             var ucid = localStorage.getItem('ucid');
+            var deviceId = localStorage.getItem('calledDeviceId');
             if (ucid !== undefined && ucid !== "" && deviceId !== undefined && deviceId !== "") {
                 $("#doHoldConnection").attr("disabled", "disabled");
                 agent.server.sendCTIHoldConnectionRequest(ucid, deviceId);

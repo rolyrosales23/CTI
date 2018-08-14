@@ -247,6 +247,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
+    <Compile Include="Core\WebsocketClient\CtiEvent.cs" />
     <Compile Include="Core\WebsocketClient\CtiUser.cs" />
     <Compile Include="Core\Util\Seguridad.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
