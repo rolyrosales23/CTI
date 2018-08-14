@@ -7,6 +7,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Collections.Concurrent;
+using Newtonsoft.Json;
 
 namespace GestCTI.Core.Message
 {
@@ -55,6 +57,24 @@ namespace GestCTI.Core.Message
                     client.Notification("READY_TO_WORK_SUCCESS");
                     break;
                 case MessageType.ON_EVENT:
+                    CTIEvent evento = JsonConvert.DeserializeObject<CTIEvent>(message);
+                    String   eventName = evento.request.request;
+                    String[] eventArgs = evento.request.args;
+
+                    switch (eventName) {
+                        case "onEndCall":
+                            {
+                                String ucid = eventArgs[0];
+                                String username = core.CtiUser.user_name;
+                                ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
+                                List<HoldConnection> lista;
+                                hc.TryGetValue(username, out lista);
+                                lista.RemoveAll(element => element.ucid == ucid);
+                                hc.AddOrUpdate(username, lista, (key, oldValue) => lista);
+                                break;
+                            }
+                    }
+
                     client.onEventHandler(message);
                     break;
                 case MessageType.CTIAnswerCallRequest:

@@ -37,9 +37,9 @@ namespace GestCTI.Hubs
         /// </summary>
         private static readonly DBCTIEntities db = new DBCTIEntities();
         /// <summary>
-        /// List of hold connections
+        /// List of hold connections by users
         /// </summary>
-        private List<HoldConnection> holdConnections = new List<HoldConnection>();
+        public static ConcurrentDictionary< String, List<HoldConnection> > holdConnections = new ConcurrentDictionary< string, List<HoldConnection> >();
         /// <summary>
         /// Log in an user in core app
         /// </summary>
@@ -143,7 +143,14 @@ namespace GestCTI.Hubs
         /// <param name="deviceId">Device id</param>
         /// <returns>void</returns>
         public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId) {
-            holdConnections.Add(new HoldConnection(ucid, deviceId));
+            List<HoldConnection> lista;
+            holdConnections.TryGetValue(Context.User.Identity.Name, out lista);
+            if( lista == null) {
+                lista = new List<HoldConnection>();
+            }
+            lista.Add(new HoldConnection(ucid, deviceId));
+            holdConnections.AddOrUpdate(Context.User.Identity.Name, lista, (key, oldValue) => lista);
+
             var toSend = CallHandling.CTIHoldConnectionRequest(ucid, deviceId);
             String I18n = "COMMAND_HOLD_CONNECTION";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
@@ -157,7 +164,9 @@ namespace GestCTI.Hubs
             // Sending message
             //holdConnections.Add(new HoldConnection("2508", "3025"));
             //holdConnections.Add(new HoldConnection("9009", "3003"));
-            Clients.Client(Context.ConnectionId).resultHoldConnections(holdConnections);
+            List<HoldConnection> lista;
+            holdConnections.TryGetValue(Context.User.Identity.Name, out lista);
+            Clients.Client(Context.ConnectionId).resultHoldConnections(lista);
         }
 
         /// <summary>
