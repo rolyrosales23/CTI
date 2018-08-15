@@ -14,7 +14,7 @@ function pintarListaEspera(lista) {
     var listaContainer = $('#lista_espera');
     listaContainer.find('li').remove();
     for (var i in lista) {
-        listaContainer.append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + (i + 1) + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
+        listaContainer.append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' data-device='" + lista[i].toDevice + "' />" + Resources.Llamada + " " + (i + 1) + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
     }
 } 
 
@@ -95,18 +95,20 @@ $(function () {
                 break;
 
             case 'onCallDelivered':
-                localStorage.setItem('ucid', eventArgs[0]);
+                //localStorage.setItem('ucid', eventArgs[0]);
+                //$('#doHoldConnection').removeAttr('disabled');
+                localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
                 $('#acceptCallRequest').removeAttr('disabled');
-                $('#doHoldConnection').removeAttr('disabled');
                 infoNoty(Resources.IncomingCall);
 
                 tempNoty('onCallDelivered');
                 break;
 
             case 'onCallExternalDelivered':
-                localStorage.setItem('ucid', eventArgs[0]);
+                //localStorage.setItem('ucid', eventArgs[0]);
+                //$('#doHoldConnection').removeAttr('disabled');
+                localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
                 $('#acceptCallRequest').removeAttr('disabled');
-                $('#doHoldConnection').removeAttr('disabled');
                 infoNoty(Resources.InExternalCall);
 
                 tempNoty('onCallExternalDelivered');
@@ -123,7 +125,9 @@ $(function () {
                 break;
 
             case 'onEstablishedConnection':
-                localStorage.setItem('calledDeviceId', eventArgs[5]);
+                var myId = localStorage.getItem('deviceId');
+                var activeCall = { 'ucid': eventArgs[0], 'deviceId': ((eventArgs[4] != myId) ? eventArgs[4] : eventArgs[5]) };
+                localStorage.setItem('activeCall', JSON.stringify(activeCall));
                 $("#hangoutCallRequest").removeAttr("disabled");
                 $("#acceptCallRequest").attr("disabled", "disabled");
                 $("#doHoldConnection").removeAttr("disabled");
@@ -138,6 +142,8 @@ $(function () {
 
             case 'onHoldPartyConnection':
                 pintarListaEspera(data);
+                $('#inputPhone').text('').removeAttr('disabled');
+                localStorage.removeItem('activeCall');
 
                 tempNoty('onHoldPartyConnection');
                 break;
@@ -148,11 +154,17 @@ $(function () {
                 break;
 
             case 'onRetrievePartyConnection':
+                localStorage.setItem('activeCall', JSON.stringify({
+                    'ucid': eventArgs[0],
+                    'deviceId': eventArgs[2]
+                }));
+                pintarListaEspera(data);
 
                 tempNoty('onRetrievePartyConnection');
                 break;
 
             case 'onEndConnection':
+                localStorage.removeItem('activeCall');
 
                 tempNoty('onEndConnection');
                 break;
@@ -169,6 +181,7 @@ $(function () {
                 $("#inputPhone").val('');
                 $('#doHoldConnection').attr('disabled', 'disabled');
                 pintarListaEspera(data);
+                localStorage.removeItem('activeCall');
 
                 tempNoty('onEndCall');
                 break;
@@ -217,7 +230,7 @@ $(function () {
         if (json['success'] === true) {
             $('#inputPhone').attr('disabled', 'disabled');
             $('#doCallBtn').attr('disabled', 'disabled');
-            localStorage.setItem('ucid', json.result.ucid);
+            //localStorage.setItem('ucid', json.result.ucid);
             successNoty(Resources.Calling);
         } else {
             errorNoty(Resources.MakeCallFail);
@@ -240,22 +253,30 @@ $(function () {
         });
 
         $("#acceptCallRequest").click(function () {
-            var ucid = localStorage.getItem('ucid');
-            if (ucid !== undefined && ucid !== "") {
-                agent.server.sendCTIAnswerCallRequest(ucid, deviceId);
-            } else {
-                console.error(Resources.NotUcid);
+            var strAC = localStorage.getItem('activeCall');
+            if (notEmpty(strAC)) {
+                var activeCall = JSON.parse(strAC);
+                if (notEmpty(activeCall.ucid)) {
+                    agent.server.sendCTIAnswerCallRequest(activeCall.ucid, deviceId);
+                } else {
+                    console.error(Resources.NotUcid);
+                }
             }
+            else infoNoty("No hay llamada activa!");
         });
 
         $("#hangoutCallRequest").click(function () {
-            var ucid = localStorage.getItem('ucid');
-            if (ucid !== undefined && ucid !== "") {
-                $("#hangoutCallRequest").attr("disabled", "disabled");
-                agent.server.sendCTIClearConnectionRequest(ucid, deviceId);
-            } else {
-                errorNoty(Resources.NotUcid);
+            var strAC = localStorage.getItem('activeCall');
+            if (notEmpty(strAC)) {
+                var activeCall = JSON.parse(strAC);
+                if (notEmpty(activeCall.ucid)) {
+                    $("#hangoutCallRequest").attr("disabled", "disabled");
+                    agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
+                } else {
+                    errorNoty(Resources.NotUcid);
+                }
             }
+            else infoNoty("No hay llamada activa!");
         });
 
         $("#doCallBtn").click(function () {
@@ -269,26 +290,48 @@ $(function () {
         });
 
         $("#doHoldConnection").click(function () {
-            var ucid = localStorage.getItem('ucid');
-            var deviceId = localStorage.getItem('calledDeviceId');
-            if (ucid !== undefined && ucid !== "" && deviceId !== undefined && deviceId !== "") {
-                $("#doHoldConnection").attr("disabled", "disabled");
-                agent.server.sendCTIHoldConnectionRequest(ucid, deviceId);
+            var strAC = localStorage.getItem('activeCall');
+            if (notEmpty(strAC)) {
+                var activeCall = JSON.parse(strAC);
+                if (notEmpty(activeCall.ucid) && notEmpty(activeCall.deviceId)) {
+                    $("#doHoldConnection").attr("disabled", "disabled");
+                    agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, activeCall.deviceId);
+                }
             }
+            else
+                infoNoty("No hay Llamada activa!");
         });
 
         $('#doTransfer').click(function () {
             //hay que arreglar el selector
             var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
             if (notEmpty(heldUcid)) {
-                var activeUcid = localStorage.getItem('ucid');
-                if (notEmpty(activeUcid))
+                var strAC = localStorage.getItem('activeCall');
+                if (notEmpty(strAC)) {
+                    var activeCall = JSON.parse(strAC);
                     if (notEmpty(deviceId))
-                        agent.server.sendTransferCall(heldUcid, activeUcid, deviceId);
+                        agent.server.sendTransferCall(heldUcid, activeCall.ucid, deviceId);
                     else
                         infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                }
                 else
                     infoNoty("No hay llamada activa!");
+            }
+            else
+                infoNoty("Debe seleccionar una llamada en espera!");
+        });
+
+        $('#doRetrieve').click(function () {
+            var radio = $('#lista_espera input[type="radio"]:checked');
+            var heldUcid = radio.val();
+            if (notEmpty(heldUcid)) {
+                var strAC = localStorage.getItem('activeCall');
+                if (notEmpty(strAC))
+                    infoNoty("No se puede recuperar porque hay una llamada activa!");
+                else {
+                    var deviceId = radio.data('device');
+                    agent.server.sendRetrieveCall(heldUcid, deviceId);
+                }
             }
             else
                 infoNoty("Debe seleccionar una llamada en espera!");

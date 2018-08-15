@@ -229,6 +229,13 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTITransferRequest, I18n, Context.User.Identity.Name);
         }
 
+        public async Task sendRetrieveCall(String heldUcid, String deviceId)
+        {
+            var toSend = CallHandling.CTIRetrieveConnectionRequest(heldUcid, deviceId);
+            String I18n = "COMMAND_RETRIEVE_CONNECTION";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIRetrieveConnection, I18n, Context.User.Identity.Name);
+        }
+
         /// <summary>
         /// Generic sender to websocket core
         /// </summary>

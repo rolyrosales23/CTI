@@ -84,6 +84,16 @@ namespace GestCTI.Core.Message
                                 client.onEventHandler(message, lista);
                                 return;
                             }
+                        case "onRetrievePartyConnection": {
+                                String username = core.CtiUser.user_name;
+                                ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
+                                List<HoldConnection> lista;
+                                hc.TryGetValue(username, out lista);
+                                lista.Remove(new HoldConnection(eventArgs[0], eventArgs[2]));
+                                hc.AddOrUpdate(username, lista, (key, oldValue) => lista);
+                                client.onEventHandler(message, lista);
+                                return;
+                            }
                     }
 
                     client.onEventHandler(message);
@@ -94,6 +104,8 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIClearConnectionRequest:
                     break;
                 case MessageType.CTITransferRequest:
+                    break;
+                case MessageType.CTIRetrieveConnection:
                     break;
             }
         }
