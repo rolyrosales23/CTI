@@ -151,6 +151,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Call.
+        /// </summary>
+        public static string Llamada {
+            get {
+                return ResourceManager.GetString("Llamada", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calllogs.
         /// </summary>
         public static string Menu_Calllog {

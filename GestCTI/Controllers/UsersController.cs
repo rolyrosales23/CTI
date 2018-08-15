@@ -115,6 +115,21 @@ namespace GestCTI.Controllers
             return RedirectToAction("Index");
         }
 
+        // GET: Users/ChangePassword/5
+        public ActionResult ChangePassword(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Users users = db.Users.Find(id);
+            if (users == null)
+            {
+                return HttpNotFound();
+            }
+            return View(users);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
