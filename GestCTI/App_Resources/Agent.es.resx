@@ -147,6 +147,9 @@
   <data name="InsertPhone" xml:space="preserve">
     <value>Entre un número telefónico</value>
   </data>
+  <data name="Llamada" xml:space="preserve">
+    <value>Llamada</value>
+  </data>
   <data name="Menu_Calllog" xml:space="preserve">
     <value>Registro de llamadas</value>
   </data>

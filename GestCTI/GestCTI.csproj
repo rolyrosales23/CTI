@@ -1961,6 +1961,7 @@
     <Content Include="Views\Shared\Spinner.cshtml" />
     <Content Include="Views\Shared\TransferModal.cshtml" />
     <Content Include="Views\Shared\ResourcesJS.cshtml" />
+    <Content Include="Views\Users\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
