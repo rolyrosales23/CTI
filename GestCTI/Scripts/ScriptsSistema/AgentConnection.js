@@ -7,7 +7,7 @@
 };
 
 function notEmpty(value) {
-    return value != undefined && vaue !== null && value != "";
+    return value != undefined && value !== null && value != "";
 }
 
 function pintarListaEspera(lista) {
@@ -84,9 +84,14 @@ $(function () {
 
         switch (eventName) {
             case 'onServiceInitiated':
+                $("#hangoutCallRequest").removeAttr("disabled");
+
+                tempNoty('onServiceInitiated');
                 break;
 
             case 'onCallOriginated':
+
+                tempNoty('onCallOriginated');
                 break;
 
             case 'onCallDelivered':
@@ -94,6 +99,8 @@ $(function () {
                 $('#acceptCallRequest').removeAttr('disabled');
                 $('#doHoldConnection').removeAttr('disabled');
                 infoNoty(Resources.IncomingCall);
+
+                tempNoty('onCallDelivered');
                 break;
 
             case 'onCallExternalDelivered':
@@ -101,12 +108,18 @@ $(function () {
                 $('#acceptCallRequest').removeAttr('disabled');
                 $('#doHoldConnection').removeAttr('disabled');
                 infoNoty(Resources.InExternalCall);
+
+                tempNoty('onCallExternalDelivered');
                 break;
 
             case 'onCallDiverted':
+
+                tempNoty('onCallDiverted');
                 break;
 
             case 'onCallFailed':
+
+                tempNoty('onCallFailed');
                 break;
 
             case 'onEstablishedConnection':
@@ -114,25 +127,39 @@ $(function () {
                 $("#hangoutCallRequest").removeAttr("disabled");
                 $("#acceptCallRequest").attr("disabled", "disabled");
                 $("#doHoldConnection").removeAttr("disabled");
+
+                tempNoty('onEstablishedConnection');
                 break;
 
             case 'onHoldConnection':
                 pintarListaEspera(data);
+
+                tempNoty('onHoldConnection');
                 break;
 
             case 'onHoldPartyConnection':
+
+                tempNoty('onHoldPartyConnection');
                 break;
 
             case 'onRetrieveConnection':
+
+                tempNoty('onRetrieveConnection');
                 break;
 
             case 'onRetrievePartyConnection':
+
+                tempNoty('onRetrievePartyConnection');
                 break;
 
             case 'onEndConnection':
+
+                tempNoty('onEndConnection');
                 break;
 
             case 'onEndPartyConnection':
+
+                tempNoty('onEndPartyConnection');
                 break;
 
             case 'onEndCall':
@@ -142,12 +169,18 @@ $(function () {
                 $("#inputPhone").val('');
                 $('#doHoldConnection').attr('disabled', 'disabled');
                 pintarListaEspera(data);
+
+                tempNoty('onEndCall');
                 break;
 
             case 'onTransferredCall':
+
+                tempNoty('');
                 break;
 
             case 'onConferencedCall':
+
+                tempNoty('onTransferredCall');
                 break;
 
             case 'onAgentChangedState': {
@@ -157,16 +190,24 @@ $(function () {
                         $("#ReadyToWork").attr("disabled", "disabled");
                         break;
                 }
+
+                tempNoty('onAgentChangedState');
                 break;
             }
 
             case 'onRecordingStartedPlaying':
+
+                tempNoty('onRecordingStartedPlaying');
                 break;
 
             case 'onRecordingEndedPlaying':
+
+                tempNoty('onRecordingEndedPlaying');
                 break;
 
             case 'onCollectedDigits':
+
+                tempNoty('onCollectedDigits');
                 break;
         }
     };
@@ -195,7 +236,6 @@ $(function () {
         });
 
         $('#LogOutCore').click(function () {
-            var deviceId = localStorage.getItem('deviceId');
             agent.server.sendLogOutCore(deviceId);
         });
 
@@ -220,8 +260,7 @@ $(function () {
 
         $("#doCallBtn").click(function () {
             var toDevice = $('#inputPhone').val();
-            if (deviceId !== undefined && deviceId !== "" && toDevice !== undefined && toDevice !== "") {
-                $("#hangoutCallRequest").removeAttr("disabled");
+            if (notEmpty(deviceId) && notEmpty(toDevice)) {
                 agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
             }
             else {
@@ -239,18 +278,20 @@ $(function () {
         });
 
         $('#doTransfer').click(function () {
-            agent.server.getHoldConnections();
-            spinnerShow();
-        });
-
-        $('#modal-transfer-btn').click(function () {
-            $('#transfer-modal').modal('hide');
-            var heldUcid = $('#transfer-modal select').val();
-            var activeUcid = localStorage.getItem('ucid');
-            if (notEmpty(heldUcid) && notEmpty(activeUcid) && notEmpty(deviceId)) {
-                agent.server.sendTransferCall(heldUcid, activeUcid, deviceId);
+            //hay que arreglar el selector
+            var heldUcid = $('input[type="radio"]:checked').val();
+            if (notEmpty(heldUcid)) {
+                var activeUcid = localStorage.getItem('ucid');
+                if (notEmpty(activeUcid))
+                    if (notEmpty(deviceId))
+                        agent.server.sendTransferCall(heldUcid, activeUcid, deviceId);
+                    else
+                        infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                else
+                    infoNoty("No hay llamada activa!");
             }
-            spinnerShow();
+            else
+                infoNoty("Debe seleccionar una llamada en espera!");
         });
     });
 });

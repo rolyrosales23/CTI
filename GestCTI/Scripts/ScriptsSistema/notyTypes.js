@@ -1,4 +1,20 @@
-﻿function successNoty(message) {
+﻿function tempNoty(message) {
+    noty({
+        text: message,
+        layout: 'topLeft',
+        type: 'success',
+        maxVisible: 20,
+        animation: {
+            open: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceInLeft'
+            close: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceOutLeft'
+            easing: 'swing',
+            speed: 500 // opening & closing animation speed
+        },
+        //timeout: 30000
+    });
+}
+
+function successNoty(message) {
     noty({
         text: message,
         layout: 'topRight',

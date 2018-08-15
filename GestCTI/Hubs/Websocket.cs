@@ -156,7 +156,7 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
         }
 
-        /// <summary>
+ /*       /// <summary>
         /// Get all holded connections for an user in this context
         /// </summary>
         /// <returns>void</returns>
@@ -168,6 +168,7 @@ namespace GestCTI.Hubs
             holdConnections.TryGetValue(Context.User.Identity.Name, out lista);
             Clients.Client(Context.ConnectionId).resultHoldConnections(lista);
         }
+*/
 
         /// <summary>
         /// Log out
