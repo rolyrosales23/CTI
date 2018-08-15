@@ -38,14 +38,14 @@
                                 <i class="fa fa-bars"></i><br />
                             </span>
 
-                            <input id="inputPhone" class="form-control" type="number" placeholder="Insert a phone number..."/>
+                            <input id="inputPhone" class="form-control" type="number" placeholder=@Resources.Agent.InsertPhone/>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="col-md-12" style="padding: 0px">
                             <button id="doCallBtn" class="btn btn-success btn-lg btn-block btn-redondo" disabled="disabled">
-                                Call
+                                @Resources.Agent.Call
                             </button>
                         </div>
                     </div>
@@ -59,14 +59,14 @@
                     <div class="col-md-6">
                         <button class="btn btn-success btn-redondo" id="ReadyToWork">
                             <i class="fa fa-check icono-grande"></i><br/>
-                            Ready
+                            @Resources.Agent.Ready
                         </button>
                     </div>
 
                     <div class="col-md-6">
                         <button class="btn btn-success btn-redondo">
                             <i class="fa fa-pause icono-grande"></i><br/>
-                            Pause
+                            @Resources.Agent.Pause
                         </button>
                     </div>
                 </div>
@@ -75,7 +75,7 @@
                     <div class="col-md-12">
                         <button id="acceptCallRequest" class="btn btn-success btn-redondo" disabled="disabled">
                             <i class="fa icon-phone-call icono-grande"></i><br/>
-                            Answer
+                            @Resources.Agent.Answer
                         </button>
                     </div>
                 </div>
@@ -84,14 +84,14 @@
                     <div class="col-md-6">
                         <button class="btn btn-success btn-redondo" id="doHoldConnection">
                             <i class="fa icon-phone_paused icono-grande"></i><br />
-                            Hold
+                            @Resources.Agent.Hold
                         </button>
                     </div>
 
                     <div class="col-md-6">
                         <a class="btn btn-success btn-redondo" id="doTransfer">
                             <i class="fa icon-phone_missed icono-grande"></i><br />
-                            Transfer
+                            @Resources.Agent.Transfer
                         </a>
                     </div>
                 </div>
@@ -100,14 +100,14 @@
                     <div class="col-md-6">
                         <button class="btn btn-success btn-redondo">
                             <i class="fa fa-cloud-upload icono-grande"></i><br/>
-                            Confer...
+                            @Resources.Agent.Confer
                         </button>
                     </div>
 
                     <div class="col-md-6">
                         <button class="btn btn-success btn-redondo">
                             <i class="fa icon-phone3 icono-grande"></i><br/>
-                            <span class="line-height-1 smaller-75"> End Conf... </span>
+                            <span class="line-height-1 smaller-75"> @Resources.Agent.EndConf </span>
                         </button>
                     </div>
                 </div>
@@ -116,7 +116,7 @@
                     <div class="col-md-12">
                         <button class="btn btn-success btn-redondo" id="hangoutCallRequest" disabled="disabled">
                             <i class="fa icon-call_end icono-grande"></i><br/>
-                            Hang Up
+                            @Resources.Agent.HangUp
                         </button>
                     </div>
                 </div>
