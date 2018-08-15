@@ -75,7 +75,7 @@ namespace GestCTI.Core.Message
                                 return;
                             }
 
-                        case "onHoldConnection":
+                        case "onHoldPartyConnection":
                             {
                                 String username = core.CtiUser.user_name;
                                 ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;

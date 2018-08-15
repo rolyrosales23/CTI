@@ -132,12 +132,12 @@ $(function () {
                 break;
 
             case 'onHoldConnection':
-                pintarListaEspera(data);
 
                 tempNoty('onHoldConnection');
                 break;
 
             case 'onHoldPartyConnection':
+                pintarListaEspera(data);
 
                 tempNoty('onHoldPartyConnection');
                 break;
@@ -279,7 +279,7 @@ $(function () {
 
         $('#doTransfer').click(function () {
             //hay que arreglar el selector
-            var heldUcid = $('input[type="radio"]:checked').val();
+            var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
             if (notEmpty(heldUcid)) {
                 var activeUcid = localStorage.getItem('ucid');
                 if (notEmpty(activeUcid))
