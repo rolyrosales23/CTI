@@ -97,6 +97,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Device.
+        /// </summary>
+        public static string Device {
+            get {
+                return ResourceManager.GetString("Device", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to End Conf....
         /// </summary>
         public static string EndConf {
@@ -120,6 +129,15 @@ namespace Resources {
         public static string Hold {
             get {
                 return ResourceManager.GetString("Hold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hold Calls.
+        /// </summary>
+        public static string HoldCalls {
+            get {
+                return ResourceManager.GetString("HoldCalls", resourceCulture);
             }
         }
         

@@ -129,6 +129,9 @@
   <data name="Confer" xml:space="preserve">
     <value>Confer...</value>
   </data>
+  <data name="Device" xml:space="preserve">
+    <value>Dispositivo</value>
+  </data>
   <data name="EndConf" xml:space="preserve">
     <value>Fin Conf...</value>
   </data>
@@ -137,6 +140,9 @@
   </data>
   <data name="Hold" xml:space="preserve">
     <value>Espera</value>
+  </data>
+  <data name="HoldCalls" xml:space="preserve">
+    <value>Llamadas en espera</value>
   </data>
   <data name="InsertPhone" xml:space="preserve">
     <value>Entre un número telefónico</value>

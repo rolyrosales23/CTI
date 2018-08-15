@@ -14,7 +14,7 @@ function pintarListaEspera(lista) {
     var listaContainer = $('#lista_espera');
     listaContainer.find('li').remove();
     for (var i in lista) {
-        listaContainer.append("<li><input type='radio' name='hold_list' value='" + lista[i].ucid + "'> deviceId:" + lista[i].toDevice + "</li>");
+        listaContainer.append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' /> Call 1</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
     }
 } 
 
