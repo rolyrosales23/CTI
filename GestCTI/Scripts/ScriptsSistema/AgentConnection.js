@@ -6,6 +6,17 @@
     AS_WORK_READY: 4
 };
 
+function notEmpty(value) {
+    return value != undefined && vaue !== null && value != "";
+}
+
+function pintarListaEspera(lista) {
+    var listaContainer = $('#lista_espera');
+    listaContainer.find('li').remove();
+    for (var i in lista) {
+        listaContainer.append("<li><input type='radio' name='hold_list' value='" + lista[i].ucid + "'> deviceId:" + lista[i].toDevice + "</li>");
+    }
+} 
 
 $(function () {
     // Reference the auto-generated proxy for the hub.
@@ -106,8 +117,7 @@ $(function () {
                 break;
 
             case 'onHoldConnection':
-                // Repinta la lista de hold
-                console.log(data);
+                pintarListaEspera(data);
                 break;
 
             case 'onHoldPartyConnection':
@@ -131,6 +141,7 @@ $(function () {
                 $("#inputPhone").removeAttr("disabled");
                 $("#inputPhone").val('');
                 $('#doHoldConnection').attr('disabled', 'disabled');
+                pintarListaEspera(data);
                 break;
 
             case 'onTransferredCall':

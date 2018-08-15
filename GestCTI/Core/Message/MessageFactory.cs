@@ -71,7 +71,18 @@ namespace GestCTI.Core.Message
                                 hc.TryGetValue(username, out lista);
                                 lista.RemoveAll(element => element.ucid == ucid);
                                 hc.AddOrUpdate(username, lista, (key, oldValue) => lista);
-                                break;
+                                client.onEventHandler(message, lista);
+                                return;
+                            }
+
+                        case "onHoldConnection":
+                            {
+                                String username = core.CtiUser.user_name;
+                                ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
+                                List<HoldConnection> lista;
+                                hc.TryGetValue(username, out lista);
+                                client.onEventHandler(message, lista);
+                                return;
                             }
                     }
 
