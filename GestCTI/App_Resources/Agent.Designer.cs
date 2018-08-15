@@ -70,6 +70,69 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Answer.
+        /// </summary>
+        public static string Answer {
+            get {
+                return ResourceManager.GetString("Answer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call.
+        /// </summary>
+        public static string Call {
+            get {
+                return ResourceManager.GetString("Call", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confer....
+        /// </summary>
+        public static string Confer {
+            get {
+                return ResourceManager.GetString("Confer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to End Conf....
+        /// </summary>
+        public static string EndConf {
+            get {
+                return ResourceManager.GetString("EndConf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hang Up.
+        /// </summary>
+        public static string HangUp {
+            get {
+                return ResourceManager.GetString("HangUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hold.
+        /// </summary>
+        public static string Hold {
+            get {
+                return ResourceManager.GetString("Hold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Insert a phone number.
+        /// </summary>
+        public static string InsertPhone {
+            get {
+                return ResourceManager.GetString("InsertPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calllogs.
         /// </summary>
         public static string Menu_Calllog {
@@ -93,6 +156,33 @@ namespace Resources {
         public static string Menu_Contacts {
             get {
                 return ResourceManager.GetString("Menu_Contacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause.
+        /// </summary>
+        public static string Pause {
+            get {
+                return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ready.
+        /// </summary>
+        public static string Ready {
+            get {
+                return ResourceManager.GetString("Ready", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transferir.
+        /// </summary>
+        public static string Transfer {
+            get {
+                return ResourceManager.GetString("Transfer", resourceCulture);
             }
         }
     }

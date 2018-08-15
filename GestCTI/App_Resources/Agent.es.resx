@@ -120,6 +120,27 @@
   <data name="Agente" xml:space="preserve">
     <value>Agente</value>
   </data>
+  <data name="Answer" xml:space="preserve">
+    <value>Responder</value>
+  </data>
+  <data name="Call" xml:space="preserve">
+    <value>Llamar</value>
+  </data>
+  <data name="Confer" xml:space="preserve">
+    <value>Confer...</value>
+  </data>
+  <data name="EndConf" xml:space="preserve">
+    <value>Fin Conf...</value>
+  </data>
+  <data name="HangUp" xml:space="preserve">
+    <value>Colgar</value>
+  </data>
+  <data name="Hold" xml:space="preserve">
+    <value>Espera</value>
+  </data>
+  <data name="InsertPhone" xml:space="preserve">
+    <value>Entre un número telefónico</value>
+  </data>
   <data name="Menu_Calllog" xml:space="preserve">
     <value>Registro de llamadas</value>
   </data>
@@ -128,5 +149,11 @@
   </data>
   <data name="Menu_Contacts" xml:space="preserve">
     <value>Contactos</value>
+  </data>
+  <data name="Pause" xml:space="preserve">
+    <value>Pausa</value>
+  </data>
+  <data name="Ready" xml:space="preserve">
+    <value>Listo</value>
   </data>
 </root>
