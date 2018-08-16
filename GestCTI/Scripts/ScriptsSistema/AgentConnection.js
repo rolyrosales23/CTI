@@ -11,19 +11,33 @@ function notEmpty(value) {
 }
 
 function pintarListaEspera(lista) {
-    var listaContainer = $('#lista_espera');
-    listaContainer.find('li').remove();
+    var panel = $('#lista_espera');
+    panel.find('ul').remove();
+
+    if (lista.length)
+        panel.append("<ul class='list-unstyled'></ul>");
+
     for (var i in lista) {
-        listaContainer.append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' data-device='" + lista[i].toDevice + "' />" + Resources.Llamada + " " + (i + 1) + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
+        var ind = i + 1;
+        panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
     }
-} 
+
+    //reinicializar el plugin icheck
+    if ($(".icheckbox").length > 0) {
+        $(".icheckbox,.iradio").iCheck({ checkboxClass: 'icheckbox_minimal-grey', radioClass: 'iradio_minimal-grey' });
+    }
+}
 
 $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
-    agent.client.Notification = function (response) {
-        successNoty(response);
+    agent.client.InicializarApp = function (message) {
+        errorNoty(message);
+    }
+
+    agent.client.Notification = function (message, type = "success") {
+        notify(message, type);
     };
 
     // Logout from web app
@@ -81,6 +95,7 @@ $(function () {
         json = JSON.parse(response);
         var eventName = json.request.request;
         var eventArgs = json.request.args;
+        var deviceId = localStorage.getItem('deviceId');
 
         switch (eventName) {
             case 'onServiceInitiated':
@@ -136,35 +151,36 @@ $(function () {
                 break;
 
             case 'onHoldConnection':
+                pintarListaEspera(data);
+                $('#inputPhone').text('').removeAttr('disabled');
+                localStorage.removeItem('activeCall');
 
                 tempNoty('onHoldConnection');
                 break;
 
             case 'onHoldPartyConnection':
-                pintarListaEspera(data);
-                $('#inputPhone').text('').removeAttr('disabled');
-                localStorage.removeItem('activeCall');
-
+                
                 tempNoty('onHoldPartyConnection');
                 break;
 
             case 'onRetrieveConnection':
-
-                tempNoty('onRetrieveConnection');
-                break;
-
-            case 'onRetrievePartyConnection':
                 localStorage.setItem('activeCall', JSON.stringify({
                     'ucid': eventArgs[0],
                     'deviceId': eventArgs[2]
                 }));
                 pintarListaEspera(data);
 
+                tempNoty('onRetrieveConnection');
+                break;
+
+            case 'onRetrievePartyConnection':
+
                 tempNoty('onRetrievePartyConnection');
                 break;
 
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
+                $("#hangoutCallRequest").attr("disabled", "disabled");
 
                 tempNoty('onEndConnection');
                 break;
@@ -187,13 +203,23 @@ $(function () {
                 break;
 
             case 'onTransferredCall':
+                localStorage.setItem('activeCall', JSON.stringify({
+                    'ucid': eventArgs[4],
+                    'deviceId': ((eventArgs[5] != deviceId) ? eventArgs[5] : eventArgs[6])
+                }));
+                pintarListaEspera(data);
 
-                tempNoty('');
+                tempNoty('onTransferredCall');
                 break;
 
             case 'onConferencedCall':
+                localStorage.setItem('activeCall', JSON.stringify({
+                    'ucid': eventArgs[4],
+                    'deviceId': ((eventArgs[5] != deviceId) ? eventArgs[5] : eventArgs[6])
+                }));
+                pintarListaEspera(data);
 
-                tempNoty('onTransferredCall');
+                tempNoty('onConferencedCall');
                 break;
 
             case 'onAgentChangedState': {
@@ -242,6 +268,8 @@ $(function () {
     $.connection.hub.start().done(function () {
         var deviceId = localStorage.getItem('deviceId');
 
+        //agent.server.InicializarApp();
+
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
             $("#ReadyToWork").attr("disabled", "disabled");
@@ -270,7 +298,6 @@ $(function () {
             if (notEmpty(strAC)) {
                 var activeCall = JSON.parse(strAC);
                 if (notEmpty(activeCall.ucid)) {
-                    $("#hangoutCallRequest").attr("disabled", "disabled");
                     agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
                 } else {
                     errorNoty(Resources.NotUcid);
@@ -293,9 +320,9 @@ $(function () {
             var strAC = localStorage.getItem('activeCall');
             if (notEmpty(strAC)) {
                 var activeCall = JSON.parse(strAC);
-                if (notEmpty(activeCall.ucid) && notEmpty(activeCall.deviceId)) {
+                if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
                     $("#doHoldConnection").attr("disabled", "disabled");
-                    agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, activeCall.deviceId);
+                    agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId, activeCall.deviceId);
                 }
             }
             else
@@ -303,7 +330,6 @@ $(function () {
         });
 
         $('#doTransfer').click(function () {
-            //hay que arreglar el selector
             var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
             if (notEmpty(heldUcid)) {
                 var strAC = localStorage.getItem('activeCall');
@@ -329,9 +355,26 @@ $(function () {
                 if (notEmpty(strAC))
                     infoNoty("No se puede recuperar porque hay una llamada activa!");
                 else {
-                    var deviceId = radio.data('device');
                     agent.server.sendRetrieveCall(heldUcid, deviceId);
                 }
+            }
+            else
+                infoNoty("Debe seleccionar una llamada en espera!");
+        });
+
+        $('#doConference').click(function () {
+            var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
+            if (notEmpty(heldUcid)) {
+                var strAC = localStorage.getItem('activeCall');
+                if (notEmpty(strAC)) {
+                    var activeCall = JSON.parse(strAC);
+                    if (notEmpty(deviceId))
+                        agent.server.sendConferenceCall(heldUcid, activeCall.ucid, deviceId);
+                    else
+                        infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                }
+                else
+                    infoNoty("No hay llamada activa!");
             }
             else
                 infoNoty("Debe seleccionar una llamada en espera!");
