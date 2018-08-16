@@ -379,6 +379,10 @@
         <!--SignalR script to update the chat page and send messages.-->
         <script src="~/Scripts/ScriptsSistema/AgentConnection.js"></script>
     }
+    else if (this.User.IsInRole("supervisor"))
+    {
+        <script src="~/Scripts/ScriptsSistema/SupervisorConnection-v0.0.1.js"></script>
+    }
 
     <script>
         var lang = "";

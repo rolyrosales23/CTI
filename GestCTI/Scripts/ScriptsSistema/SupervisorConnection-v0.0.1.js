@@ -3,21 +3,12 @@
     var agent = $.connection.websocket;
 
     agent.client.Notification = function (response) {
-        noty(
-            {
-                text: response,
-                layout: 'topRight',
-                type: 'success',
-                maxVisible: 5,
-                animation: {
-                    open: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceInLeft'
-                    close: { height: 'toggle' }, // or Animate.css class names like: 'animated bounceOutLeft'
-                    easing: 'swing',
-                    speed: 500 // opening & closing animation speed
-                },
-                timeout: 2000
-            });
     }
+
+    agent.client.sendUserConnected = function (CtiAgentList) {
+        // Show list of agents
+    }
+
 
     // Logout from web app
     agent.client.logOutCore = function (response) {
