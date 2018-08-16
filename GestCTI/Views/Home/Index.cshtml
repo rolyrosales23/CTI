@@ -82,14 +82,21 @@
                 </div>
 
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <button class="btn btn-success btn-redondo" id="doHoldConnection">
                             <i class="fa icon-phone_paused icono-grande"></i><br />
                             @Resources.Agent.Hold
                         </button>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <button class="btn btn-success btn-redondo" id="doRetrieve">
+                            <i class="fa icon-phone_paused icono-grande"></i><br />
+                            Retrieve
+                        </button>
+                    </div>
+
+                    <div class="col-md-4">
                         <a class="btn btn-success btn-redondo" id="doTransfer">
                             <i class="fa icon-phone_missed icono-grande"></i><br />
                             @Resources.Agent.Transfer
@@ -99,7 +106,7 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo">
+                        <button class="btn btn-success btn-redondo" id="doConference">
                             <i class="fa icon-conf icono-grande"></i><br/>
                             @Resources.Agent.Confer
                         </button>
@@ -134,9 +141,7 @@
                     <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
                 </ul>
             </div>
-            <div class="panel-body list-group list-group-contacts">
-                <ul id="lista_espera" class="list-unstyled">
-                </ul>
+            <div class="panel-body list-group list-group-contacts" id="lista_espera">
             </div>
         </div>
     </div>

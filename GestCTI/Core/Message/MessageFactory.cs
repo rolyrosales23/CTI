@@ -25,6 +25,27 @@ namespace GestCTI.Core.Message
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
             var client = hubContext.Clients.Client(clientId);
 
+            if (messageType != MessageType.ON_EVENT)
+            {
+                int successIndex = message.IndexOf("success");
+                String success = message.Substring(successIndex + 9, 1);
+                if (success.ToUpper() == "F")
+                {
+                    try
+                    {
+                        CTIErrorResponse response = JsonConvert.DeserializeObject<CTIErrorResponse>(message);
+                        client.Notification(success + response.result, "error");
+                    }
+                    catch (Exception) {
+                        client.Notification("DESZERIALIZE ERROR: " + message, "error");
+                    }
+                }
+                else if (success.ToUpper() == "T")
+                    client.Notification(messageType.ToString() + " DONE!", "success");
+                else
+                    client.Notification(message, "warning");
+            }
+
             switch (messageType)
             {
                 case MessageType.CallIn:
@@ -75,12 +96,42 @@ namespace GestCTI.Core.Message
                                 return;
                             }
 
-                        case "onHoldPartyConnection":
+                        case "onHoldConnection":
                             {
                                 String username = core.CtiUser.user_name;
                                 ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
                                 List<HoldConnection> lista;
                                 hc.TryGetValue(username, out lista);
+                                client.onEventHandler(message, lista);
+                                return;
+                            }
+                        case "onRetrieveConnection": {
+                                String username = core.CtiUser.user_name;
+                                ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
+                                List<HoldConnection> lista;
+                                hc.TryGetValue(username, out lista);
+                                lista.RemoveAll(element => element.ucid == eventArgs[0]);
+                                hc.AddOrUpdate(username, lista, (key, oldValue) => lista);
+                                client.onEventHandler(message, lista);
+                                return;
+                            }
+                        case "onTransferredCall": {
+                                String username = core.CtiUser.user_name;
+                                ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
+                                List<HoldConnection> lista;
+                                hc.TryGetValue(username, out lista);
+                                lista.RemoveAll(element => element.ucid == eventArgs[0]);
+                                hc.AddOrUpdate(username, lista, (key, oldValue) => lista);
+                                client.onEventHandler(message, lista);
+                                return;
+                            }
+                        case "onConferenceCall": {
+                                String username = core.CtiUser.user_name;
+                                ConcurrentDictionary<String, List<HoldConnection>> hc = Websocket.holdConnections;
+                                List<HoldConnection> lista;
+                                hc.TryGetValue(username, out lista);
+                                lista.RemoveAll(element => element.ucid == eventArgs[0]);
+                                hc.AddOrUpdate(username, lista, (key, oldValue) => lista);
                                 client.onEventHandler(message, lista);
                                 return;
                             }
@@ -94,6 +145,13 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIClearConnectionRequest:
                     break;
                 case MessageType.CTITransferRequest:
+                    break;
+                case MessageType.CTIRetrieveConnection:
+                    break;
+                case MessageType.CTIConferenceRequest:
+                    break;
+                case MessageType.InicializarApp:
+                    client.InicializarApp(message);
                     break;
             }
         }

@@ -15,4 +15,9 @@ namespace GestCTI.Core.WebsocketClient
         public String invokedId { get; set; }
         public CTIRequestData request { get; set; }
     }
+
+    public class CTIErrorResponse {
+        public String success { get; set; }
+        public String result { get; set; }
+    }
 }

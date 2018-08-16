@@ -21,6 +21,9 @@ namespace GestCTI.Core.Enum
         CTIAnswerCallRequest, // Handle call request
         CTIClearConnectionRequest,
         CTIHoldConnectionRequest,
-        CTITransferRequest
+        CTITransferRequest,
+        CTIRetrieveConnection,
+        CTIConferenceRequest,
+        InicializarApp
     }
 }

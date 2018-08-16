@@ -142,33 +142,19 @@ namespace GestCTI.Hubs
         /// <param name="ucid">Ucid</param>
         /// <param name="deviceId">Device id</param>
         /// <returns>void</returns>
-        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId) {
+        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId, String partyDeviceId) {
             List<HoldConnection> lista;
             holdConnections.TryGetValue(Context.User.Identity.Name, out lista);
             if( lista == null) {
                 lista = new List<HoldConnection>();
             }
-            lista.Add(new HoldConnection(ucid, deviceId));
+            lista.Add(new HoldConnection(ucid, partyDeviceId));
             holdConnections.AddOrUpdate(Context.User.Identity.Name, lista, (key, oldValue) => lista);
 
             var toSend = CallHandling.CTIHoldConnectionRequest(ucid, deviceId);
             String I18n = "COMMAND_HOLD_CONNECTION";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
         }
-
- /*       /// <summary>
-        /// Get all holded connections for an user in this context
-        /// </summary>
-        /// <returns>void</returns>
-        public void getHoldConnections() {
-            // Sending message
-            //holdConnections.Add(new HoldConnection("2508", "3025"));
-            //holdConnections.Add(new HoldConnection("9009", "3003"));
-            List<HoldConnection> lista;
-            holdConnections.TryGetValue(Context.User.Identity.Name, out lista);
-            Clients.Client(Context.ConnectionId).resultHoldConnections(lista);
-        }
-*/
 
         /// <summary>
         /// Log out
@@ -227,6 +213,27 @@ namespace GestCTI.Hubs
             var toSend = CallHandling.CTITransferRequest(heldUcid, activeUcid, deviceId);
             String I18n = "COMMAND_TRANSFER_REQUEST";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTITransferRequest, I18n, Context.User.Identity.Name);
+        }
+
+        public async Task sendConferenceCall(String heldUcid, String activeUcid, String deviceId)
+        {
+            var toSend = CallHandling.CTIConferenceRequest(heldUcid, activeUcid, deviceId);
+            String I18n = "COMMAND_CONFERENCE_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIConferenceRequest, I18n, Context.User.Identity.Name);
+        }
+
+        public async Task sendRetrieveCall(String heldUcid, String deviceId)
+        {
+            var toSend = CallHandling.CTIRetrieveConnectionRequest(heldUcid, deviceId);
+            String I18n = "COMMAND_RETRIEVE_CONNECTION";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIRetrieveConnection, I18n, Context.User.Identity.Name);
+        }
+
+        public async Task InicializarApp()
+        {
+            var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
+            String I18n = "COMMAND_INICIALIZAR_APP";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarApp, I18n, Context.User.Identity.Name);
         }
 
         /// <summary>
