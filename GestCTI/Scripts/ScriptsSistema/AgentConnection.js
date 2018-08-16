@@ -77,14 +77,14 @@ $(function () {
             successNoty(Resources.ChangeToReadyOk);
         } else {
             errorNoty(Resources.ChangeToReadyFail);
-            $("#ReadyToWork").removeAttr("disabled");
+            //$("#ReadyToWork").removeAttr("disabled");
         }
     };
 
     agent.client.receiveAcceptCallRequest = function (response) {
         json = JSON.parse(response);
         if (json.success === false) {
-            $("#acceptCallRequest").attr("disabled", "disabled");
+            //$("#acceptCallRequest").attr("disabled", "disabled");
             localStorage.removeItem('ucid');
             successNoty(Resources.InCall);
         }
@@ -99,7 +99,7 @@ $(function () {
 
         switch (eventName) {
             case 'onServiceInitiated':
-                $("#hangoutCallRequest").removeAttr("disabled");
+               // $("#hangoutCallRequest").removeAttr("disabled");
 
                 tempNoty('onServiceInitiated');
                 break;
@@ -113,7 +113,7 @@ $(function () {
                 //localStorage.setItem('ucid', eventArgs[0]);
                 //$('#doHoldConnection').removeAttr('disabled');
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                $('#acceptCallRequest').removeAttr('disabled');
+               // $('#acceptCallRequest').removeAttr('disabled');
                 infoNoty(Resources.IncomingCall);
 
                 tempNoty('onCallDelivered');
@@ -123,7 +123,7 @@ $(function () {
                 //localStorage.setItem('ucid', eventArgs[0]);
                 //$('#doHoldConnection').removeAttr('disabled');
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                $('#acceptCallRequest').removeAttr('disabled');
+               // $('#acceptCallRequest').removeAttr('disabled');
                 infoNoty(Resources.InExternalCall);
 
                 tempNoty('onCallExternalDelivered');
@@ -143,16 +143,16 @@ $(function () {
                 var myId = localStorage.getItem('deviceId');
                 var activeCall = { 'ucid': eventArgs[0], 'deviceId': ((eventArgs[4] != myId) ? eventArgs[4] : eventArgs[5]) };
                 localStorage.setItem('activeCall', JSON.stringify(activeCall));
-                $("#hangoutCallRequest").removeAttr("disabled");
-                $("#acceptCallRequest").attr("disabled", "disabled");
-                $("#doHoldConnection").removeAttr("disabled");
+                //$("#hangoutCallRequest").removeAttr("disabled");
+                //$("#acceptCallRequest").attr("disabled", "disabled");
+                //$("#doHoldConnection").removeAttr("disabled");
 
                 tempNoty('onEstablishedConnection');
                 break;
 
             case 'onHoldConnection':
                 pintarListaEspera(data);
-                $('#inputPhone').text('').removeAttr('disabled');
+                //$('#inputPhone').text('').removeAttr('disabled');
                 localStorage.removeItem('activeCall');
 
                 tempNoty('onHoldConnection');
@@ -180,7 +180,7 @@ $(function () {
 
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
-                $("#hangoutCallRequest").attr("disabled", "disabled");
+               // $("#hangoutCallRequest").attr("disabled", "disabled");
 
                 tempNoty('onEndConnection');
                 break;
@@ -191,11 +191,11 @@ $(function () {
                 break;
 
             case 'onEndCall':
-                $("#hangoutCallRequest").attr("disabled", "disabled");
-                $("#ReadyToWork").removeAttr("disabled");
-                $("#inputPhone").removeAttr("disabled");
-                $("#inputPhone").val('');
-                $('#doHoldConnection').attr('disabled', 'disabled');
+               // $("#hangoutCallRequest").attr("disabled", "disabled");
+               // $("#ReadyToWork").removeAttr("disabled");
+               // $("#inputPhone").removeAttr("disabled");
+               // $("#inputPhone").val('');
+               // $('#doHoldConnection').attr('disabled', 'disabled');
                 pintarListaEspera(data);
                 localStorage.removeItem('activeCall');
 
@@ -226,7 +226,7 @@ $(function () {
                 var agentState = eventArgs[1];
                 switch (agentState) {
                     case AgentState.AS_READY:
-                        $("#ReadyToWork").attr("disabled", "disabled");
+                       // $("#ReadyToWork").attr("disabled", "disabled");
                         break;
                 }
 
@@ -254,9 +254,8 @@ $(function () {
     agent.client.addCTIMakeCallRequest = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-            $('#inputPhone').attr('disabled', 'disabled');
-            $('#doCallBtn').attr('disabled', 'disabled');
-            //localStorage.setItem('ucid', json.result.ucid);
+           // $('#inputPhone').attr('disabled', 'disabled');
+           // $('#doCallBtn').attr('disabled', 'disabled');
             successNoty(Resources.Calling);
         } else {
             errorNoty(Resources.MakeCallFail);
@@ -272,7 +271,7 @@ $(function () {
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
-            $("#ReadyToWork").attr("disabled", "disabled");
+           // $("#ReadyToWork").attr("disabled", "disabled");
             agent.server.sendStateReadyManual(deviceId);
         });
 
@@ -321,7 +320,7 @@ $(function () {
             if (notEmpty(strAC)) {
                 var activeCall = JSON.parse(strAC);
                 if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
-                    $("#doHoldConnection").attr("disabled", "disabled");
+                   // $("#doHoldConnection").attr("disabled", "disabled");
                     agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId, activeCall.deviceId);
                 }
             }
