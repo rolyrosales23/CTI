@@ -12,16 +12,13 @@ using System.Collections.Generic;
 namespace GestCTI.Hubs
 {
     public class HoldConnection {
-        private string deviceId;
-
+        public String ucid { get; set; }
+        public String toDevice { get; set; }
         public HoldConnection(string ucid, string deviceId)
         {
             this.ucid = ucid;
             this.toDevice = deviceId;
         }
-
-        public String ucid { get; set; }
-        public String toDevice { get; set; }
     }
     /// <summary>
     /// Class to get all websocket connection with Web App and core
@@ -241,7 +238,7 @@ namespace GestCTI.Hubs
             WebsocketCore ws = null;
             if (socks.TryGetValue(User, out ws))
             {
-                if (await ws.Send(guid, message, messageType))
+                if (Context.ConnectionId == ws.CtiUser.ConnectionId &&  await ws.Send(guid, message, messageType))
                 {
                     Clients.Client(Context.ConnectionId).Notification(I18n);
                 }
@@ -251,11 +248,15 @@ namespace GestCTI.Hubs
                     if (messageType == MessageType.CTILogOut)
                     {
                         Clients.Client(Context.ConnectionId).logOutCore(null);
+                    } else if (Context.ConnectionId != ws.CtiUser.ConnectionId)
+                    {
+                        // Another client user is logued with your credentials
+                        Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET_FROM_OLD_CONNECTION");
                     } else
                     {
+                        // You don't have connection with websocket
                         Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET");
                     }
-                    
                 }
             }
             else
@@ -339,6 +340,21 @@ namespace GestCTI.Hubs
         {
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
+        }
+
+        /// <summary>
+        /// Process to reconect Signalr
+        /// </summary>
+        /// <returns></returns>
+        public override Task OnReconnected()
+        {
+            // If user is authenticated
+            if (Context.Request.User.Identity.IsAuthenticated)
+            {
+                ConnectWebsocket();
+            }
+            Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_RECONNECTED");
+            return base.OnReconnected();
         }
     }
 }
