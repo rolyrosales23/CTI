@@ -472,6 +472,12 @@
     <Content Include="assets\css\theme-default.css" />
     <Content Include="assets\css\theme-white.css" />
     <Content Include="assets\favicon.ico" />
+    <Content Include="assets\IconsConf\demo-files\demo.css" />
+    <Content Include="assets\IconsConf\demo-files\demo.js" />
+    <Content Include="assets\IconsConf\demo.html" />
+    <Content Include="assets\IconsConf\fonts\icomoon.svg" />
+    <Content Include="assets\IconsConf\Read Me.txt" />
+    <Content Include="assets\IconsConf\style.css" />
     <Content Include="assets\Icons\demo-files\demo.css" />
     <Content Include="assets\Icons\demo-files\demo.js" />
     <Content Include="assets\Icons\demo.html" />
@@ -1139,6 +1145,11 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <Content Include="assets\js\plugins\datatables\dataTablesLang.js" />
+    <Content Include="assets\IconsConf\conf.zip" />
+    <Content Include="assets\IconsConf\fonts\icomoon.eot" />
+    <Content Include="assets\IconsConf\fonts\icomoon.ttf" />
+    <Content Include="assets\IconsConf\fonts\icomoon.woff" />
+    <Content Include="assets\IconsConf\selection.json" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\i18n\angular-locale_af-na.js" />
     <Content Include="Scripts\i18n\angular-locale_af-za.js" />

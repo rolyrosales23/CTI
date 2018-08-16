@@ -89,12 +89,20 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users)
+        public ActionResult Edit([Bind(Include = "Id,Username,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users)
         {
             if (ModelState.IsValid)
             {
-                users.Password = Seguridad.EncryptMD5(users.Password);
-                db.Entry(users).State = EntityState.Modified;
+                Users temp_User = db.Users.Find(users.Id);
+                temp_User.Username = users.Username;
+                temp_User.email = users.email;
+                temp_User.FirstName = users.FirstName;
+                temp_User.MiddleName = users.MiddleName;
+                temp_User.LastName = users.LastName;
+                temp_User.Role = users.Role;
+                temp_User.IdLocation = users.IdLocation;
+                temp_User.IdCompany = users.IdCompany;
+                temp_User.Active = users.Active;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -126,6 +134,23 @@ namespace GestCTI.Controllers
             if (users == null)
             {
                 return HttpNotFound();
+            }
+            return View(users);
+        }
+
+        // POST: Users/ChangePassword/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword([Bind(Include = "Id,Username,Password")] Users users)
+        {
+            if (ModelState.IsValid)
+            {
+                Users temp_User = db.Users.Find(users.Id);
+                temp_User.Password = Seguridad.EncryptMD5(users.Password);
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             return View(users);
         }

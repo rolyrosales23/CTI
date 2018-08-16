@@ -237,4 +237,10 @@
   <data name="QuestionDeactivate" xml:space="preserve">
     <value>Are you sure you want to deactivate</value>
   </data>
+  <data name="ActionChangePass" xml:space="preserve">
+    <value>Change password</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
 </root>
