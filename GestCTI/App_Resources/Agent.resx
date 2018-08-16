@@ -165,6 +165,9 @@
   <data name="Ready" xml:space="preserve">
     <value>Ready</value>
   </data>
+  <data name="Retrieve" xml:space="preserve">
+    <value>Retrieve</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Transferir</value>
   </data>

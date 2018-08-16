@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retrieve.
+        /// </summary>
+        public static string Retrieve {
+            get {
+                return ResourceManager.GetString("Retrieve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transferir.
         /// </summary>
         public static string Transfer {

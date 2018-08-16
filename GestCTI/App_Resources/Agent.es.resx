@@ -165,4 +165,7 @@
   <data name="Ready" xml:space="preserve">
     <value>Listo</value>
   </data>
+  <data name="Retrieve" xml:space="preserve">
+    <value>Recuperar</value>
+  </data>
 </root>
