@@ -243,4 +243,43 @@
   <data name="NewPassword" xml:space="preserve">
     <value>New Password</value>
   </data>
+  <data name="AutoReady" xml:space="preserve">
+    <value>Auto Ready</value>
+  </data>
+  <data name="CallResult" xml:space="preserve">
+    <value>Call Result</value>
+  </data>
+  <data name="CallResults" xml:space="preserve">
+    <value>Call Results</value>
+  </data>
+  <data name="Disposition" xml:space="preserve">
+    <value>Disposition</value>
+  </data>
+  <data name="Dispositions" xml:space="preserve">
+    <value>Dispositions</value>
+  </data>
+  <data name="MaxDailyEvents" xml:space="preserve">
+    <value>Max Daily events</value>
+  </data>
+  <data name="MaxDuration" xml:space="preserve">
+    <value>Max Duration</value>
+  </data>
+  <data name="OfF" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="PauseCode" xml:space="preserve">
+    <value>Pause Code</value>
+  </data>
+  <data name="PauseCodeCampaign" xml:space="preserve">
+    <value>Campaign pause code</value>
+  </data>
+  <data name="PauseCodeCampaigns" xml:space="preserve">
+    <value>Campaigns pause codes</value>
+  </data>
+  <data name="PauseCodes" xml:space="preserve">
+    <value>Pause Codes</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Result</value>
+  </data>
 </root>

@@ -243,4 +243,43 @@
   <data name="NewPassword" xml:space="preserve">
     <value>Nueva Contraseña</value>
   </data>
+  <data name="AutoReady" xml:space="preserve">
+    <value>Listo automaticamente</value>
+  </data>
+  <data name="CallResult" xml:space="preserve">
+    <value>Resultado de la Llamada</value>
+  </data>
+  <data name="CallResults" xml:space="preserve">
+    <value>Resultados de las Llamadas</value>
+  </data>
+  <data name="Disposition" xml:space="preserve">
+    <value>Disposición</value>
+  </data>
+  <data name="Dispositions" xml:space="preserve">
+    <value>Disposiciones</value>
+  </data>
+  <data name="MaxDailyEvents" xml:space="preserve">
+    <value>Máximo de ocurrencias diarias</value>
+  </data>
+  <data name="MaxDuration" xml:space="preserve">
+    <value>Duración máxima</value>
+  </data>
+  <data name="OfF" xml:space="preserve">
+    <value>de la</value>
+  </data>
+  <data name="PauseCode" xml:space="preserve">
+    <value>Código de Pausa</value>
+  </data>
+  <data name="PauseCodeCampaign" xml:space="preserve">
+    <value>Código de pausa de campaña</value>
+  </data>
+  <data name="PauseCodeCampaigns" xml:space="preserve">
+    <value>Códigos de pausa de las campañas</value>
+  </data>
+  <data name="PauseCodes" xml:space="preserve">
+    <value>Códigos de Pausa</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Resultado</value>
+  </data>
 </root>

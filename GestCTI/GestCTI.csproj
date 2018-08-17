@@ -240,12 +240,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Auth\CustomAuthorize.cs" />
+    <Compile Include="Controllers\CallResultsController.cs" />
+    <Compile Include="Controllers\CampaignPauseCodesController.cs" />
     <Compile Include="Controllers\CampaignsController.cs" />
     <Compile Include="Controllers\CampaignTypesController.cs" />
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DispositionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PauseCodesController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
     <Compile Include="Core\WebsocketClient\CtiEvent.cs" />
     <Compile Include="Core\WebsocketClient\CtiUser.cs" />
@@ -268,7 +272,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\Websocket.cs" />
+    <Compile Include="Models\CallResult.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Campaign.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CampaignPauseCodes.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\CampaignSkills.cs">
@@ -278,6 +288,9 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Dispositions.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Model1.Context.cs">
@@ -294,6 +307,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\PauseCodes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Skills.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -1963,6 +1979,26 @@
     <Content Include="Views\Shared\TransferModal.cshtml" />
     <Content Include="Views\Shared\ResourcesJS.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
+    <Content Include="Views\Dispositions\Create.cshtml" />
+    <Content Include="Views\Dispositions\Delete.cshtml" />
+    <Content Include="Views\Dispositions\Details.cshtml" />
+    <Content Include="Views\Dispositions\Edit.cshtml" />
+    <Content Include="Views\Dispositions\Index.cshtml" />
+    <Content Include="Views\CallResults\Create.cshtml" />
+    <Content Include="Views\CallResults\Delete.cshtml" />
+    <Content Include="Views\CallResults\Details.cshtml" />
+    <Content Include="Views\CallResults\Edit.cshtml" />
+    <Content Include="Views\CallResults\Index.cshtml" />
+    <Content Include="Views\CampaignPauseCodes\Create.cshtml" />
+    <Content Include="Views\CampaignPauseCodes\Delete.cshtml" />
+    <Content Include="Views\CampaignPauseCodes\Details.cshtml" />
+    <Content Include="Views\CampaignPauseCodes\Edit.cshtml" />
+    <Content Include="Views\CampaignPauseCodes\Index.cshtml" />
+    <Content Include="Views\PauseCodes\Create.cshtml" />
+    <Content Include="Views\PauseCodes\Delete.cshtml" />
+    <Content Include="Views\PauseCodes\Details.cshtml" />
+    <Content Include="Views\PauseCodes\Edit.cshtml" />
+    <Content Include="Views\PauseCodes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

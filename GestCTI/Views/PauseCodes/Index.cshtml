@@ -1,0 +1,70 @@
+﻿@model IEnumerable<GestCTI.Models.PauseCodes>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section breadcrumb{
+    <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li class="active">@Resources.Admin.PauseCodes</li>
+}
+
+<div class="page-title">
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.PauseCodes</h2>
+</div>
+
+
+<div class="panel panel-default tabs">
+    <div class="panel-body tab-content">
+        <div class="tab-pane active" id="tab-first">
+            <h3 style="padding-bottom:15px">
+                @Html.ActionLink(Resources.Admin.ActionCreateNew, "Create", null, new { @class = "fa fa-plus" })
+            </h3>
+            <table class="table Mydatatable" id="tabla-index">
+                <thead>
+                    <tr>
+                        <th>
+                            @Resources.Admin.Value
+                        </th>
+                        <th>
+                            @Resources.Admin.Name
+                        </th>
+                        <th>
+                            @Resources.Admin.Active
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Value)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Active)
+                        </td>
+                        <td>
+                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+
+                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "PauseCodes" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
+                        </td></tr>
+                }
+
+            </table>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script type='text/javascript' src="~/assets/js/plugins/icheck/icheck.min.js"></script>
+    <script src="~/assets/js/plugins/datatables/dataTablesLang.js"></script>
+}

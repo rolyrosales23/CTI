@@ -133,6 +133,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Auto Ready.
+        /// </summary>
+        public static string AutoReady {
+            get {
+                return ResourceManager.GetString("AutoReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call Result.
+        /// </summary>
+        public static string CallResult {
+            get {
+                return ResourceManager.GetString("CallResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call Results.
+        /// </summary>
+        public static string CallResults {
+            get {
+                return ResourceManager.GetString("CallResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Campaign.
         /// </summary>
         public static string Campaign {
@@ -232,6 +259,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Disposition.
+        /// </summary>
+        public static string Disposition {
+            get {
+                return ResourceManager.GetString("Disposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dispositions.
+        /// </summary>
+        public static string Dispositions {
+            get {
+                return ResourceManager.GetString("Dispositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         public static string Email {
@@ -268,6 +313,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Max Daily events.
+        /// </summary>
+        public static string MaxDailyEvents {
+            get {
+                return ResourceManager.GetString("MaxDailyEvents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Max Duration.
+        /// </summary>
+        public static string MaxDuration {
+            get {
+                return ResourceManager.GetString("MaxDuration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to MiddleName.
         /// </summary>
         public static string MiddleName {
@@ -291,6 +354,51 @@ namespace Resources {
         public static string NewPassword {
             get {
                 return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to of.
+        /// </summary>
+        public static string OfF {
+            get {
+                return ResourceManager.GetString("OfF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Code.
+        /// </summary>
+        public static string PauseCode {
+            get {
+                return ResourceManager.GetString("PauseCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campaign pause code.
+        /// </summary>
+        public static string PauseCodeCampaign {
+            get {
+                return ResourceManager.GetString("PauseCodeCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Campaigns pause codes.
+        /// </summary>
+        public static string PauseCodeCampaigns {
+            get {
+                return ResourceManager.GetString("PauseCodeCampaigns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pause Codes.
+        /// </summary>
+        public static string PauseCodes {
+            get {
+                return ResourceManager.GetString("PauseCodes", resourceCulture);
             }
         }
         
@@ -327,6 +435,15 @@ namespace Resources {
         public static string RePassword {
             get {
                 return ResourceManager.GetString("RePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        public static string Result {
+            get {
+                return ResourceManager.GetString("Result", resourceCulture);
             }
         }
         

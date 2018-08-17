@@ -35,5 +35,9 @@ namespace GestCTI.Models
         public virtual DbSet<Skills> Skills { get; set; }
         public virtual DbSet<VDN> VDN { get; set; }
         public virtual DbSet<CampaignType> CampaignType { get; set; }
+        public virtual DbSet<CallResult> CallResult { get; set; }
+        public virtual DbSet<Dispositions> Dispositions { get; set; }
+        public virtual DbSet<PauseCodes> PauseCodes { get; set; }
+        public virtual DbSet<CampaignPauseCodes> CampaignPauseCodes { get; set; }
     }
 }

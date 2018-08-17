@@ -5,6 +5,14 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="DBCTIModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CallResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Result" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Campaign">
           <Key>
             <PropertyRef Name="Id" />
@@ -14,6 +22,18 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdType" Type="int" Nullable="false" />
           <Property Name="IdCompany" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CampaignPauseCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdCampaign" Type="int" Nullable="false" />
+          <Property Name="IdPauseCode" Type="int" Nullable="false" />
+          <Property Name="MaxDuration" Type="int" Nullable="false" />
+          <Property Name="MaxDailyEvents" Type="int" Nullable="false" />
+          <Property Name="AutoReady" Type="bit" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="CampaignSkills">
           <Key>
@@ -39,6 +59,25 @@
           <Property Name="SwitchCompanyId" Type="int" Nullable="false" />
           <Property Name="SwitchId" Type="int" Nullable="false" />
           <Property Name="CreateBy" Type="int" />
+        </EntityType>
+        <EntityType Name="Dispositions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="IdCampaign" Type="int" Nullable="false" />
+          <Property Name="IdResult" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PauseCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Active" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Skills">
           <Key>
@@ -97,6 +136,30 @@
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
           <Property Name="IdCampaign" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_CampaignPauseCodes_Campaign">
+          <End Role="Campaign" Type="Self.Campaign" Multiplicity="1" />
+          <End Role="CampaignPauseCodes" Type="Self.CampaignPauseCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaignPauseCodes">
+              <PropertyRef Name="IdCampaign" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaignPauseCodes_PauseCodes">
+          <End Role="PauseCodes" Type="Self.PauseCodes" Multiplicity="1" />
+          <End Role="CampaignPauseCodes" Type="Self.CampaignPauseCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PauseCodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaignPauseCodes">
+              <PropertyRef Name="IdPauseCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Campaing_CampaingType">
           <End Role="CampaignType" Type="Self.CampaignType" Multiplicity="1" />
           <End Role="Campaign" Type="Self.Campaign" Multiplicity="*" />
@@ -169,6 +232,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Dispositions_CallResult">
+          <End Role="CallResult" Type="Self.CallResult" Multiplicity="1" />
+          <End Role="Dispositions" Type="Self.Dispositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CallResult">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dispositions">
+              <PropertyRef Name="IdResult" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dispositions_Campaigns">
+          <End Role="Campaign" Type="Self.Campaign" Multiplicity="1" />
+          <End Role="Dispositions" Type="Self.Dispositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dispositions">
+              <PropertyRef Name="IdCampaign" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Users_Company">
           <End Role="Company" Type="Self.Company" Multiplicity="1" />
           <End Role="Users" Type="Self.Users" Multiplicity="*" />
@@ -230,16 +317,28 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DBCTIModelStoreContainer">
+          <EntitySet Name="CallResult" EntityType="Self.CallResult" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campaign" EntityType="Self.Campaign" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CampaignPauseCodes" EntityType="Self.CampaignPauseCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CampaignSkills" EntityType="Self.CampaignSkills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CampaignType" EntityType="Self.CampaignType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Company" EntityType="Self.Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Dispositions" EntityType="Self.Dispositions" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PauseCodes" EntityType="Self.PauseCodes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Skills" EntityType="Self.Skills" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Switch" EntityType="Self.Switch" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserLocation" EntityType="Self.UserLocation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserSkill" EntityType="Self.UserSkill" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="VDN" EntityType="Self.VDN" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CampaignPauseCodes_Campaign" Association="Self.FK_CampaignPauseCodes_Campaign">
+            <End Role="Campaign" EntitySet="Campaign" />
+            <End Role="CampaignPauseCodes" EntitySet="CampaignPauseCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaignPauseCodes_PauseCodes" Association="Self.FK_CampaignPauseCodes_PauseCodes">
+            <End Role="PauseCodes" EntitySet="PauseCodes" />
+            <End Role="CampaignPauseCodes" EntitySet="CampaignPauseCodes" />
+          </AssociationSet>
           <AssociationSet Name="FK_Campaing_CampaingType" Association="Self.FK_Campaing_CampaingType">
             <End Role="CampaignType" EntitySet="CampaignType" />
             <End Role="Campaign" EntitySet="Campaign" />
@@ -263,6 +362,14 @@
           <AssociationSet Name="FK_Company_Users" Association="Self.FK_Company_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Company" EntitySet="Company" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispositions_CallResult" Association="Self.FK_Dispositions_CallResult">
+            <End Role="CallResult" EntitySet="CallResult" />
+            <End Role="Dispositions" EntitySet="Dispositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispositions_Campaigns" Association="Self.FK_Dispositions_Campaigns">
+            <End Role="Campaign" EntitySet="Campaign" />
+            <End Role="Dispositions" EntitySet="Dispositions" />
           </AssociationSet>
           <AssociationSet Name="FK_Users_Company" Association="Self.FK_Users_Company">
             <End Role="Company" EntitySet="Company" />
@@ -372,6 +479,26 @@
             <End Role="CampaignType" EntitySet="CampaignType" />
             <End Role="Campaign" EntitySet="Campaign" />
           </AssociationSet>
+          <EntitySet Name="CallResult" EntityType="DBCTIModel.CallResult" />
+          <EntitySet Name="Dispositions" EntityType="DBCTIModel.Dispositions" />
+          <EntitySet Name="PauseCodes" EntityType="DBCTIModel.PauseCodes" />
+          <AssociationSet Name="FK_Dispositions_CallResult" Association="DBCTIModel.FK_Dispositions_CallResult">
+            <End Role="CallResult" EntitySet="CallResult" />
+            <End Role="Dispositions" EntitySet="Dispositions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Dispositions_Campaigns" Association="DBCTIModel.FK_Dispositions_Campaigns">
+            <End Role="Campaign" EntitySet="Campaign" />
+            <End Role="Dispositions" EntitySet="Dispositions" />
+          </AssociationSet>
+          <EntitySet Name="CampaignPauseCodes" EntityType="DBCTIModel.CampaignPauseCodes" />
+          <AssociationSet Name="FK_CampaignPauseCodes_Campaign" Association="DBCTIModel.FK_CampaignPauseCodes_Campaign">
+            <End Role="Campaign" EntitySet="Campaign" />
+            <End Role="CampaignPauseCodes" EntitySet="CampaignPauseCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CampaignPauseCodes_PauseCodes" Association="DBCTIModel.FK_CampaignPauseCodes_PauseCodes">
+            <End Role="PauseCodes" EntitySet="PauseCodes" />
+            <End Role="CampaignPauseCodes" EntitySet="CampaignPauseCodes" />
+          </AssociationSet>
           </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -430,6 +557,8 @@
           <NavigationProperty Name="CampaignSkills" Relationship="DBCTIModel.FK_CampaingSkills_Campaing" FromRole="Campaign" ToRole="CampaignSkills" />
           <NavigationProperty Name="VDN" Relationship="DBCTIModel.FK_VDN_Campaing" FromRole="Campaign" ToRole="VDN" />
           <NavigationProperty Name="CampaignType" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="Campaign" ToRole="CampaignType" />
+          <NavigationProperty Name="Dispositions" Relationship="DBCTIModel.FK_Dispositions_Campaigns" FromRole="Campaign" ToRole="Dispositions" />
+          <NavigationProperty Name="CampaignPauseCodes" Relationship="DBCTIModel.FK_CampaignPauseCodes_Campaign" FromRole="Campaign" ToRole="CampaignPauseCodes" />
         </EntityType>
         <EntityType Name="CampaignSkills">
           <Key>
@@ -591,6 +720,99 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="CallResult">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Result" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Dispositions" Relationship="DBCTIModel.FK_Dispositions_CallResult" FromRole="CallResult" ToRole="Dispositions" />
+        </EntityType>
+        <EntityType Name="Dispositions">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IdCampaign" Type="Int32" Nullable="false" />
+          <Property Name="IdResult" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CallResult" Relationship="DBCTIModel.FK_Dispositions_CallResult" FromRole="Dispositions" ToRole="CallResult" />
+          <NavigationProperty Name="Campaign" Relationship="DBCTIModel.FK_Dispositions_Campaigns" FromRole="Dispositions" ToRole="Campaign" />
+        </EntityType>
+        <EntityType Name="PauseCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="CampaignPauseCodes" Relationship="DBCTIModel.FK_CampaignPauseCodes_PauseCodes" FromRole="PauseCodes" ToRole="CampaignPauseCodes" />
+        </EntityType>
+        <Association Name="FK_Dispositions_CallResult">
+          <End Type="DBCTIModel.CallResult" Role="CallResult" Multiplicity="1" />
+          <End Type="DBCTIModel.Dispositions" Role="Dispositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CallResult">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dispositions">
+              <PropertyRef Name="IdResult" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Dispositions_Campaigns">
+          <End Type="DBCTIModel.Campaign" Role="Campaign" Multiplicity="1" />
+          <End Type="DBCTIModel.Dispositions" Role="Dispositions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Dispositions">
+              <PropertyRef Name="IdCampaign" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="CampaignPauseCodes">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdCampaign" Type="Int32" Nullable="false" />
+          <Property Name="IdPauseCode" Type="Int32" Nullable="false" />
+          <Property Name="MaxDuration" Type="Int32" Nullable="false" />
+          <Property Name="MaxDailyEvents" Type="Int32" Nullable="false" />
+          <Property Name="AutoReady" Type="Boolean" Nullable="false" />
+          <Property Name="Active" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Campaign" Relationship="DBCTIModel.FK_CampaignPauseCodes_Campaign" FromRole="CampaignPauseCodes" ToRole="Campaign" />
+          <NavigationProperty Name="PauseCodes" Relationship="DBCTIModel.FK_CampaignPauseCodes_PauseCodes" FromRole="CampaignPauseCodes" ToRole="PauseCodes" />
+        </EntityType>
+        <Association Name="FK_CampaignPauseCodes_Campaign">
+          <End Type="DBCTIModel.Campaign" Role="Campaign" Multiplicity="1" />
+          <End Type="DBCTIModel.CampaignPauseCodes" Role="CampaignPauseCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Campaign">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaignPauseCodes">
+              <PropertyRef Name="IdCampaign" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CampaignPauseCodes_PauseCodes">
+          <End Type="DBCTIModel.PauseCodes" Role="PauseCodes" Multiplicity="1" />
+          <End Type="DBCTIModel.CampaignPauseCodes" Role="CampaignPauseCodes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PauseCodes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="CampaignPauseCodes">
+              <PropertyRef Name="IdPauseCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -695,6 +917,49 @@
             <EntityTypeMapping TypeName="DBCTIModel.CampaignType">
               <MappingFragment StoreEntitySet="CampaignType">
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CallResult">
+            <EntityTypeMapping TypeName="DBCTIModel.CallResult">
+              <MappingFragment StoreEntitySet="CallResult">
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Dispositions">
+            <EntityTypeMapping TypeName="DBCTIModel.Dispositions">
+              <MappingFragment StoreEntitySet="Dispositions">
+                <ScalarProperty Name="IdResult" ColumnName="IdResult" />
+                <ScalarProperty Name="IdCampaign" ColumnName="IdCampaign" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PauseCodes">
+            <EntityTypeMapping TypeName="DBCTIModel.PauseCodes">
+              <MappingFragment StoreEntitySet="PauseCodes">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CampaignPauseCodes">
+            <EntityTypeMapping TypeName="DBCTIModel.CampaignPauseCodes">
+              <MappingFragment StoreEntitySet="CampaignPauseCodes">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="AutoReady" ColumnName="AutoReady" />
+                <ScalarProperty Name="MaxDailyEvents" ColumnName="MaxDailyEvents" />
+                <ScalarProperty Name="MaxDuration" ColumnName="MaxDuration" />
+                <ScalarProperty Name="IdPauseCode" ColumnName="IdPauseCode" />
+                <ScalarProperty Name="IdCampaign" ColumnName="IdCampaign" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

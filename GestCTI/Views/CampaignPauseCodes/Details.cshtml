@@ -1,0 +1,67 @@
+﻿@model GestCTI.Models.CampaignPauseCodes
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CampaignPauseCodes</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxDuration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxDuration)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MaxDailyEvents)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaxDailyEvents)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AutoReady)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AutoReady)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Campaign.Code)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Campaign.Code)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PauseCodes.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PauseCodes.Name)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
