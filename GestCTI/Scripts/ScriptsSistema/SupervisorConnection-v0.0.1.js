@@ -14,6 +14,8 @@
 $(function () {
     var phoneExtension = localStorage.getItem('deviceId');
     if (notEmpty(phoneExtension)) {
+        $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
+        $("#loginExtension").remove();
         showPhoneView();
     }
 
@@ -27,23 +29,17 @@ $(function () {
         // Show list of agents
     }
 
-    // Logout from web app
-    agent.client.logOutCore = function (response) {
-        json = JSON.parse(response);
-        if (json['success'] === true) {
-            $('#LogOutForm').submit();
-        } else {
-            // Notificar error
-        }
-    }
-
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
         if (json['success'] === true) {
             successNoty('Se ha inicializado el dispositivo correctamente');
+            $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
             showPhoneView();
+            $("#loginExtension").remove();
+            spinnerHide();    
         } else {
             localStorage.removeItem('deviceId');
+            spinnerHide();
             errorNoty('No se ha inicializado el dispositivo. Razones ' + json('reason'));
         }
     }
@@ -51,9 +47,11 @@ $(function () {
     // Start the connection.
     $.connection.hub.start().done(function () {
         $('#init-device-btn').click(function () {
-            var deviceId = $('#deviceIdPhone');
+            var deviceId = $('#deviceIdPhone').val();
+            $('#modal-init-phone').modal('hide');
             if (notEmpty(deviceId)) {
                 localStorage.setItem('deviceId', deviceId);
+                spinnerShow();
                 agent.server.initilizeSupervisorDevice($('#deviceIdPhone').val());
             } else {
                 errorNoty('El dispositivo no debe ser vacio');
@@ -63,10 +61,9 @@ $(function () {
         $('#LogOutCore').click(function () {
             var deviceId = localStorage.getItem('deviceId');
             if (notEmpty(deviceId)) {
-                agent.server.sendLogOutCore(deviceId);
-            } else {
-                $('#LogOutForm').submit();
-            }
+                localStorage.removeItem('deviceId');
+            } 
+            $('#LogOutForm').submit();
         });
     });
 });

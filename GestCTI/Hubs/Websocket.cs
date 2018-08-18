@@ -304,6 +304,7 @@ namespace GestCTI.Hubs
                 cti_User.HttpUrl = User.Company1.Switch.ApiServerIP;
                 cti_User.ConnectionId = Context.ConnectionId;
                 cti_User.user_name = nameUser;
+                cti_User.Role = User.Role;
 
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
