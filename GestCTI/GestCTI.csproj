@@ -262,6 +262,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\VDNsController.cs" />
     <Compile Include="Core\WebsocketClient\BaseHubClient.cs" />
+    <Compile Include="Core\WebsocketClient\HoldList.cs" />
     <Compile Include="Core\WebsocketClient\HubCoreClient.cs" />
     <Compile Include="Core\WebsocketClient\Interface\IRecieveHubSync.cs" />
     <Compile Include="Core\WebsocketClient\Interface\ISendHubSync.cs" />

@@ -118,6 +118,10 @@
             else
                 $('#phone_extension').css('display', 'none');
         });
+
+        $('#phone_extension').val('');
+        if ($('#phone_login').is(':checked'))
+            $('#phone_login').trigger('click');
     </script>
 
 </body>
