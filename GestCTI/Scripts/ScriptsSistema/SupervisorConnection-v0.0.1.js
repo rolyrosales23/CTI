@@ -37,13 +37,36 @@ $(function () {
         }
     }
 
+    agent.client.addInitialize = function (message) {
+        json = JSON.parse(message);
+        if (json['success'] === true) {
+            successNoty('Se ha inicializado el dispositivo correctamente');
+            showPhoneView();
+        } else {
+            localStorage.removeItem('deviceId');
+            errorNoty('No se ha inicializado el dispositivo. Razones ' + json('reason'));
+        }
+    }
+
     // Start the connection.
     $.connection.hub.start().done(function () {
-        var deviceId = localStorage.getItem('deviceId');
+        $('#init-device-btn').click(function () {
+            var deviceId = $('#deviceIdPhone');
+            if (notEmpty(deviceId)) {
+                localStorage.setItem('deviceId', deviceId);
+                agent.server.initilizeSupervisorDevice($('#deviceIdPhone').val());
+            } else {
+                errorNoty('El dispositivo no debe ser vacio');
+            }
+        });
 
         $('#LogOutCore').click(function () {
             var deviceId = localStorage.getItem('deviceId');
-            agent.server.sendLogOutCore(deviceId);
+            if (notEmpty(deviceId)) {
+                agent.server.sendLogOutCore(deviceId);
+            } else {
+                $('#LogOutForm').submit();
+            }
         });
     });
 });
