@@ -23,21 +23,6 @@ namespace GestCTI.Controllers
             return View(dispositions.ToList());
         }
 
-        // GET: Dispositions/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dispositions dispositions = db.Dispositions.Find(id);
-            if (dispositions == null)
-            {
-                return HttpNotFound();
-            }
-            return View(dispositions);
-        }
-
         // GET: Dispositions/Create
         public ActionResult Create()
         {
@@ -97,21 +82,6 @@ namespace GestCTI.Controllers
             }
             ViewBag.IdResult = new SelectList(db.CallResult, "Id", "Code", dispositions.IdResult);
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositions.IdCampaign);
-            return View(dispositions);
-        }
-
-        // GET: Dispositions/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Dispositions dispositions = db.Dispositions.Find(id);
-            if (dispositions == null)
-            {
-                return HttpNotFound();
-            }
             return View(dispositions);
         }
 

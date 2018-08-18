@@ -22,21 +22,6 @@ namespace GestCTI.Controllers
             return View(db.PauseCodes.ToList());
         }
 
-        // GET: PauseCodes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PauseCodes pauseCodes = db.PauseCodes.Find(id);
-            if (pauseCodes == null)
-            {
-                return HttpNotFound();
-            }
-            return View(pauseCodes);
-        }
-
         // GET: PauseCodes/Create
         public ActionResult Create()
         {
@@ -87,21 +72,6 @@ namespace GestCTI.Controllers
                 db.Entry(pauseCodes).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(pauseCodes);
-        }
-
-        // GET: PauseCodes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            PauseCodes pauseCodes = db.PauseCodes.Find(id);
-            if (pauseCodes == null)
-            {
-                return HttpNotFound();
             }
             return View(pauseCodes);
         }

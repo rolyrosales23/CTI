@@ -1980,23 +1980,15 @@
     <Content Include="Views\Shared\ResourcesJS.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
     <Content Include="Views\Dispositions\Create.cshtml" />
-    <Content Include="Views\Dispositions\Delete.cshtml" />
-    <Content Include="Views\Dispositions\Details.cshtml" />
     <Content Include="Views\Dispositions\Edit.cshtml" />
     <Content Include="Views\Dispositions\Index.cshtml" />
     <Content Include="Views\CallResults\Create.cshtml" />
-    <Content Include="Views\CallResults\Delete.cshtml" />
-    <Content Include="Views\CallResults\Details.cshtml" />
     <Content Include="Views\CallResults\Edit.cshtml" />
     <Content Include="Views\CallResults\Index.cshtml" />
     <Content Include="Views\CampaignPauseCodes\Create.cshtml" />
-    <Content Include="Views\CampaignPauseCodes\Delete.cshtml" />
-    <Content Include="Views\CampaignPauseCodes\Details.cshtml" />
     <Content Include="Views\CampaignPauseCodes\Edit.cshtml" />
     <Content Include="Views\CampaignPauseCodes\Index.cshtml" />
     <Content Include="Views\PauseCodes\Create.cshtml" />
-    <Content Include="Views\PauseCodes\Delete.cshtml" />
-    <Content Include="Views\PauseCodes\Details.cshtml" />
     <Content Include="Views\PauseCodes\Edit.cshtml" />
     <Content Include="Views\PauseCodes\Index.cshtml" />
   </ItemGroup>

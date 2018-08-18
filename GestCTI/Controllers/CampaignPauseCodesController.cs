@@ -23,21 +23,6 @@ namespace GestCTI.Controllers
             return View(campaignPauseCodes.ToList());
         }
 
-        // GET: CampaignPauseCodes/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CampaignPauseCodes campaignPauseCodes = db.CampaignPauseCodes.Find(id);
-            if (campaignPauseCodes == null)
-            {
-                return HttpNotFound();
-            }
-            return View(campaignPauseCodes);
-        }
-
         // GET: CampaignPauseCodes/Create
         public ActionResult Create()
         {
@@ -97,21 +82,6 @@ namespace GestCTI.Controllers
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", campaignPauseCodes.IdCampaign);
             ViewBag.IdPauseCode = new SelectList(db.PauseCodes, "Id", "Name", campaignPauseCodes.IdPauseCode);
-            return View(campaignPauseCodes);
-        }
-
-        // GET: CampaignPauseCodes/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CampaignPauseCodes campaignPauseCodes = db.CampaignPauseCodes.Find(id);
-            if (campaignPauseCodes == null)
-            {
-                return HttpNotFound();
-            }
             return View(campaignPauseCodes);
         }
 

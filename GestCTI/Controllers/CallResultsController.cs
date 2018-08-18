@@ -22,21 +22,6 @@ namespace GestCTI.Controllers
             return View(db.CallResult.ToList());
         }
 
-        // GET: CallResults/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CallResult callResult = db.CallResult.Find(id);
-            if (callResult == null)
-            {
-                return HttpNotFound();
-            }
-            return View(callResult);
-        }
-
         // GET: CallResults/Create
         public ActionResult Create()
         {
@@ -87,21 +72,6 @@ namespace GestCTI.Controllers
                 db.Entry(callResult).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
-            }
-            return View(callResult);
-        }
-
-        // GET: CallResults/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            CallResult callResult = db.CallResult.Find(id);
-            if (callResult == null)
-            {
-                return HttpNotFound();
             }
             return View(callResult);
         }
