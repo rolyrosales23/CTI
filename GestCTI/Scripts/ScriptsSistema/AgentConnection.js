@@ -52,7 +52,7 @@ $(function () {
         }
     };
 
-    agent.client.resultHoldConnections = function (response) {
+/*    agent.client.resultHoldConnections = function (response) {
         spinnerHide();
         if (response.length) {
             //llenar select
@@ -66,6 +66,7 @@ $(function () {
             $('#transfer-modal').modal();
         }
     };
+*/
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -317,7 +318,7 @@ $(function () {
                 var activeCall = JSON.parse(strAC);
                 if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
                    // $("#doHoldConnection").attr("disabled", "disabled");
-                    agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId, activeCall.deviceId);
+                    agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId);
                 }
             }
             else
@@ -373,6 +374,16 @@ $(function () {
             }
             else
                 infoNoty("Debe seleccionar una llamada en espera!");
+        });
+
+        $('#doEndConference').click(function () {
+            var strAC = localStorage.getItem('activeCall');
+            if (notEmpty(strAC)) {
+                var activeCall = JSON.parse(strAC);
+                agent.server.sendCTIClearCallRequest(activeCall.ucid);
+            }
+            else
+                infoNoty("No hay llamada activa!");
         });
     });
 });

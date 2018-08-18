@@ -11,15 +11,6 @@ using System.Collections.Generic;
 
 namespace GestCTI.Hubs
 {
-    public class HoldConnection {
-        public String ucid { get; set; }
-        public String toDevice { get; set; }
-        public HoldConnection(string ucid, string deviceId)
-        {
-            this.ucid = ucid;
-            this.toDevice = deviceId;
-        }
-    }
     /// <summary>
     /// Class to get all websocket connection with Web App and core
     /// </summary>
@@ -36,7 +27,7 @@ namespace GestCTI.Hubs
         /// <summary>
         /// List of hold connections by users
         /// </summary>
-        public static ConcurrentDictionary< String, List<HoldConnection> > holdConnections = new ConcurrentDictionary< string, List<HoldConnection> >();
+        public static HoldList holdConnections;
         /// <summary>
         /// Log in an user in core app
         /// </summary>
@@ -133,21 +124,20 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIClearConnectionRequest, I18n, Context.User.Identity.Name);
         }
 
+        public async Task sendCTIClearCallRequest(String ucid)
+        {
+            var toSend = CallHandling.CTIClearCallRequest(ucid);
+            String I18n = "COMMAND_CLEAR_CALL_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIClearCallRequest, I18n, Context.User.Identity.Name);
+        }
+
         /// <summary>
         /// Send hold request
         /// </summary>
         /// <param name="ucid">Ucid</param>
         /// <param name="deviceId">Device id</param>
         /// <returns>void</returns>
-        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId, String partyDeviceId) {
-            List<HoldConnection> lista;
-            holdConnections.TryGetValue(Context.User.Identity.Name, out lista);
-            if( lista == null) {
-                lista = new List<HoldConnection>();
-            }
-            lista.Add(new HoldConnection(ucid, partyDeviceId));
-            holdConnections.AddOrUpdate(Context.User.Identity.Name, lista, (key, oldValue) => lista);
-
+        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId) {
             var toSend = CallHandling.CTIHoldConnectionRequest(ucid, deviceId);
             String I18n = "COMMAND_HOLD_CONNECTION";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
