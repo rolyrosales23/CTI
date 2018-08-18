@@ -6,10 +6,6 @@
     AS_WORK_READY: 4
 };
 
-function notEmpty(value) {
-    return value != undefined && value !== null && value != "";
-}
-
 function pintarListaEspera(lista) {
     var panel = $('#lista_espera');
     panel.find('ul').remove();
