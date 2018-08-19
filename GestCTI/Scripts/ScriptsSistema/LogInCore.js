@@ -35,9 +35,9 @@
         json = JSON.parse(message);
         var user = $("#LoginUsername").val();
         var phone = $("#LoginPhoneExtension").val();
-        var tmp = json['result'];
-        var tmp2 = JSON.parse(tmp);
-        var deviceId = tmp2[0].AssociatedDeviceId;
+        var result_str = json['result'];
+        var result = JSON.parse(result_str);
+        var deviceId = result[0].AssociatedDeviceId;
         if (json['success'] === true && phone === deviceId && deviceId !== "") {
             agent.server.sendInitialize(phone, user);
         } else if (phone !== deviceId && deviceId !== "") {
@@ -47,11 +47,20 @@
             localStorage.removeItem('error');
             errorNoty(Resources.LoggedOtherDevice + " " + deviceId);
         } else {
-            // Show error
-            spinnerHide();
-            var error = localStorage.getItem('error');
-            localStorage.removeItem('error');
-            errorNoty('Error ' + error);
+            /*var AS_LOGGED_OUT = 1;
+            var State = result[0]['State'];
+            if (State !== AS_LOGGED_OUT) {
+                agent.server.sendLogOutCore(deviceId);
+                spinnerHide();
+                errorNoty('El sistema ha actualizado el estado del usuario ' + user + '. Intente nuevamente.');
+            }
+            else {*/
+                // Show error
+                spinnerHide();
+                var error = localStorage.getItem('error');
+                localStorage.removeItem('error');
+                errorNoty('Error ' + error);
+           // }
         }
     };
 

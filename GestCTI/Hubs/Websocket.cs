@@ -216,7 +216,7 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIRetrieveConnection, I18n, Context.User.Identity.Name);
         }
 
-        public async Task InicializarApp()
+        public async Task inicializarApp()
         {
             var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
             String I18n = "COMMAND_INICIALIZAR_APP";

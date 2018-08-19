@@ -140,7 +140,7 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIConferenceRequest:
                     break;
                 case MessageType.InicializarApp:
-                    client.InicializarApp(message);
+                    client.inicializarApp(message);
                     break;
                 case MessageType.CTIClearCallRequest:
                     break;

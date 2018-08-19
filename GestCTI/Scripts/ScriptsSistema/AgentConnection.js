@@ -28,12 +28,53 @@ function pintarListaEspera(lista) {
     }
 }
 
+function changeState(id, enable) {
+    if (enable)
+        $('#' + id).removeAttr('disabled');
+    else
+        $('#' + id).attr('disabled', 'disabled');
+}
+
+function updateControlsState(list, enable = true) {
+    var map = {
+        'ready':           'ReadyToWork',
+        'pause':           'doPause',
+        'answer':          'acceptCallRequest',
+        'hold':            'doHoldConnection',
+        'retrieve':        'doRetrieve',
+        'transfer':        'doTransfer',
+        'conference':      'doConference',
+        'end_conference':  'doEndConference',
+        'hangout':         'hangoutCallRequest'
+    };
+    for (var button in map)
+        changeState(map['button'], !enable);
+
+    for (var i in list) {
+        var button_id = map[ list[i] ];
+        if (button_id != undefined)
+            changeState(button_id, enable);
+    }
+}
+
 $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
-    agent.client.InicializarApp = function (message) {
-        errorNoty(message);
+    agent.client.inicializarApp = function (message) {
+        var response = JSON.parse(message);
+        if (response['success']) {
+            var result = JSON.parse(response.result);
+            var agentData  = result[0];
+            var deviceData = result[1];
+            var state = agentData['State'];
+            if (state != AgentState.AS_READY)
+                updateControlsState(['ready']);
+            else
+                updateControlsState(['ready'], false);
+        }
+
+        spinnerHide();
     }
 
     agent.client.Notification = function (message, type = "success") {
@@ -124,7 +165,7 @@ $(function () {
                 //localStorage.setItem('ucid', eventArgs[0]);
                 //$('#doHoldConnection').removeAttr('disabled');
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-               // $('#acceptCallRequest').removeAttr('disabled');
+                // $('#acceptCallRequest').removeAttr('disabled');
                 infoNoty(Resources.InExternalCall);
 
                 tempNoty('onCallExternalDelivered');
@@ -268,7 +309,8 @@ $(function () {
     $.connection.hub.start().done(function () {
         var deviceId = localStorage.getItem('deviceId');
 
-        //agent.server.InicializarApp();
+        spinnerShow();
+        agent.server.inicializarApp();
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
