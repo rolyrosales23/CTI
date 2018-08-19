@@ -2,58 +2,66 @@
 @{
     ViewBag.Title = "Index";
 }
+@section css{
+    <link href="~/assets/Icons/style.css" rel="stylesheet" />
+    <link href="~/assets/IconsConf/style.css" rel="stylesheet" />
+}
 
+@section breadcrumb {
+    <li class="active">@Resources.Login.Home</li>
+}
 <div class="row">
-    <div class="col-md-4">
 
+    <!--LOGIN EXTENSION-->
+    <div class="col-md-12" id="loginExtension">
         <div class="panel panel-default">
-            <div class="panel-body" id="options">
-         
+            <div class="panel-body">
+
                 <div class="form-group">
-                    <button class="btn btn-success form-control">
+                    <a class="btn btn-success" id="login-button" href="#modal-init-phone" data-toggle="modal">
                         <i class="fa fa-check"></i>
                         Login Phone
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-success form-control">
-                        <i class="fa fa-pause"></i>
-                        Listen
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-success form-control">
-                        <i class="fa icon-phone-call"></i>
-                        Whisper
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-success form-control">
-                        <i class="fa icon-phone_paused"></i>
-                        Join
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-success form-control">
-                        <i class="fa icon-phone_missed"></i>
-                        Chat
-                    </button>
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-success form-control">
-                        <i class="fa icon-phone-forwarded"></i>
-                        View
-                    </button>
+                    </a>
                 </div>
 
             </div>
         </div>
+    </div>
+    <!--END LOGIN EXTENSION-->
 
+    <div class="row">
+        <!--PHONE AREA-->
+        <div id="showPhone" class="col-md-4">
+        </div>
+        <!--END PHONE AREA-->
+        <!--HOLD CALLS LIST-->
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">@Resources.Agent.HoldCalls</h3>
+                    <ul class="panel-controls">
+                        <li><a href="#" class="panel-collapse"><span class="fa fa-angle-down"></span></a></li>
+                    </ul>
+                </div>
+                <div class="panel-body list-group list-group-contacts" id="lista_espera">
+                </div>
+            </div>
+        </div>
+        <!--END HOLD CALLS LIST-->
     </div>
 </div>
+@Html.Partial("_PartialModalPhone")
 
+@section scripts{
+    <script type="text/javascript">
+        $('#inputPhone').keyup(function () {
+            if ($(this).val())
+                $("#doCallBtn").removeAttr("disabled");
+            else
+                $("#doCallBtn").attr("disabled", "disabled");
+        });
+
+    </script>
+
+    <script src="~/assets/js/plugins/icheck/icheck.min.js"></script>
+}
