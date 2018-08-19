@@ -23,5 +23,10 @@ namespace GestCTI.Controllers
             var result = from p in db.Dispositions join campaign in db.Campaign on p.IdCampaign equals campaign.Id join v in db.VDN on campaign.Id equals v.IdCampaign where v.Value == vdn select new { p.Id, p.Name };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public void SetDisposition(int disposition) {
+            db = new DBCTIEntities();
+            //guardar datos en db
+        }
     }
 }

@@ -125,8 +125,8 @@ $(function () {
                 //localStorage.setItem('ucid', eventArgs[0]);
                 //$('#doHoldConnection').removeAttr('disabled');
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-               // $('#acceptCallRequest').removeAttr('disabled');
-
+                // $('#acceptCallRequest').removeAttr('disabled');
+                printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 infoNoty(Resources.IncomingCall);
 
                 tempNoty('onCallDelivered');
@@ -137,6 +137,7 @@ $(function () {
                 //$('#doHoldConnection').removeAttr('disabled');
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
                // $('#acceptCallRequest').removeAttr('disabled');
+                printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 infoNoty(Resources.InExternalCall);
 
                 tempNoty('onCallExternalDelivered');

@@ -81,7 +81,7 @@ namespace GestCTI.Controllers
             model.Password = Seguridad.EncryptMD5(model.Password);
             user = db.Users.SingleOrDefault(a => a.Username == model.Username && a.Password == model.Password && a.Active == true);
 
-            if (user != null /*&& (user.Role != "agent" || model.PhoneExtension != "")*/)
+            if (user != null && (user.Role != "agent" || model.PhoneExtension != ""))
             {
                 /*Session["user_id"] = user.Id;
                 if(model.PhoneLogin)

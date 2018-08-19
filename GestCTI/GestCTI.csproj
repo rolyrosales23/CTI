@@ -1988,6 +1988,7 @@
     <Content Include="Views\PauseCodes\Index.cshtml" />
     <Content Include="Views\Supervisor\_PartialPhone.cshtml" />
     <Content Include="Views\Supervisor\_PartialModalPhone.cshtml" />
+    <Content Include="Views\Home\_Dispositions.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
