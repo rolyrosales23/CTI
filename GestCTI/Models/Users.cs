@@ -19,6 +19,7 @@ namespace GestCTI.Models
         {
             this.UserSkill = new HashSet<UserSkill>();
             this.Company = new HashSet<Company>();
+            this.Calls = new HashSet<Calls>();
         }
     
         public int Id { get; set; }
@@ -39,5 +40,7 @@ namespace GestCTI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Company> Company { get; set; }
         public virtual Company Company1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Calls> Calls { get; set; }
     }
 }

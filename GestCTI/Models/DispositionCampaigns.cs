@@ -12,20 +12,23 @@ namespace GestCTI.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Dispositions
+    public partial class DispositionCampaigns
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Dispositions()
+        public DispositionCampaigns()
         {
-            this.DispositionCampaigns = new HashSet<DispositionCampaigns>();
+            this.Calls = new HashSet<Calls>();
         }
     
         public int Id { get; set; }
-        public string Name { get; set; }
+        public int IdDisposition { get; set; }
+        public int IdCampaign { get; set; }
         public string Description { get; set; }
         public bool Active { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DispositionCampaigns> DispositionCampaigns { get; set; }
+        public virtual ICollection<Calls> Calls { get; set; }
+        public virtual Campaign Campaign { get; set; }
+        public virtual Dispositions Dispositions { get; set; }
     }
 }

@@ -234,7 +234,7 @@
   <data name="Deactivate" xml:space="preserve">
     <value>Desactivar</value>
   </data>
-  <data name="QuestionDeactivate" xml:space="preserve">
+  <data name="QuestionDeactivateM" xml:space="preserve">
     <value>¿Seguro que desea desactivar el</value>
   </data>
   <data name="ActionChangePass" xml:space="preserve">
@@ -246,11 +246,11 @@
   <data name="AutoReady" xml:space="preserve">
     <value>Listo automaticamente</value>
   </data>
-  <data name="CallResult" xml:space="preserve">
-    <value>Resultado de la Llamada</value>
+  <data name="DispositionCampaign" xml:space="preserve">
+    <value>Disposición por campaña</value>
   </data>
-  <data name="CallResults" xml:space="preserve">
-    <value>Resultados de las Llamadas</value>
+  <data name="DispositionCampaigns" xml:space="preserve">
+    <value>Disposiciones por campañas</value>
   </data>
   <data name="Disposition" xml:space="preserve">
     <value>Disposición</value>
@@ -281,5 +281,8 @@
   </data>
   <data name="Result" xml:space="preserve">
     <value>Resultado</value>
+  </data>
+  <data name="QuestionDeactivateF" xml:space="preserve">
+    <value>¿Seguro que desea desactivar la</value>
   </data>
 </root>

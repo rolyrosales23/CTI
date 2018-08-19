@@ -20,7 +20,7 @@ namespace GestCTI.Models
             this.CampaignSkills = new HashSet<CampaignSkills>();
             this.VDN = new HashSet<VDN>();
             this.CampaignPauseCodes = new HashSet<CampaignPauseCodes>();
-            this.Dispositions = new HashSet<Dispositions>();
+            this.DispositionCampaigns = new HashSet<DispositionCampaigns>();
         }
     
         public int Id { get; set; }
@@ -38,6 +38,6 @@ namespace GestCTI.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampaignPauseCodes> CampaignPauseCodes { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Dispositions> Dispositions { get; set; }
+        public virtual ICollection<DispositionCampaigns> DispositionCampaigns { get; set; }
     }
 }

@@ -18,9 +18,9 @@ namespace GestCTI.Controllers
             return View();
         }
 
-        public JsonResult GetPauseCodesByVDN(string vdn) {
+        public JsonResult GetDispositionsByVDN(string vdn) {
             db = new DBCTIEntities();
-            var result = from p in db.Dispositions join campaign in db.Campaign on p.IdCampaign equals campaign.Id join v in db.VDN on campaign.Id equals v.IdCampaign where v.Value == vdn select new { p.Id, p.Name };
+            var result = from p in db.Dispositions join Dispcampaign in db.DispositionCampaigns on p.Id equals Dispcampaign.IdDisposition join campaign in db.Campaign on Dispcampaign.IdCampaign equals campaign.Id join v in db.VDN on campaign.Id equals v.IdCampaign where v.Value == vdn && p.Active && Dispcampaign.Active select new { p.Id, p.Name };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

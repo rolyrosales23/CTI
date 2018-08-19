@@ -19,14 +19,13 @@ namespace GestCTI.Controllers
         // GET: Dispositions
         public ActionResult Index()
         {
-            var dispositions = db.Dispositions.Include(d => d.Campaign);
+            var dispositions = db.Dispositions;
             return View(dispositions.ToList());
         }
 
         // GET: Dispositions/Create
         public ActionResult Create()
         {
-            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code");
             return View();
         }
 
@@ -35,7 +34,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Name,Description,IdCampaign")] Dispositions dispositions)
+        public ActionResult Create([Bind(Include = "Id,Name,Description,Active")] Dispositions dispositions)
         {
             if (ModelState.IsValid)
             {
@@ -44,7 +43,6 @@ namespace GestCTI.Controllers
                 return RedirectToAction("Index");
             }
             
-            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositions.IdCampaign);
             return View(dispositions);
         }
 
@@ -60,7 +58,6 @@ namespace GestCTI.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositions.IdCampaign);
             return View(dispositions);
         }
 
@@ -69,7 +66,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Name,Description,IdCampaign")] Dispositions dispositions)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Active")] Dispositions dispositions)
         {
             if (ModelState.IsValid)
             {
@@ -77,7 +74,6 @@ namespace GestCTI.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositions.IdCampaign);
             return View(dispositions);
         }
 
@@ -87,7 +83,7 @@ namespace GestCTI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Dispositions dispositions = db.Dispositions.Find(id);
-            db.Dispositions.Remove(dispositions);
+            dispositions.Active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

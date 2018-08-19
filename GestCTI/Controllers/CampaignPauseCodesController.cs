@@ -91,7 +91,7 @@ namespace GestCTI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             CampaignPauseCodes campaignPauseCodes = db.CampaignPauseCodes.Find(id);
-            db.CampaignPauseCodes.Remove(campaignPauseCodes);
+            campaignPauseCodes.Active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

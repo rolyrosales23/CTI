@@ -142,24 +142,6 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Call Result.
-        /// </summary>
-        public static string CallResult {
-            get {
-                return ResourceManager.GetString("CallResult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Call Results.
-        /// </summary>
-        public static string CallResults {
-            get {
-                return ResourceManager.GetString("CallResults", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Campaign.
         /// </summary>
         public static string Campaign {
@@ -264,6 +246,24 @@ namespace Resources {
         public static string Disposition {
             get {
                 return ResourceManager.GetString("Disposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Disposition by campaign.
+        /// </summary>
+        public static string DispositionCampaign {
+            get {
+                return ResourceManager.GetString("DispositionCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dispositions by campaigns.
+        /// </summary>
+        public static string DispositionCampaigns {
+            get {
+                return ResourceManager.GetString("DispositionCampaigns", resourceCulture);
             }
         }
         
@@ -405,9 +405,18 @@ namespace Resources {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to deactivate.
         /// </summary>
-        public static string QuestionDeactivate {
+        public static string QuestionDeactivateF {
             get {
-                return ResourceManager.GetString("QuestionDeactivate", resourceCulture);
+                return ResourceManager.GetString("QuestionDeactivateF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to deactivate.
+        /// </summary>
+        public static string QuestionDeactivateM {
+            get {
+                return ResourceManager.GetString("QuestionDeactivateM", resourceCulture);
             }
         }
         

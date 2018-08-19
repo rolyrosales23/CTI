@@ -82,7 +82,7 @@ namespace GestCTI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             PauseCodes pauseCodes = db.PauseCodes.Find(id);
-            db.PauseCodes.Remove(pauseCodes);
+            pauseCodes.Active = false;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

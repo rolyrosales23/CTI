@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestCTI.Models.Dispositions>
+﻿@model IEnumerable<GestCTI.Models.DispositionCampaigns>
 
 @{
     ViewBag.Title = "Index";
@@ -7,13 +7,12 @@
 
 @section breadcrumb{
     <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
-    <li class="active">@Resources.Admin.Dispositions</li>
+    <li class="active">@Resources.Admin.DispositionCampaigns</li>
 }
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.Dispositions</h2>
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.DispositionCampaigns</h2>
 </div>
-
 
 <div class="panel panel-default tabs">
     <div class="panel-body tab-content">
@@ -25,7 +24,10 @@
                 <thead>
                     <tr>
                         <th>
-                            @Resources.Admin.Name
+                            @Resources.Admin.Disposition
+                        </th>
+                        <th>
+                            @Resources.Admin.Campaign
                         </th>
                         <th>
                             @Resources.Admin.Description
@@ -41,7 +43,10 @@
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Name)
+                            @Html.DisplayFor(modelItem => item.Dispositions.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Campaign.Code)
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Description)
@@ -54,8 +59,9 @@
 
                             <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
 
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.Disposition }, { "Action", "Delete" }, { "Controller", "Dispositions" }, { "Menssage", Resources.Admin.QuestionDeactivateF + " " + Resources.Admin.Disposition + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
-                        </td></tr>
+                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.DispositionCampaign }, { "Action", "Delete" }, { "Controller", "DispositionCampaigns" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Admin.Disposition + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Dispositions.Name + " " + Resources.Admin.OfF + " " + Resources.Admin.Campaign + ": " + item.Campaign.Code + "?" } })
+                        </td>
+                    </tr>
                 }
 
             </table>

@@ -117,6 +117,14 @@
                         </ul>
                     </li>
                     <li class="xn-openable">
+                        <a href=""><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.DispositionCampaigns</span></a>
+                        <ul>
+                            <li action="index" controller="dispositioncampaigns"><a href="@Url.Action("Index", "DispositionCampaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+
+                            <li action="create" controller="dispositioncampaigns"><a href="@Url.Action("Create", "DispositionCampaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                        </ul>
+                    </li>
+                    <li class="xn-openable">
                         <a href=""><span class="fa fa-building-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a>
                         <ul>
                             <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>

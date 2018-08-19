@@ -52,9 +52,9 @@
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
 
-                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
 
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "PauseCodes" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.PauseCode + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
+                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.PauseCode }, { "Action", "Delete" }, { "Controller", "PauseCodes" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Admin.PauseCode + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
                         </td></tr>
                 }
 

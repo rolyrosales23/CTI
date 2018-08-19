@@ -28,7 +28,7 @@ function printDisposition(vdn) {
     var select = $('#SelDisposition');
     select.find('option').remove();
     $.ajax({
-        url: "../Home/GetPauseCodesByVDN/",
+        url: "../Home/GetDispositionsByVDN/",
         data: { vdn: vdn },
         success: function (resp) {
             select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");

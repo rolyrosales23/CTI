@@ -37,6 +37,8 @@ namespace GestCTI.Models
         public virtual DbSet<CampaignType> CampaignType { get; set; }
         public virtual DbSet<PauseCodes> PauseCodes { get; set; }
         public virtual DbSet<CampaignPauseCodes> CampaignPauseCodes { get; set; }
+        public virtual DbSet<Calls> Calls { get; set; }
+        public virtual DbSet<DispositionCampaigns> DispositionCampaigns { get; set; }
         public virtual DbSet<Dispositions> Dispositions { get; set; }
     }
 }
