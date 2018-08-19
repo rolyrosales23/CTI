@@ -24,7 +24,20 @@ function pintarListaEspera(lista) {
     }
 }
 
-function changeState(id, enable) {
+function changeState(alias, enable) {
+    var map = {
+        'ready': 'ReadyToWork',
+        'pause': 'doPause',
+        'answer': 'acceptCallRequest',
+        'hold': 'doHoldConnection',
+        'retrieve': 'doRetrieve',
+        'transfer': 'doTransfer',
+        'conference': 'doConference',
+        'end_conference': 'doEndConference',
+        'hangout': 'hangoutCallRequest'
+    };
+    var id = (map[alias] !== undefined) ? map[alias] : alias;
+
     if (enable)
         $('#' + id).removeAttr('disabled');
     else
@@ -32,25 +45,12 @@ function changeState(id, enable) {
 }
 
 function updateControlsState(list, enable = true) {
-    var map = {
-        'ready':           'ReadyToWork',
-        'pause':           'doPause',
-        'answer':          'acceptCallRequest',
-        'hold':            'doHoldConnection',
-        'retrieve':        'doRetrieve',
-        'transfer':        'doTransfer',
-        'conference':      'doConference',
-        'end_conference':  'doEndConference',
-        'hangout':         'hangoutCallRequest'
-    };
-    for (var button in map)
-        changeState(map['button'], !enable);
+    var buttons = ['ready', 'pause', 'answer', 'hold', 'retrieve', 'transfer', 'conference', 'end_conference', 'hangout'];
+    for (var alias in buttons)
+        changeState(alias, !enable);
 
-    for (var i in list) {
-        var button_id = map[ list[i] ];
-        if (button_id != undefined)
-            changeState(button_id, enable);
-    }
+    for (var i in list)
+        changeState(list[i], enable);
 }
 
 function printDisposition(vdn) {
@@ -72,17 +72,22 @@ $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
-    agent.client.inicializarApp = function (message) {
+    agent.client.inicializarApp = function (message, data) {
+        pintarListaEspera(data);
+
         var response = JSON.parse(message);
         if (response['success']) {
             var result = JSON.parse(response.result);
-            var agentData  = result[0];
+            var agentData = result[0];
             var deviceData = result[1];
             var state = agentData['State'];
+
             if (state != AgentState.AS_READY)
                 updateControlsState(['ready']);
+            else if (deviceData['Busy'])
+                updateControlsState(['answer', 'hold', 'end_conference', 'hangout']);
             else
-                updateControlsState(['ready'], false);
+                updateControlsState(['pause']);
         }
 
         spinnerHide();
@@ -108,21 +113,21 @@ $(function () {
         }
     };
 
-/*    agent.client.resultHoldConnections = function (response) {
-        spinnerHide();
-        if (response.length) {
-            //llenar select
-            var select = $('#transfer-modal select');
-            select.find('option').remove();
-            for (var i in response) {
-                select.append(new Option(response[i].toDevice, response[i].ucid));
+    /*    agent.client.resultHoldConnections = function (response) {
+            spinnerHide();
+            if (response.length) {
+                //llenar select
+                var select = $('#transfer-modal select');
+                select.find('option').remove();
+                for (var i in response) {
+                    select.append(new Option(response[i].toDevice, response[i].ucid));
+                }
+                select.selectpicker('refresh');
+    
+                $('#transfer-modal').modal();
             }
-            select.selectpicker('refresh');
-
-            $('#transfer-modal').modal();
-        }
-    };
-*/
+        };
+    */
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -130,14 +135,14 @@ $(function () {
             successNoty(Resources.ChangeToReadyOk);
         } else {
             errorNoty(Resources.ChangeToReadyFail);
-            //$("#ReadyToWork").removeAttr("disabled");
+            changeState('ready', true);
         }
     };
 
     agent.client.receiveAcceptCallRequest = function (response) {
         json = JSON.parse(response);
         if (json.success === false) {
-            //$("#acceptCallRequest").attr("disabled", "disabled");
+            changeState('answer', false);
             localStorage.removeItem('ucid');
             successNoty(Resources.InCall);
         }
@@ -152,7 +157,7 @@ $(function () {
 
         switch (eventName) {
             case 'onServiceInitiated':
-               // $("#hangoutCallRequest").removeAttr("disabled");
+                changeState('hangout', true);
 
                 tempNoty('onServiceInitiated');
                 break;
@@ -163,10 +168,10 @@ $(function () {
                 break;
 
             case 'onCallDelivered':
-                //localStorage.setItem('ucid', eventArgs[0]);
-                //$('#doHoldConnection').removeAttr('disabled');
+                changeState('hold', true);
+                changeState('answer', true);
+
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                // $('#acceptCallRequest').removeAttr('disabled');
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 infoNoty(Resources.IncomingCall);
 
@@ -174,10 +179,10 @@ $(function () {
                 break;
 
             case 'onCallExternalDelivered':
-                //localStorage.setItem('ucid', eventArgs[0]);
-                //$('#doHoldConnection').removeAttr('disabled');
+                changeState('hold', true);
+                changeState('answer', true);
+
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                // $('#acceptCallRequest').removeAttr('disabled');
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 infoNoty(Resources.InExternalCall);
 
@@ -198,23 +203,24 @@ $(function () {
                 var myId = localStorage.getItem('deviceId');
                 var activeCall = { 'ucid': eventArgs[0], 'deviceId': ((eventArgs[4] != myId) ? eventArgs[4] : eventArgs[5]) };
                 localStorage.setItem('activeCall', JSON.stringify(activeCall));
-                //$("#hangoutCallRequest").removeAttr("disabled");
-                //$("#acceptCallRequest").attr("disabled", "disabled");
-                //$("#doHoldConnection").removeAttr("disabled");
+
+                changeState('hangout', true);
+                changeState('hold', true);
+                changeState('answer', false);
 
                 tempNoty('onEstablishedConnection');
                 break;
 
             case 'onHoldConnection':
                 pintarListaEspera(data);
-                //$('#inputPhone').text('').removeAttr('disabled');
+                $('#inputPhone').text('').removeAttr('disabled');
                 localStorage.removeItem('activeCall');
 
                 tempNoty('onHoldConnection');
                 break;
 
             case 'onHoldPartyConnection':
-                
+
                 tempNoty('onHoldPartyConnection');
                 break;
 
@@ -235,7 +241,7 @@ $(function () {
 
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
-               // $("#hangoutCallRequest").attr("disabled", "disabled");
+                changeState('hangout', false);
 
                 tempNoty('onEndConnection');
                 break;
@@ -246,11 +252,11 @@ $(function () {
                 break;
 
             case 'onEndCall':
-               // $("#hangoutCallRequest").attr("disabled", "disabled");
-               // $("#ReadyToWork").removeAttr("disabled");
-               // $("#inputPhone").removeAttr("disabled");
-               // $("#inputPhone").val('');
-               // $('#doHoldConnection').attr('disabled', 'disabled');
+                changeState('hangout', false);
+                changeState('hold', false);
+                //changeState('ready', true);
+                $("#inputPhone").val('').removeAttr("disabled");
+
                 pintarListaEspera(data);
                 localStorage.removeItem('activeCall');
 
@@ -279,11 +285,10 @@ $(function () {
 
             case 'onAgentChangedState': {
                 var agentState = eventArgs[1];
-                switch (agentState) {
-                    case AgentState.AS_READY:
-                       // $("#ReadyToWork").attr("disabled", "disabled");
-                        break;
-                }
+                if (agentState == AgentState.AS_READY)
+                    updateControlsState(['pause']);
+                else
+                    updateControlsState(['ready']);
 
                 tempNoty('onAgentChangedState');
                 break;
@@ -309,8 +314,8 @@ $(function () {
     agent.client.addCTIMakeCallRequest = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-           // $('#inputPhone').attr('disabled', 'disabled');
-           // $('#doCallBtn').attr('disabled', 'disabled');
+             $('#inputPhone').attr('disabled', 'disabled');
+             $('#doCallBtn').attr('disabled', 'disabled');
             successNoty(Resources.Calling);
         } else {
             errorNoty(Resources.MakeCallFail);
@@ -327,7 +332,7 @@ $(function () {
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
-           // $("#ReadyToWork").attr("disabled", "disabled");
+             change('ready', false);
             agent.server.sendStateReadyManual(deviceId);
         });
 
@@ -376,7 +381,7 @@ $(function () {
             if (notEmpty(strAC)) {
                 var activeCall = JSON.parse(strAC);
                 if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
-                   // $("#doHoldConnection").attr("disabled", "disabled");
+                    change('hold', false);
                     agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId);
                 }
             }
