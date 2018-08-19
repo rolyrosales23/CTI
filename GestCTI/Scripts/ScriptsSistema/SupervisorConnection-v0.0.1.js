@@ -10,7 +10,6 @@
         errorNoty("Error charging phone partial");
     })
 }
-
 $(function () {
     var phoneExtension = localStorage.getItem('deviceId');
     if (notEmpty(phoneExtension)) {
@@ -36,7 +35,7 @@ $(function () {
             $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
             showPhoneView();
             $("#loginExtension").remove();
-            spinnerHide();    
+            spinnerHide();
         } else {
             localStorage.removeItem('deviceId');
             spinnerHide();
@@ -62,7 +61,7 @@ $(function () {
             var deviceId = localStorage.getItem('deviceId');
             if (notEmpty(deviceId)) {
                 localStorage.removeItem('deviceId');
-            } 
+            }
             $('#LogOutForm').submit();
         });
     });

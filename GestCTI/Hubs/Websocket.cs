@@ -234,6 +234,10 @@ namespace GestCTI.Hubs
             await sendInitialize(deviceId, Context.User.Identity.Name);
         }
 
+        public async Task initilizeSupervisorDevice(String deviceId, String user) {
+            baseConnectWebsocket(user);
+            await sendInitialize(deviceId, user);
+        }
         /// <summary>
         /// Generic sender to websocket core
         /// </summary>
