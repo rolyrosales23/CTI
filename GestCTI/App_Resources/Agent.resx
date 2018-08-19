@@ -168,6 +168,9 @@
   <data name="Retrieve" xml:space="preserve">
     <value>Retrieve</value>
   </data>
+  <data name="SelectDisposition" xml:space="preserve">
+    <value>Select the Call Disposition...</value>
+  </data>
   <data name="Transfer" xml:space="preserve">
     <value>Transferir</value>
   </data>

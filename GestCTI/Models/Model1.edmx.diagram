@@ -26,14 +26,12 @@
         <AssociationConnector Association="DBCTIModel.FK_UserSkill_Skill" />
         <EntityTypeShape EntityType="DBCTIModel.CampaignType" Width="1.5" PointX="7.625" PointY="0.5" />
         <AssociationConnector Association="DBCTIModel.FK_Campaing_CampaingType" />
-        <EntityTypeShape EntityType="DBCTIModel.CallResult" Width="1.5" PointX="12.25" PointY="4" />
-        <EntityTypeShape EntityType="DBCTIModel.Dispositions" Width="1.5" PointX="10.125" PointY="3.625" />
         <EntityTypeShape EntityType="DBCTIModel.PauseCodes" Width="1.5" PointX="12.25" PointY="0.625" />
-        <AssociationConnector Association="DBCTIModel.FK_Dispositions_CallResult" />
-        <AssociationConnector Association="DBCTIModel.FK_Dispositions_Campaigns" />
         <EntityTypeShape EntityType="DBCTIModel.CampaignPauseCodes" Width="1.875" PointX="9.875" PointY="0.5" />
         <AssociationConnector Association="DBCTIModel.FK_CampaignPauseCodes_Campaign" />
         <AssociationConnector Association="DBCTIModel.FK_CampaignPauseCodes_PauseCodes" />
+        <EntityTypeShape EntityType="DBCTIModel.Dispositions" Width="1.5" PointX="10" PointY="3.5" />
+        <AssociationConnector Association="DBCTIModel.FK_Dispositions_Campaigns" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
