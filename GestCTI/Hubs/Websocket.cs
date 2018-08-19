@@ -27,7 +27,7 @@ namespace GestCTI.Hubs
         /// <summary>
         /// List of hold connections by users
         /// </summary>
-        public static HoldList holdConnections;
+        public static HoldList holdConnections = new HoldList();
         /// <summary>
         /// Log in an user in core app
         /// </summary>
