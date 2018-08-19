@@ -18,9 +18,7 @@ namespace GestCTI.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public int IdCampaign { get; set; }
-        public int IdResult { get; set; }
     
-        public virtual CallResult CallResult { get; set; }
         public virtual Campaign Campaign { get; set; }
     }
 }

@@ -28,6 +28,21 @@ function pintarListaEspera(lista) {
     }
 }
 
+function printDisposition(vdn) {
+    var select = $('#SelDisposition');
+    select.find('option').remove();
+    $.ajax({
+        url: "../Home/GetPauseCodesByVDN/",
+        data: { vdn: vdn },
+        success: function (resp) {
+            select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
+            for (var i in resp) {
+                select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+            }
+        }
+    });
+}
+
 $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
@@ -114,6 +129,7 @@ $(function () {
                 //$('#doHoldConnection').removeAttr('disabled');
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
                // $('#acceptCallRequest').removeAttr('disabled');
+
                 infoNoty(Resources.IncomingCall);
 
                 tempNoty('onCallDelivered');
