@@ -214,6 +214,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select the Call Disposition....
+        /// </summary>
+        public static string SelectDisposition {
+            get {
+                return ResourceManager.GetString("SelectDisposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transferir.
         /// </summary>
         public static string Transfer {

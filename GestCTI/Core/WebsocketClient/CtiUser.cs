@@ -13,5 +13,6 @@ namespace GestCTI.Core.WebsocketClient
         public String HttpUrl { get; set; }
         public String ConnectionId { get; set; }
         public String DeviceId { get; set; }
+        public String Role { get; set; }
     }
 }

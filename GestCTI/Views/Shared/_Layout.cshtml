@@ -11,6 +11,9 @@
     <!-- END META SECTION -->
     <!-- CSS INCLUDE -->
     <link href="~/assets/css/theme-default.css" rel="stylesheet" />
+    <!--INCLUDE CSS DTI-->
+    <link href="~/assets/css/cti/cti-default.css" rel="stylesheet" />
+    <!--END INCLUDE CSS DTI-->
     @RenderSection("css", required: false)
     <!-- EOF CSS INCLUDE -->
     <script src="~/assets/js/plugins/jquery/jquery.min.js"></script>
@@ -111,14 +114,6 @@
                             <li action="index" controller="dispositions"><a href="@Url.Action("Index", "Dispositions")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
 
                             <li action="create" controller="dispositions"><a href="@Url.Action("Create", "Dispositions")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-thumbs-up"></span> <span class="xn-text">@Resources.Admin.CallResults</span></a>
-                        <ul>
-                            <li action="index" controller="callresults"><a href="@Url.Action("Index", "CallResults")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="callresults"><a href="@Url.Action("Create", "CallResults")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
@@ -357,8 +352,9 @@
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "LogOutForm", @class = "navbar-right" }))
                         {
                             @Html.AntiForgeryToken()
-                            
-                            if(this.User.IsInRole("agent")){
+
+                            if(this.User.IsInRole("agent") || this.User.IsInRole("supervisor"))
+                            {
                                 <a id="LogOutCore" class="btn btn-success btn-lg" href="#!">@Resources.Login.Yes</a>
                             }
                             else{
@@ -404,6 +400,7 @@
     <script src="~/assets/js/plugins/noty/layouts/topLeft.js"></script>
     <script src="~/assets/js/plugins/noty/themes/default.js"></script>
     <script src="~/Scripts/ScriptsSistema/notyTypes.js"></script>
+    <script src="~/assets/js/cti/cti-default.js"></script>
 
     <!--Reference the SignalR library. -->
     <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>

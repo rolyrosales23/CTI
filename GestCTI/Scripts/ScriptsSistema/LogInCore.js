@@ -1,4 +1,6 @@
 ﻿$(function () {
+    // Delete localStorage Story
+    localStorage.clear();
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
     // Function to get response for login
@@ -81,18 +83,62 @@
         }
     };
 
+    function runRoleAgent() {
+        var phone = $("#LoginPhoneExtension").val();
+        if (notEmpty(phone)) {
+            agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
+        } else {
+            spinnerHide();
+            errorNoty("Debes autenticarte con un dispositivo");
+        }
+    }
+
+    function runRoleSupervisor() {
+        var phone = $("#LoginPhoneExtension").val();
+        var user = $("#LoginUsername").val()
+        if (notEmpty(phone) && notEmpty(user)) {
+            agent.server.initilizeSupervisorDevice(phone, user);
+        } else {
+            $("#LogInForm").submit().done(function () {
+                spinnerHide();
+            });
+        }
+    }
+
+    function runRoleAdmin() {
+        $("#LogInForm").submit().done(function () {
+            spinnerHide();
+        });
+    }
+
     // Start the connection.
     $.connection.hub.start().done(function () {
         $('#LogInCore').click(function () {
-            spinnerShow();
-            var phone = $("#LoginPhoneExtension").val();
-            if (phone !== null && phone !== undefined && phone !== "") {
-                agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
-            } else {
-                $("#LogInForm").submit().done(function () {
-                    spinnerHide();
-                });
+            var UserName = $("#LoginUsername").val();
+            if (!notEmpty(UserName)) {
+                errorNoty("Debe introducir un usuario");
+                return;
             }
+            spinnerShow();
+            $.get('Account/GetRole/' + UserName,).done(function (role, textStatus, jqXHR) {
+                switch (role) {
+                    case "admin":
+                        runRoleAdmin();
+                        break;
+                    case "supervisor":
+                        runRoleSupervisor();
+                        break;
+                    case "agent":
+                        runRoleAgent();
+                        break;
+                    default:
+                        spinnerHide();
+                        errorNoty("Usuario no permitido");
+                }
+            }).fail(function (jqXHR, textStatus, errorThrown) {
+                spinnerHide();
+                errorNoty("Usuario no permitido");
+            });
         });
     });
 });

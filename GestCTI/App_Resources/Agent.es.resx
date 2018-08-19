@@ -168,4 +168,7 @@
   <data name="Retrieve" xml:space="preserve">
     <value>Recuperar</value>
   </data>
+  <data name="SelectDisposition" xml:space="preserve">
+    <value>Seleccione la Disposición de la llamada...</value>
+  </data>
 </root>

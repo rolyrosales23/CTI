@@ -224,6 +224,21 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
+        /// Initialize device in Supervisor 
+        /// if not is passed deviceId in login 
+        /// </summary>
+        /// <param name="deviceId">Id device</param>
+        /// <returns>void</returns>
+        public async Task initilizeSupervisorDevice(String deviceId) {
+            ConnectWebsocket();
+            await sendInitialize(deviceId, Context.User.Identity.Name);
+        }
+
+        public async Task initilizeSupervisorDevice(String deviceId, String user) {
+            baseConnectWebsocket(user);
+            await sendInitialize(deviceId, user);
+        }
+        /// <summary>
         /// Generic sender to websocket core
         /// </summary>
         /// <param name="guid">messsage guid</param>
@@ -293,6 +308,7 @@ namespace GestCTI.Hubs
                 cti_User.HttpUrl = User.Company1.Switch.ApiServerIP;
                 cti_User.ConnectionId = Context.ConnectionId;
                 cti_User.user_name = nameUser;
+                cti_User.Role = User.Role;
 
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);

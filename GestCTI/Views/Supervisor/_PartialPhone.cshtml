@@ -1,0 +1,100 @@
+﻿<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="widget-main">
+            <div class="form-group">
+                <div class="input-group">
+                    <span class="input-group-addon">
+                        <i class="fa fa-bars"></i><br />
+                    </span>
+                    <input id="inputPhone" class="form-control" type="number" placeholder=@Resources.Agent.InsertPhone />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12" style="padding: 0px">
+                    <button id="doCallBtn" class="btn btn-success btn-lg btn-block btn-redondo" disabled="disabled">
+                        @Resources.Agent.Call
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body" id="options">
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success btn-redondo" id="ReadyToWork">
+                    <i class="fa fa-check icono-grande"></i><br />
+                    @Resources.Agent.Ready
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <button class="btn btn-success btn-redondo">
+                    <i class="fa fa-pause icono-grande"></i><br />
+                    @Resources.Agent.Pause
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button id="acceptCallRequest" class="btn btn-success btn-redondo" disabled="disabled">
+                    <i class="fa icon-phone-call icono-grande"></i><br />
+                    @Resources.Agent.Answer
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <button class="btn btn-success btn-redondo" id="doHoldConnection">
+                    <i class="fa icon-phone_paused icono-grande"></i><br />
+                    @Resources.Agent.Hold
+                </button>
+            </div>
+
+            <div class="col-md-4">
+                <button class="btn btn-success btn-redondo" id="doRetrieve">
+                    <i class="fa icon-phone_paused icono-grande"></i><br />
+                    @Resources.Agent.Retrieve
+                </button>
+            </div>
+
+            <div class="col-md-4">
+                <a class="btn btn-success btn-redondo" id="doTransfer">
+                    <i class="fa icon-phone_missed icono-grande"></i><br />
+                    @Resources.Agent.Transfer
+                </a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-success btn-redondo" id="doConference">
+                    <i class="fa icon-phone3 icono-grande"></i><br />
+                    @Resources.Agent.Confer
+                </button>
+            </div>
+
+            <div class="col-md-6">
+                <button class="btn btn-success btn-redondo">
+                    <i class="fa icon-phone3 icono-grande"></i><br />
+                    <span class="line-height-1 smaller-75"> @Resources.Agent.EndConf </span>
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <button class="btn btn-success btn-redondo" id="hangoutCallRequest" disabled="disabled">
+                    <i class="fa icon-call_end icono-grande"></i><br />
+                    @Resources.Agent.HangUp
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+

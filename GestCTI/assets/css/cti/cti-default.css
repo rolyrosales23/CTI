@@ -1,0 +1,14 @@
+﻿.icono-grande {
+    font-size: 20px !important
+}
+
+.btn-redondo {
+    border-radius: 7px;
+    font-size: 14px;
+    width: 100%;
+    background-color: #3b5045;
+}
+
+#options .row {
+    margin-bottom: 10px
+}

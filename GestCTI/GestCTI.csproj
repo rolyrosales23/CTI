@@ -240,7 +240,6 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\Auth\CustomAuthorize.cs" />
-    <Compile Include="Controllers\CallResultsController.cs" />
     <Compile Include="Controllers\CampaignPauseCodesController.cs" />
     <Compile Include="Controllers\CampaignsController.cs" />
     <Compile Include="Controllers\CampaignTypesController.cs" />
@@ -273,9 +272,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Hubs\Websocket.cs" />
-    <Compile Include="Models\CallResult.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Campaign.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -472,6 +468,7 @@
     <Content Include="assets\css\codemirror\theme\vibrant-ink.css" />
     <Content Include="assets\css\codemirror\theme\xq-dark.css" />
     <Content Include="assets\css\codemirror\theme\xq-light.css" />
+    <Content Include="assets\css\cti\cti-default.css" />
     <Content Include="assets\css\dropzone\dropzone.css" />
     <Content Include="assets\css\fontawesome\font-awesome.min.css" />
     <Content Include="assets\css\fonts-google\font-googleapis.css" />
@@ -586,6 +583,7 @@
     <Content Include="assets\img\themes\default.jpg" />
     <Content Include="assets\img\themes\light.jpg" />
     <Content Include="assets\js\actions.js" />
+    <Content Include="assets\js\cti\cti-default.js" />
     <Content Include="assets\js\demo_charts_morris.js" />
     <Content Include="assets\js\demo_charts_nvd3.js" />
     <Content Include="assets\js\demo_charts_rickshaw.js" />
@@ -1977,21 +1975,21 @@
     <Content Include="Views\CampaignTypes\Index.cshtml" />
     <Content Include="Views\Shared\Notifications.cshtml" />
     <Content Include="Views\Shared\Spinner.cshtml" />
-    <Content Include="Views\Shared\TransferModal.cshtml" />
     <Content Include="Views\Shared\ResourcesJS.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
     <Content Include="Views\Dispositions\Create.cshtml" />
     <Content Include="Views\Dispositions\Edit.cshtml" />
     <Content Include="Views\Dispositions\Index.cshtml" />
-    <Content Include="Views\CallResults\Create.cshtml" />
-    <Content Include="Views\CallResults\Edit.cshtml" />
-    <Content Include="Views\CallResults\Index.cshtml" />
     <Content Include="Views\CampaignPauseCodes\Create.cshtml" />
     <Content Include="Views\CampaignPauseCodes\Edit.cshtml" />
     <Content Include="Views\CampaignPauseCodes\Index.cshtml" />
     <Content Include="Views\PauseCodes\Create.cshtml" />
     <Content Include="Views\PauseCodes\Edit.cshtml" />
     <Content Include="Views\PauseCodes\Index.cshtml" />
+    <Content Include="Views\Supervisor\_PartialPhone.cshtml" />
+    <Content Include="Views\Supervisor\_PartialModalPhone.cshtml" />
+    <Content Include="Views\Home\_Dispositions.cshtml" />
+    <Content Include="Views\Supervisor\_PartialHoldCall.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -2064,7 +2062,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>59942</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

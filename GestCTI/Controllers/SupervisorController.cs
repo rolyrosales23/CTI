@@ -16,5 +16,9 @@ namespace GestCTI.Controllers
         {
             return View();
         }
+
+        public ActionResult GetTelephone() {
+            return PartialView("_PartialPhone");
+        }
     }
 }

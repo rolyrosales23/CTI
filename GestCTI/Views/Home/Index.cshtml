@@ -3,21 +3,7 @@
 }
 
 @section css{
-    <link href="~/assets/Icons/style.css" rel="stylesheet" />   
-    <style type="text/css">
-        .icono-grande {
-            font-size: 20px !important
-        }
-        .btn-redondo {
-            border-radius: 7px;
-            font-size: 14px;
-            width: 100%;
-            background-color: #3b5045;
-        }
-        #options .row {
-            margin-bottom: 10px
-        }
-    </style>
+    <link href="~/assets/Icons/style.css" rel="stylesheet" />
 }
 
 <!-- PAGE TITLE
@@ -129,7 +115,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="col-md-4 col-md-offset-4">
@@ -145,6 +130,7 @@
         </div>
     </div>
 </div>
+@Html.Partial("_Dispositions")
 
 @section scripts{
     <script type="text/javascript">
