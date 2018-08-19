@@ -137,7 +137,8 @@ namespace GestCTI.Hubs
         /// <param name="ucid">Ucid</param>
         /// <param name="deviceId">Device id</param>
         /// <returns>void</returns>
-        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId) {
+        public async Task sendCTIHoldConnectionRequest(String ucid, String deviceId)
+        {
             var toSend = CallHandling.CTIHoldConnectionRequest(ucid, deviceId);
             String I18n = "COMMAND_HOLD_CONNECTION";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
@@ -162,7 +163,8 @@ namespace GestCTI.Hubs
         /// <param name="toDevice">To another Device</param>
         /// <param name="callerId">Identifier of this call</param>
         /// <returns>void</returns>
-        public async Task sendCTIMakeCallRequest(String fromDevice, String toDevice, String callerId){
+        public async Task sendCTIMakeCallRequest(String fromDevice, String toDevice, String callerId)
+        {
             var toSend = CallHandling.CTIMakeCallRequest(fromDevice, toDevice, callerId);
             String I18n = "COMMAND_MAKE_CALL_REQUEST";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIMakeCallRequest, I18n, Context.User.Identity.Name);
@@ -196,7 +198,8 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n, user);
         }
 
-        public async Task sendTransferCall(String heldUcid, String activeUcid, String deviceId) {
+        public async Task sendTransferCall(String heldUcid, String activeUcid, String deviceId)
+        {
             var toSend = CallHandling.CTITransferRequest(heldUcid, activeUcid, deviceId);
             String I18n = "COMMAND_TRANSFER_REQUEST";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTITransferRequest, I18n, Context.User.Identity.Name);
@@ -216,13 +219,46 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIRetrieveConnection, I18n, Context.User.Identity.Name);
         }
 
-        public async Task InicializarApp()
+        public async Task inicializarApp()
         {
             var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
             String I18n = "COMMAND_INICIALIZAR_APP";
             await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarApp, I18n, Context.User.Identity.Name);
         }
 
+        /// <summary>
+        /// Get list of agent
+        /// </summary>
+        public void getAllUserConnected()
+        {
+            List<CtiUser> Agent = new List<CtiUser>();
+            foreach (var websocks in socks.Values)
+            {
+                if (websocks.attendRequest && websocks.CtiUser.Role.Equals("agent"))
+                {
+                    Agent.Add(websocks.CtiUser);
+                }
+            }
+            Clients.Client(Context.ConnectionId).listOfAgent(Agent);
+        }
+
+        /// <summary>
+        /// Initialize device in Supervisor 
+        /// if not is passed deviceId in login 
+        /// </summary>
+        /// <param name="deviceId">Id device</param>
+        /// <returns>void</returns>
+        public async Task initilizeSupervisorDevice(String deviceId)
+        {
+            ConnectWebsocket();
+            await sendInitialize(deviceId, Context.User.Identity.Name);
+        }
+
+        public async Task initilizeSupervisorDevice(String deviceId, String user)
+        {
+            baseConnectWebsocket(user);
+            await sendInitialize(deviceId, user);
+        }
         /// <summary>
         /// Generic sender to websocket core
         /// </summary>
@@ -236,7 +272,7 @@ namespace GestCTI.Hubs
             WebsocketCore ws = null;
             if (socks.TryGetValue(User, out ws))
             {
-                if (Context.ConnectionId == ws.CtiUser.ConnectionId &&  await ws.Send(guid, message, messageType))
+                if (Context.ConnectionId == ws.CtiUser.ConnectionId && await ws.Send(guid, message, messageType))
                 {
                     Clients.Client(Context.ConnectionId).Notification(I18n);
                 }
@@ -246,11 +282,13 @@ namespace GestCTI.Hubs
                     if (messageType == MessageType.CTILogOut)
                     {
                         Clients.Client(Context.ConnectionId).logOutCore(null);
-                    } else if (Context.ConnectionId != ws.CtiUser.ConnectionId)
+                    }
+                    else if (Context.ConnectionId != ws.CtiUser.ConnectionId)
                     {
                         // Another client user is logued with your credentials
                         Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET_FROM_OLD_CONNECTION");
-                    } else
+                    }
+                    else
                     {
                         // You don't have connection with websocket
                         Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET");
@@ -278,7 +316,7 @@ namespace GestCTI.Hubs
         /// <returns>bool</returns>
         private bool baseConnectWebsocket(String nameUser)
         {
-            WebsocketCore core;            
+            WebsocketCore core;
             bool answ = socks.TryGetValue(nameUser, out core);
             if (!answ)
             {
@@ -293,6 +331,7 @@ namespace GestCTI.Hubs
                 cti_User.HttpUrl = User.Company1.Switch.ApiServerIP;
                 cti_User.ConnectionId = Context.ConnectionId;
                 cti_User.user_name = nameUser;
+                cti_User.Role = User.Role;
 
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
@@ -301,11 +340,12 @@ namespace GestCTI.Hubs
                 if (!ws.attendRequest)
                 {
                     Clients.Client(Context.ConnectionId).errorCoreConnection();
-                } else
+                }
+                else
                 {
                     socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
                     Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
-                }                
+                }
             }
             else
             {

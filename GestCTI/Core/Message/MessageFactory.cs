@@ -54,9 +54,12 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIMakeCallRequest:
                     client.addCTIMakeCallRequest(message);
                     return;
-                case MessageType.Initialize:
-                    client.addInitialize(message);
-                    return;
+                case MessageType.Initialize:{
+                        HoldList hl = Websocket.holdConnections;
+                        client.addInitialize(message, hl.getList(core.CtiUser.user_name));
+                        return;
+                    }
+                    
                 case MessageType.HeartBeat:
                     // client.Notification(message);
                     return;
@@ -140,7 +143,7 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIConferenceRequest:
                     break;
                 case MessageType.InicializarApp:
-                    client.InicializarApp(message);
+                    client.inicializarApp(message);
                     break;
                 case MessageType.CTIClearCallRequest:
                     break;

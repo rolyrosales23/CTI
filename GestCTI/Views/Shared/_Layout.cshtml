@@ -360,8 +360,9 @@
                         @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "LogOutForm", @class = "navbar-right" }))
                         {
                             @Html.AntiForgeryToken()
-                            
-                            if(this.User.IsInRole("agent")){
+
+                            if(this.User.IsInRole("agent") || this.User.IsInRole("supervisor"))
+                            {
                                 <a id="LogOutCore" class="btn btn-success btn-lg" href="#!">@Resources.Login.Yes</a>
                             }
                             else{

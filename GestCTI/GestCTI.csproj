@@ -1999,6 +1999,9 @@
     <Content Include="Views\DispositionCampaigns\Create.cshtml" />
     <Content Include="Views\DispositionCampaigns\Edit.cshtml" />
     <Content Include="Views\DispositionCampaigns\Index.cshtml" />
+    <Content Include="Views\Supervisor\_PartialHoldCall.cshtml" />
+    <Content Include="Views\Supervisor\_PartialAgentsConnected.cshtml" />
+    <Content Include="Views\Supervisor\_PartialListWaitCall.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

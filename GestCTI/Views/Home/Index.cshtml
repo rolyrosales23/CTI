@@ -43,14 +43,14 @@
             <div class="panel-body" id="options">
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo" id="ReadyToWork">
+                        <button class="btn btn-success btn-redondo" id="ReadyToWork" disabled="disabled">
                             <i class="fa fa-check icono-grande"></i><br/>
                             @Resources.Agent.Ready
                         </button>
                     </div>
 
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo">
+                        <button class="btn btn-success btn-redondo" id="doPause" disabled="disabled">
                             <i class="fa fa-pause icono-grande"></i><br/>
                             @Resources.Agent.Pause
                         </button>
@@ -68,21 +68,21 @@
 
                 <div class="row">
                     <div class="col-md-4">
-                        <button class="btn btn-success btn-redondo" id="doHoldConnection">
+                        <button class="btn btn-success btn-redondo" id="doHoldConnection" disabled="disabled">
                             <i class="fa icon-phone_paused icono-grande"></i><br />
                             @Resources.Agent.Hold
                         </button>
                     </div>
 
                     <div class="col-md-4">
-                        <button class="btn btn-success btn-redondo" id="doRetrieve">
+                        <button class="btn btn-success btn-redondo" id="doRetrieve" disabled="disabled">
                             <i class="fa icon-phone_paused icono-grande"></i><br />
                             @Resources.Agent.Retrieve
                         </button>
                     </div>
 
                     <div class="col-md-4">
-                        <a class="btn btn-success btn-redondo" id="doTransfer">
+                        <a class="btn btn-success btn-redondo" id="doTransfer" disabled="disabled">
                             <i class="fa icon-phone_missed icono-grande"></i><br />
                             @Resources.Agent.Transfer
                         </a>
@@ -91,14 +91,14 @@
 
                 <div class="row">
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo" id="doConference">
+                        <button class="btn btn-success btn-redondo" id="doConference" disabled="disabled">
                             <i class="fa icon-phone3 icono-grande"></i><br/>
                             @Resources.Agent.Confer
                         </button>
                     </div>
 
                     <div class="col-md-6">
-                        <button class="btn btn-success btn-redondo" id="doEndConference">
+                        <button class="btn btn-success btn-redondo" id="doEndConference" disabled="disabled">
                             <i class="fa icon-phone3 icono-grande"></i><br/>
                             <span class="line-height-1 smaller-75"> @Resources.Agent.EndConf </span>
                         </button>
@@ -131,7 +131,6 @@
     </div>
 </div>
 @Html.Partial("_Dispositions")
-@*@Html.Partial("TransferModal")*@
 
 @section scripts{
     <script type="text/javascript">
