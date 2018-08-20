@@ -51,10 +51,6 @@ function showPhoneView() {
     })
 }
 
-function getAgents(connection) {
-    connection.server.getAllUserConnected();
-}
-
 $(function () {
     initDeviceAction();
 
@@ -71,7 +67,7 @@ $(function () {
 
     agent.client.listOfAgent = function (agents) {
         ///////////
-        successNoty(agents);
+        pintarAgentList(agents, "#tab-third");
     }
 
     agent.client.Notification = function (response, type = "success") {
@@ -106,6 +102,10 @@ $(function () {
             } else {
                 errorNoty('El dispositivo no debe ser vacio');
             }
+        });
+
+        $('#get-agent-list').click(function () {
+            agent.server.getAllUserConnected();
         });
 
         $('#LogOutCore').click(function () {

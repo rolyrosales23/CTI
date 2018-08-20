@@ -195,6 +195,10 @@ namespace GestCTI.Hubs
         {
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
+            WebsocketCore core;
+            if (socks.TryGetValue(user, out core)) {
+                core.CtiUser.DeviceId = deviceId;
+            }
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n, user);
         }
 
@@ -250,13 +254,13 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task initilizeSupervisorDevice(String deviceId)
         {
-            baseConnectWebsocket(Context.User.Identity.Name, deviceId);
+            baseConnectWebsocket(Context.User.Identity.Name);
             await sendInitialize(deviceId, Context.User.Identity.Name);
         }
 
         public async Task initilizeSupervisorDevice(String deviceId, String user)
         {
-            baseConnectWebsocket(user,deviceId);
+            baseConnectWebsocket(user);
             await sendInitialize(deviceId, user);
         }
         /// <summary>
@@ -314,7 +318,7 @@ namespace GestCTI.Hubs
         /// </summary>
         /// <param name="nameUser">User name</param>
         /// <returns>bool</returns>
-        private bool baseConnectWebsocket(String nameUser, String deviceID = "")
+        private bool baseConnectWebsocket(String nameUser)
         {
             WebsocketCore core;
             bool answ = socks.TryGetValue(nameUser, out core);
@@ -332,7 +336,6 @@ namespace GestCTI.Hubs
                 cti_User.ConnectionId = Context.ConnectionId;
                 cti_User.user_name = nameUser;
                 cti_User.Role = User.Role;
-                cti_User.DeviceId = deviceID;
 
                 //Create websocket connection with core
                 var ws = new WebsocketCore(cti_User);
