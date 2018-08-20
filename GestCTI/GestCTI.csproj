@@ -291,6 +291,9 @@
     <Compile Include="Models\Company.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ct_GetPauseCodes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DispositionCampaigns.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>

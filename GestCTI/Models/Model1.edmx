@@ -353,6 +353,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetPauseCodes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="agent_name" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DBCTIModelStoreContainer">
           <EntitySet Name="Calls" EntityType="Self.Calls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campaign" EntityType="Self.Campaign" Schema="dbo" store:Type="Tables" />
@@ -554,6 +557,9 @@
             <End Role="Dispositions" EntitySet="Dispositions" />
             <End Role="DispositionCampaigns" EntitySet="DispositionCampaigns" />
           </AssociationSet>
+          <FunctionImport Name="GetPauseCodes" ReturnType="Collection(DBCTIModel.ct_GetPauseCodes)">
+          <Parameter Name="agent_name" Mode="In" Type="String" />
+          </FunctionImport>
           </EntityContainer>
         <EntityType Name="Users">
           <Key>
@@ -909,6 +915,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <ComplexType Name="ct_GetPauseCodes" >
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="Int32" Name="Value" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" />
+          <Property Type="Int32" Name="MaxDuration" Nullable="false" />
+          <Property Type="Int32" Name="MaxDailyEvents" Nullable="false" />
+          <Property Type="Boolean" Name="AutoReady" Nullable="false" />
+        </ComplexType>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1074,6 +1088,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetPauseCodes" FunctionName="DBCTIModel.Store.GetPauseCodes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBCTIModel.ct_GetPauseCodes">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="MaxDuration" ColumnName="MaxDuration" />
+                <ScalarProperty Name="MaxDailyEvents" ColumnName="MaxDailyEvents" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
