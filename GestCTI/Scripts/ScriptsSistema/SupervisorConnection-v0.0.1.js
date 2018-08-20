@@ -61,8 +61,11 @@ $(function () {
     var agent = $.connection.websocket;
 
     agent.client.listOfAgent = function (agents) {
-        ///////////
         pintarAgentList(agents, "#table-agents-connected");
+        var panel = $('#get-agent-list').parents(".panel:last");
+        if (panel.hasClass("panel-refreshing")) {
+            panel_refresh(panel);
+        }
     }
 
     agent.client.Notification = function (response, type = "success") {
