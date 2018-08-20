@@ -2,10 +2,17 @@
     var wrapper = $(selector);
     wrapper.find('*').remove();
     if (notEmpty(agents)) {
-        var table = wrapper.append('<div class="panel panel-default"></div>').find('div')
-            .append('<div class="panel-body panel-body-table"></div>').find('div')
+        var pannel = wrapper.append('<div class="panel panel-default"></div>').find('div');
+
+        var heading = $('<div class="panel-heading"></div>').find('div')
+            .append('<ul class="panel-controls" style="margin-top: 2px;"></ul>').find('ul')
+            .append('<li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>').end();
+
+        var panelbody = $('<div class="panel-body panel-body-table"></div>').find('div')
             .append('<div class="table-responsive"></div>').find('div')
-            .append('<table class="table table-bordered table-striped table-actions"></table>').find('table');
+            .append('<table class="table table-bordered table-striped table-actions"></table>').find('table').end().end();
+
+        var table = pannel.append(heading).append(panelbody).find('table');
 
         var header = $('<thead><tr></tr></thead>').find('tr')
             .append('<th width="50">UserName</th>')
@@ -45,17 +52,20 @@ function showPhoneView() {
 }
 
 function getAgents(connection) {
-    agent.server.getAllUserConnected();
+    connection.server.getAllUserConnected();
 }
 
 $(function () {
-    var phoneExtension = localStorage.getItem('deviceId');
-    if (notEmpty(phoneExtension)) {
-        $('#right-side').removeClass('col-md-12').addClass('col-md-8');
-        $("#loginExtension").remove();
-        showPhoneView();
-    }
+    initDeviceAction();
 
+    function initDeviceAction() {
+        var phoneExtension = localStorage.getItem('deviceId');
+        if (notEmpty(phoneExtension)) {
+            $('#right-side').removeClass('col-md-12').addClass('col-md-8');
+            $("#loginExtension").remove();
+            showPhoneView();
+        }
+    }
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
@@ -75,10 +85,7 @@ $(function () {
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
         if (json['success'] === true) {
-            successNoty('Se ha inicializado el dispositivo correctamente');
-            $('#right-side').removeClass('col-md-12').addClass('col-md-8');
-            showPhoneView();
-            $("#loginExtension").remove();
+            initDeviceAction();
             spinnerHide();
         } else {
             localStorage.removeItem('deviceId');
