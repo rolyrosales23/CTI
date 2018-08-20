@@ -27,7 +27,7 @@ namespace GestCTI.Hubs
         /// <summary>
         /// List of hold connections by users
         /// </summary>
-        public static HoldList holdConnections;
+        public static HoldList holdConnections = new HoldList();
         /// <summary>
         /// Log in an user in core app
         /// </summary>
@@ -195,6 +195,10 @@ namespace GestCTI.Hubs
         {
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
+            WebsocketCore core;
+            if (socks.TryGetValue(user, out core)) {
+                core.CtiUser.DeviceId = deviceId;
+            }
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n, user);
         }
 
@@ -250,7 +254,7 @@ namespace GestCTI.Hubs
         /// <returns>void</returns>
         public async Task initilizeSupervisorDevice(String deviceId)
         {
-            ConnectWebsocket();
+            baseConnectWebsocket(Context.User.Identity.Name);
             await sendInitialize(deviceId, Context.User.Identity.Name);
         }
 
@@ -354,6 +358,7 @@ namespace GestCTI.Hubs
 
             return true;
         }
+
         /// <summary>
         /// On connection with Web App
         /// </summary>
@@ -363,7 +368,21 @@ namespace GestCTI.Hubs
             // If user is authenticated
             if (Context.Request.User.Identity.IsAuthenticated)
             {
-                ConnectWebsocket();
+                WebsocketCore core;
+                if (socks.TryGetValue(Context.User.Identity.Name, out core) &&
+                    core.attendRequest)
+                {
+                    if (core.CtiUser.Role == "agent")
+                    {
+                        ConnectWebsocket();
+                    }
+                    else if (core.CtiUser.Role == "supervisor")
+                    {
+                        #pragma warning disable 4014
+                        initilizeSupervisorDevice(core.CtiUser.DeviceId);
+                        #pragma warning restore 4014
+                    }
+                }
             }
             Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_CONNECTED");
             return base.OnConnected();
@@ -376,6 +395,10 @@ namespace GestCTI.Hubs
         /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
+            WebsocketCore core;
+            if (socks.TryRemove(Context.User.Identity.Name, out core)) {
+                core.Disconnect();
+            }
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
         }
@@ -389,7 +412,22 @@ namespace GestCTI.Hubs
             // If user is authenticated
             if (Context.Request.User.Identity.IsAuthenticated)
             {
-                ConnectWebsocket();
+                WebsocketCore core;
+                if (socks.TryGetValue(Context.User.Identity.Name, out core) &&
+                    core.attendRequest)
+                {
+                    if (core.CtiUser.Role == "agent")
+                    {
+                        ConnectWebsocket();
+                    }
+                    else if (core.CtiUser.Role == "supervisor")
+                    {
+                        #pragma warning disable 4014
+                        initilizeSupervisorDevice(core.CtiUser.DeviceId);
+                        #pragma warning restore 4014
+                    }
+
+                }
             }
             Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_RECONNECTED");
             return base.OnReconnected();

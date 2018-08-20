@@ -7,20 +7,22 @@
 };
 
 function pintarListaEspera(lista) {
-    var panel = $('#lista_espera');
-    panel.find('ul').remove();
+    if (notEmpty(lista)) {
+        var panel = $('#lista_espera');
+        panel.find('ul').remove();
 
-    if (lista.length)
-        panel.append("<ul class='list-unstyled'></ul>");
+        if (lista.length)
+            panel.append("<ul class='list-unstyled'></ul>");
 
-    for (var i in lista) {
-        var ind = i + 1;
-        panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
-    }
+        for (var i in lista) {
+            var ind = i + 1;
+            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
+        }
 
-    //reinicializar el plugin icheck
-    if ($(".icheckbox").length > 0) {
-        $(".icheckbox,.iradio").iCheck({ checkboxClass: 'icheckbox_minimal-grey', radioClass: 'iradio_minimal-grey' });
+        //reinicializar el plugin icheck
+        if ($(".icheckbox").length > 0) {
+            $(".icheckbox,.iradio").iCheck({ checkboxClass: 'icheckbox_minimal-grey', radioClass: 'iradio_minimal-grey' });
+        }
     }
 }
 

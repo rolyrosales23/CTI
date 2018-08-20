@@ -1,4 +1,39 @@
-﻿function showPhoneView() {
+﻿function pintarAgentList(agents, selector) {
+    var wrapper = $(selector);
+    wrapper.find('.panel-body').remove();
+    wrapper.find('h3').remove();
+    if (notEmpty(agents)) {
+        var panelbody = $('<div class="panel-body panel-body-table"></div>')
+            .append('<div class="table-responsive"></div>').find('div')
+            .append('<table class="table table-bordered table-striped table-actions"></table>').end();
+
+        var table = wrapper.append(panelbody).find('table');
+
+        var header = $('<thead><tr></tr></thead>').find('tr')
+            .append('<th width="50">UserName</th>')
+            .append('<th width="100">status</th>')
+            .append('<th width="100">phone_extension</th>')
+            .append('<th width="100">actions</th>').end();
+
+        var body = $('<tbody></tbody>');
+
+        for (var i in agents) {
+            var fila = $('<tr></tr>')
+                .append('<td>' + agents[i].user_name + '</td>')
+                .append('<td>' + agents[i].user_name + '</td>')
+                .append('<td>' + agents[i].user_name + '</td>')
+                .append('<td>' + agents[i].user_name + '</td>');
+            body.append(fila);
+        }
+
+        table.append(header);
+        table.append(body);
+    }
+    else
+        wrapper.append('<h3 class="text-muted">No hay agentes conectados</h3>');
+}
+
+function showPhoneView() {
     $.ajax({
         url: 'GetTelephone',
         contentType: 'application/html; charset=utf-8',
@@ -11,23 +46,26 @@
     })
 }
 
-function getAgents(connection) {
-    agent.server.getAllUserConnected();
-}
-
 $(function () {
-    var phoneExtension = localStorage.getItem('deviceId');
-    if (notEmpty(phoneExtension)) {
-        $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
-        $("#loginExtension").remove();
-        showPhoneView();
-    }
+    initDeviceAction();
 
+    function initDeviceAction() {
+        var phoneExtension = localStorage.getItem('deviceId');
+        if (notEmpty(phoneExtension)) {
+            $('#right-side').removeClass('col-md-12').addClass('col-md-8');
+            $("#loginExtension").remove();
+            showPhoneView();
+        }
+    }
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
     agent.client.listOfAgent = function (agents) {
-        successNoty(agents);
+        pintarAgentList(agents, "#table-agents-connected");
+        var panel = $('#get-agent-list').parents(".panel:last");
+        if (panel.hasClass("panel-refreshing")) {
+            panel_refresh(panel);
+        }
     }
 
     agent.client.Notification = function (response, type = "success") {
@@ -41,10 +79,7 @@ $(function () {
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
         if (json['success'] === true) {
-            successNoty('Se ha inicializado el dispositivo correctamente');
-            $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
-            showPhoneView();
-            $("#loginExtension").remove();
+            initDeviceAction();
             spinnerHide();
         } else {
             localStorage.removeItem('deviceId');
@@ -55,6 +90,7 @@ $(function () {
 
     // Start the connection.
     $.connection.hub.start().done(function () {
+        agent.server.getAllUserConnected();
         $('#init-device-btn').click(function () {
             var deviceId = $('#deviceIdPhone').val();
             $('#modal-init-phone').modal('hide');
@@ -65,6 +101,10 @@ $(function () {
             } else {
                 errorNoty('El dispositivo no debe ser vacio');
             }
+        });
+
+        $('#get-agent-list').click(function () {
+            agent.server.getAllUserConnected();
         });
 
         $('#LogOutCore').click(function () {
