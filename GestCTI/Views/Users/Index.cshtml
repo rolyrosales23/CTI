@@ -92,7 +92,7 @@
 
                             <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
 
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Login.Login_user}, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeactivate + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " " + Resources.Admin.Username + ": " + item.Username + "?" } })
+                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Login.Login_user}, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " " + Resources.Admin.Username + ": " + item.Username + "?" } })
                         </td>
                     </tr>
                 }
