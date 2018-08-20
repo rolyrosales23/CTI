@@ -120,7 +120,7 @@
                 return;
             }
             spinnerShow();
-            $.get('Account/GetRole/' + UserName,).done(function (role, textStatus, jqXHR) {
+            $.get(path_get_roles + '/' + UserName).done(function (role, textStatus, jqXHR) {
                 switch (role) {
                     case "admin":
                         runRoleAdmin();
@@ -133,11 +133,11 @@
                         break;
                     default:
                         spinnerHide();
-                        errorNoty("Usuario no permitido");
+                        errorNoty("El rol del usuario no es válido");
                 }
             }).fail(function (jqXHR, textStatus, errorThrown) {
                 spinnerHide();
-                errorNoty("Usuario no permitido");
+                errorNoty("No se pudo obtener el rol del usuario");
             });
         });
     });

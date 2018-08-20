@@ -123,6 +123,8 @@
         $('#phone_extension').val('');
         if ($('#phone_login').is(':checked'))
             $('#phone_login').trigger('click');
+
+        var path_get_roles = '@Url.Action("GetRole", "Account", null, Request.Url.Scheme)';
     </script>
 
 </body>
