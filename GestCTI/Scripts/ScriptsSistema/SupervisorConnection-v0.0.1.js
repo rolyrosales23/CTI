@@ -10,6 +10,11 @@
         errorNoty("Error charging phone partial");
     })
 }
+
+function getAgents(connection) {
+    agent.server.getAllUserConnected();
+}
+
 $(function () {
     var phoneExtension = localStorage.getItem('deviceId');
     if (notEmpty(phoneExtension)) {
@@ -21,7 +26,12 @@ $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
-    agent.client.Notification = function (response) {
+    agent.client.listOfAgent = function (agents) {
+        successNoty(agents);
+    }
+
+    agent.client.Notification = function (response, type = "success") {
+        notify(response, type);
     }
 
     agent.client.sendUserConnected = function (CtiAgentList) {

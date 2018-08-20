@@ -1990,6 +1990,8 @@
     <Content Include="Views\Supervisor\_PartialModalPhone.cshtml" />
     <Content Include="Views\Home\_Dispositions.cshtml" />
     <Content Include="Views\Supervisor\_PartialHoldCall.cshtml" />
+    <Content Include="Views\Supervisor\_PartialAgentsConnected.cshtml" />
+    <Content Include="Views\Supervisor\_PartialListWaitCall.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
