@@ -1,4 +1,37 @@
-﻿function showPhoneView() {
+﻿function pintarAgentList(agents, selector) {
+    var wrapper = $(selector);
+    wrapper.find('*').remove();
+    if (notEmpty(agents)) {
+        var table = wrapper.append('<div class="panel panel-default"></div>').find('div')
+            .append('<div class="panel-body panel-body-table"></div>').find('div')
+            .append('<div class="table-responsive"></div>').find('div')
+            .append('<table class="table table-bordered table-striped table-actions"></table>').find('table');
+
+        var header = $('<thead><tr></tr></thead>').find('tr')
+            .append('<th width="50">UserName</th>')
+            .append('<th width="100">status</th>')
+            .append('<th width="100">phone_extension</th>')
+            .append('<th width="100">actions</th>').end();
+
+        var body = $('<tbody></tbody>');
+
+        for (var i in agents) {
+            var fila = $('<tr></tr>')
+                .append('<td>' + agents[i].user_name + '</td>')
+                .append('<td>' + agents[i].user_name + '</td>')
+                .append('<td>' + agents[i].user_name + '</td>')
+                .append('<td>' + agents[i].user_name + '</td>');
+            body.append(fila);
+        }
+
+        table.append(header);
+        table.append(body);
+    }
+    else
+        wrapper.append('<h3 class="text-muted">No hay agentes conectados</h3>');
+}
+
+function showPhoneView() {
     $.ajax({
         url: 'GetTelephone',
         contentType: 'application/html; charset=utf-8',
@@ -27,6 +60,7 @@ $(function () {
     var agent = $.connection.websocket;
 
     agent.client.listOfAgent = function (agents) {
+        ///////////
         successNoty(agents);
     }
 
