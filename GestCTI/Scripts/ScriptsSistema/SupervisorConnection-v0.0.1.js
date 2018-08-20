@@ -4,13 +4,13 @@
     if (notEmpty(agents)) {
         var pannel = wrapper.append('<div class="panel panel-default"></div>').find('div');
 
-        var heading = $('<div class="panel-heading"></div>').find('div')
+        var heading = $('<div class="panel-heading"></div>')
             .append('<ul class="panel-controls" style="margin-top: 2px;"></ul>').find('ul')
             .append('<li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>').end();
 
-        var panelbody = $('<div class="panel-body panel-body-table"></div>').find('div')
+        var panelbody = $('<div class="panel-body panel-body-table"></div>')
             .append('<div class="table-responsive"></div>').find('div')
-            .append('<table class="table table-bordered table-striped table-actions"></table>').find('table').end().end();
+            .append('<table class="table table-bordered table-striped table-actions"></table>').end();
 
         var table = pannel.append(heading).append(panelbody).find('table');
 
