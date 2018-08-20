@@ -62,12 +62,34 @@ function printDisposition(vdn) {
         url: "../Home/GetDispositionsByVDN/",
         data: { vdn: vdn },
         success: function (resp) {
-            select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
-            for (var i in resp) {
-                select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+            if (notEmpty) {
+                select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
+                for (var i in resp) {
+                    select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                }
+                localStorage.setItem('IsCampaignCall', 'true');
+            }
+            else {
+                localStorage.setItem('IsCampaignCall', 'false');
             }
         }
     });
+}
+
+function SendCallDisposition() {
+    var dispositionCamp = $('#SelDisposition').val();
+    var strCforS = localStorage.getItem('callforsave');
+    if (notEmpty(strCforS)) {
+        var CallForSave = JSON.parse(strCforS);
+        $.ajax({
+            url: "../Home/SetDisposition/",
+            type: "post",
+            data: { ucid: CallForSave.ucid, disposition: dispositionCamp, User: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
+            success: function (resp) {
+                successNoty("Llamada guardada correctamente!");
+            }
+        });
+    }
 }
 
 $(function () {
@@ -174,7 +196,10 @@ $(function () {
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
+
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
+                localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[4] }));
+
                 infoNoty(Resources.IncomingCall);
 
                 tempNoty('onCallDelivered');
@@ -185,7 +210,8 @@ $(function () {
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
+                
+                localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
                 infoNoty(Resources.InExternalCall);
 
                 tempNoty('onCallExternalDelivered');
@@ -244,6 +270,10 @@ $(function () {
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
                 changeState('hangout', false);
+
+                if (localStorage.getItem('IsCampaignCall')  == 'true') {
+                    $('#modal-dispositions').modal('show');
+                }
 
                 tempNoty('onEndConnection');
                 break;

@@ -8,11 +8,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        
-                        @using (Html.BeginForm("SetDisposition", "Home", FormMethod.Post, new { id = "myform" }))
-                        {
-                            @Html.AntiForgeryToken()
-
+                        <form id="myform">
                             <div class="form-horizontal">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
@@ -21,11 +17,11 @@
 
                                 <div class="form-group">
                                     <div class="col-sm-offset-9 ">
-                                        <input type="submit" value=@Resources.Admin.Save class="btn btn-success" />
+                                        <input type="submit" value=@Resources.Admin.Save class="btn btn-success" onclick="SendCallDisposition()" />
                                     </div>
                                 </div>
                             </div>
-                        }
+                        </form>
                     </div>
                 </div>
             </div>

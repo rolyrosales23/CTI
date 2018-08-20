@@ -1,18 +1,13 @@
 ﻿function pintarAgentList(agents, selector) {
     var wrapper = $(selector);
-    wrapper.find('*').remove();
+    wrapper.find('.panel-body').remove();
+    wrapper.find('h3').remove();
     if (notEmpty(agents)) {
-        var pannel = wrapper.append('<div class="panel panel-default"></div>').find('div');
-
-        var heading = $('<div class="panel-heading"></div>')
-            .append('<ul class="panel-controls" style="margin-top: 2px;"></ul>').find('ul')
-            .append('<li><a href="#" class="panel-refresh"><span class="fa fa-refresh"></span></a></li>').end();
-
         var panelbody = $('<div class="panel-body panel-body-table"></div>')
             .append('<div class="table-responsive"></div>').find('div')
             .append('<table class="table table-bordered table-striped table-actions"></table>').end();
 
-        var table = pannel.append(heading).append(panelbody).find('table');
+        var table = wrapper.append(panelbody).find('table');
 
         var header = $('<thead><tr></tr></thead>').find('tr')
             .append('<th width="50">UserName</th>')
@@ -51,10 +46,6 @@ function showPhoneView() {
     })
 }
 
-function getAgents(connection) {
-    connection.server.getAllUserConnected();
-}
-
 $(function () {
     initDeviceAction();
 
@@ -70,8 +61,11 @@ $(function () {
     var agent = $.connection.websocket;
 
     agent.client.listOfAgent = function (agents) {
-        ///////////
-        successNoty(agents);
+        pintarAgentList(agents, "#table-agents-connected");
+        var panel = $('#get-agent-list').parents(".panel:last");
+        if (panel.hasClass("panel-refreshing")) {
+            panel_refresh(panel);
+        }
     }
 
     agent.client.Notification = function (response, type = "success") {
@@ -96,6 +90,7 @@ $(function () {
 
     // Start the connection.
     $.connection.hub.start().done(function () {
+        agent.server.getAllUserConnected();
         $('#init-device-btn').click(function () {
             var deviceId = $('#deviceIdPhone').val();
             $('#modal-init-phone').modal('hide');
@@ -106,6 +101,10 @@ $(function () {
             } else {
                 errorNoty('El dispositivo no debe ser vacio');
             }
+        });
+
+        $('#get-agent-list').click(function () {
+            agent.server.getAllUserConnected();
         });
 
         $('#LogOutCore').click(function () {

@@ -31,7 +31,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="IdDisposition">@Resources.Admin.Disposition</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdDisposition", null, htmlAttributes: new { @class = "form-control", required = "required", disabled="disabled" })
+                                @Html.DropDownList("IdDisposition", null, htmlAttributes: new { @class = "form-control select", required = "required", disabled="disabled" })
                                 @Html.ValidationMessageFor(model => model.IdDisposition, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -39,7 +39,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="IdCampaign">@Resources.Admin.Campaign</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdCampaign", null, htmlAttributes: new { @class = "form-control", required = "required", disabled = "disabled" })
+                                @Html.DropDownList("IdCampaign", null, htmlAttributes: new { @class = "form-control select", required = "required", disabled = "disabled" })
                                 @Html.ValidationMessageFor(model => model.IdCampaign, "", new { @class = "text-danger" })
                             </div>
                         </div>
