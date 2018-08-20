@@ -18,7 +18,7 @@ function getAgents(connection) {
 $(function () {
     var phoneExtension = localStorage.getItem('deviceId');
     if (notEmpty(phoneExtension)) {
-        $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
+        $('#right-side').removeClass('col-md-12').addClass('col-md-8');
         $("#loginExtension").remove();
         showPhoneView();
     }
@@ -42,7 +42,7 @@ $(function () {
         json = JSON.parse(message);
         if (json['success'] === true) {
             successNoty('Se ha inicializado el dispositivo correctamente');
-            $('#right-side').removeClass('col-md-12').addClass('col-md-7 col-md-offset-1');
+            $('#right-side').removeClass('col-md-12').addClass('col-md-8');
             showPhoneView();
             $("#loginExtension").remove();
             spinnerHide();
