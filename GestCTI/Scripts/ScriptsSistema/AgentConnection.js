@@ -58,12 +58,13 @@ function updateControlsState(list, enable = true) {
 function printDisposition(vdn) {
     var select = $('#SelDisposition');
     select.find('option').remove();
+    spinnerShow();
     $.ajax({
         url: "../Home/GetDispositionsByVDN/",
         data: { vdn: vdn },
         success: function (resp) {
             if (notEmpty) {
-                select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
+                select.append("<option disabled selected value>" + Resources.SelectDisposition + "</option>");
                 for (var i in resp) {
                     select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
                 }
@@ -72,6 +73,12 @@ function printDisposition(vdn) {
             else {
                 localStorage.setItem('IsCampaignCall', 'false');
             }
+        },
+        error: function () {
+            errorNoty("No se pudieron obtener los disposition para esta campaña.");
+        },
+        complete: function () {
+            spinnerHide();
         }
     });
 }
@@ -82,71 +89,47 @@ $('#SendCallDisposition').click(function () {
     var strCforS = localStorage.getItem('callforsave');
     if (notEmpty(strCforS)) {
         var CallForSave = JSON.parse(strCforS);
+        spinnerShow();
         $.ajax({
             url: "../Home/SaveCallDisposition/",
             type: "post",
             data: { ucid: CallForSave.ucid, disposition: dispositionCamp, User: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
             success: function (resp) {
                 successNoty("Llamada guardada correctamente!");
+            },
+            error: function () {
+                errorNoty("No se pudieron guardar los datos de la llamada.");
+            },
+            complete: function () {
+                spinnerHide();
             }
         });
     }
 });
 
-$('#SendPauseCode').click(function () {
-    var pausecode = $('#SelPauseCodes').val();
-
-    $.ajax({
-        url: "../Home/SavePauseCodeUser/",
-        type: "post",
-        data: { username: User.Name, pausecode: pausecode },
-        success: function (resp) {
-            //cambio estado del agent a pause
-            $('#modal-PauseCodes').modal('hide');
-        },
-        error: function () {
-            errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
-        }
-    });
-});
-
 function printCampaignsByUser() {
     var select = $('#SelCampaigns');
     select.find('option').remove();
+    spinnerShow();
     $.ajax({
         url: "../Home/GetCampaignsByUser/",
         data: { username: User.Name },
         success: function (resp) {
             if (notEmpty) {
-                select.append("<option disabled selected value='0'>" + Resources.SelectCampaign + "</option>");
+                select.append("<option selected value>" + Resources.SelectCampaign + "</option>");
                 for (var i in resp) {
                     select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
                 }
             }
+        },
+        error: function () {
+            errorNoty("No se puedieron obtener las campañas del usuario.")
+        },
+        complete: function () {
+            spinnerHide();
         }
     });
 }
-
-$('#BtnCampaignCall').click(function () {
-    //var select = $('#SelDisposition');
-    //select.find('option').remove();
-    //$.ajax({
-    //    url: "../Home/GetDispositionsByVDN/",
-    //    data: { vdn: vdn },
-    //    success: function (resp) {
-    //        if (notEmpty) {
-    //            select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
-    //            for (var i in resp) {
-    //                select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
-    //            }
-    //            localStorage.setItem('IsCampaignCall', 'true');
-    //        }
-    //        else {
-    //            localStorage.setItem('IsCampaignCall', 'false');
-    //        }
-    //    }
-    //});
-});
 
 $(function () {
     // Reference the auto-generated proxy for the hub.
@@ -419,28 +402,37 @@ $(function () {
         agent.server.inicializarApp();
 
         $('#ReadyToWork').click(function () {
+            // Put de agent to AM_READY and MANUAL_IN
+            change('ready', false);
+            agent.server.sendStateReadyManual(deviceId);
+        });
+
+        $('#doPause').click(function () {
             var select = $('#SelPauseCodes');
             select.find('option').remove();
+            spinnerShow();
             $.ajax({
                 url: "../Home/GetPauseCodesByUser/",
                 data: { username: User.Name },
                 success: function (resp) {
-                    if (notEmpty) {
-                        select.append("<option disabled selected value='0'>" + Resources.SelectPauseCode + "</option>");
+                    if (notEmpty(resp)) {
+                        select.append("<option selected value>" + Resources.SelectPauseCode + "</option>");
                         for (var i in resp) {
-                            select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                            select.append("<option value='" + resp[i].Value + "'>" + resp[i].Name + "</option>");
                         }
                         $('#modal-PauseCodes').modal('show');
                     }
                     else {
                         errorNoty("No tienen pause codes disponibles.");
                     }
+                },
+                error: function () {
+                    errorNoty("No se pudireon obtener los PauseCodes de este usuario.");
+                },
+                complete: function () {
+                    spinnerHide();
                 }
             });
-
-            // Put de agent to AM_READY and MANUAL_IN
-            change('ready', false);
-            agent.server.sendStateReadyManual(deviceId);
         });
 
         $('#LogOutCore').click(function () {
@@ -474,13 +466,7 @@ $(function () {
         });
 
         $("#doCallBtn").click(function () {
-            var toDevice = $('#inputPhone').val();
-            if (notEmpty(deviceId) && notEmpty(toDevice)) {
-                agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
-            }
-            else {
-                errorNoty(Resources.NotDevice);
-            }
+            $('#modal-Campaigns').modal('show');            
         });
 
         $("#doHoldConnection").click(function () {
@@ -555,6 +541,46 @@ $(function () {
             }
             else
                 infoNoty("No hay llamada activa!");
+        });
+
+        $('#SendPauseCode').click(function () {
+            var pausecode = $('#SelPauseCodes').val();
+            spinnerShow();
+            $.ajax({
+                url: "../Home/SavePauseCodeUser/",
+                type: "post",
+                data: { username: User.Name, pausecode: pausecode },
+                success: function (resp) {
+                    //cambio estado del agent a pause con su reason
+                    agent.server.sendPause(deviceId, pausecode)
+                    $('#modal-PauseCodes').modal('hide');
+                },
+                error: function () {
+                    errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
+                },
+                complete: function () {
+                    spinnerHide();
+                }
+            });
+        });
+
+        $('#BtnCampaignCall').click(function () {
+            
+            if (!$('#ChbCampaign').prop('checked')) {
+                var IdCampaign = $('#SelCampaigns').val();
+                localStorage.setItem('IsCampaignCall', 'true');
+                //cuando llega evento de llamada saliente cambiar localstorage.CallForSave
+            }
+            else
+                localStorage.setItem('IsCampaignCall', 'false');
+
+            var toDevice = $('#inputPhone').val();
+            if (notEmpty(deviceId) && notEmpty(toDevice)) {
+                agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
+            }
+            else {
+                errorNoty(Resources.NotDevice);
+            }
         });
     });
 });
