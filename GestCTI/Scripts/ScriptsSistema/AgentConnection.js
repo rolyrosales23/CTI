@@ -135,8 +135,8 @@ $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
-    agent.client.inicializarApp = function (message, data) {
-        pintarListaEspera(data);
+    agent.client.inicializarAppFase1 = function (message, holdList) {
+        pintarListaEspera(holdList);
 
         var response = JSON.parse(message);
         if (response['success']) {
@@ -147,10 +147,35 @@ $(function () {
 
             if (state != AgentState.AS_READY)
                 updateControlsState(['ready']);
-            else if (deviceData['Busy'])
+            else if (deviceData['Busy']) {
                 updateControlsState(['answer', 'hold', 'end_conference', 'hangout']);
+                agent.server.inicializarApp(2, deviceData['DeviceId']);
+                return;
+            }
             else
                 updateControlsState(['pause']);
+        }
+
+        spinnerHide();
+    }
+
+    function enEspera(call, holdList) {
+        for (var i in holdList)
+            if (call.ucid == holdList[i].ucid)
+                return true;
+        return false;
+    }
+
+    agent.client.inicializarAppFase2 = function (message, holdList) {
+        var response = JSON.parse(message);
+        if (response['success']) {
+            var result = JSON.parse(response.result);
+
+            for (var i in result) {
+                var call = result[i];
+                if (!enEspera(call, holdList))
+                    localStorage.setItem('activeCall', JSON.stringify({ 'ucid': call.ucid, 'deviceId': '' }));
+            }
         }
 
         spinnerHide();
@@ -399,7 +424,7 @@ $(function () {
         var deviceId = localStorage.getItem('deviceId');
 
         spinnerShow();
-        agent.server.inicializarApp();
+        agent.server.inicializarApp(1, "");
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN

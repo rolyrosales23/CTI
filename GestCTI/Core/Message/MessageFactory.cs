@@ -139,14 +139,21 @@ namespace GestCTI.Core.Message
                     break;
                 case MessageType.CTIConferenceRequest:
                     break;
-                case MessageType.InicializarApp:{
+                case MessageType.InicializarAppFase1:{
                         HoldList hl = Websocket.holdConnections;
-                        client.inicializarApp(message, hl.getList(core.CtiUser.user_name));
+                        client.inicializarAppFase1(message, hl.getList(core.CtiUser.user_name));
+                        break;
+                    }
+                case MessageType.InicializarAppFase2:{
+                        HoldList hl = Websocket.holdConnections;
+                        client.inicializarAppFase2(message, hl.getList(core.CtiUser.user_name));
                         break;
                     }
                 case MessageType.CTIClearCallRequest:
                     break;
                 case MessageType.CTIHoldConnectionRequest:
+                    break;
+                case MessageType.Pause:
                     break;
             }
         }
