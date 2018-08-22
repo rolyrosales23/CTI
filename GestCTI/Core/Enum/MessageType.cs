@@ -25,6 +25,7 @@ namespace GestCTI.Core.Enum
         CTIRetrieveConnection,
         CTIConferenceRequest,
         InicializarApp,
-        CTIClearCallRequest
+        CTIClearCallRequest,
+        Pause
     }
 }

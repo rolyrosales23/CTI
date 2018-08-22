@@ -148,6 +148,8 @@ namespace GestCTI.Core.Message
                     break;
                 case MessageType.CTIHoldConnectionRequest:
                     break;
+                case MessageType.Pause:
+                    break;
             }
         }
     }
