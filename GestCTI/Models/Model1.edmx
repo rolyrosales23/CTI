@@ -353,6 +353,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetCampaigns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="agent_name" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="GetPauseCodes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="agent_name" Type="nvarchar" Mode="In" />
         </Function>
@@ -559,6 +562,9 @@
           </AssociationSet>
           <FunctionImport Name="GetPauseCodes" ReturnType="Collection(DBCTIModel.ct_GetPauseCodes)">
           <Parameter Name="agent_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCampaigns" EntitySet="Campaign" ReturnType="Collection(DBCTIModel.Campaign)">
+            <Parameter Name="agent_name" Mode="In" Type="String" />
           </FunctionImport>
           </EntityContainer>
         <EntityType Name="Users">
@@ -1099,6 +1105,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="GetCampaigns" FunctionName="DBCTIModel.Store.GetCampaigns" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
