@@ -387,6 +387,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="GetCampaigns" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="agent_name" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="DBCTIModelStoreContainer">
           <EntitySet Name="Calls" EntityType="Self.Calls" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Campaign" EntityType="Self.Campaign" Schema="dbo" store:Type="Tables" />
@@ -599,6 +602,9 @@
           </AssociationSet>
           <FunctionImport Name="GetPauseCodes" ReturnType="Collection(DBCTIModel.ct_GetPauseCodes)">
           <Parameter Name="agent_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="GetCampaigns" EntitySet="Campaign" ReturnType="Collection(DBCTIModel.Campaign)">
+            <Parameter Name="agent_name" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="UserPauseCodes" EntityType="DBCTIModel.UserPauseCodes" />
           <AssociationSet Name="FK_UserPauseCodes_PauseCodes" Association="DBCTIModel.FK_UserPauseCodes_PauseCodes">
@@ -1186,6 +1192,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetCampaigns" FunctionName="DBCTIModel.Store.GetCampaigns" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
