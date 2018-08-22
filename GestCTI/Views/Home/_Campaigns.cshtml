@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12">
-                        <form id="myform">
+                        <form id="formCampaign">
                             <div class="form-horizontal">
                                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                                 <div class="form-group">
@@ -36,5 +36,5 @@
 </div>
 
 <script type="text/javascript">
-        $('#myform').validate({});
+    $('#formCampaign').validate({});
 </script>
