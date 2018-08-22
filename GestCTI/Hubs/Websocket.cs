@@ -230,11 +230,19 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIRetrieveConnection, I18n, Context.User.Identity.Name);
         }
 
-        public async Task inicializarApp()
+        public async Task inicializarApp(int fase = 1, String deviceId = "")
         {
-            var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
-            String I18n = "COMMAND_INICIALIZAR_APP";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarApp, I18n, Context.User.Identity.Name);
+            if (fase == 1)
+            {
+                var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
+                String I18n = "COMMAND_INICIALIZAR_APP";
+                await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarAppFase1, I18n, Context.User.Identity.Name);
+            }
+            else if(fase == 2) {
+                var toSend = DeviceHandling.CTIGetCalls(deviceId);
+                String I18n = "COMMAND_INICIALIZAR_APP";
+                await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarAppFase2, I18n, Context.User.Identity.Name);
+            }
         }
 
         /// <summary>
