@@ -9,6 +9,13 @@ $(function() {
             }           
             
         }// END Bootstrap datepicker
+
+        // jquery-validation
+        var feJqueryValidation = function () {
+            if ($("form.validar").length > 0) {
+                $("form.validar").validate({});
+            }
+        }// END jquery-validation
         
         //Bootstrap timepicker
         var feTimepicker = function(){
@@ -147,6 +154,7 @@ $(function() {
         return {// Init all form element features
 		init: function(){                    
                     feDatepicker();                    
+                    feJqueryValidation();
                     feTimepicker();
                     feColorpicker();
                     feSelect();

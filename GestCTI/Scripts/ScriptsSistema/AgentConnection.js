@@ -575,7 +575,7 @@ $(function () {
                 data: { username: User.Name, pausecode: pausecode },
                 success: function (resp) {
                     //cambio estado del agent a pause con su reason
-                    agent.server.sendPause(deviceId, pausecode)
+                    agent.server.sendPause(deviceId, pausecode);
                     $('#modal-PauseCodes').modal('hide');
                 },
                 error: function () {
