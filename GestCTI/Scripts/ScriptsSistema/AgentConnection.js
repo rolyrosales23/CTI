@@ -148,7 +148,7 @@ $(function () {
             if (state != AgentState.AS_READY)
                 updateControlsState(['ready']);
             else if (deviceData['Busy']) {
-                updateControlsState(['answer', 'hold', 'end_conference', 'hangout']);
+                updateControlsState(['hold', 'end_conference', 'hangout']);
                 agent.server.inicializarApp(2, deviceData['DeviceId']);
                 return;
             }
@@ -161,22 +161,19 @@ $(function () {
 
     function enEspera(call, holdList) {
         for (var i in holdList)
-            if (call.ucid == holdList[i].ucid)
+            if (call[1] == holdList[i].ucid)
                 return true;
         return false;
     }
 
     agent.client.inicializarAppFase2 = function (message, holdList) {
         var response = JSON.parse(message);
-        if (response['success']) {
-            var result = JSON.parse(response.result);
-
-            for (var i in result) {
-                var call = result[i];
+        if (response['success'])
+            for (var i in response.result) {
+                var call = response.result[i];
                 if (!enEspera(call, holdList))
-                    localStorage.setItem('activeCall', JSON.stringify({ 'ucid': call.ucid, 'deviceId': '' }));
+                    localStorage.setItem('activeCall', JSON.stringify({ 'ucid': call[1], 'deviceId': '' }));
             }
-        }
 
         spinnerHide();
     }
@@ -256,7 +253,6 @@ $(function () {
                 break;
 
             case 'onCallDelivered':
-                changeState('hold', true);
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
@@ -270,13 +266,11 @@ $(function () {
                 break;
 
             case 'onCallExternalDelivered':
-                changeState('hold', true);
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
                 
                 localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
-                infoNoty(Resources.InExternalCall);
 
                 tempNoty('onCallExternalDelivered');
                 break;
@@ -299,6 +293,8 @@ $(function () {
                 changeState('hangout', true);
                 changeState('hold', true);
                 changeState('answer', false);
+                changeState('pause', false);
+
 
                 tempNoty('onEstablishedConnection');
                 break;
@@ -334,6 +330,7 @@ $(function () {
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
                 changeState('hangout', false);
+                changeState('pause', true);
 
                 if (localStorage.getItem('IsCampaignCall')  == 'true') {
                     $('#modal-dispositions').modal('show');
@@ -350,6 +347,7 @@ $(function () {
             case 'onEndCall':
                 changeState('hangout', false);
                 changeState('hold', false);
+                changeState('pause', true);
                 //changeState('ready', true);
                 $("#inputPhone").val('').removeAttr("disabled");
 
@@ -428,7 +426,7 @@ $(function () {
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
-            change('ready', false);
+            changeState('ready', false);
             agent.server.sendStateReadyManual(deviceId);
         });
 
@@ -499,7 +497,7 @@ $(function () {
             if (notEmpty(strAC)) {
                 var activeCall = JSON.parse(strAC);
                 if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
-                    change('hold', false);
+                    changeState('hold', false);
                     agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId);
                 }
             }

@@ -119,25 +119,32 @@
                 errorNoty("Debe introducir un usuario");
                 return;
             }
+
             spinnerShow();
-            $.get(path_get_roles + '/' + UserName).done(function (role, textStatus, jqXHR) {
-                switch (role) {
-                    case "admin":
-                        runRoleAdmin();
-                        break;
-                    case "supervisor":
-                        runRoleSupervisor();
-                        break;
-                    case "agent":
-                        runRoleAgent();
-                        break;
-                    default:
-                        spinnerHide();
-                        errorNoty("El rol del usuario no es válido");
+            $.ajax({
+                'url': path_get_roles,
+                'type': 'POST',
+                'data': { 'username': UserName },
+                'success': function (role) {
+                    switch (role) {
+                        case "admin":
+                            runRoleAdmin();
+                            break;
+                        case "supervisor":
+                            runRoleSupervisor();
+                            break;
+                        case "agent":
+                            runRoleAgent();
+                            break;
+                        default:
+                            spinnerHide();
+                            errorNoty("El rol del usuario no es válido");
+                    }
+                },
+                'error': function () {
+                    spinnerHide();
+                    errorNoty("No se pudo obtener el rol del usuario");
                 }
-            }).fail(function (jqXHR, textStatus, errorThrown) {
-                spinnerHide();
-                errorNoty("No se pudo obtener el rol del usuario");
             });
         });
     });

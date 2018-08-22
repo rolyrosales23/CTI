@@ -130,6 +130,8 @@
         </div>
     </div>
 </div>
+
+<script type='text/javascript' src='~/assets/js/plugins/jquery-validation/jquery.validate.js'></script>
 @Html.Partial("_Dispositions")
 @Html.Partial("_PauseCodes")
 @Html.Partial("_Campaigns")
@@ -142,8 +144,13 @@
             else
                 $("#doCallBtn").attr("disabled", "disabled");
         });
+
+        $('#lista_espera').on("change", "input", function (event) {
+            changeState('retrieve', true);
+            changeState('transfer', true);
+            changeState('conference', true);
+        });
     </script>   
 
     <script src="~/assets/js/plugins/icheck/icheck.min.js"></script>
-    <script type='text/javascript' src='~/assets/js/plugins/jquery-validation/jquery.validate.js'></script>
 }

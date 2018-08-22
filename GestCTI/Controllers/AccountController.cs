@@ -69,14 +69,18 @@ namespace GestCTI.Controllers
         /// </summary>
         /// <param name="User">User name</param>
         /// <returns>Role</returns>
+        [HttpPost]
         [AllowAnonymous]
-        public String GetRole(String id) {
-            var User = _db.Users.Where(predicate => predicate.Username == id).FirstOrDefault();
-            if (User != null) {
+        public String GetRole(string username)
+        {
+            var User = _db.Users.Where(predicate => predicate.Username == username).FirstOrDefault();
+            if (User != null)
+            {
                 return User.Role;
             }
             return "";
         }
+
         //
         // POST: /Account/Login
         [HttpPost]
