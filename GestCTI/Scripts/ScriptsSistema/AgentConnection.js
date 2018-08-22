@@ -76,13 +76,14 @@ function printDisposition(vdn) {
     });
 }
 
-function SendCallDisposition() {
+
+$('#SendCallDisposition').click(function () {
     var dispositionCamp = $('#SelDisposition').val();
     var strCforS = localStorage.getItem('callforsave');
     if (notEmpty(strCforS)) {
         var CallForSave = JSON.parse(strCforS);
         $.ajax({
-            url: "../Home/SetDisposition/",
+            url: "../Home/SaveCallDisposition/",
             type: "post",
             data: { ucid: CallForSave.ucid, disposition: dispositionCamp, User: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
             success: function (resp) {
@@ -90,7 +91,62 @@ function SendCallDisposition() {
             }
         });
     }
+});
+
+$('#SendPauseCode').click(function () {
+    var pausecode = $('#SelPauseCodes').val();
+
+    $.ajax({
+        url: "../Home/SavePauseCodeUser/",
+        type: "post",
+        data: { username: User.Name, pausecode: pausecode },
+        success: function (resp) {
+            //cambio estado del agent a pause
+            $('#modal-PauseCodes').modal('hide');
+        },
+        error: function () {
+            errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
+        }
+    });
+});
+
+function printCampaignsByUser() {
+    var select = $('#SelCampaigns');
+    select.find('option').remove();
+    $.ajax({
+        url: "../Home/GetCampaignsByUser/",
+        data: { username: User.Name },
+        success: function (resp) {
+            if (notEmpty) {
+                select.append("<option disabled selected value='0'>" + Resources.SelectCampaign + "</option>");
+                for (var i in resp) {
+                    select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                }
+            }
+        }
+    });
 }
+
+$('#BtnCampaignCall').click(function () {
+    //var select = $('#SelDisposition');
+    //select.find('option').remove();
+    //$.ajax({
+    //    url: "../Home/GetDispositionsByVDN/",
+    //    data: { vdn: vdn },
+    //    success: function (resp) {
+    //        if (notEmpty) {
+    //            select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
+    //            for (var i in resp) {
+    //                select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+    //            }
+    //            localStorage.setItem('IsCampaignCall', 'true');
+    //        }
+    //        else {
+    //            localStorage.setItem('IsCampaignCall', 'false');
+    //        }
+    //    }
+    //});
+});
 
 $(function () {
     // Reference the auto-generated proxy for the hub.
@@ -363,8 +419,27 @@ $(function () {
         agent.server.inicializarApp();
 
         $('#ReadyToWork').click(function () {
+            var select = $('#SelPauseCodes');
+            select.find('option').remove();
+            $.ajax({
+                url: "../Home/GetPauseCodesByUser/",
+                data: { username: User.Name },
+                success: function (resp) {
+                    if (notEmpty) {
+                        select.append("<option disabled selected value='0'>" + Resources.SelectPauseCode + "</option>");
+                        for (var i in resp) {
+                            select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                        }
+                        $('#modal-PauseCodes').modal('show');
+                    }
+                    else {
+                        errorNoty("No tienen pause codes disponibles.");
+                    }
+                }
+            });
+
             // Put de agent to AM_READY and MANUAL_IN
-             change('ready', false);
+            change('ready', false);
             agent.server.sendStateReadyManual(deviceId);
         });
 

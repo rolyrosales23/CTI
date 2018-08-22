@@ -37,6 +37,9 @@
         <AssociationConnector Association="DBCTIModel.FK_Calls_Users" />
         <AssociationConnector Association="DBCTIModel.FK_DispositionCampaigns_Campaign" />
         <AssociationConnector Association="DBCTIModel.FK_DispositionCampaigns_Dispositions" />
+        <EntityTypeShape EntityType="DBCTIModel.UserPauseCodes" Width="1.5" PointX="14.75" PointY="0.75" />
+        <AssociationConnector Association="DBCTIModel.FK_UserPauseCodes_PauseCodes" />
+        <AssociationConnector Association="DBCTIModel.FK_UserPauseCodes_Users" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

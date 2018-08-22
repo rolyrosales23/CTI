@@ -327,6 +327,9 @@
     <Compile Include="Models\UserLocation.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UserPauseCodes.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2005,6 +2008,8 @@
     <Content Include="Views\Supervisor\_PartialHoldCall.cshtml" />
     <Content Include="Views\Supervisor\_PartialAgentsConnected.cshtml" />
     <Content Include="Views\Supervisor\_PartialListWaitCall.cshtml" />
+    <Content Include="Views\Home\_PauseCodes.cshtml" />
+    <Content Include="Views\Home\_Campaigns.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

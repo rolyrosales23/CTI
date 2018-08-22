@@ -42,6 +42,7 @@ namespace GestCTI.Models
         public virtual DbSet<Calls> Calls { get; set; }
         public virtual DbSet<DispositionCampaigns> DispositionCampaigns { get; set; }
         public virtual DbSet<Dispositions> Dispositions { get; set; }
+        public virtual DbSet<UserPauseCodes> UserPauseCodes { get; set; }
     
         public virtual ObjectResult<ct_GetPauseCodes> GetPauseCodes(string agent_name)
         {

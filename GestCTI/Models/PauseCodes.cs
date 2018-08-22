@@ -18,6 +18,7 @@ namespace GestCTI.Models
         public PauseCodes()
         {
             this.CampaignPauseCodes = new HashSet<CampaignPauseCodes>();
+            this.UserPauseCodes = new HashSet<UserPauseCodes>();
         }
     
         public int Id { get; set; }
@@ -27,5 +28,7 @@ namespace GestCTI.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampaignPauseCodes> CampaignPauseCodes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPauseCodes> UserPauseCodes { get; set; }
     }
 }
