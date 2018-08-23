@@ -56,31 +56,33 @@ function updateControlsState(list, enable = true) {
 }
 
 function printDisposition(vdn) {
-    var select = $('#SelDisposition');
-    select.find('option').remove();
-    spinnerShow();
-    $.ajax({
-        url: "../Home/GetDispositionsByVDN/",
-        data: { vdn: vdn },
-        success: function (resp) {
-            if (notEmpty) {
-                select.append("<option disabled selected value>" + Resources.SelectDisposition + "</option>");
-                for (var i in resp) {
-                    select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+    if (notEmpty(vdn)) {
+        var select = $('#SelDisposition');
+        select.find('option').remove();
+        select.attr('disabled', 'disabled');
+        $.ajax({
+            url: "../Home/GetDispositionsByVDN/",
+            data: { vdn: vdn },
+            success: function (resp) {
+                if (notEmpty) {
+                    select.append("<option disabled selected value>" + Resources.SelectDisposition + "</option>");
+                    for (var i in resp) {
+                        select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                    }
+                    localStorage.setItem('IsCampaignCall', 'true');
                 }
-                localStorage.setItem('IsCampaignCall', 'true');
+                else {
+                    localStorage.setItem('IsCampaignCall', 'false');
+                }
+            },
+            error: function () {
+                errorNoty("No se pudieron obtener los dispositions para esta campaña.");
+            },
+            complete: function () {
+                select.removeAttr('disabled');
             }
-            else {
-                localStorage.setItem('IsCampaignCall', 'false');
-            }
-        },
-        error: function () {
-            errorNoty("No se pudieron obtener los dispositions para esta campaña.");
-        },
-        complete: function () {
-            spinnerHide();
-        }
-    });
+        });
+    }
 }
 
 
@@ -272,8 +274,8 @@ $(function () {
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
-                if (localStorage.getItem("IsCampaignCall")  == "true")   //si el agent asocio la llamada a una campaña
-                    printDisposition(eventArgs[9]);
+                
+                printDisposition(eventArgs[9]);
                 localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
 
                 tempNoty('onCallExternalDelivered');
@@ -593,9 +595,8 @@ $(function () {
         });
 
         $('#BtnCampaignCall').click(function () {
-            
-            if (!$('#ChbCampaign').prop('checked')) {
-                var IdCampaign = $('#SelCampaigns').val();
+            var IdCampaign = $('#SelCampaigns').val();
+            if (notEmpty(IdCampaign)) {
                 localStorage.setItem('IsCampaignCall', 'true');
                 //cuando llega evento de llamada saliente cambiar localstorage.CallForSave
                 //en OnExternalCallDelivered
