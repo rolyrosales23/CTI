@@ -1,17 +1,17 @@
-﻿<div id="modal-dispositions" class="modal fade" data-backdrop="static" data-keyboard="false">
+﻿<div id="modal-PauseCodes" class="modal fade" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-sm">
         <div class="modal-content" style="width: 360px;">
             <div class="modal-header">
-                <h3>Seleccione la disposición de la llamada</h3>
+                <button type="button" class="close" style="margin-top: 1px;" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3>Seleccione un Pause Code</h3>
             </div>
-
-            <form id="formDispositions" class="form-horizontal validar">
+            <form id="formPauseCodes" class="form-horizontal validar">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
-                                <select class="form-control select" id="SelDisposition" style="height:35px" required></select>
+                                <select class="form-control select" id="SelPauseCodes" style="height:35px" required></select>
                             </div>
                         </div>
                     </div>
@@ -19,7 +19,7 @@
 
                 <div class="modal-footer">
                     <div class="col-sm-offset-9">
-                        <a href="#!" class="btn btn-success" id="SendCallDisposition">@Resources.Admin.Save</a>
+                        <a href="#!" class="btn btn-success" id="SendPauseCode">@Resources.Agent.Pause</a>
                     </div>
                 </div>
             </form>

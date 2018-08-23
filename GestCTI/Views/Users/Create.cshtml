@@ -12,7 +12,7 @@
 }
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ActionCreateNew @Resources.Admin.Users</h2>
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ActionCreateNew </h2>
 </div>
 
 <div class="panel panel-default tabs">
@@ -87,7 +87,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Role">@Resources.Admin.Role</label>
                             <div class="col-md-9">
-                                <select class="form-control" name="Role" id="Rol">
+                                <select class="form-control select" name="Role" id="Rol">
                                     <option value="agent">Agent</option>
                                     <option value="admin">Administrator</option>
                                     <option value="supervisor">Supervisor</option>
@@ -99,7 +99,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="IdLocation">@Resources.Admin.Location</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdLocation", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("IdLocation", null, htmlAttributes: new { @class = "form-control select" })
                                 @Html.ValidationMessageFor(model => model.IdLocation, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="IdCompany">@Resources.Admin.Company</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdCompany", null, htmlAttributes: new { @class = "form-control" })
+                                @Html.DropDownList("IdCompany", null, htmlAttributes: new { @class = "form-control select" })
                                 @Html.ValidationMessageFor(model => model.IdCompany, "", new { @class = "text-danger" })
                             </div>
                         </div>

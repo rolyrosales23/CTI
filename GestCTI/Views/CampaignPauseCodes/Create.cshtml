@@ -7,6 +7,7 @@
 
 @section breadcrumb{
     <li>@Html.ActionLink(@Resources.Login.Home, "Index", "Admin")</li>
+    <li>@Html.ActionLink(@Resources.Admin.Campaigns, "Index", "Campaigns")</li>
     <li>@Html.ActionLink(Resources.Admin.PauseCodeCampaigns, "Index")</li>
     <li class="active">@Resources.Admin.ActionCreateNew</li>
 }
@@ -31,7 +32,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="IdCampaign">@Resources.Admin.Campaign</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdCampaign", null, htmlAttributes: new { @class = "form-control", required = "required" })
+                                @Html.DropDownList("IdCampaign", null, htmlAttributes: new { @class = "form-control select", required = "required", style = "height:45px" })
                                 @Html.ValidationMessageFor(model => model.IdCampaign, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -39,7 +40,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="IdPauseCode">@Resources.Admin.PauseCode</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdPauseCode", null, htmlAttributes: new { @class = "form-control", required = "required" })
+                                @Html.DropDownList("IdPauseCode", null, htmlAttributes: new { @class = "form-control select", required = "required" })
                                 @Html.ValidationMessageFor(model => model.IdPauseCode, "", new { @class = "text-danger" })
                             </div>
                         </div>

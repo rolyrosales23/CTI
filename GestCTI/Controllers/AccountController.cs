@@ -69,14 +69,18 @@ namespace GestCTI.Controllers
         /// </summary>
         /// <param name="User">User name</param>
         /// <returns>Role</returns>
+        [HttpPost]
         [AllowAnonymous]
-        public String GetRole(String id) {
-            var User = _db.Users.Where(predicate => predicate.Username == id).FirstOrDefault();
-            if (User != null) {
+        public String GetRole(string username)
+        {
+            var User = _db.Users.Where(predicate => predicate.Username == username).FirstOrDefault();
+            if (User != null)
+            {
                 return User.Role;
             }
             return "";
         }
+
         //
         // POST: /Account/Login
         [HttpPost]
@@ -102,7 +106,7 @@ namespace GestCTI.Controllers
 
                 FormsAuthentication.SetAuthCookie(model.Username, false);
 
-                var authTicket = new FormsAuthenticationTicket(1, user.Username, DateTime.Now, DateTime.Now.AddMinutes(20), false, user.Role);
+                var authTicket = new FormsAuthenticationTicket(1, user.Username, DateTime.Now, DateTime.Now.AddMinutes(1460), false, user.Role);
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);

@@ -75,6 +75,13 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.AM_READY, I18n, Context.User.Identity.Name);
         }
 
+        public async Task sendPause(String deviceId, int reason)
+        {
+            var toSend = AgentHandling.CTISetAgentState(deviceId, Context.User.Identity.Name, "", (int)AgentMode.AM_NOT_READY, (int)WorkMode.WM_MANUAL, reason);
+            String I18n = "AGENT_PAUSE";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.Pause, I18n, Context.User.Identity.Name);
+        }
+
         /// <summary>
         /// Get Agent info
         /// </summary>
@@ -223,11 +230,19 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIRetrieveConnection, I18n, Context.User.Identity.Name);
         }
 
-        public async Task inicializarApp()
+        public async Task inicializarApp(int fase = 1, String deviceId = "")
         {
-            var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
-            String I18n = "COMMAND_INICIALIZAR_APP";
-            await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarApp, I18n, Context.User.Identity.Name);
+            if (fase == 1)
+            {
+                var toSend = AgentHandling.CTIGetAgentInfo(Context.User.Identity.Name);
+                String I18n = "COMMAND_INICIALIZAR_APP";
+                await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarAppFase1, I18n, Context.User.Identity.Name);
+            }
+            else if(fase == 2) {
+                var toSend = DeviceHandling.CTIGetCalls(deviceId);
+                String I18n = "COMMAND_INICIALIZAR_APP";
+                await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarAppFase2, I18n, Context.User.Identity.Name);
+            }
         }
 
         /// <summary>

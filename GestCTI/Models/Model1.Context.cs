@@ -12,6 +12,8 @@ namespace GestCTI.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DBCTIEntities : DbContext
     {
@@ -40,5 +42,33 @@ namespace GestCTI.Models
         public virtual DbSet<Calls> Calls { get; set; }
         public virtual DbSet<DispositionCampaigns> DispositionCampaigns { get; set; }
         public virtual DbSet<Dispositions> Dispositions { get; set; }
+        public virtual DbSet<UserPauseCodes> UserPauseCodes { get; set; }
+    
+        public virtual ObjectResult<ct_GetPauseCodes> GetPauseCodes(string agent_name)
+        {
+            var agent_nameParameter = agent_name != null ?
+                new ObjectParameter("agent_name", agent_name) :
+                new ObjectParameter("agent_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ct_GetPauseCodes>("GetPauseCodes", agent_nameParameter);
+        }
+    
+        public virtual ObjectResult<Campaign> GetCampaigns(string agent_name)
+        {
+            var agent_nameParameter = agent_name != null ?
+                new ObjectParameter("agent_name", agent_name) :
+                new ObjectParameter("agent_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Campaign>("GetCampaigns", agent_nameParameter);
+        }
+    
+        public virtual ObjectResult<Campaign> GetCampaigns(string agent_name, MergeOption mergeOption)
+        {
+            var agent_nameParameter = agent_name != null ?
+                new ObjectParameter("agent_name", agent_name) :
+                new ObjectParameter("agent_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Campaign>("GetCampaigns", mergeOption, agent_nameParameter);
+        }
     }
 }

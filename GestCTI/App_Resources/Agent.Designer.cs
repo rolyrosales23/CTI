@@ -214,11 +214,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a campaign....
+        /// </summary>
+        public static string SelectCampaign {
+            get {
+                return ResourceManager.GetString("SelectCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select the Call Disposition....
         /// </summary>
         public static string SelectDisposition {
             get {
                 return ResourceManager.GetString("SelectDisposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a Pause Code....
+        /// </summary>
+        public static string SelectPauseCode {
+            get {
+                return ResourceManager.GetString("SelectPauseCode", resourceCulture);
             }
         }
         

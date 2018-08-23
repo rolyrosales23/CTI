@@ -130,7 +130,13 @@
         </div>
     </div>
 </div>
+
+<script type='text/javascript' src='~/assets/js/plugins/jquery-validation/jquery.validate.js'></script>
+<script type='text/javascript' src='~/assets/js/plugins/bootstrap/bootstrap-select.js'></script>
+
 @Html.Partial("_Dispositions")
+@Html.Partial("_PauseCodes")
+@Html.Partial("_Campaigns")
 
 @section scripts{
     <script type="text/javascript">
@@ -139,6 +145,12 @@
                 $("#doCallBtn").removeAttr("disabled");
             else
                 $("#doCallBtn").attr("disabled", "disabled");
+        });
+
+        $('#lista_espera').on("ifChanged", "input", function (event) {
+            changeState('retrieve', true);
+            changeState('transfer', true);
+            changeState('conference', true);
         });
     </script>   
 

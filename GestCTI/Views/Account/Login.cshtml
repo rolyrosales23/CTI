@@ -30,7 +30,7 @@
             <div class="login-logo"></div>
             <div class="login-body">
                 <div class="login-title"><strong>@Resources.Login.Welcome</strong>@Resources.Login.PlesaseLogin</div>
-                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "LogInForm" }))
+                @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal validar", role = "form", id = "LogInForm" }))
                 {
                     @Html.AntiForgeryToken()
                     <div class="form-group">
@@ -97,6 +97,7 @@
     <script src="~/assets/js/plugins/bootstrap/bootstrap.min.js"></script>
     <script src="~/assets/js/plugins/icheck/icheck.min.js"></script>
     <script src="~/assets/js/plugins.js"></script>
+    <script src="~/assets/js/plugins/jquery-validation/jquery.validate.js"></script>
     <!--Notifications System-->
     <script src="~/assets/js/plugins/noty/jquery.noty.js"></script>
     <script src="~/assets/js/plugins/noty/layouts/topRight.js"></script>
@@ -123,6 +124,8 @@
         $('#phone_extension').val('');
         if ($('#phone_login').is(':checked'))
             $('#phone_login').trigger('click');
+
+        var path_get_roles = '@Url.Action("GetRole", "Account", null, Request.Url.Scheme)';
     </script>
 
 </body>

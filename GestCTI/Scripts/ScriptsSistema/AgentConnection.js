@@ -7,15 +7,14 @@
 };
 
 function pintarListaEspera(lista) {
-    if (notEmpty(lista)) {
-        var panel = $('#lista_espera');
-        panel.find('ul').remove();
+    var panel = $('#lista_espera');
+    panel.find('ul').remove();
 
-        if (lista.length)
-            panel.append("<ul class='list-unstyled'></ul>");
+    if (notEmpty(lista)) {
+        panel.append("<ul class='list-unstyled'></ul>");
 
         for (var i in lista) {
-            var ind = i + 1;
+            var ind = Number(i) + 1;
             panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
         }
 
@@ -49,23 +48,91 @@ function changeState(alias, enable) {
 function updateControlsState(list, enable = true) {
     var buttons = ['ready', 'pause', 'answer', 'hold', 'retrieve', 'transfer', 'conference', 'end_conference', 'hangout'];
     for (var alias in buttons)
-        changeState(alias, !enable);
+        changeState(buttons[alias], !enable);
 
     for (var i in list)
         changeState(list[i], enable);
 }
 
 function printDisposition(vdn) {
-    var select = $('#SelDisposition');
-    select.find('option').remove();
-    $.ajax({
-        url: "../Home/GetDispositionsByVDN/",
-        data: { vdn: vdn },
-        success: function (resp) {
-            select.append("<option disabled selected value='0'>" + Resources.SelectDisposition + "</option>");
-            for (var i in resp) {
-                select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+    if (notEmpty(vdn)) {
+        var select = $('#SelDisposition');
+        select.find('option').remove();
+        select.attr('disabled', 'disabled');
+        $.ajax({
+            url: "../Home/GetDispositionsByVDN/",
+            data: { vdn: vdn },
+            success: function (resp) {
+                if (notEmpty) {
+                    select.append("<option disabled selected value>" + Resources.SelectDisposition + "</option>");
+                    for (var i in resp) {
+                        select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                    }
+                    select.selectpicker('refresh');
+                    localStorage.setItem('IsCampaignCall', 'true');
+                }
+                else {
+                    localStorage.setItem('IsCampaignCall', 'false');
+                }
+            },
+            error: function () {
+                errorNoty("No se pudieron obtener los dispositions para esta campaña.");
+            },
+            complete: function () {
+                select.removeAttr('disabled');
+                select.selectpicker('refresh');
             }
+        });
+    }
+}
+
+
+$('#SendCallDisposition').click(function () {
+    var dispositionCamp = $('#SelDisposition').val();
+    var strCforS = localStorage.getItem('callforsave');
+    if (notEmpty(strCforS)) {
+        var CallForSave = JSON.parse(strCforS);
+        spinnerShow();
+        $.ajax({
+            url: "../Home/SaveCallDisposition/",
+            type: "post",
+            data: { ucid: CallForSave.ucid, disposition: dispositionCamp, username: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
+            success: function (resp) {
+                successNoty("Llamada guardada correctamente!");
+            },
+            error: function () {
+                errorNoty("No se pudieron guardar los datos de la llamada.");
+            },
+            complete: function () {
+                spinnerHide();
+            }
+        });
+    }
+});
+
+function printCampaignsByUser() {
+    var select = $('#SelCampaigns');
+    select.find('option').remove();
+    spinnerShow();
+    $.ajax({
+        url: "../Home/GetCampaignsByUser/",
+        data: { username: User.Name },
+        success: function (resp) {
+            if (notEmpty(resp)) {
+                select.append("<option selected value>" + Resources.SelectCampaign + "</option>");
+                for (var i in resp) {
+                    select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
+                }
+                select.selectpicker('refresh');
+            }
+            else
+                infoNoty("El usuario no está vinculado a ninguna campaña.");
+        },
+        error: function () {
+            errorNoty("No se pudieron obtener las campañas del usuario.");
+        },
+        complete: function () {
+            spinnerHide();
         }
     });
 }
@@ -74,8 +141,8 @@ $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
-    agent.client.inicializarApp = function (message, data) {
-        pintarListaEspera(data);
+    agent.client.inicializarAppFase1 = function (message, holdList) {
+        pintarListaEspera(holdList);
 
         var response = JSON.parse(message);
         if (response['success']) {
@@ -86,11 +153,33 @@ $(function () {
 
             if (state != AgentState.AS_READY)
                 updateControlsState(['ready']);
-            else if (deviceData['Busy'])
-                updateControlsState(['answer', 'hold', 'end_conference', 'hangout']);
+            else if (deviceData['Busy']) {
+                updateControlsState(['hold', 'end_conference', 'hangout']);
+                agent.server.inicializarApp(2, deviceData['DeviceId']);
+                return;
+            }
             else
                 updateControlsState(['pause']);
         }
+
+        spinnerHide();
+    }
+
+    function enEspera(call, holdList) {
+        for (var i in holdList)
+            if (call[1] == holdList[i].ucid)
+                return true;
+        return false;
+    }
+
+    agent.client.inicializarAppFase2 = function (message, holdList) {
+        var response = JSON.parse(message);
+        if (response['success'])
+            for (var i in response.result) {
+                var call = response.result[i];
+                if (!enEspera(call, holdList))
+                    localStorage.setItem('activeCall', JSON.stringify({ 'ucid': call[1], 'deviceId': '' }));
+            }
 
         spinnerHide();
     }
@@ -114,22 +203,6 @@ $(function () {
             }
         }
     };
-
-    /*    agent.client.resultHoldConnections = function (response) {
-            spinnerHide();
-            if (response.length) {
-                //llenar select
-                var select = $('#transfer-modal select');
-                select.find('option').remove();
-                for (var i in response) {
-                    select.append(new Option(response[i].toDevice, response[i].ucid));
-                }
-                select.selectpicker('refresh');
-    
-                $('#transfer-modal').modal();
-            }
-        };
-    */
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -170,23 +243,30 @@ $(function () {
                 break;
 
             case 'onCallDelivered':
-                changeState('hold', true);
+                changeState('inputPhone', false);
+                changeState('doCallBtn', false);
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
+
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
+                localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[4] }));
+
                 infoNoty(Resources.IncomingCall);
 
                 tempNoty('onCallDelivered');
                 break;
 
             case 'onCallExternalDelivered':
-                changeState('hold', true);
-                changeState('answer', true);
+                changeState('inputPhone', false);
+                changeState('doCallBtn', false);
+                //changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
-                infoNoty(Resources.InExternalCall);
+
+                
+                printDisposition(eventArgs[9]);
+                localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
 
                 tempNoty('onCallExternalDelivered');
                 break;
@@ -209,6 +289,8 @@ $(function () {
                 changeState('hangout', true);
                 changeState('hold', true);
                 changeState('answer', false);
+                changeState('pause', false);
+
 
                 tempNoty('onEstablishedConnection');
                 break;
@@ -244,6 +326,13 @@ $(function () {
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
                 changeState('hangout', false);
+                changeState('hold', false);
+                changeState('pause', true);
+
+                if (localStorage.getItem('IsCampaignCall')  == 'true') {
+                    $('#modal-dispositions').modal('show');
+                }
+                $("#inputPhone").val('').removeAttr("disabled");
 
                 tempNoty('onEndConnection');
                 break;
@@ -256,6 +345,7 @@ $(function () {
             case 'onEndCall':
                 changeState('hangout', false);
                 changeState('hold', false);
+                changeState('pause', true);
                 //changeState('ready', true);
                 $("#inputPhone").val('').removeAttr("disabled");
 
@@ -316,8 +406,6 @@ $(function () {
     agent.client.addCTIMakeCallRequest = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-             $('#inputPhone').attr('disabled', 'disabled');
-             $('#doCallBtn').attr('disabled', 'disabled');
             successNoty(Resources.Calling);
         } else {
             errorNoty(Resources.MakeCallFail);
@@ -330,12 +418,41 @@ $(function () {
         var deviceId = localStorage.getItem('deviceId');
 
         spinnerShow();
-        agent.server.inicializarApp();
+        agent.server.inicializarApp(1, "");
 
         $('#ReadyToWork').click(function () {
             // Put de agent to AM_READY and MANUAL_IN
-             change('ready', false);
+            changeState('ready', false);
             agent.server.sendStateReadyManual(deviceId);
+        });
+
+        $('#doPause').click(function () {
+            var select = $('#SelPauseCodes');
+            select.find('option').remove();
+            spinnerShow();
+            $.ajax({
+                url: "../Home/GetPauseCodesByUser/",
+                data: { username: User.Name },
+                success: function (resp) {
+                    if (notEmpty(resp)) {
+                        select.append("<option selected value>" + Resources.SelectPauseCode + "</option>");
+                        for (var i in resp) {
+                            select.append("<option value='" + resp[i].Value + "'>" + resp[i].Name + "</option>");
+                        }
+                        select.selectpicker('refresh');
+                        $('#modal-PauseCodes').modal('show');
+                    }
+                    else {
+                        errorNoty("No tienen pause codes disponibles.");
+                    }
+                },
+                error: function () {
+                    errorNoty("No se pudireon obtener los PauseCodes de este usuario.");
+                },
+                complete: function () {
+                    spinnerHide();
+                }
+            });
         });
 
         $('#LogOutCore').click(function () {
@@ -369,13 +486,8 @@ $(function () {
         });
 
         $("#doCallBtn").click(function () {
-            var toDevice = $('#inputPhone').val();
-            if (notEmpty(deviceId) && notEmpty(toDevice)) {
-                agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
-            }
-            else {
-                errorNoty(Resources.NotDevice);
-            }
+            printCampaignsByUser();
+            $('#modal-Campaigns').modal();            
         });
 
         $("#doHoldConnection").click(function () {
@@ -383,7 +495,7 @@ $(function () {
             if (notEmpty(strAC)) {
                 var activeCall = JSON.parse(strAC);
                 if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
-                    change('hold', false);
+                    changeState('hold', false);
                     agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId);
                 }
             }
@@ -450,6 +562,51 @@ $(function () {
             }
             else
                 infoNoty("No hay llamada activa!");
+        });
+
+        $('#SendPauseCode').click(function () {
+            var pausecode = $('#SelPauseCodes').val();
+            if (notEmpty(pausecode)) {
+                spinnerShow();
+                $.ajax({
+                    url: "../Home/SavePauseCodeUser/",
+                    type: "post",
+                    data: { username: User.Name, pausecode: pausecode },
+                    success: function (resp) {
+                        //cambio estado del agent a pause con su reason
+                        agent.server.sendPause(deviceId, pausecode);
+                        $('#modal-PauseCodes').modal('hide');
+                    },
+                    error: function () {
+                        errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
+                    },
+                    complete: function () {
+                        spinnerHide();
+                    }
+                });
+            }
+            else
+                errorNoty("Debe seleccionar un PauseCode válido.");
+        });
+
+        $('#BtnCampaignCall').click(function () {
+            var IdCampaign = $('#SelCampaigns').val();
+            if (notEmpty(IdCampaign)) {
+                localStorage.setItem('IsCampaignCall', 'true');
+                //cuando llega evento de llamada saliente cambiar localstorage.CallForSave
+                //en OnExternalCallDelivered
+            }
+            else
+                localStorage.setItem('IsCampaignCall', 'false');
+
+            $('#modal-Campaigns').modal('hide');
+            var toDevice = $('#inputPhone').val();
+            if (notEmpty(deviceId) && notEmpty(toDevice)) {
+                agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
+            }
+            else {
+                errorNoty(Resources.NotDevice);
+            }
         });
     });
 });

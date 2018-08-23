@@ -20,6 +20,7 @@ namespace GestCTI.Models
             this.UserSkill = new HashSet<UserSkill>();
             this.Company = new HashSet<Company>();
             this.Calls = new HashSet<Calls>();
+            this.UserPauseCodes = new HashSet<UserPauseCodes>();
         }
     
         public int Id { get; set; }
@@ -42,5 +43,7 @@ namespace GestCTI.Models
         public virtual Company Company1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Calls> Calls { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserPauseCodes> UserPauseCodes { get; set; }
     }
 }

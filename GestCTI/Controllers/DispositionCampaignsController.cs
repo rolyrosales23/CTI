@@ -40,9 +40,13 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.DispositionCampaigns.Add(dispositionCampaigns);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.DispositionCampaigns.FirstOrDefault(p => p.IdCampaign == dispositionCampaigns.IdCampaign && p.IdDisposition == dispositionCampaigns.IdDisposition) == null)
+                {
+                    db.DispositionCampaigns.Add(dispositionCampaigns);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                //Notificar: La disposition dispositionCampaigns.Dispositions.Name ya existe en la campaña dispositionCampaigns.Campaign.Name
             }
 
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositionCampaigns.IdCampaign);
@@ -76,11 +80,15 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                DispositionCampaigns TempdispositionCampaigns = db.DispositionCampaigns.Find(dispositionCampaigns.Id);
-                TempdispositionCampaigns.Description = dispositionCampaigns.Description;
-                TempdispositionCampaigns.Active = dispositionCampaigns.Active;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.DispositionCampaigns.FirstOrDefault(p => p.IdCampaign == dispositionCampaigns.IdCampaign && p.IdDisposition == dispositionCampaigns.IdDisposition) == null)
+                {
+                    DispositionCampaigns TempdispositionCampaigns = db.DispositionCampaigns.Find(dispositionCampaigns.Id);
+                    TempdispositionCampaigns.Description = dispositionCampaigns.Description;
+                    TempdispositionCampaigns.Active = dispositionCampaigns.Active;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                //Notificar: La disposition dispositionCampaigns.Dispositions.Name ya existe en la campaña dispositionCampaigns.Campaign.Name
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositionCampaigns.IdCampaign);
             ViewBag.IdDisposition = new SelectList(db.Dispositions, "Id", "Name", dispositionCampaigns.IdDisposition);

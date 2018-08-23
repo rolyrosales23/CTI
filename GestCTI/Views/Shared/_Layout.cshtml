@@ -73,31 +73,54 @@
                     <!-- BEGING MENU ADMISTRATOR -->
                     <li action="index" controller="admin">
                         <a href="@Url.Action("Index", "Admin")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
-                        
                     </li>
-
                     <li class="xn-openable">
                         <a href=""><span class="fa fa-inbox"></span> <span class="xn-text">@Resources.Admin.Campaigns</span></a>
                         <ul>
                             <li action="index" controller="campaigns"><a href="@Url.Action("Index", "Campaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
                             
                             <li action="create" controller="campaigns"><a href="@Url.Action("Create", "Campaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+
+                            <li class="xn-openable">
+                                <a href=""><span class="glyphicon glyphicon-filter"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
+                                <ul>
+                                    <li action="index" controller="campaigntypes"><a href="@Url.Action("Index", "CampaignTypes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+
+                                    <li action="create" controller="campaigntypes"><a href="@Url.Action("Create", "CampaignTypes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                                </ul>
+                            </li>
+                            <li class="xn-openable">
+                                <a href=""><span class="fa fa-columns"></span> <span class="xn-text">@Resources.Admin.PauseCodeCampaigns</span></a>
+                                <ul>
+                                    <li action="index" controller="campaignpausecodes"><a href="@Url.Action("Index", "CampaignPauseCodes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+
+                                    <li action="create" controller="campaignpausecodes"><a href="@Url.Action("Create", "CampaignPauseCodes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                                </ul>
+                            </li>
+                            <li class="xn-openable">
+                                <a href=""><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.DispositionCampaigns</span></a>
+                                <ul>
+                                    <li action="index" controller="dispositioncampaigns"><a href="@Url.Action("Index", "DispositionCampaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+
+                                    <li action="create" controller="dispositioncampaigns"><a href="@Url.Action("Create", "DispositionCampaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                                </ul>
+                            </li>
+                            <li class="xn-openable">
+                                <a href=""><span class="fa fa-tags"></span> <span class="xn-text">VDNs</span></a>
+                                <ul>
+                                    <li action="index" controller="vdns"><a href="@Url.Action("Index", "VDNs")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+
+                                    <li action="create" controller="vdns"><a href="@Url.Action("Create", "VDNs")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                     <li class="xn-openable">
-                        <a href=""><span class="glyphicon glyphicon-filter"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
+                        <a href=""><span class="fa fa-users"></span> <span class="xn-text">@Resources.Admin.Users</span></a>
                         <ul>
-                            <li action="index" controller="campaigntypes"><a href="@Url.Action("Index", "CampaignTypes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
+                            <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
 
-                            <li action="create" controller="campaigntypes"><a href="@Url.Action("Create", "CampaignTypes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-columns"></span> <span class="xn-text">@Resources.Admin.PauseCodeCampaigns</span></a>
-                        <ul>
-                            <li action="index" controller="campaignpausecodes"><a href="@Url.Action("Index", "CampaignPauseCodes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="CampaignPauseCodes"><a href="@Url.Action("Create", "CampaignPauseCodes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
+                            <li action="create" controller="users"><a href="@Url.Action("Create", "Users")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
@@ -114,14 +137,6 @@
                             <li action="index" controller="dispositions"><a href="@Url.Action("Index", "Dispositions")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
 
                             <li action="create" controller="dispositions"><a href="@Url.Action("Create", "Dispositions")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.DispositionCampaigns</span></a>
-                        <ul>
-                            <li action="index" controller="dispositioncampaigns"><a href="@Url.Action("Index", "DispositionCampaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="dispositioncampaigns"><a href="@Url.Action("Create", "DispositionCampaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                     <li class="xn-openable">
@@ -154,22 +169,6 @@
                             <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
 
                             <li action="create" controller="userlocations"><a href="@Url.Action("Create", "UserLocations")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-users"></span> <span class="xn-text">@Resources.Admin.Users</span></a>
-                        <ul>
-                            <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="users"><a href="@Url.Action("Create", "Users")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-tags"></span> <span class="xn-text">VDNs</span></a>
-                        <ul>
-                            <li action="index" controller="vdns"><a href="@Url.Action("Index", "VDNs")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="vdns"><a href="@Url.Action("Create", "VDNs")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
                         </ul>
                     </li>
                 <!-- END MENU ADMISTRATOR -->
@@ -233,7 +232,7 @@
                     </li>
                 }
                 <!-- END SIGN OUT -->
-                <!-- MESSAGES -->
+                @*<!-- MESSAGES -->
                 <li class="xn-icon-button pull-right">
                     <a href="#"><span class="fa fa-comments"></span></a>
                     <div class="informer informer-danger">4</div>
@@ -322,7 +321,7 @@
                         </div>
                     </div>
                 </li>
-                <!-- END TASKS -->
+                <!-- END TASKS -->*@
             </ul>
             <!-- END X-NAVIGATION VERTICAL -->
             <!-- START BREADCRUMB -->
