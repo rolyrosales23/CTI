@@ -145,7 +145,7 @@
                 $("#doCallBtn").attr("disabled", "disabled");
         });
 
-        $('#lista_espera').on("change", "input", function (event) {
+        $('#lista_espera').on("ifChanged", "input", function (event) {
             changeState('retrieve', true);
             changeState('transfer', true);
             changeState('conference', true);

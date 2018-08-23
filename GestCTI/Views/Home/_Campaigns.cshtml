@@ -5,19 +5,13 @@
                 <h3>Seleccione una campaña para la llamada</h3>
             </div>
 
-            <form id="formCampaign" class="form-horizontal validar">
+            <form id="formCampaign" class="form-horizontal">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
                             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
                             <div class="form-group">
-                                <select class="form-control" id="SelCampaigns" style="height:35px" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label">No es de campaña</label>
-                                <div class="col-md-9" style="padding-top: 5px">
-                                    <input type="checkbox" class="icheckbox" id="ChbCampaign" />
-                                </div>
+                                <select class="form-control" id="SelCampaigns" style="height:35px"></select>
                             </div>
                         </div>
                     </div>

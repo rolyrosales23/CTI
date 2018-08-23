@@ -15,7 +15,7 @@ function pintarListaEspera(lista) {
             panel.append("<ul class='list-unstyled'></ul>");
 
         for (var i in lista) {
-            var ind = i + 1;
+            var ind = Number(i) + 1;
             panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
         }
 
@@ -255,6 +255,8 @@ $(function () {
                 break;
 
             case 'onCallDelivered':
+                changeState('inputPhone', false);
+                changeState('doCallBtn', false);
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
@@ -268,6 +270,8 @@ $(function () {
                 break;
 
             case 'onCallExternalDelivered':
+                changeState('inputPhone', false);
+                changeState('doCallBtn', false);
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
@@ -339,6 +343,7 @@ $(function () {
                 if (localStorage.getItem('IsCampaignCall')  == 'true') {
                     $('#modal-dispositions').modal('show');
                 }
+                $("#inputPhone").val('').removeAttr("disabled");
 
                 tempNoty('onEndConnection');
                 break;
@@ -412,8 +417,6 @@ $(function () {
     agent.client.addCTIMakeCallRequest = function (response) {
         json = JSON.parse(response);
         if (json['success'] === true) {
-             $('#inputPhone').attr('disabled', 'disabled');
-             $('#doCallBtn').attr('disabled', 'disabled');
             successNoty(Resources.Calling);
         } else {
             errorNoty(Resources.MakeCallFail);

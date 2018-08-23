@@ -86,12 +86,8 @@ namespace GestCTI.Controllers
 
         public JsonResult GetCampaignsByUser(string username) {
             db = new DBCTIEntities();
-            var res1 = db.GetCampaigns(username).ToList();
-            var result = from camp in db.Campaign join skillCamp in db.CampaignSkills on camp.Id equals skillCamp.IdCampaign
-                         join skillUser in db.UserSkill on skillCamp.IdSkill equals skillUser.IdSkill
-                         join user in db.Users on skillUser.IdUser equals user.Id
-                         where user.Username == username
-                         select new { camp.Id, camp.Name };
+            var result = db.GetCampaigns(username).ToList();
+
             return Json(result, JsonRequestBehavior.AllowGet);
         }
     }
