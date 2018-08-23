@@ -246,11 +246,14 @@
     <Compile Include="Controllers\CompaniesController.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CoreHttpController.cs" />
     <Compile Include="Controllers\DispositionCampaignsController.cs" />
     <Compile Include="Controllers\DispositionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PauseCodesController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
+    <Compile Include="Core\Service\ServiceCoreHttp.cs" />
+    <Compile Include="Core\Util\Calls.cs" />
     <Compile Include="Core\WebsocketClient\CtiEvent.cs" />
     <Compile Include="Core\WebsocketClient\CtiUser.cs" />
     <Compile Include="Core\Util\Seguridad.cs" />
@@ -2003,7 +2006,9 @@
     <Content Include="Views\Supervisor\_PartialAgentsConnected.cshtml" />
     <Content Include="Views\Supervisor\_PartialListWaitCall.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\CoreHttp\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>
