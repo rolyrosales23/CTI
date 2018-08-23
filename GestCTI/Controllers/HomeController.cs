@@ -39,6 +39,7 @@ namespace GestCTI.Controllers
             call.DeviceId = deviceId;
             call.DeviceCustomer = deviceCustomer;
             call.Date = System.DateTime.Now;
+            db.Calls.Add(call);
 
             db.SaveChanges();
         }

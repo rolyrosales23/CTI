@@ -566,23 +566,27 @@ $(function () {
 
         $('#SendPauseCode').click(function () {
             var pausecode = $('#SelPauseCodes').val();
-            spinnerShow();
-            $.ajax({
-                url: "../Home/SavePauseCodeUser/",
-                type: "post",
-                data: { username: User.Name, pausecode: pausecode },
-                success: function (resp) {
-                    //cambio estado del agent a pause con su reason
-                    agent.server.sendPause(deviceId, pausecode);
-                    $('#modal-PauseCodes').modal('hide');
-                },
-                error: function () {
-                    errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
-                },
-                complete: function () {
-                    spinnerHide();
-                }
-            });
+            if (notEmpty(pausecode)) {
+                spinnerShow();
+                $.ajax({
+                    url: "../Home/SavePauseCodeUser/",
+                    type: "post",
+                    data: { username: User.Name, pausecode: pausecode },
+                    success: function (resp) {
+                        //cambio estado del agent a pause con su reason
+                        agent.server.sendPause(deviceId, pausecode);
+                        $('#modal-PauseCodes').modal('hide');
+                    },
+                    error: function () {
+                        errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
+                    },
+                    complete: function () {
+                        spinnerHide();
+                    }
+                });
+            }
+            else
+                errorNoty("Debe seleccionar un PauseCode válido.");
         });
 
         $('#BtnCampaignCall').click(function () {
