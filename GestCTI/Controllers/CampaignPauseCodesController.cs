@@ -80,13 +80,10 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.CampaignPauseCodes.FirstOrDefault(p => p.IdCampaign == campaignPauseCodes.IdCampaign && p.IdPauseCode == campaignPauseCodes.IdPauseCode) == null)
-                {
-                    db.Entry(campaignPauseCodes).State = EntityState.Modified;
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }
-                //Notificar: El pauseCode campaignPauseCodes.PauseCodes.Name ya existe en la campaña campaignPauseCodes.Campaign.Name
+                
+                db.Entry(campaignPauseCodes).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", campaignPauseCodes.IdCampaign);
             ViewBag.IdPauseCode = new SelectList(db.PauseCodes, "Id", "Name", campaignPauseCodes.IdPauseCode);
