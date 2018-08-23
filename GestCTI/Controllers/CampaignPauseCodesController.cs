@@ -40,9 +40,13 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.CampaignPauseCodes.Add(campaignPauseCodes);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.CampaignPauseCodes.FirstOrDefault(p => p.IdCampaign == campaignPauseCodes.IdCampaign && p.IdPauseCode == campaignPauseCodes.IdPauseCode) == null)
+                {
+                    db.CampaignPauseCodes.Add(campaignPauseCodes);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                //Notificar: El pauseCode campaignPauseCodes.PauseCodes.Name ya existe en la campaña campaignPauseCodes.Campaign.Name
             }
 
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", campaignPauseCodes.IdCampaign);
@@ -76,9 +80,13 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(campaignPauseCodes).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.CampaignPauseCodes.FirstOrDefault(p => p.IdCampaign == campaignPauseCodes.IdCampaign && p.IdPauseCode == campaignPauseCodes.IdPauseCode) == null)
+                {
+                    db.Entry(campaignPauseCodes).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                //Notificar: El pauseCode campaignPauseCodes.PauseCodes.Name ya existe en la campaña campaignPauseCodes.Campaign.Name
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", campaignPauseCodes.IdCampaign);
             ViewBag.IdPauseCode = new SelectList(db.PauseCodes, "Id", "Name", campaignPauseCodes.IdPauseCode);

@@ -49,7 +49,7 @@ namespace GestCTI.Controllers
             var pauses = db.GetPauseCodes(username).ToList();
             var pausesdate = db.UserPauseCodes.Where(p => p.Users.Username == username && p.Date == System.DateTime.Today).ToList();
             for (int i = pauses.Count - 1; i >= 0; i--)
-                for (int j = 0; i < pausesdate.Count; j++)
+                for (int j = 0; j < pausesdate.Count; j++)
                 {
                     if (pausesdate[j].IdPauseCode == pauses[i].Id)
                     {
@@ -73,17 +73,20 @@ namespace GestCTI.Controllers
             }
             else
             {
-                pause.IdUser = db.Users.FirstOrDefault(p => p.Username == username).Id;
-                pause.IdPauseCode = pausecode;
-                pause.QuantDailyEvents = 1;
-                pause.Date = System.DateTime.Today;
-                db.UserPauseCodes.Add(pause);
+                UserPauseCodes userpause = new UserPauseCodes();
+                Users tempuser = db.Users.FirstOrDefault(p => p.Username == username);
+                userpause.IdUser = tempuser.Id;
+                userpause.IdPauseCode = pausecode;
+                userpause.QuantDailyEvents = 1;
+                userpause.Date = System.DateTime.Today;
+                db.UserPauseCodes.Add(userpause);
             }
             db.SaveChanges();
         }
 
         public JsonResult GetCampaignsByUser(string username) {
             db = new DBCTIEntities();
+            var res1 = db.GetCampaigns(username).ToList();
             var result = from camp in db.Campaign join skillCamp in db.CampaignSkills on camp.Id equals skillCamp.IdCampaign
                          join skillUser in db.UserSkill on skillCamp.IdSkill equals skillUser.IdSkill
                          join user in db.Users on skillUser.IdUser equals user.Id

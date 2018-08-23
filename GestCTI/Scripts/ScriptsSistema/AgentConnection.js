@@ -75,7 +75,7 @@ function printDisposition(vdn) {
             }
         },
         error: function () {
-            errorNoty("No se pudieron obtener los disposition para esta campaña.");
+            errorNoty("No se pudieron obtener los dispositions para esta campaña.");
         },
         complete: function () {
             spinnerHide();
@@ -115,15 +115,17 @@ function printCampaignsByUser() {
         url: "../Home/GetCampaignsByUser/",
         data: { username: User.Name },
         success: function (resp) {
-            if (notEmpty) {
+            if (notEmpty(resp)) {
                 select.append("<option selected value>" + Resources.SelectCampaign + "</option>");
                 for (var i in resp) {
                     select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
                 }
             }
+            else
+                infoNoty("El usuario no está vinculado a ninguna campaña.");
         },
         error: function () {
-            errorNoty("No se puedieron obtener las campañas del usuario.")
+            errorNoty("No se puedieron obtener las campañas del usuario.");
         },
         complete: function () {
             spinnerHide();
@@ -269,7 +271,9 @@ $(function () {
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-                
+
+                if (localStorage.getItem("IsCampaignCall")  == "true")   //si el agent asocio la llamada a una campaña
+                    printDisposition(eventArgs[9]);
                 localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
 
                 tempNoty('onCallExternalDelivered');
@@ -489,6 +493,7 @@ $(function () {
         });
 
         $("#doCallBtn").click(function () {
+            printCampaignsByUser();
             $('#modal-Campaigns').modal('show');            
         });
 
@@ -575,7 +580,7 @@ $(function () {
                 data: { username: User.Name, pausecode: pausecode },
                 success: function (resp) {
                     //cambio estado del agent a pause con su reason
-                    agent.server.sendPause(deviceId, pausecode)
+                    agent.server.sendPause(deviceId, pausecode);
                     $('#modal-PauseCodes').modal('hide');
                 },
                 error: function () {
@@ -593,6 +598,7 @@ $(function () {
                 var IdCampaign = $('#SelCampaigns').val();
                 localStorage.setItem('IsCampaignCall', 'true');
                 //cuando llega evento de llamada saliente cambiar localstorage.CallForSave
+                //en OnExternalCallDelivered
             }
             else
                 localStorage.setItem('IsCampaignCall', 'false');
