@@ -5,36 +5,31 @@
                 <h3>Seleccione una campaña para la llamada</h3>
             </div>
 
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <form id="formCampaign">
-                            <div class="form-horizontal">
-                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                                <div class="form-group">
-                                    <select class="form-control" id="SelCampaigns" style="height:45px" required></select>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-md-3" for="Active">No es de campaña</label>
-                                    <div class="col-md-9" style="padding-top: 5px">
-                                        <input type="checkbox" class="icheckbox" id="ChbCampaign"/>
-                                    </div>
-                                </div>
-
-                                <div class="form-group">
-                                    <div class="col-sm-offset-9 ">
-                                        <input type="submit" value=@Resources.Admin.Save class="btn btn-success" id="BtnCampaignCall" />
-                                    </div>
+            <form id="formCampaign" class="form-horizontal validar">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                            <div class="form-group">
+                                <select class="form-control" id="SelCampaigns" style="height:35px" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">No es de campaña</label>
+                                <div class="col-md-9" style="padding-top: 5px">
+                                    <input type="checkbox" class="icheckbox" id="ChbCampaign" />
                                 </div>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <div class="modal-footer">
+                    <div class="col-sm-offset-9">
+                        <input type="submit" value=@Resources.Agent.Call class="btn btn-success" id="BtnCampaignCall" />
+                    </div>
+                </div>
+            </form>
+
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-    $('#formCampaign').validate({});
-</script>
