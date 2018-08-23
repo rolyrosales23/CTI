@@ -80,7 +80,6 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                
                 db.Entry(campaignPauseCodes).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

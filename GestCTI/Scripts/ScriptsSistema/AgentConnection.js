@@ -68,6 +68,7 @@ function printDisposition(vdn) {
                     for (var i in resp) {
                         select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
                     }
+                    select.selectpicker('refresh');
                     localStorage.setItem('IsCampaignCall', 'true');
                 }
                 else {
@@ -79,6 +80,7 @@ function printDisposition(vdn) {
             },
             complete: function () {
                 select.removeAttr('disabled');
+                select.selectpicker('refresh');
             }
         });
     }
@@ -94,7 +96,7 @@ $('#SendCallDisposition').click(function () {
         $.ajax({
             url: "../Home/SaveCallDisposition/",
             type: "post",
-            data: { ucid: CallForSave.ucid, disposition: dispositionCamp, User: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
+            data: { ucid: CallForSave.ucid, disposition: dispositionCamp, username: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
             success: function (resp) {
                 successNoty("Llamada guardada correctamente!");
             },
@@ -121,6 +123,7 @@ function printCampaignsByUser() {
                 for (var i in resp) {
                     select.append("<option value='" + resp[i].Id + "'>" + resp[i].Name + "</option>");
                 }
+                select.selectpicker('refresh');
             }
             else
                 infoNoty("El usuario no está vinculado a ninguna campaña.");
@@ -200,22 +203,6 @@ $(function () {
             }
         }
     };
-
-    /*    agent.client.resultHoldConnections = function (response) {
-            spinnerHide();
-            if (response.length) {
-                //llenar select
-                var select = $('#transfer-modal select');
-                select.find('option').remove();
-                for (var i in response) {
-                    select.append(new Option(response[i].toDevice, response[i].ucid));
-                }
-                select.selectpicker('refresh');
-    
-                $('#transfer-modal').modal();
-            }
-        };
-    */
 
     agent.client.getAmReady = function (response) {
         json = JSON.parse(response);
@@ -452,6 +439,7 @@ $(function () {
                         for (var i in resp) {
                             select.append("<option value='" + resp[i].Value + "'>" + resp[i].Name + "</option>");
                         }
+                        select.selectpicker('refresh');
                         $('#modal-PauseCodes').modal('show');
                     }
                     else {
