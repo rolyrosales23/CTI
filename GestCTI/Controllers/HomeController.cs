@@ -86,7 +86,7 @@ namespace GestCTI.Controllers
 
         public JsonResult GetCampaignsByUser(string username) {
             db = new DBCTIEntities();
-            var result = db.GetCampaigns(username).ToList();
+            var result = from p in db.GetCampaigns(username) select new { p.Id, p.Name };
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

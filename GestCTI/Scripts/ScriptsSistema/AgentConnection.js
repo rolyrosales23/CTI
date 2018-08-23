@@ -7,12 +7,11 @@
 };
 
 function pintarListaEspera(lista) {
-    if (notEmpty(lista)) {
-        var panel = $('#lista_espera');
-        panel.find('ul').remove();
+    var panel = $('#lista_espera');
+    panel.find('ul').remove();
 
-        if (lista.length)
-            panel.append("<ul class='list-unstyled'></ul>");
+    if (notEmpty(lista)) {
+        panel.append("<ul class='list-unstyled'></ul>");
 
         for (var i in lista) {
             var ind = Number(i) + 1;
@@ -49,7 +48,7 @@ function changeState(alias, enable) {
 function updateControlsState(list, enable = true) {
     var buttons = ['ready', 'pause', 'answer', 'hold', 'retrieve', 'transfer', 'conference', 'end_conference', 'hangout'];
     for (var alias in buttons)
-        changeState(alias, !enable);
+        changeState(buttons[alias], !enable);
 
     for (var i in list)
         changeState(list[i], enable);
@@ -127,7 +126,7 @@ function printCampaignsByUser() {
                 infoNoty("El usuario no está vinculado a ninguna campaña.");
         },
         error: function () {
-            errorNoty("No se puedieron obtener las campañas del usuario.");
+            errorNoty("No se pudieron obtener las campañas del usuario.");
         },
         complete: function () {
             spinnerHide();
@@ -274,7 +273,7 @@ $(function () {
             case 'onCallExternalDelivered':
                 changeState('inputPhone', false);
                 changeState('doCallBtn', false);
-                changeState('answer', true);
+                //changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
@@ -340,6 +339,7 @@ $(function () {
             case 'onEndConnection':
                 localStorage.removeItem('activeCall');
                 changeState('hangout', false);
+                changeState('hold', false);
                 changeState('pause', true);
 
                 if (localStorage.getItem('IsCampaignCall')  == 'true') {
@@ -499,7 +499,7 @@ $(function () {
 
         $("#doCallBtn").click(function () {
             printCampaignsByUser();
-            $('#modal-Campaigns').modal('show');            
+            $('#modal-Campaigns').modal();            
         });
 
         $("#doHoldConnection").click(function () {
@@ -607,6 +607,7 @@ $(function () {
             else
                 localStorage.setItem('IsCampaignCall', 'false');
 
+            $('#modal-Campaigns').modal('hide');
             var toDevice = $('#inputPhone').val();
             if (notEmpty(deviceId) && notEmpty(toDevice)) {
                 agent.server.sendCTIMakeCallRequest(deviceId, toDevice, "*99");
