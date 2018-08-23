@@ -47,20 +47,6 @@ namespace GestCTI.Controllers
         {
             db = new DBCTIEntities();
             var pauses = db.GetPauseCodes(username).ToList();
-            var pausesdate = db.UserPauseCodes.Where(p => p.Users.Username == username && p.Date == System.DateTime.Today).ToList();
-            for (int i = pauses.Count - 1; i >= 0; i--)
-                for (int j = 0; j < pausesdate.Count; j++)
-                {
-                    if (pausesdate[j].IdPauseCode == pauses[i].Id)
-                    {
-                        if (pausesdate[j].QuantDailyEvents >= pauses[i].MaxDailyEvents)
-                        {
-                            pauses.RemoveAt(i);
-                        }
-                        break;
-                    }
-                }
-
             return Json(pauses, JsonRequestBehavior.AllowGet);
         }
 
@@ -86,7 +72,7 @@ namespace GestCTI.Controllers
 
         public JsonResult GetCampaignsByUser(string username) {
             db = new DBCTIEntities();
-            var result = db.GetCampaigns(username).ToList();
+            var result = from p in db.GetCampaigns(username) select new { p.Id, p.Name };
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }

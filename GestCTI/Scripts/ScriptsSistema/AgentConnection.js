@@ -127,7 +127,7 @@ function printCampaignsByUser() {
                 infoNoty("El usuario no está vinculado a ninguna campaña.");
         },
         error: function () {
-            errorNoty("No se puedieron obtener las campañas del usuario.");
+            errorNoty("No se pudieron obtener las campañas del usuario.");
         },
         complete: function () {
             spinnerHide();
