@@ -57,12 +57,12 @@
                 errorNoty('El sistema ha actualizado el estado del usuario ' + user + '. Intente nuevamente.');
             }
             else {*/
-                // Show error
-                spinnerHide();
-                var error = localStorage.getItem('error');
-                localStorage.removeItem('error');
-                errorNoty('Error ' + error);
-           // }
+            // Show error
+            spinnerHide();
+            var error = localStorage.getItem('error');
+            localStorage.removeItem('error');
+            errorNoty('Error ' + error);
+            // }
         }
     };
 
@@ -72,6 +72,7 @@
             console.log("Login Core sucess");
             // Save deviceId
             localStorage.setItem('deviceId', $("#LoginPhoneExtension").val());
+            localStorage.setItem('user', $("#LoginUsername").val());
             // agent.server.stop();
             $("#LogInForm").submit().done(function () {
                 spinnerHide();
@@ -95,12 +96,15 @@
 
     function runRoleSupervisor() {
         var phone = $("#LoginPhoneExtension").val();
-        var user = $("#LoginUsername").val()
+        var user = $("#LoginUsername").val();
         if (notEmpty(phone) && notEmpty(user)) {
             agent.server.initilizeSupervisorDevice(phone, user);
         } else {
+            localStorage.setItem('user', user);
             $("#LogInForm").submit().done(function () {
                 spinnerHide();
+            }).fail(function () {
+                errorNoty("Error to login Supervisor");
             });
         }
     }
