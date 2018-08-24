@@ -37,7 +37,7 @@ namespace GestCTI.Core.Message
                     try
                     {
                         CTIErrorResponse response = JsonConvert.DeserializeObject<CTIErrorResponse>(message);
-                        client.Notification(success + response.result, "error");
+                        client.Notification(response.result, "error");
                     }
                     catch (Exception) {
                         client.Notification("DESZERIALIZE ERROR: " + message, "error");
