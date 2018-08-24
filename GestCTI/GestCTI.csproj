@@ -251,6 +251,7 @@
     <Compile Include="Controllers\DispositionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PauseCodesController.cs" />
+    <Compile Include="Controllers\WebServiceController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
     <Compile Include="Core\Service\ServiceCoreHttp.cs" />
     <Compile Include="Core\Util\Call.cs" />
