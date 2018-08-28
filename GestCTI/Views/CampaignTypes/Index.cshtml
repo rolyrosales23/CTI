@@ -23,30 +23,32 @@
                 @Html.ActionLink(Resources.Admin.ActionCreateNew, "Create", null, new { @class = "fa fa-plus" })
             </h3>
             <table class="table Mydatatable" id="tabla-index">
-                <tr>
-                    <th>
-                        @Resources.Admin.Name
-                    </th>
-                    <th></th>
-                    <th></th>
-                </tr>
-
-                @foreach (var item in Model)
-                {
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
-                        </td>
-                        <td>
-                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
-
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "CampaignTypes" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Admin.CampaignType + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
-                        </td>
+                        <th>
+                            @Resources.Admin.Name
+                        </th>
+                        <th></th>
+                        <th></th>
                     </tr>
-                }
+                </thead>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+                            </td>
+                            <td>
+                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "CampaignTypes" }, { "Menssage", Resources.Admin.QuestionDeleteM + " " + Resources.Admin.CampaignType + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
+                            </td>
+                        </tr>
+                    }
 
             </table>
         </div>
