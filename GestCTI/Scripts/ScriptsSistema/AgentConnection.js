@@ -176,9 +176,10 @@ $(function () {
         var response = JSON.parse(message);
         if (response['success'])
             for (var i in response.result) {
+                var deviceId = localStorage.getItem('deviceId');
                 var call = response.result[i];
                 if (!enEspera(call, holdList))
-                    localStorage.setItem('activeCall', JSON.stringify({ 'ucid': call[1], 'deviceId': '' }));
+                    localStorage.setItem('activeCall', JSON.stringify({ 'ucid': call[1], 'deviceId': deviceId }));
             }
 
         spinnerHide();
@@ -377,8 +378,15 @@ $(function () {
 
             case 'onAgentChangedState': {
                 var agentState = eventArgs[1];
-                if (agentState == AgentState.AS_READY)
+                if (agentState == AgentState.AS_READY) {
                     updateControlsState(['pause']);
+
+                    var timeout_id = localStorage.getItem('timeout_id');
+                    if (notEmpty(timeout_id)) {
+                        clearTimeout(timeout_id);
+                        localStorage.removeItem('timeout_id');
+                    }
+                }
                 else
                     updateControlsState(['ready']);
 
@@ -437,7 +445,7 @@ $(function () {
                     if (notEmpty(resp)) {
                         select.append("<option selected value>" + Resources.SelectPauseCode + "</option>");
                         for (var i in resp) {
-                            select.append("<option value='" + resp[i].Value + "'>" + resp[i].Name + "</option>");
+                            select.append("<option value='" + resp[i].Value + "' data-duration='" + resp[i].MaxDuration + "' data-id='" + resp[i].Id + "' data-auto='" + resp[i].AutoReady + "'>" + resp[i].Name + "</option>");
                         }
                         select.selectpicker('refresh');
                         $('#modal-PauseCodes').modal('show');
@@ -565,17 +573,30 @@ $(function () {
         });
 
         $('#SendPauseCode').click(function () {
-            var pausecode = $('#SelPauseCodes').val();
+            var reason   = $('#SelPauseCodes').val();
+            var id       = $('#SelPauseCodes option:selected').data('id');
+            var duration = $('#SelPauseCodes option:selected').data('duration');
+            var auto     = $('#SelPauseCodes option:selected').data('auto');
+
             if (notEmpty(pausecode)) {
                 spinnerShow();
                 $.ajax({
                     url: "../Home/SavePauseCodeUser/",
                     type: "post",
-                    data: { username: User.Name, pausecode: pausecode },
+                    data: { username: User.Name, pausecode: id },
                     success: function (resp) {
-                        //cambio estado del agent a pause con su reason
-                        agent.server.sendPause(deviceId, pausecode);
                         $('#modal-PauseCodes').modal('hide');
+                        var timeout_id = setTimeout(
+                            function () {
+                                if (auto)
+                                    $('#ReadyToWork').trigger('click');
+                                else
+                                    $('#LogOutCore').trigger('click');
+                            },
+                            duration * 1000
+                        );
+                        localStorage.setItem('timeout_id', timeout_id);
+                        agent.server.sendPause(deviceId, reason);
                     },
                     error: function () {
                         errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
