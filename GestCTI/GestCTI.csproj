@@ -1925,6 +1925,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ScriptsSistema\AgentConnection.js" />
+    <Content Include="Scripts\ScriptsSistema\PauseCounter.js" />
     <Content Include="Scripts\ScriptsSistema\SupervisorConnection-v0.0.1.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
     <Content Include="Scripts\ScriptsSistema\Login.js" />
