@@ -285,4 +285,7 @@
   <data name="QuestionDeactivateM" xml:space="preserve">
     <value>Are you sure you want to deactivate</value>
   </data>
+  <data name="Types" xml:space="preserve">
+    <value>Types</value>
+  </data>
 </root>

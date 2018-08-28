@@ -578,7 +578,7 @@ $(function () {
             var duration = $('#SelPauseCodes option:selected').data('duration');
             var auto     = $('#SelPauseCodes option:selected').data('auto');
 
-            if (notEmpty(pausecode)) {
+            if (notEmpty(id)) {
                 spinnerShow();
                 $.ajax({
                     url: "../Home/SavePauseCodeUser/",
@@ -588,10 +588,14 @@ $(function () {
                         $('#modal-PauseCodes').modal('hide');
                         var timeout_id = setTimeout(
                             function () {
-                                if (auto)
+                                if (auto) {
                                     $('#ReadyToWork').trigger('click');
-                                else
+                                    infoNoty("Ha concluido el tiempo en pausa. Se le pondrá en \"Listo\" automáticamente.", {timeout: null});
+                                }
+                                else {
                                     $('#LogOutCore').trigger('click');
+                                    infoNoty("Ha concluido el tiempo en pausa. Será deslogueado automáticamente.", {timeout: null});
+                                }
                             },
                             duration * 1000
                         );
