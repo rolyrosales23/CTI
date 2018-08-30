@@ -63,7 +63,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,IdCompany")] Campaign campaign)
+        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
@@ -99,7 +99,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,IdCompany")] Campaign campaign)
+        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {

@@ -26,6 +26,7 @@
           <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="IdType" Type="int" Nullable="false" />
           <Property Name="IdCompany" Type="int" Nullable="false" />
+          <Property Name="UrlScript" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="CampaignPauseCodes">
           <Key>
@@ -680,6 +681,7 @@
           <NavigationProperty Name="CampaignType" Relationship="DBCTIModel.FK_Campaing_CampaingType" FromRole="Campaign" ToRole="CampaignType" />
           <NavigationProperty Name="CampaignPauseCodes" Relationship="DBCTIModel.FK_CampaignPauseCodes_Campaign" FromRole="Campaign" ToRole="CampaignPauseCodes" />
           <NavigationProperty Name="DispositionCampaigns" Relationship="DBCTIModel.FK_DispositionCampaigns_Campaign" FromRole="Campaign" ToRole="DispositionCampaigns" />
+          <Property Name="UrlScript" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="CampaignSkills">
           <Key>
@@ -1072,6 +1074,7 @@
           <EntitySetMapping Name="Campaign">
             <EntityTypeMapping TypeName="DBCTIModel.Campaign">
               <MappingFragment StoreEntitySet="Campaign">
+                <ScalarProperty Name="UrlScript" ColumnName="UrlScript" />
                 <ScalarProperty Name="IdCompany" ColumnName="IdCompany" />
                 <ScalarProperty Name="IdType" ColumnName="IdType" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

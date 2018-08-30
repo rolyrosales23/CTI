@@ -28,6 +28,7 @@ namespace GestCTI.Models
         public string Name { get; set; }
         public int IdType { get; set; }
         public int IdCompany { get; set; }
+        public string UrlScript { get; set; }
     
         public virtual Company Company { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

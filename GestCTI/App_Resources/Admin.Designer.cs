@@ -592,6 +592,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Script Url.
+        /// </summary>
+        public static string UrlScript {
+            get {
+                return ResourceManager.GetString("UrlScript", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Locations.
         /// </summary>
         public static string UserLocation {
