@@ -312,4 +312,7 @@
   <data name="Generals" xml:space="preserve">
     <value>generals</value>
   </data>
+  <data name="UrlScript" xml:space="preserve">
+    <value>Script Url</value>
+  </data>
 </root>
