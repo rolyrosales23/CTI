@@ -49,6 +49,7 @@ namespace GestCTI.Controllers
         {
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value");
             return View();
         }
 
@@ -57,14 +58,34 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users)
+        public ActionResult Create([Bind(Include = "Id,Username,Password,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users, int[] IdSkill)
         {
             if (ModelState.IsValid)
             {
-                users.Password = Seguridad.EncryptMD5(users.Password);
-                db.Users.Add(users);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (db.Users.FirstOrDefault(p => p.Username == users.Username) == null)
+                {
+                    users.Password = Seguridad.EncryptMD5(users.Password);
+                    db.Users.Add(users);
+                    db.SaveChanges();
+                    if (users.Role == "agent")
+                    {
+                        int idUser = db.Users.FirstOrDefault(p => p.Username == users.Username).Id;
+                        if (IdSkill != null)
+                        {
+                            for (int i = 0; i < IdSkill.Count(); i++)
+                            {
+                                UserSkill newskill = new UserSkill();
+                                newskill.IdSkill = IdSkill[i];
+                                newskill.IdUser = idUser;
+                                db.UserSkill.Add(newskill);
+                            }
+                            db.SaveChanges();
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+                else
+                    TempData["MsjError"] = "Ya existe un usuario con ese username";
             }
 
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
@@ -86,6 +107,8 @@ namespace GestCTI.Controllers
             }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            var skills = from s in db.Skills join us in db.UserSkill on s.Id equals us.IdSkill where us.IdUser == id select s.Id;
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", skills);
             return View(users);
         }
 
@@ -94,25 +117,51 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Username,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany,Active")] Users users)
+        public ActionResult Edit([Bind(Include = "Id,Username,email,FirstName,MiddleName,LastName,Role,IdLocation,IdCompany, IdSkill, Active")] Users users, int[] IdSkill)
         {
             if (ModelState.IsValid)
             {
-                Users temp_User = db.Users.Find(users.Id);
-                temp_User.Username = users.Username;
-                temp_User.email = users.email;
-                temp_User.FirstName = users.FirstName;
-                temp_User.MiddleName = users.MiddleName;
-                temp_User.LastName = users.LastName;
-                temp_User.Role = users.Role;
-                temp_User.IdLocation = users.IdLocation;
-                temp_User.IdCompany = users.IdCompany;
-                temp_User.Active = users.Active;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (db.Users.FirstOrDefault(p => p.Username == users.Username) == null)
+                { 
+                    Users temp_User = db.Users.Find(users.Id);
+                    temp_User.Username = users.Username;
+                    temp_User.email = users.email;
+                    temp_User.FirstName = users.FirstName;
+                    temp_User.MiddleName = users.MiddleName;
+                    temp_User.LastName = users.LastName;
+                    temp_User.Role = users.Role;
+                    temp_User.IdLocation = users.IdLocation;
+                    temp_User.IdCompany = users.IdCompany;
+                    temp_User.Active = users.Active;
+
+                    List<UserSkill> actual = db.UserSkill.Where(p => p.IdUser == users.Id).ToList();
+                    if (users.Role == "agent")
+                    {
+                        if (IdSkill != null)
+                            for (int i = 0; i < IdSkill.Count(); i++)
+                            {
+                                if (actual.FirstOrDefault(p => p.IdSkill == IdSkill[i]) != null)
+                                    actual.RemoveAll(p => p.IdSkill == IdSkill[i]);
+                                else
+                                {
+                                    UserSkill newskill = new UserSkill();
+                                    newskill.IdSkill = IdSkill[i];
+                                    newskill.IdUser = users.Id;
+                                    db.UserSkill.Add(newskill);
+                                }
+                            }
+                    }
+                    for (int i = 0; i < actual.Count(); i++)
+                        db.UserSkill.Remove(actual[i]);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                else
+                    TempData["MsjError"] = "Ya existe un usuario con ese username";
+        }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
             return View(users);
         }
 
