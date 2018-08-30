@@ -288,4 +288,19 @@
   <data name="Types" xml:space="preserve">
     <value>Tipos</value>
   </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="NotDispositions" xml:space="preserve">
+    <value>(No tiene disposiciones asociadas.)</value>
+  </data>
+  <data name="NotPauseCodes" xml:space="preserve">
+    <value>(No tiene códigos de pausa asociados.)</value>
+  </data>
+  <data name="NotVDN" xml:space="preserve">
+    <value>(No tiene VDNs asociados.)</value>
+  </data>
+  <data name="NotSkills" xml:space="preserve">
+    <value>(No tiene habilidades asociadas.)</value>
+  </data>
 </root>

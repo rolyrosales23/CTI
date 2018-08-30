@@ -358,11 +358,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated dispositions.).
+        /// </summary>
+        public static string NotDispositions {
+            get {
+                return ResourceManager.GetString("NotDispositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated pause codes.).
+        /// </summary>
+        public static string NotPauseCodes {
+            get {
+                return ResourceManager.GetString("NotPauseCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated skills.).
+        /// </summary>
+        public static string NotSkills {
+            get {
+                return ResourceManager.GetString("NotSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated VDNs.).
+        /// </summary>
+        public static string NotVDN {
+            get {
+                return ResourceManager.GetString("NotVDN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to of.
         /// </summary>
         public static string OfF {
             get {
                 return ResourceManager.GetString("OfF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
             }
         }
         

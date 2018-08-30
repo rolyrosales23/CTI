@@ -36,6 +36,11 @@ namespace GestCTI.Controllers
             {
                 return HttpNotFound();
             }
+
+            ViewBag.skills = (from s in db.Skills
+                              join us in db.UserSkill on s.Id equals us.IdSkill
+                              where us.IdUser == id
+                              select us).ToList();
             return View(users);
         }
 
@@ -153,6 +158,17 @@ namespace GestCTI.Controllers
                 return RedirectToAction("Index");
             }
             return View(users);
+        }
+
+        // POST: Users/DeleteSkill/5
+        [HttpPost, ActionName("DeleteSkill")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSkillConfirmed(int id)
+        {
+            UserSkill us = db.UserSkill.Find(id);
+            db.UserSkill.Remove(us);
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

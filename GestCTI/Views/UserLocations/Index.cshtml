@@ -27,8 +27,9 @@
                         <th>
                             @Resources.Admin.Name
                         </th>
-                        <th></th>
-                        <th></th>
+                        <th>
+                            @Resources.Admin.Options
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -40,8 +41,7 @@
                             </td>
                             <td>
                                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
-                            </td>
-                            <td>
+
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
                                 @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "UserLocations" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Location + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
