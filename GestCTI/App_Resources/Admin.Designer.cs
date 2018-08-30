@@ -205,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Control Panel.
+        /// </summary>
+        public static string ControlPanel {
+            get {
+                return ResourceManager.GetString("ControlPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Added by.
         /// </summary>
         public static string CretedBy {

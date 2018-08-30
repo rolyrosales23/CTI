@@ -303,4 +303,7 @@
   <data name="NotSkills" xml:space="preserve">
     <value>(Does not have associated skills.)</value>
   </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
 </root>
