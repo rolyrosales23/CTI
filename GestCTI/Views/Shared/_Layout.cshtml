@@ -85,13 +85,13 @@
                         </ul>
                     </li>
 
-                    <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span>@Resources.Admin.Users</a></li>
-                    <li action="index" controller="skills"><a href="@Url.Action("Index", "Skills")"><span class="fa fa-star"></span>@Resources.Admin.Skills</a></li>
-                    <li action="index" controller="pausecodes"><a href="@Url.Action("Index", "PauseCodes")"><span class="fa fa-pause"></span>@Resources.Admin.PauseCodes</a></li>
-                    <li action="index" controller="dispositions"><a href="@Url.Action("Index", "Dispositions")"><span class="glyphicon glyphicon-saved"></span>@Resources.Admin.Dispositions</a></li>
-                    <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="fa fa-building-o"></span>@Resources.Admin.Companies</a></li>
-                    <li action="index" controller="switches"><a href="@Url.Action("Index", "Switches")"><span class="fa fa-sitemap"></span>Switches</a></li>
-                    <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="fa fa-map-marker"></span>@Resources.Admin.UserLocation</a></li>
+                    <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span> <span class="xn-text">@Resources.Admin.Users</span></a></li>
+                    <li action="index" controller="skills"><a href="@Url.Action("Index", "Skills")"><span class="fa fa-star"></span> <span class="xn-text">@Resources.Admin.Skills</span></a></li>
+                    <li action="index" controller="pausecodes"><a href="@Url.Action("Index", "PauseCodes")"><span class="fa fa-pause"></span> <span class="xn-text">@Resources.Admin.PauseCodes</span></a></li>
+                    <li action="index" controller="dispositions"><a href="@Url.Action("Index", "Dispositions")"><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.Dispositions</span></a></li>
+                    <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="fa fa-building-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a></li>
+                    <li action="index" controller="switches"><a href="@Url.Action("Index", "Switches")"><span class="fa fa-sitemap"></span> <span class="xn-text">Switches</span></a></li>
+                    <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="fa fa-map-marker"></span> <span class="xn-text">@Resources.Admin.UserLocation</span></a></li>
                 <!-- END MENU ADMISTRATOR -->
                 }
                 else if (this.User.IsInRole("agent"))
