@@ -1,9 +1,5 @@
 ﻿function startCounter(container, duration) {
-    $(container).css('display', 'block');
-
     var x = setInterval(function () {
-        localStorage.setItem('pause_interval_id', x);
-
         // Time calculations for days, hours, minutes and seconds
         var days = Math.floor(duration / (60 * 60 * 24));
         var hours = Math.floor((duration % (60 * 60 * 24)) / (60 * 60));
@@ -24,8 +20,11 @@
         $(container + " span").html(time);
         duration--;
        
-        if (duration <= 0)
+        if (duration < 0)
             clearInterval(x);
+
+        $(container).css('display', 'block');
+        localStorage.setItem('pause_interval_id', x);
     }, 1000);
 }
 

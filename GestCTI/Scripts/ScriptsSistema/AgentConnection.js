@@ -588,6 +588,7 @@ $(function () {
                         $('#modal-PauseCodes').modal('hide');
                         var timeout_id = setTimeout(
                             function () {
+                                stopCounter('#pause-counter');
                                 if (auto) {
                                     $('#ReadyToWork').trigger('click');
                                     infoNoty("Ha concluido el tiempo en pausa. Se le pondrá en \"Listo\" automáticamente.", {timeout: null});
@@ -599,6 +600,7 @@ $(function () {
                             },
                             duration * 1000
                         );
+                        startCounter('#pause-counter', duration);
                         localStorage.setItem('timeout_id', timeout_id);
                         agent.server.sendPause(deviceId, reason);
                     },
