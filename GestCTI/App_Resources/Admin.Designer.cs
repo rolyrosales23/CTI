@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to by campaign.
+        /// </summary>
+        public static string ByCampaign {
+            get {
+                return ResourceManager.GetString("ByCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Campaign.
         /// </summary>
         public static string Campaign {
@@ -300,6 +309,15 @@ namespace Resources {
         public static string FirstName {
             get {
                 return ResourceManager.GetString("FirstName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to generals.
+        /// </summary>
+        public static string Generals {
+            get {
+                return ResourceManager.GetString("Generals", resourceCulture);
             }
         }
         

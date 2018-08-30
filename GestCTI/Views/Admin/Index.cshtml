@@ -20,7 +20,7 @@
                     <span class="fa fa-inbox"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.CampaingsCount</div>
                     <div class="widget-title" style="font-size: 2em">@Resources.Admin.Campaigns</div>
                 </div>
             </div>
@@ -39,8 +39,8 @@
                             <span class="glyphicon glyphicon-filter"></span>
                         </div>
                         <div class="widget-data">
-                            <div class="widget-int num-count">6,953</div>
-                            <div class="widget-title">@Resources.Admin.Types</div>
+                            <div class="widget-int num-count">@ViewBag.CampaignTypesCount</div>
+                            <div class="widget-title">@Resources.Admin.CampaignTypes</div>
                         </div>
                     </div>
                 </a>
@@ -53,8 +53,9 @@
                             <span class="fa fa-columns"></span>
                         </div>
                         <div class="widget-data">
-                            <div class="widget-int num-count">6,953</div>
+                            <div class="widget-int num-count">@ViewBag.CampaignPauseCodesCount</div>
                             <div class="widget-title">@Resources.Admin.PauseCodes</div>
+                            <div class="widget-subtitle">@Resources.Admin.ByCampaign</div>
                         </div>
                     </div>
                 </a>
@@ -67,8 +68,9 @@
                             <span class="fa fa-check-square-o"></span>
                         </div>
                         <div class="widget-data">
-                            <div class="widget-int num-count">6,953</div>
+                            <div class="widget-int num-count">@ViewBag.DispositionCampaignsCount</div>
                             <div class="widget-title">@Resources.Admin.Dispositions</div>
+                            <div class="widget-subtitle">@Resources.Admin.ByCampaign</div>
                         </div>
                     </div>
                 </a>
@@ -81,7 +83,7 @@
                             <span class="fa fa-tags"></span>
                         </div>
                         <div class="widget-data">
-                            <div class="widget-int num-count">6,953</div>
+                            <div class="widget-int num-count">@ViewBag.VDNsCount</div>
                             <div class="widget-title">VDNs</div>
                         </div>
                     </div>
@@ -102,7 +104,7 @@
                     <span class="fa fa-users"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.UsersCount</div>
                     <div class="widget-title">@Resources.Admin.Users</div>
                 </div>
             </div>
@@ -116,7 +118,7 @@
                     <span class="fa fa-star"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.SkillsCount</div>
                     <div class="widget-title">@Resources.Admin.Skills</div>
                 </div>
             </div>
@@ -130,8 +132,9 @@
                     <span class="fa fa-pause"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.PauseCodesCount</div>
                     <div class="widget-title">@Resources.Admin.PauseCodes</div>
+                    <div class="widget-subtitle">@Resources.Admin.Generals</div>
                 </div>
             </div>
         </a>
@@ -144,8 +147,9 @@
                     <span class="glyphicon glyphicon-saved"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.DispositionsCount</div>
                     <div class="widget-title">@Resources.Admin.Dispositions</div>
+                    <div class="widget-subtitle">@Resources.Admin.Generals</div>
                 </div>
             </div>
         </a>
@@ -160,7 +164,7 @@
                     <span class="fa fa-building-o"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.CompaniesCount</div>
                     <div class="widget-title">@Resources.Admin.Companies</div>
                 </div>
             </div>
@@ -174,7 +178,7 @@
                     <span class="fa fa-sitemap"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.SwitchesCount</div>
                     <div class="widget-title">Switches</div>
                 </div>
             </div>
@@ -188,7 +192,7 @@
                     <span class="fa fa-map-marker"></span>
                 </div>
                 <div class="widget-data">
-                    <div class="widget-int num-count">6,953</div>
+                    <div class="widget-int num-count">@ViewBag.UserLocationsCount</div>
                     <div class="widget-title">@Resources.Admin.UserLocation</div>
                 </div>
             </div>

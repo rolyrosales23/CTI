@@ -306,4 +306,10 @@
   <data name="ControlPanel" xml:space="preserve">
     <value>Panel de Control</value>
   </data>
+  <data name="ByCampaign" xml:space="preserve">
+    <value>por campañas</value>
+  </data>
+  <data name="Generals" xml:space="preserve">
+    <value>generales</value>
+  </data>
 </root>
