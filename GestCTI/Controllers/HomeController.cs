@@ -77,5 +77,16 @@ namespace GestCTI.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
+
+        public String GetUrlScriptByVDN(string vdn)
+        {
+            db = new DBCTIEntities();
+            var result = from c in db.Campaign
+                         join v in db.VDN on c.Id equals v.IdCampaign
+                         where v.Value == vdn
+                         select c.UrlScript;
+
+            return result.FirstOrDefault();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,8 +12,18 @@ namespace GestCTI.Controllers
         // GET: Scripts
         public ActionResult Display(String id, String data)
         {
-            ViewBag.data = data;
-            return View(id, (object) data);
+            if (data != null && data != "null")
+            {
+                JObject json = JObject.Parse(data);
+
+                IEnumerator<KeyValuePair<string, JToken>> e = json.GetEnumerator();
+                while (e.MoveNext())
+                {
+                    ViewData.Add(e.Current.Key, e.Current.Value);
+                }
+            }
+
+            return View(id);
         }
     }
 }
