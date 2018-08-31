@@ -31,32 +31,32 @@
                         @Html.HiddenFor(model => model.Id)
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-3", style = "font-size:small; font-weight: bold" })
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "font-size:small" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.WebSocketIP, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.WebSocketIP, htmlAttributes: new { @class = "control-label col-md-3", style = "font-size:small; font-weight: bold" })
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.WebSocketIP, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.WebSocketIP, new { htmlAttributes = new { @class = "form-control", style = "font-size:small" } })
                                 @Html.ValidationMessageFor(model => model.WebSocketIP, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            @Html.LabelFor(model => model.ApiServerIP, htmlAttributes: new { @class = "control-label col-md-3" })
+                            @Html.LabelFor(model => model.ApiServerIP, htmlAttributes: new { @class = "control-label col-md-3", style = "font-size:small; font-weight: bold" })
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.ApiServerIP, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.ApiServerIP, new { htmlAttributes = new { @class = "form-control", style = "font-size:small" } })
                                 @Html.ValidationMessageFor(model => model.ApiServerIP, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-9 ">
-                                <input type="submit" value=@Resources.Admin.Save class="btn btn-success btn-block" />
+                                <input type="submit" value=@Resources.Admin.Save class="btn btn-success btn-block" style="font-size:medium" />
                             </div>
                         </div>
                     </div>
