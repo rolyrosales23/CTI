@@ -74,7 +74,7 @@
                         <dd>
                             @if (ViewBag.pausecodes.Count > 0)
                             {
-                                <table class="table Mydatatable" id="tabla-index" style="width:100%">
+                                <table class="table" id="tabla-index" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>
@@ -117,10 +117,24 @@
                                                 @item.MaxDailyEvents
                                             </td>
                                             <td>
-                                                @item.AutoReady
+                                                @if (item.AutoReady)
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox" checked="checked">
+                                                }
+                                                else
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox">
+                                                }
                                             </td>
                                             <td>
-                                                @item.Active
+                                                @if (item.Active)
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox" checked= "checked" >
+                                                }
+                                                else
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox">
+                                                }
                                             </td>
                                             <td>
                                                 @Html.ActionLink(" ", "Edit", "CampaignPauseCodes", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
@@ -147,7 +161,7 @@
                         <dd>
                             @if (ViewBag.dispositions.Count > 0)
                             {
-                                <table class="table Mydatatable" id="tabla-index" style="width:100%">
+                                <table class="table" style="width:100%">
                                 <thead>
                                     <tr>
                                         <th>
@@ -175,7 +189,14 @@
                                             @item.Description
                                         </td>
                                         <td>
-                                            @item.Active
+                                            @if (item.Active)
+                                            {
+                                                <input class="check-box" disabled="disabled" type="checkbox" checked="checked">
+                                            }
+                                            else
+                                            {
+                                                <input class="check-box" disabled="disabled" type="checkbox">
+                                            }
                                         </td>
                                         <td>
                                             @Html.ActionLink(" ", "Edit","DispositionCampaigns", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
@@ -202,7 +223,7 @@
                         <dd>
                             @if (ViewBag.vdns.Count > 0)
                             {
-                                <table class="table Mydatatable" id="tabla-index" style="width:100%">
+                                <table class="table" style="width:100%">
                                     <thead>
                                         <tr>
                                             <th>
