@@ -37,9 +37,9 @@ function pintarAgentList(agents, selector) {
 
             var buttom = "";
             if (flag === "true") {
-                var btn1 = '<button type="button" onclick="listener(' + agents[i].CurrentUCID + ')">listener</button>'; 
+                var btn1 = '<button type="button" onclick="listener(' + agents[i].CurrentUCID + ')">listener</button>';
                 var btn2 = '<button type="button" onclick="whisper(' + agents[i].CurrentUCID + ',' + agents[i].DeviceId + ')">whisper</button>';
-                buttom = '<td><div class="row"><div class="col-md-6">' + btn1 + '</div><div class="col-md-6">' + btn2  + '</div></div></td>';
+                buttom = '<td><div class="row"><div class="col-md-6">' + btn1 + '</div><div class="col-md-6">' + btn2 + '</div></div></td>';
             } else {
                 var btn = '<button type="button" onclick="makeCall(' + agents[i].DeviceId + ')">call</button>';
                 buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
@@ -206,7 +206,13 @@ $(function () {
         // do something
     };
 
-    
+    agent.client.addCTIMakeCallRequest = function (response) {
+        addCTIMakeCallRequest(response);
+    }
+
+    agent.client.receiveAcceptCallRequest = function (response) {
+        receiveAcceptCallRequest(response);
+    } 
 
     // Start the connection.
     $.connection.hub.start().done(function () {
@@ -257,6 +263,21 @@ $(function () {
         $('#get-queue-call-list').click(function () {
             showListOfQueueCalls();
         });
+        
+        $("#acceptCallRequest").click(acceptCallRequest(agent));
+
+        $("#hangoutCallRequest").click(hangoutCallRequest(agent));
+
+        $("#doHoldConnection").click(doHoldConnection(agent));
+
+        $('#doTransfer').click(doTransfer(agent));
+
+        $('#doRetrieve').click(doRetrieve(agent));
+
+        $('#doConference').click(doConference(agent));
+
+        $('#doEndConference').click(endCall(agent));
+
         $('#LogOutCore').click(function () {
             var deviceId = localStorage.getItem('deviceId');
             if (notEmpty(deviceId)) {
