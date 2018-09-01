@@ -85,7 +85,7 @@ namespace GestCTI.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                    TempData["MsjError"] = "Ya existe un usuario con ese username";
+                    TempData["MsjError"] = Resources.Admin.ExistUsername;
             }
 
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
@@ -157,7 +157,7 @@ namespace GestCTI.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                    TempData["MsjError"] = "Ya existe un usuario con ese username";
+                    TempData["MsjError"] = Resources.Admin.ExistUsername;
         }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);

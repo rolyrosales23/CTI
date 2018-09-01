@@ -1930,7 +1930,6 @@
     <Content Include="Scripts\ScriptsSistema\PauseCounter.js" />
     <Content Include="Scripts\ScriptsSistema\SupervisorConnection-v0.0.1.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
-    <Content Include="Scripts\ScriptsSistema\Login.js" />
     <Content Include="Scripts\ScriptsSistema\LogInCore.js" />
     <Content Include="Scripts\ScriptsSistema\notyTypes.js" />
     <Content Include="Scripts\ScriptsSistema\spinner.js" />

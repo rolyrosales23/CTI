@@ -46,7 +46,7 @@ namespace GestCTI.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                //Notificar: La disposition dispositionCampaigns.Dispositions.Name ya existe en la campaña dispositionCampaigns.Campaign.Name
+                TempData["MsjError"] = Resources.Admin.TheDisposition + " " + dispositionCampaigns.Dispositions.Name + " " + Resources.Admin.ExistIntheCampaign + " " + dispositionCampaigns.Campaign.Name;
             }
 
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositionCampaigns.IdCampaign);
@@ -88,7 +88,7 @@ namespace GestCTI.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                //Notificar: La disposition dispositionCampaigns.Dispositions.Name ya existe en la campaña dispositionCampaigns.Campaign.Name
+                TempData["MsjError"] = Resources.Admin.TheDisposition + " " + dispositionCampaigns.Dispositions.Name + " " + Resources.Admin.ExistIntheCampaign + " " + dispositionCampaigns.Campaign.Name;
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositionCampaigns.IdCampaign);
             ViewBag.IdDisposition = new SelectList(db.Dispositions, "Id", "Name", dispositionCampaigns.IdDisposition);

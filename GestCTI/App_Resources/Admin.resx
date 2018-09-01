@@ -318,4 +318,13 @@
   <data name="TimeSec" xml:space="preserve">
     <value>Time in seconds</value>
   </data>
+  <data name="ExistIntheCampaign" xml:space="preserve">
+    <value>already exists in campaign</value>
+  </data>
+  <data name="ExistUsername" xml:space="preserve">
+    <value>There is already a user with that username.</value>
+  </data>
+  <data name="TheDisposition" xml:space="preserve">
+    <value>The disposition</value>
+  </data>
 </root>

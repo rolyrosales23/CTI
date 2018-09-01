@@ -231,4 +231,19 @@
   <data name="NotUcid" xml:space="preserve">
     <value>Identificador de llamada (ucid) no especificado.</value>
   </data>
+  <data name="AuthDevice" xml:space="preserve">
+    <value>Debe autenticarse con un dispositivo .</value>
+  </data>
+  <data name="EnterUsername" xml:space="preserve">
+    <value>Debe introducir un nombre de usuario.</value>
+  </data>
+  <data name="ErrorLogSuper" xml:space="preserve">
+    <value>Error al logear el supervisor.</value>
+  </data>
+  <data name="ErrorObtUserData" xml:space="preserve">
+    <value>Error al obtener los datos del usuario.</value>
+  </data>
+  <data name="UnknownUsername" xml:space="preserve">
+    <value>Nombre de usuario desconocido.</value>
+  </data>
 </root>
