@@ -101,12 +101,12 @@
                         <a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
                     </li>
 
-                    <li class="xn-openable">
+                    @*<li class="xn-openable">
                         <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Pages</span></a>
                         <ul>
                             <li><a href="#"><span class="fa fa-image"></span> Sub Page</a></li>
                         </ul>
-                    </li>
+                    </li>*@
                 <!-- END MENU AGENT -->
                 }
                 else
@@ -139,11 +139,11 @@
                 </li>
                 <!-- END TOGGLE NAVIGATION -->
                 <!-- SEARCH -->
-                <li class="xn-search">
+                @*<li class="xn-search">
                     <form role="form">
                         <input type="text" name="search" placeholder="Search..." />
                     </form>
-                </li>
+                </li>*@
                 <!-- END SEARCH -->
                 <!-- SIGN OUT -->
                 @if (Request.IsAuthenticated)
