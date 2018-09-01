@@ -29,7 +29,7 @@ namespace GestCTI.Core.Service
         public static async Task<List<Call>> QueueCallsResult(String userName)
         {
             var user = db.Users.Where(item => item.Username == userName).FirstOrDefault();
-            var campaigns = user.Company1.Campaign.ToArray();
+            var campaigns = db.Campaign.Where(item => item.IdCompany == user.IdCompany).ToList();
             List<String> campaignIds = new List<string>();
             foreach (var item in campaigns)
             {

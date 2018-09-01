@@ -1,16 +1,9 @@
 ﻿// Cuando se seleccione un agente del listado
 // de agentes ejecutar esta función
 function showModalActionOverAgent() {
-    // Paso 1: Poner al resto de los agentes como uncheck 
-    // y por supuesto a este agente como check esto es cuando el user 
-    // esta en una llamada; de no ser este el caso simplemente no se hace nada
-
-    // Paso 2: Mostrar modal con las acciones posibles a realizar
-    // estas son escuchar lo que dice siempre y cuando el supervisor se halla logueado con
-    // un device
     var device = localStorage.getItem('deviceId');
     if (!notEmpty(device)) {
-        warningNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
         return;
     }
     // mostrar modal
@@ -29,12 +22,11 @@ function pintarAgentList(agents, selector) {
         var table = wrapper.append(panelbody).find('table');
 
         var header = $('<thead><tr></tr></thead>').find('tr')
-            .append('<th width="20"></th>')
             .append('<th width="50">UserName</th>')
             .append('<th width="100">status</th>')
             .append('<th width="100">phone_extension</th>')
-            .append('<th width="100">in_a_call</th>')
-            .append('<th width="100">ucid</th>').end();
+            .append('<th width="100">action</th>')
+            .end();
 
         var body = $('<tbody></tbody>');
 
@@ -42,13 +34,22 @@ function pintarAgentList(agents, selector) {
             var flag = (agents[i].CurrentUCID === null) ? "false" : "true";
             var check = $('<td><label class="check"></label></td>').find('label')
                 .append('<input type="checkbox" class="icheckbox" id="' + i + '-check"/>')
+
+            var buttom = "";
+            if (flag === "true") {
+                var btn1 = '<button type="button" onclick="listener(' + agents[i].CurrentUCID + ')">listener</button>'; 
+                var btn2 = '<button type="button" onclick="whisper(' + agents[i].CurrentUCID + ',' + agents[i].DeviceId + ')">whisper</button>';
+                buttom = '<td><div class="row"><div class="col-md-6">' + btn1 + '</div><div class="col-md-6">' + btn2  + '</div></div></td>';
+            } else {
+                var btn = '<button type="button" onclick="makeCall(' + agents[i].DeviceId + ')">call</button>';
+                buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
+            }
+
             var fila = $('<tr></tr>')
-                .append(check)
                 .append('<td>' + agents[i].user_name + '</td>')
                 .append('<td>' + "connected" + '</td>')
                 .append('<td id="' + i + '-deviceId">' + agents[i].DeviceId + '</td>')
-                .append('<td>' + flag + '</td>')
-                .append('<td id="' + i + '-row">' + agents[i].CurrentUCID + '</td>');
+                .append(buttom);
             body.append(fila);
         }
 
@@ -125,6 +126,36 @@ function showListOfQueueCalls() {
     });
 }
 
+function whisper(ucid, selectedParty) {
+    var deviceId = localStorage.getItem('deviceId');
+    if (!notEmpty(deviceId)) {
+        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        return;
+    }
+    var agent = $.connection.websocket;
+    agent.server.sendCtiWhisperRequest(deviceId, ucid, selectedParty);
+}
+
+function listener(ucid) {
+    var deviceId = localStorage.getItem('deviceId');
+    if (!notEmpty(deviceId)) {
+        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        return;
+    }
+    var agent = $.connection.websocket;
+    agent.server.sendCTIListenHoldAllRequest(deviceId, ucid);
+}
+
+function makeCall(selectedParty) {
+    var deviceId = localStorage.getItem('deviceId');
+    if (!notEmpty(deviceId)) {
+        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        return;
+    }
+    var agent = $.connection.websocket;
+    agent.server.sendCTIMakeCallRequest(deviceId, selectedParty, "*99");
+}
+
 $(function () {
     initDeviceAction();
 
@@ -169,7 +200,7 @@ $(function () {
 
     agent.client.onEventHandler = function (response, data) {
         handlingEvent(response, data);
-    }; 
+    };
 
     agent.client.receiveWhisperRequest = function (message) {
         // do something
