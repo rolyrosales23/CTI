@@ -194,6 +194,33 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
+        /// Whisper command
+        /// </summary>
+        /// <param name="deviceId">Device id</param>
+        /// <param name="ucid">Call id</param>
+        /// <param name="selectedParty">Whisper to selectedParty</param>
+        /// <returns>void</returns>
+        public async Task sendCtiWhisperRequest(String deviceId, String ucid, String selectedParty)
+        {
+            var toSend = CallHandling.CTIWhisperRequest(deviceId, ucid, selectedParty);
+            String I18n = "COMMAND_WHISPER_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIWhisperRequest, I18n, Context.User.Identity.Name);
+        }
+
+        /// <summary>
+        /// Listenning a call
+        /// </summary>
+        /// <param name="deviceId">Device id</param>
+        /// <param name="ucid">Call id</param>
+        /// <returns>void</returns>
+        public async Task sendCTIListenHoldAllRequest(String deviceId, String ucid)
+        {
+            var toSend = CallHandling.CTIListenHoldAllRequest(deviceId, ucid);
+            String I18n = "COMMAND_LISTENNING_REQUEST";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIListenHoldAllRequest, I18n, Context.User.Identity.Name);
+        }
+
+        /// <summary>
         /// Send command Initialize
         /// </summary>
         /// <param name="deviceId">Device id to initialize</param>
@@ -203,7 +230,8 @@ namespace GestCTI.Hubs
             var toSend = SystemHandling.Initialize(deviceId);
             String I18n = "COMMAND_INITIALIZE";
             WebsocketCore core;
-            if (socks.TryGetValue(user, out core)) {
+            if (socks.TryGetValue(user, out core))
+            {
                 core.CtiUser.DeviceId = deviceId;
             }
             await genericSender(toSend.Item1, toSend.Item2, MessageType.Initialize, I18n, user);
@@ -238,7 +266,8 @@ namespace GestCTI.Hubs
                 String I18n = "COMMAND_INICIALIZAR_APP";
                 await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarAppFase1, I18n, Context.User.Identity.Name);
             }
-            else if(fase == 2) {
+            else if (fase == 2)
+            {
                 var toSend = DeviceHandling.CTIGetCalls(deviceId);
                 String I18n = "COMMAND_INICIALIZAR_APP";
                 await genericSender(toSend.Item1, toSend.Item2, MessageType.InicializarAppFase2, I18n, Context.User.Identity.Name);
@@ -258,6 +287,20 @@ namespace GestCTI.Hubs
                     Agent.Add(websocks.CtiUser);
                 }
             }
+            Agent.Add(new CtiUser {
+                ConnectionId = "",
+                Role = "agent",
+                CurrentUCID = "2345678",
+                DeviceId = "8006",
+                user_name = "pepito"
+            });
+            Agent.Add(new CtiUser
+            {
+                ConnectionId = "",
+                Role = "agent",
+                DeviceId = "8006",
+                user_name = "lola"
+            });
             Clients.Client(Context.ConnectionId).listOfAgent(Agent);
         }
 
@@ -393,9 +436,9 @@ namespace GestCTI.Hubs
                     }
                     else if (core.CtiUser.Role == "supervisor")
                     {
-                        #pragma warning disable 4014
+#pragma warning disable 4014
                         initilizeSupervisorDevice(core.CtiUser.DeviceId);
-                        #pragma warning restore 4014
+#pragma warning restore 4014
                     }
                 }
             }
@@ -411,7 +454,8 @@ namespace GestCTI.Hubs
         public override Task OnDisconnected(bool stopCalled)
         {
             WebsocketCore core;
-            if (socks.TryRemove(Context.User.Identity.Name, out core)) {
+            if (socks.TryRemove(Context.User.Identity.Name, out core))
+            {
                 core.Disconnect();
             }
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
@@ -437,9 +481,9 @@ namespace GestCTI.Hubs
                     }
                     else if (core.CtiUser.Role == "supervisor")
                     {
-                        #pragma warning disable 4014
+#pragma warning disable 4014
                         initilizeSupervisorDevice(core.CtiUser.DeviceId);
-                        #pragma warning restore 4014
+#pragma warning restore 4014
                     }
 
                 }

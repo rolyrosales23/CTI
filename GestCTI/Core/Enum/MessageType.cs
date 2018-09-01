@@ -27,6 +27,8 @@ namespace GestCTI.Core.Enum
         InicializarAppFase1,
         InicializarAppFase2,
         CTIClearCallRequest,
-        Pause
+        Pause,
+        CTIWhisperRequest,
+        CTIListenHoldAllRequest
     }
 }

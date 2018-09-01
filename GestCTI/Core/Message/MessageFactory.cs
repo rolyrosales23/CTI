@@ -87,6 +87,8 @@ namespace GestCTI.Core.Message
                     switch (eventName) {
                         case "onEndCall":
                             {
+                                // Delete current call
+                                core.CtiUser.CurrentUCID = null;
                                 String ucid = eventArgs[0];
                                 HoldList hl = Websocket.holdConnections;
                                 hl.removeElement(username, ucid);
@@ -96,6 +98,8 @@ namespace GestCTI.Core.Message
 
                         case "onHoldConnection":
                             {
+                                // Delete current call
+                                core.CtiUser.CurrentUCID = null;
                                 String ucid = eventArgs[0];
                                 String callId = eventArgs[1];
                                 HoldList hl = Websocket.holdConnections;
@@ -104,6 +108,8 @@ namespace GestCTI.Core.Message
                                 return;
                             }
                         case "onRetrieveConnection": {
+                                // Add ucid of call
+                                core.CtiUser.CurrentUCID = eventArgs[0];
                                 String ucid = eventArgs[0];
                                 HoldList hl = Websocket.holdConnections;
                                 hl.removeElement(username, ucid);
@@ -118,10 +124,16 @@ namespace GestCTI.Core.Message
                                 return;
                             }
                         case "onConferenceCall": {
+                                core.CtiUser.CurrentUCID = eventArgs[0];
                                 String ucid = eventArgs[0];
                                 HoldList hl = Websocket.holdConnections;
                                 hl.removeElement(username, ucid);
                                 client.onEventHandler(message, hl.getList(username));
+                                return;
+                            }
+                        case "onEstablishedConnection": {
+                                // Add ucid of call
+                                core.CtiUser.CurrentUCID = eventArgs[0];
                                 return;
                             }
                     }
@@ -154,6 +166,12 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIHoldConnectionRequest:
                     break;
                 case MessageType.Pause:
+                    break;
+                case MessageType.CTIWhisperRequest:
+                    client.receiveWhisperRequest(message);
+                    break;
+                case MessageType.CTIListenHoldAllRequest:
+                    client.receiveListenRequest(message);
                     break;
             }
         }

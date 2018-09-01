@@ -600,6 +600,7 @@
     <Content Include="assets\img\themes\default.jpg" />
     <Content Include="assets\img\themes\light.jpg" />
     <Content Include="assets\js\actions.js" />
+    <Content Include="assets\js\cti\cti-agent.js" />
     <Content Include="assets\js\cti\cti-default.js" />
     <Content Include="assets\js\demo_charts_morris.js" />
     <Content Include="assets\js\demo_charts_nvd3.js" />
@@ -2014,6 +2015,7 @@
     <Content Include="Views\Supervisor\_PartialListWaitCall.cshtml" />
     <Content Include="Views\Home\_PauseCodes.cshtml" />
     <Content Include="Views\Home\_Campaigns.cshtml" />
+    <Content Include="Views\Supervisor\_PartialActionOverAgent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CoreHttp\" />
