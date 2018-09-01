@@ -97,6 +97,7 @@ function printDisposition(vdn) {
             }
         });
     }
+    localStorage.setItem('IsCampaignCall', 'false');
 }
 
 
@@ -262,7 +263,7 @@ $(function () {
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-
+                
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 pintarScriptByVDN(eventArgs[9], {
                     'ucid': eventArgs[0],
@@ -647,8 +648,8 @@ $(function () {
             var IdCampaign = $('#SelCampaigns').val();
             if (notEmpty(IdCampaign)) {
                 localStorage.setItem('IsCampaignCall', 'true');
-                //cuando llega evento de llamada saliente cambiar localstorage.CallForSave
-                //en OnExternalCallDelivered
+
+                //Enviar campaña de la llamada al core...
             }
             else
                 localStorage.setItem('IsCampaignCall', 'false');

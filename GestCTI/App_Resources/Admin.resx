@@ -315,4 +315,7 @@
   <data name="UrlScript" xml:space="preserve">
     <value>Script Url</value>
   </data>
+  <data name="TimeSec" xml:space="preserve">
+    <value>Time in seconds</value>
+  </data>
 </root>
