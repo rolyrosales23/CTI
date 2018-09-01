@@ -31,40 +31,40 @@
                         @Html.HiddenFor(model => model.Id)
 
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="Name">@Resources.Admin.Name</label>
+                            <label class="control-label col-md-3" for="Name" style="font-size:small; font-weight: bold">@Resources.Admin.Name</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "font-size:small", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="SwitchCompanyId">@Resources.Admin.SwitchCompany</label>
+                            <label class="control-label col-md-3" for="SwitchCompanyId" style="font-size:small; font-weight: bold">@Resources.Admin.SwitchCompany</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.SwitchCompanyId, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.EditorFor(model => model.SwitchCompanyId, new { htmlAttributes = new { @class = "form-control", style = "font-size:small", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.SwitchCompanyId, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="SwitchId">Switch</label>
+                            <label class="control-label col-md-3" for="SwitchId" style="font-size:small; font-weight: bold">Switch</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("SwitchId", null, htmlAttributes: new { @class = "form-control select", required = "required" })
+                                @Html.DropDownList("SwitchId", null, htmlAttributes: new { @class = "form-control select", style = "font-size:small", required = "required" })
                                 @Html.ValidationMessageFor(model => model.SwitchId, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="CreateBy">@Resources.Admin.CretedBy</label>
+                            <label class="control-label col-md-3" for="CreateBy" style="font-size:small; font-weight: bold">@Resources.Admin.CretedBy</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("CreateBy", null, htmlAttributes: new { @class = "form-control select", required = "required" })
+                                @Html.DropDownList("CreateBy", null, htmlAttributes: new { @class = "form-control select", style = "font-size:small", required = "required" })
                                 @Html.ValidationMessageFor(model => model.CreateBy, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-9 ">
-                                <input type="submit" value=@Resources.Admin.Save class="btn btn-success btn-block" />
+                                <input type="submit" value=@Resources.Admin.Save class="btn btn-success btn-block" style = "font-size:medium"/>
                             </div>
                         </div>
                     </div>

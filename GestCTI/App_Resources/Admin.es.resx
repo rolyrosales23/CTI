@@ -285,4 +285,34 @@
   <data name="QuestionDeactivateF" xml:space="preserve">
     <value>¿Seguro que desea desactivar la</value>
   </data>
+  <data name="Types" xml:space="preserve">
+    <value>Tipos</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Opciones</value>
+  </data>
+  <data name="NotDispositions" xml:space="preserve">
+    <value>(No tiene disposiciones asociadas.)</value>
+  </data>
+  <data name="NotPauseCodes" xml:space="preserve">
+    <value>(No tiene códigos de pausa asociados.)</value>
+  </data>
+  <data name="NotVDN" xml:space="preserve">
+    <value>(No tiene VDNs asociados.)</value>
+  </data>
+  <data name="NotSkills" xml:space="preserve">
+    <value>(No tiene habilidades asociadas.)</value>
+  </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Panel de Control</value>
+  </data>
+  <data name="ByCampaign" xml:space="preserve">
+    <value>por campañas</value>
+  </data>
+  <data name="Generals" xml:space="preserve">
+    <value>generales</value>
+  </data>
+  <data name="UrlScript" xml:space="preserve">
+    <value>Url del script</value>
+  </data>
 </root>

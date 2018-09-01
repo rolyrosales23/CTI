@@ -35,6 +35,18 @@ namespace GestCTI.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.dispositions = (from dc in db.DispositionCampaigns
+                                   join p in db.Dispositions on dc.IdDisposition equals p.Id 
+                                   where dc.IdCampaign == id
+                                   select dc).ToList();
+
+            ViewBag.pausecodes = (from pc in db.CampaignPauseCodes
+                                               join p in db.PauseCodes on pc.IdPauseCode equals p.Id
+                                               where pc.IdCampaign == id
+                                               select pc).ToList();
+
+            ViewBag.vdns = (from v in db.VDN where v.IdCampaign == id select v).ToList();
+
             return View(campaign);
         }
 
@@ -51,7 +63,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,IdCompany")] Campaign campaign)
+        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +99,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,IdCompany")] Campaign campaign)
+        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign)
         {
             if (ModelState.IsValid)
             {

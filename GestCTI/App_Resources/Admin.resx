@@ -285,4 +285,34 @@
   <data name="QuestionDeactivateM" xml:space="preserve">
     <value>Are you sure you want to deactivate</value>
   </data>
+  <data name="Types" xml:space="preserve">
+    <value>Types</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Options</value>
+  </data>
+  <data name="NotDispositions" xml:space="preserve">
+    <value>(Does not have associated dispositions.)</value>
+  </data>
+  <data name="NotPauseCodes" xml:space="preserve">
+    <value>(Does not have associated pause codes.)</value>
+  </data>
+  <data name="NotVDN" xml:space="preserve">
+    <value>(Does not have associated VDNs.)</value>
+  </data>
+  <data name="NotSkills" xml:space="preserve">
+    <value>(Does not have associated skills.)</value>
+  </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="ByCampaign" xml:space="preserve">
+    <value>by campaign</value>
+  </data>
+  <data name="Generals" xml:space="preserve">
+    <value>generals</value>
+  </data>
+  <data name="UrlScript" xml:space="preserve">
+    <value>Script Url</value>
+  </data>
 </root>

@@ -77,104 +77,25 @@
                         <a href=""><span class="fa fa-inbox"></span> <span class="xn-text">@Resources.Admin.Campaigns</span></a>
                         <ul>
                             <li action="index" controller="campaigns"><a href="@Url.Action("Index", "Campaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="campaigns"><a href="@Url.Action("Create", "Campaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-
-                            <li class="xn-openable">
-                                <a href=""><span class="glyphicon glyphicon-filter"></span> <span class="xn-text">@Resources.Admin.CampaignTypes</span></a>
-                                <ul>
-                                    <li action="index" controller="campaigntypes"><a href="@Url.Action("Index", "CampaignTypes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                                    <li action="create" controller="campaigntypes"><a href="@Url.Action("Create", "CampaignTypes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                                </ul>
-                            </li>
-                            <li class="xn-openable">
-                                <a href=""><span class="fa fa-columns"></span> <span class="xn-text">@Resources.Admin.PauseCodeCampaigns</span></a>
-                                <ul>
-                                    <li action="index" controller="campaignpausecodes"><a href="@Url.Action("Index", "CampaignPauseCodes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                                    <li action="create" controller="campaignpausecodes"><a href="@Url.Action("Create", "CampaignPauseCodes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                                </ul>
-                            </li>
-                            <li class="xn-openable">
-                                <a href=""><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.DispositionCampaigns</span></a>
-                                <ul>
-                                    <li action="index" controller="dispositioncampaigns"><a href="@Url.Action("Index", "DispositionCampaigns")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                                    <li action="create" controller="dispositioncampaigns"><a href="@Url.Action("Create", "DispositionCampaigns")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                                </ul>
-                            </li>
-                            <li class="xn-openable">
-                                <a href=""><span class="fa fa-tags"></span> <span class="xn-text">VDNs</span></a>
-                                <ul>
-                                    <li action="index" controller="vdns"><a href="@Url.Action("Index", "VDNs")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                                    <li action="create" controller="vdns"><a href="@Url.Action("Create", "VDNs")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                                </ul>
-                            </li>
+                            <li action="index" controller="campaigntypes"><a href="@Url.Action("Index", "CampaignTypes")"><span class="glyphicon glyphicon-filter"></span>@Resources.Admin.Types</a></li>
+                            <li action="index" controller="campaignpausecodes"><a href="@Url.Action("Index", "CampaignPauseCodes")"><span class="fa fa-columns"></span>@Resources.Admin.PauseCodes</a></li>
+                            <li action="index" controller="dispositioncampaigns"><a href="@Url.Action("Index", "DispositionCampaigns")"><span class="fa fa-check-square-o"></span>@Resources.Admin.Dispositions</a></li>
+                            <li action="index" controller="vdns"><a href="@Url.Action("Index", "VDNs")"><span class="fa fa-tags"></span>VDNs</a></li>
                         </ul>
                     </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-users"></span> <span class="xn-text">@Resources.Admin.Users</span></a>
-                        <ul>
-                            <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
 
-                            <li action="create" controller="users"><a href="@Url.Action("Create", "Users")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-pause"></span> <span class="xn-text">@Resources.Admin.PauseCodes</span></a>
-                        <ul>
-                            <li action="index" controller="pausecodes"><a href="@Url.Action("Index", "PauseCodes")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="pausecodes"><a href="@Url.Action("Create", "PauseCodes")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.Dispositions</span></a>
-                        <ul>
-                            <li action="index" controller="dispositions"><a href="@Url.Action("Index", "Dispositions")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="dispositions"><a href="@Url.Action("Create", "Dispositions")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-building-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a>
-                        <ul>
-                            <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="companies"><a href="@Url.Action("Create", "Companies")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-star"></span> <span class="xn-text">@Resources.Admin.Skills</span></a>
-                        <ul>
-                            <li action="index" controller="skills"><a href="@Url.Action("Index", "Skills")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="skills"><a href="@Url.Action("Create", "Skills")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-sitemap"></span> <span class="xn-text">Switches</span></a>
-                        <ul>
-                            <li action="index" controller="switches"><a href="@Url.Action("Index", "Switches")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="switches"><a href="@Url.Action("Create", "Switches")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <li class="xn-openable">
-                        <a href=""><span class="fa fa-map-marker"></span> <span class="xn-text">@Resources.Admin.UserLocation</span></a>
-                        <ul>
-                            <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="glyphicon glyphicon-list-alt"></span>@Resources.Login.List</a></li>
-
-                            <li action="create" controller="userlocations"><a href="@Url.Action("Create", "UserLocations")"><span class="fa fa-plus-circle"></span> @Resources.Admin.ActionCreateNew</a></li>
-                        </ul>
-                    </li>
-                    <!-- END MENU ADMISTRATOR -->
+                    <li action="index" controller="users"><a href="@Url.Action("Index", "Users")"><span class="fa fa-users"></span> <span class="xn-text">@Resources.Admin.Users</span></a></li>
+                    <li action="index" controller="skills"><a href="@Url.Action("Index", "Skills")"><span class="fa fa-star"></span> <span class="xn-text">@Resources.Admin.Skills</span></a></li>
+                    <li action="index" controller="pausecodes"><a href="@Url.Action("Index", "PauseCodes")"><span class="fa fa-pause"></span> <span class="xn-text">@Resources.Admin.PauseCodes</span></a></li>
+                    <li action="index" controller="dispositions"><a href="@Url.Action("Index", "Dispositions")"><span class="glyphicon glyphicon-saved"></span> <span class="xn-text">@Resources.Admin.Dispositions</span></a></li>
+                    <li action="index" controller="companies"><a href="@Url.Action("Index", "Companies")"><span class="fa fa-building-o"></span> <span class="xn-text">@Resources.Admin.Companies</span></a></li>
+                    <li action="index" controller="switches"><a href="@Url.Action("Index", "Switches")"><span class="fa fa-sitemap"></span> <span class="xn-text">Switches</span></a></li>
+                    <li action="index" controller="userlocations"><a href="@Url.Action("Index", "UserLocations")"><span class="fa fa-map-marker"></span> <span class="xn-text">@Resources.Admin.UserLocation</span></a></li>
+                <!-- END MENU ADMISTRATOR -->
                 }
                 else if (this.User.IsInRole("agent"))
                 {
-                    <!-- BEGING MENU AGENT -->
+                <!-- BEGING MENU AGENT -->
                     <li action="index" controller="home">
                         <a href="@Url.Action("Index", "Home")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
                     </li>
@@ -189,7 +110,7 @@
                 }
                 else
                 {
-                    <!-- BEGING MENU SUPERVISOR -->
+                <!-- BEGING MENU SUPERVISOR -->
                     <li action="index" controller="supervisor">
                         <a href="@Url.Action("Index", "Supervisor")"><span class="fa fa-home"></span> <span class="xn-text">@Resources.Login.Home</span></a>
                     </li>
@@ -200,7 +121,7 @@
                             <li><a href="#"><span class="fa fa-image"></span> Sub Page</a></li>
                         </ul>
                     </li>
-                    <!-- END MENU SUPERVISOR -->
+                <!-- END MENU SUPERVISOR -->
                 }
             </ul>
             <!-- END X-NAVIGATION -->
@@ -232,95 +153,99 @@
                 }
                 <!-- END SIGN OUT -->
                 @*<!-- MESSAGES -->
-                    <li class="xn-icon-button pull-right">
-                        <a href="#"><span class="fa fa-comments"></span></a>
-                        <div class="informer informer-danger">4</div>
-                        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><span class="fa fa-comments"></span> Messages</h3>
-                                <div class="pull-right">
-                                    <span class="label label-danger">4 new</span>
-                                </div>
-                            </div>
-                            <div class="panel-body list-group list-group-contacts scroll" style="height: 200px;">
-                                <a href="#" class="list-group-item">
-                                    <div class="list-group-status status-online"></div>
-                                    <img src="~/assets/images/users/user2.jpg" class="pull-left" alt="John Doe" />
-                                    <span class="contacts-title">John Doe</span>
-                                    <p>Praesent placerat tellus id augue condimentum</p>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="list-group-status status-away"></div>
-                                    <img src="~/assets/images/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk" />
-                                    <span class="contacts-title">Dmitry Ivaniuk</span>
-                                    <p>Donec risus sapien, sagittis et magna quis</p>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="list-group-status status-away"></div>
-                                    <img src="~/assets/images/users/user3.jpg" class="pull-left" alt="Nadia Ali" />
-                                    <span class="contacts-title">Nadia Ali</span>
-                                    <p>Mauris vel eros ut nunc rhoncus cursus sed</p>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="list-group-status status-offline"></div>
-                                    <img src="~/assets/images/users/user6.jpg" class="pull-left" alt="Darth Vader" />
-                                    <span class="contacts-title">Darth Vader</span>
-                                    <p>I want my money back!</p>
-                                </a>
-                            </div>
-                            <div class="panel-footer text-center">
-                                <a href="pages-messages.html">Show all messages</a>
+                <li class="xn-icon-button pull-right">
+                    <a href="#"><span class="fa fa-comments"></span></a>
+                    <div class="informer informer-danger">4</div>
+                    <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="fa fa-comments"></span> Messages</h3>
+                            <div class="pull-right">
+                                <span class="label label-danger">4 new</span>
                             </div>
                         </div>
-                    </li>
-                    <!-- END MESSAGES -->
-                    <!-- TASKS -->
-                    <li class="xn-icon-button pull-right">
-                        <a href="#"><span class="fa fa-tasks"></span></a>
-                        <div class="informer informer-warning">3</div>
-                        <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><span class="fa fa-tasks"></span> Tasks</h3>
-                                <div class="pull-right">
-                                    <span class="label label-warning">3 active</span>
-                                </div>
-                            </div>
-                            <div class="panel-body list-group scroll" style="height: 200px;">
-                                <a class="list-group-item" href="#">
-                                    <strong>Phasellus augue arcu, elementum</strong>
-                                    <div class="progress progress-small progress-striped active">
-                                        <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
-                                    </div>
-                                    <small class="text-muted">John Doe, 25 Sep 2014 / 50%</small>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <strong>Aenean ac cursus</strong>
-                                    <div class="progress progress-small progress-striped active">
-                                        <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">80%</div>
-                                    </div>
-                                    <small class="text-muted">Dmitry Ivaniuk, 24 Sep 2014 / 80%</small>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <strong>Lorem ipsum dolor</strong>
-                                    <div class="progress progress-small progress-striped active">
-                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%;">95%</div>
-                                    </div>
-                                    <small class="text-muted">John Doe, 23 Sep 2014 / 95%</small>
-                                </a>
-                                <a class="list-group-item" href="#">
-                                    <strong>Cras suscipit ac quam at tincidunt.</strong>
-                                    <div class="progress progress-small">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
-                                    </div>
-                                    <small class="text-muted">John Doe, 21 Sep 2014 /</small><small class="text-success"> Done</small>
-                                </a>
-                            </div>
-                            <div class="panel-footer text-center">
-                                <a href="pages-tasks.html">Show all tasks</a>
+                        <div class="panel-body list-group list-group-contacts scroll" style="height: 200px;">
+                            <a href="#" class="list-group-item">
+                                <div class="list-group-status status-online"></div>
+                                <img src="~/assets/images/users/user2.jpg" class="pull-left" alt="John Doe" />
+                                <span class="contacts-title">John Doe</span>
+                                <p>Praesent placerat tellus id augue condimentum</p>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <div class="list-group-status status-away"></div>
+                                <img src="~/assets/images/users/user.jpg" class="pull-left" alt="Dmitry Ivaniuk" />
+                                <span class="contacts-title">Dmitry Ivaniuk</span>
+                                <p>Donec risus sapien, sagittis et magna quis</p>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <div class="list-group-status status-away"></div>
+                                <img src="~/assets/images/users/user3.jpg" class="pull-left" alt="Nadia Ali" />
+                                <span class="contacts-title">Nadia Ali</span>
+                                <p>Mauris vel eros ut nunc rhoncus cursus sed</p>
+                            </a>
+                            <a href="#" class="list-group-item">
+                                <div class="list-group-status status-offline"></div>
+                                <img src="~/assets/images/users/user6.jpg" class="pull-left" alt="Darth Vader" />
+                                <span class="contacts-title">Darth Vader</span>
+                                <p>I want my money back!</p>
+                            </a>
+                        </div>
+                        <div class="panel-footer text-center">
+                            <a href="pages-messages.html">Show all messages</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- END MESSAGES -->
+                <!-- TASKS -->
+                <li class="xn-icon-button pull-right">
+                    <a href="#"><span class="fa fa-tasks"></span></a>
+                    <div class="informer informer-warning">3</div>
+                    <div class="panel panel-primary animated zoomIn xn-drop-left xn-panel-dragging">
+                        <div class="panel-heading">
+                            <h3 class="panel-title"><span class="fa fa-tasks"></span> Tasks</h3>
+                            <div class="pull-right">
+                                <span class="label label-warning">3 active</span>
                             </div>
                         </div>
-                    </li>
-                    <!-- END TASKS -->*@
+                        <div class="panel-body list-group scroll" style="height: 200px;">
+                            <a class="list-group-item" href="#">
+                                <strong>Phasellus augue arcu, elementum</strong>
+                                <div class="progress progress-small progress-striped active">
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">50%</div>
+                                </div>
+                                <small class="text-muted">John Doe, 25 Sep 2014 / 50%</small>
+                            </a>
+                            <a class="list-group-item" href="#">
+                                <strong>Aenean ac cursus</strong>
+                                <div class="progress progress-small progress-striped active">
+                                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%;">80%</div>
+                                </div>
+                                <small class="text-muted">Dmitry Ivaniuk, 24 Sep 2014 / 80%</small>
+                            </a>
+                            <a class="list-group-item" href="#">
+                                <strong>Lorem ipsum dolor</strong>
+                                <div class="progress progress-small progress-striped active">
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100" style="width: 95%;">95%</div>
+                                </div>
+                                <small class="text-muted">John Doe, 23 Sep 2014 / 95%</small>
+                            </a>
+                            <a class="list-group-item" href="#">
+                                <strong>Cras suscipit ac quam at tincidunt.</strong>
+                                <div class="progress progress-small">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">100%</div>
+                                </div>
+                                <small class="text-muted">John Doe, 21 Sep 2014 /</small><small class="text-success"> Done</small>
+                            </a>
+                        </div>
+                        <div class="panel-footer text-center">
+                            <a href="pages-tasks.html">Show all tasks</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- END TASKS -->*@
+
+                <li class="xn-logo pull-right" id="pause-counter" style="display: none">
+                    <a><span style="font-weight: bold; font-size: 0.9em"></span></a>
+                </li>
             </ul>
             <!-- END X-NAVIGATION VERTICAL -->
             <!-- START BREADCRUMB -->
@@ -335,7 +260,7 @@
                 <div class="row">
                     @RenderBody()
                 </div>
-
+                
                 <!-- END WIDGETS -->
             </div>
             <!-- END PAGE CONTENT WRAPPER -->
@@ -375,6 +300,7 @@
         </div>
     </div>
     <!-- END MESSAGE BOX-->
+
     <!-- START PRELOADS -->
     <audio id="audio-alert" src="~/assets/audio/alert.mp3" preload="auto"></audio>
     <audio id="audio-fail" src="~/assets/audio/fail.mp3" preload="auto"></audio>
@@ -458,6 +384,9 @@
         var action = "@ViewContext.RouteData.Values["action"].ToString().ToLower()";
 
         var element = $('li[action="' + action + '"][controller="' + controller + '"]');
+        if (!element.length)
+            element = $('li[controller="' + controller + '"]');
+
         while (element.length) {
             if (element[0].localName == 'li')
                 element.addClass('active');
@@ -468,6 +397,8 @@
             element = element.parent();
         }
     </script>
+
+    <script src="~/Scripts/ScriptsSistema/PauseCounter.js"></script>
 
     <!-- END TEMPLATE -->
     @RenderSection("scripts", required: false)

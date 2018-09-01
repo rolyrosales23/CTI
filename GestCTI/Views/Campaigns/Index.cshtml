@@ -10,7 +10,7 @@
 }
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left"></span>@Resources.Admin.Campaigns</h2>
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.Campaigns</h2>
 </div>
 
 
@@ -36,7 +36,12 @@
                         <th>
                             @Resources.Admin.Company
                         </th>
-                        <th></th>
+                        <th>
+                            @Resources.Admin.UrlScript
+                        </th>
+                        <th>
+                            @Resources.Admin.Options
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -54,6 +59,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Company.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.UrlScript)
                             </td>
                             <td>
                                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })

@@ -251,6 +251,7 @@
     <Compile Include="Controllers\DispositionsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PauseCodesController.cs" />
+    <Compile Include="Controllers\ScriptsController.cs" />
     <Compile Include="Controllers\WebServiceController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
     <Compile Include="Core\Service\ServiceCoreHttp.cs" />
@@ -1926,6 +1927,7 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\ScriptsSistema\AgentConnection.js" />
+    <Content Include="Scripts\ScriptsSistema\PauseCounter.js" />
     <Content Include="Scripts\ScriptsSistema\SupervisorConnection-v0.0.1.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
     <Content Include="Scripts\ScriptsSistema\Login.js" />
@@ -2016,6 +2018,7 @@
     <Content Include="Views\Home\_PauseCodes.cshtml" />
     <Content Include="Views\Home\_Campaigns.cshtml" />
     <Content Include="Views\Supervisor\_PartialActionOverAgent.cshtml" />
+    <Content Include="Views\Scripts\Prueba.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CoreHttp\" />

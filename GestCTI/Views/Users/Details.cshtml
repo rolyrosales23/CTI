@@ -15,92 +15,138 @@
     <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ActionDetails</h2>
 </div>
 
-<div>
-    <h4>Users</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
+<div class="panel panel-default tabs">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">@Resources.Login.Login_user</a></li>
+    </ul>
+    <div class="panel-body tab-content">
+        <div class="tab-pane active" id="tab1">
+            <h3 style="padding-bottom:15px">
+                @Html.ActionLink(" " + Resources.Admin.ActionEdit, "Edit", new { id = Model.Id }, new { @class = "fa fa-edit" })
+            </h3>
+            <div class="col-lg-10 col-lg-offset-1">
 
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
+                <dl class="dl-horizontal">
+                    <dt>
+                        <label class="control-label " for="Code" style="font-size:medium; font-weight: bold">@Resources.Admin.Username:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.Username</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="Name" style="font-size:medium; font-weight: bold">@Resources.Admin.Email:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.email</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="CampaignType.Id" style="font-size:medium; font-weight: bold">@Resources.Admin.FirstName:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.FirstName</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="Company.Name" style="font-size:medium; font-weight: bold">@Resources.Admin.MiddleName:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.MiddleName</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.MiddleName)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.LastName:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.LastName</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.Role:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Role)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.Role</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Role)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.Location:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Active)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.UserLocation.Name</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Active)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.Company:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UserLocation.Name)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.Company1.Name</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.UserLocation.Name)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.Active:</label>
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Company1.Name)
-        </dt>
+                    <dd>
+                        <label class="control-label" style="font-size:medium">@Model.Active</label>
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Company1.Name)
-        </dd>
+                    <dt>
+                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.Skills:</label>
+                    </dt>
 
-    </dl>
+                    <dd>
+                        @if (ViewBag.skills.Count > 0)
+                        {
+                            <table class="table " id="tabla-index" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Resources.Admin.Value
+                                        </th>
+                                        <th>
+                                            @Resources.Admin.Description
+                                        </th>
+                                        <th>
+                                            @Resources.Admin.Options
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                @foreach (var item in ViewBag.skills)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Skills.Value
+                                        </td>
+                                        <td>
+                                            @item.Skills.Description
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "DeleteSkill" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Value + ": " + item.Skills.Value + " " + Resources.Admin.OfF + " " + Resources.Login.Login_user + ": " + item.Users.Username + "?" } })
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                        }
+                        else
+                        {
+                            <label class="control-label" style="font-size:medium">@Resources.Admin.NotSkills</label>
+                        }
+                    </dd>
+                </dl>
+            </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-</p>

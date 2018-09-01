@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Name">@Resources.Admin.Name</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", style = "font-size:small", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Description">@Resources.Admin.Description</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "font-size:small" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -56,7 +56,7 @@
 
                         <div class="form-group">
                             <div class="col-md-offset-3 col-md-9 ">
-                                <input type="submit" value=@Resources.Admin.Save class="btn btn-success btn-block" />
+                                <input type="submit" value=@Resources.Admin.Save class="btn btn-success btn-block" style = "font-size:medium" />
                             </div>
                         </div>
                     </div>

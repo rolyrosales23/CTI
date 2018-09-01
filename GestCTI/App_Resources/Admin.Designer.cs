@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to by campaign.
+        /// </summary>
+        public static string ByCampaign {
+            get {
+                return ResourceManager.GetString("ByCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Campaign.
         /// </summary>
         public static string Campaign {
@@ -201,6 +210,15 @@ namespace Resources {
         public static string Company {
             get {
                 return ResourceManager.GetString("Company", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control Panel.
+        /// </summary>
+        public static string ControlPanel {
+            get {
+                return ResourceManager.GetString("ControlPanel", resourceCulture);
             }
         }
         
@@ -295,6 +313,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to generals.
+        /// </summary>
+        public static string Generals {
+            get {
+                return ResourceManager.GetString("Generals", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LastName.
         /// </summary>
         public static string LastName {
@@ -358,11 +385,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated dispositions.).
+        /// </summary>
+        public static string NotDispositions {
+            get {
+                return ResourceManager.GetString("NotDispositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated pause codes.).
+        /// </summary>
+        public static string NotPauseCodes {
+            get {
+                return ResourceManager.GetString("NotPauseCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated skills.).
+        /// </summary>
+        public static string NotSkills {
+            get {
+                return ResourceManager.GetString("NotSkills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to (Does not have associated VDNs.).
+        /// </summary>
+        public static string NotVDN {
+            get {
+                return ResourceManager.GetString("NotVDN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to of.
         /// </summary>
         public static string OfF {
             get {
                 return ResourceManager.GetString("OfF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Options.
+        /// </summary>
+        public static string Options {
+            get {
+                return ResourceManager.GetString("Options", resourceCulture);
             }
         }
         
@@ -507,6 +579,24 @@ namespace Resources {
         public static string Type {
             get {
                 return ResourceManager.GetString("Type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Types.
+        /// </summary>
+        public static string Types {
+            get {
+                return ResourceManager.GetString("Types", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Script Url.
+        /// </summary>
+        public static string UrlScript {
+            get {
+                return ResourceManager.GetString("UrlScript", resourceCulture);
             }
         }
         

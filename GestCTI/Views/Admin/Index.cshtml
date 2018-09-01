@@ -1,13 +1,201 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section breadcrumb{
-    <li class="active">@Resources.Login.Home</li>
+    <li class="active">@Resources.Admin.ControlPanel</li>
 }
 
 <div class="page-title">
-    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.Administrator</h2>
+    <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ControlPanel</h2>
+</div>
+
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Campaigns")">
+            <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #639a07 0%, #2a4005 100%)">
+                <div class="widget-item-left">
+                    <span class="fa fa-inbox"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.CampaingsCount</div>
+                    <div class="widget-title" style="font-size: 2em">@Resources.Admin.Campaigns</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<!-- START COLORFUL PANEL -->
+<div class="panel panel-colorful">
+    <div class="panel-body" style="padding: 15px 0px 0px 0px">
+        <div class="row">
+            <div class="col-md-3">
+                <a href="@Url.Action("Index", "CampaignTypes")">
+                    <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #639a07 0%, #63960d 100%)">
+                        <div class="widget-item-left">
+                            <span class="glyphicon glyphicon-filter"></span>
+                        </div>
+                        <div class="widget-data">
+                            <div class="widget-int num-count">@ViewBag.CampaignTypesCount</div>
+                            <div class="widget-title">@Resources.Admin.CampaignTypes</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="@Url.Action("Index", "CampaignPauseCodes")">
+                    <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #639a07 0%, #7dbd10 100%)">
+                        <div class="widget-item-left">
+                            <span class="fa fa-columns"></span>
+                        </div>
+                        <div class="widget-data">
+                            <div class="widget-int num-count">@ViewBag.CampaignPauseCodesCount</div>
+                            <div class="widget-title">@Resources.Admin.PauseCodes</div>
+                            <div class="widget-subtitle">@Resources.Admin.ByCampaign</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="@Url.Action("Index", "DispositionCampaigns")">
+                    <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #639a07 0%, #91da15 100%)">
+                        <div class="widget-item-left">
+                            <span class="fa fa-check-square-o"></span>
+                        </div>
+                        <div class="widget-data">
+                            <div class="widget-int num-count">@ViewBag.DispositionCampaignsCount</div>
+                            <div class="widget-title">@Resources.Admin.Dispositions</div>
+                            <div class="widget-subtitle">@Resources.Admin.ByCampaign</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-md-3">
+                <a href="@Url.Action("Index", "VDNs")">
+                    <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #639a07 0%, #9fef17 100%)">
+                        <div class="widget-item-left">
+                            <span class="fa fa-tags"></span>
+                        </div>
+                        <div class="widget-data">
+                            <div class="widget-int num-count">@ViewBag.VDNsCount</div>
+                            <div class="widget-title">VDNs</div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END COLORFUL PANEL -->
+
+<div style="clear:both"><hr></div>
+
+<div class="row" style="padding-top: 20px">
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Users")">
+            <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #2f34de 0%, #368394 100%);">
+                <div class="widget-item-left">
+                    <span class="fa fa-users"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.UsersCount</div>
+                    <div class="widget-title">@Resources.Admin.Users</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Skills")">
+            <div class="widget widget-primary widget-item-icon" style="background: linear-gradient(to bottom, #131317 0%, #2a2758 100%);">
+                <div class="widget-item-left">
+                    <span class="fa fa-star"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.SkillsCount</div>
+                    <div class="widget-title">@Resources.Admin.Skills</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "PauseCodes")">
+            <div class="widget widget-danger widget-item-icon" style="background: linear-gradient(to bottom, #dc1a1a 0%, #cc5252 100%);">
+                <div class="widget-item-left">
+                    <span class="fa fa-pause"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.PauseCodesCount</div>
+                    <div class="widget-title">@Resources.Admin.PauseCodes</div>
+                    <div class="widget-subtitle">@Resources.Admin.Generals</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Dispositions")">
+            <div class="widget widget-danger widget-item-icon" style="background: linear-gradient(to bottom, #f7a715f2 0%, #ecc398 100%);">
+                <div class="widget-item-left">
+                    <span class="glyphicon glyphicon-saved"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.DispositionsCount</div>
+                    <div class="widget-title">@Resources.Admin.Dispositions</div>
+                    <div class="widget-subtitle">@Resources.Admin.Generals</div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Companies")">
+            <div class="widget widget-success widget-item-icon" style="background: linear-gradient(to bottom, #c1bc1d 0%, #d1d425 100%);">
+                <div class="widget-item-left">
+                    <span class="fa fa-building-o"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.CompaniesCount</div>
+                    <div class="widget-title">@Resources.Admin.Companies</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Switches")">
+            <div class="widget widget-primary widget-item-icon" style="background: linear-gradient(to bottom, #08bb1e 0%, #45c136 100%);">
+                <div class="widget-item-left">
+                    <span class="fa fa-sitemap"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.SwitchesCount</div>
+                    <div class="widget-title">Switches</div>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "UserLocations")">
+            <div class="widget widget-danger widget-item-icon" style="background: linear-gradient(to bottom, #5f2073 0%, #c33adc 100%);">
+                <div class="widget-item-left">
+                    <span class="fa fa-map-marker"></span>
+                </div>
+                <div class="widget-data">
+                    <div class="widget-int num-count">@ViewBag.UserLocationsCount</div>
+                    <div class="widget-title">@Resources.Admin.UserLocation</div>
+                </div>
+            </div>
+        </a>
+    </div>
 </div>

@@ -54,6 +54,19 @@ function updateControlsState(list, enable = true) {
         changeState(list[i], enable);
 }
 
+function pintarScriptByVDN(vdn, data) {
+    $.ajax({
+        url: "../Home/GetUrlScriptByVDN/",
+        data: { vdn: vdn },
+        success: function (url) {
+            pintarScript(url, data);
+        },
+        error: function (error) {
+            errorNoty(error.responseText);
+        }
+    });
+}
+
 function printDisposition(vdn) {
     if (notEmpty(vdn)) {
         var select = $('#SelDisposition');
@@ -251,6 +264,20 @@ $(function () {
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
+                pintarScriptByVDN(eventArgs[9], {
+                    'ucid': eventArgs[0],
+                    'callId': eventArgs[1],
+                    'deviceId': eventArgs[2],
+                    'alertingDeviceId': eventArgs[3],
+                    'callingDeviceId': eventArgs[4],
+                    'calledDeviceId': eventArgs[5],
+                    'trunkGroupId': eventArgs[6],
+                    'trunkMember': eventArgs[7],
+                    'splitDeviceId': eventArgs[8],
+                    'lastRedirectionDeviceId': eventArgs[9],
+                    'callerId': eventArgs[10],
+                    'appName': eventArgs[11]
+                });
                 localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[4] }));
 
                 infoNoty(Resources.IncomingCall);
@@ -578,7 +605,7 @@ $(function () {
             var duration = $('#SelPauseCodes option:selected').data('duration');
             var auto     = $('#SelPauseCodes option:selected').data('auto');
 
-            if (notEmpty(pausecode)) {
+            if (notEmpty(id)) {
                 spinnerShow();
                 $.ajax({
                     url: "../Home/SavePauseCodeUser/",
@@ -588,13 +615,19 @@ $(function () {
                         $('#modal-PauseCodes').modal('hide');
                         var timeout_id = setTimeout(
                             function () {
-                                if (auto)
+                                stopCounter('#pause-counter');
+                                if (auto) {
                                     $('#ReadyToWork').trigger('click');
-                                else
+                                    infoNoty("Ha concluido el tiempo en pausa. Se le pondrá en \"Listo\" automáticamente.", {timeout: null});
+                                }
+                                else {
                                     $('#LogOutCore').trigger('click');
+                                    infoNoty("Ha concluido el tiempo en pausa. Será deslogueado automáticamente.", {timeout: null});
+                                }
                             },
                             duration * 1000
                         );
+                        startCounter('#pause-counter', duration);
                         localStorage.setItem('timeout_id', timeout_id);
                         agent.server.sendPause(deviceId, reason);
                     },

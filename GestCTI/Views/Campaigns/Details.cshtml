@@ -14,44 +14,259 @@
     <h2><span class="fa fa-arrow-circle-o-left"></span> @Resources.Admin.ActionDetails</h2>
 </div>
 
-<div>
-    <h4>Campaign</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Code)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Code)
-        </dd>
+<div class="panel panel-default tabs">
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#tab1" data-toggle="tab">@Resources.Admin.Campaign</a></li>
+    </ul>
+    <div class="panel-body tab-content">
+            <div class="tab-pane active" id="tab1">
+                <h3 style="padding-bottom:15px">
+                    @Html.ActionLink(" " + Resources.Admin.ActionEdit, "Edit", new { id = Model.Id }, new { @class = "fa fa-edit" })
+                </h3>
+                <div class="col-lg-10 col-lg-offset-1">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                    <dl class="dl-horizontal">
+                        <dt>
+                            <label class="control-label " for="Code" style="font-size:medium; font-weight: bold">@Resources.Admin.Code:</label>
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                        <dd>
+                            <label class="control-label" style="font-size:medium">@Model.Code</label>
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CampaignType.Id)
-        </dt>
+                        <dt>
+                            <label class="control-label " for="Name" style="font-size:medium; font-weight: bold">@Resources.Admin.Name:</label>
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CampaignType.Id)
-        </dd>
+                        <dd>
+                            <label class="control-label" style="font-size:medium">@Model.Name</label>
+                        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Company.Name)
-        </dt>
+                        <dt>
+                            <label class="control-label " for="CampaignType.Id" style="font-size:medium; font-weight: bold">@Resources.Admin.CampaignType:</label>
+                        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Company.Name)
-        </dd>
+                        <dd>
+                            <label class="control-label" style="font-size:medium">@Model.CampaignType.Name</label>
+                        </dd>
 
-    </dl>
+                        <dt>
+                            <label class="control-label " for="Company.Name" style="font-size:medium; font-weight: bold">@Resources.Admin.Company:</label>
+                        </dt>
+
+                        <dd>
+                            <label class="control-label" style="font-size:medium">@Model.Company.Name</label>
+                        </dd>
+
+                        <dt>
+                            <label class="control-label " for="UrlScript" style="font-size:medium; font-weight: bold">@Resources.Admin.UrlScript:</label>
+                        </dt>
+
+                        <dd>
+                            <label class="control-label" style="font-size:medium">@Model.UrlScript</label>
+                        </dd>
+
+                        <dt>
+                            <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.PauseCodes:</label>
+                        </dt>
+
+                        <dd>
+                            @if (ViewBag.pausecodes.Count > 0)
+                            {
+                                <table class="table" id="tabla-index" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Resources.Admin.Value
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Name
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.MaxDuration
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.MaxDailyEvents
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.AutoReady
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Active
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Options
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (var item in ViewBag.pausecodes)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.PauseCodes.Value
+                                            </td>
+                                            <td>
+                                                @item.PauseCodes.Name
+                                            </td>
+                                            <td>
+                                                @item.MaxDuration
+                                            </td>
+                                            <td>
+                                                @item.MaxDailyEvents
+                                            </td>
+                                            <td>
+                                                @if (item.AutoReady)
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox" checked="checked">
+                                                }
+                                                else
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox">
+                                                }
+                                            </td>
+                                            <td>
+                                                @if (item.Active)
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox" checked= "checked" >
+                                                }
+                                                else
+                                                {
+                                                    <input class="check-box" disabled="disabled" type="checkbox">
+                                                }
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink(" ", "Edit", "CampaignPauseCodes", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+
+                                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
+
+                                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.PauseCodeCampaign }, { "Action", "Delete" }, { "Controller", "CampaignPauseCodes" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Admin.PauseCode + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.PauseCodes.Name + " " + Resources.Admin.OfF + " " + Resources.Admin.Campaign + ": " + item.Campaign.Code + "?" } })
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            }
+                            else
+                            {
+                                <label class="control-label" style="font-size:medium">@Resources.Admin.NotPauseCodes</label>
+                            }
+                        </dd>
+
+                        <dt>
+                            <label class="control-label " for="Dispositions" style="font-size:medium; font-weight: bold">@Resources.Admin.Dispositions:</label>
+                        </dt>
+
+                        <dd>
+                            @if (ViewBag.dispositions.Count > 0)
+                            {
+                                <table class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            @Resources.Admin.Disposition
+                                        </th>
+                                        <th>
+                                            @Resources.Admin.Description
+                                        </th>
+                                        <th>
+                                            @Resources.Admin.Active
+                                        </th>
+                                        <th>
+                                            @Resources.Admin.Options
+                                        </th>
+                                    </tr>
+                                </thead>
+
+                                @foreach (var item in ViewBag.dispositions)
+                                {
+                                    <tr>
+                                        <td>
+                                            @item.Dispositions.Name
+                                        </td>
+                                        <td>
+                                            @item.Description
+                                        </td>
+                                        <td>
+                                            @if (item.Active)
+                                            {
+                                                <input class="check-box" disabled="disabled" type="checkbox" checked="checked">
+                                            }
+                                            else
+                                            {
+                                                <input class="check-box" disabled="disabled" type="checkbox">
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink(" ", "Edit","DispositionCampaigns", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+
+                                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
+
+                                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.DispositionCampaign }, { "Action", "Delete" }, { "Controller", "DispositionCampaigns" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Admin.Disposition + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Dispositions.Name + " " + Resources.Admin.OfF + " " + Resources.Admin.Campaign + ": " + item.Campaign.Code + "?" } })
+                                        </td>
+                                    </tr>
+                                }
+
+                            </table>
+                            }
+                            else
+                            {
+                                <label class="control-label" style="font-size:medium">@Resources.Admin.NotDispositions</label>
+                            }
+                        </dd>
+                        
+                        <dt>
+                            <label class="control-label " for="VDNs" style="font-size:medium; font-weight: bold">VDNs:</label>
+                        </dt>
+
+                        <dd>
+                            @if (ViewBag.vdns.Count > 0)
+                            {
+                                <table class="table" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Resources.Admin.Value
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Description
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Options
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (var item in ViewBag.vdns)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Value
+                                            </td>
+                                            <td>
+                                                @item.Description
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink(" ", "Edit", "VDNs", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
+
+                                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "VDNs" }, { "Menssage", Resources.Admin.QuestionDeleteM + " VDN " + Resources.Admin.With + " " + Resources.Admin.Value + ": " + item.Value + "?" } })
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            }
+                            else
+                            {
+                                <label class="control-label" style="font-size:medium">@Resources.Admin.NotVDN</label>
+                            }
+                        </dd>
+
+                    </dl>
+                </div>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-</p>
