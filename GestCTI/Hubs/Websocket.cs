@@ -287,20 +287,6 @@ namespace GestCTI.Hubs
                     Agent.Add(websocks.CtiUser);
                 }
             }
-            Agent.Add(new CtiUser {
-                ConnectionId = "",
-                Role = "agent",
-                CurrentUCID = "2345678",
-                DeviceId = "8006",
-                user_name = "pepito"
-            });
-            Agent.Add(new CtiUser
-            {
-                ConnectionId = "",
-                Role = "agent",
-                DeviceId = "8006",
-                user_name = "lola"
-            });
             Clients.Client(Context.ConnectionId).listOfAgent(Agent);
         }
 

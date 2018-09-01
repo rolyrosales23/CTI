@@ -16,7 +16,134 @@
         }
     }
 }
+//############ HANDLING ACTION BUTTON ########################
 
+function addCTIMakeCallRequest(response) {
+    json = JSON.parse(response);
+    if (json['success'] === true) {
+        successNoty(Resources.Calling);
+    } else {
+        errorNoty(Resources.MakeCallFail);
+    }
+};
+
+function receiveAcceptCallRequest(response) {
+    json = JSON.parse(response);
+    if (json.success === false) {
+        changeState('answer', false);
+        localStorage.removeItem('ucid');
+        successNoty(Resources.InCall);
+    }
+    // Do nothing or check is fail call request 
+};
+
+function enEspera(call, holdList) {
+    for (var i in holdList)
+        if (call[1] === holdList[i].ucid)
+            return true;
+    return false;
+}
+
+//###########    ACTION BUTTON    ############################
+function acceptCallRequest(agent) {
+    var strAC = localStorage.getItem('activeCall');
+    if (notEmpty(strAC)) {
+        var activeCall = JSON.parse(strAC);
+        if (notEmpty(activeCall.ucid)) {
+            agent.server.sendCTIAnswerCallRequest(activeCall.ucid, deviceId);
+        } else {
+            console.error(Resources.NotUcid);
+        }
+    }
+    else infoNoty("No hay llamada activa!");
+}
+
+function hangoutCallRequest(agent) {
+    var strAC = localStorage.getItem('activeCall');
+    if (notEmpty(strAC)) {
+        var activeCall = JSON.parse(strAC);
+        if (notEmpty(activeCall.ucid)) {
+            agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
+        } else {
+            errorNoty(Resources.NotUcid);
+        }
+    }
+    else infoNoty("No hay llamada activa!");
+}
+
+function doHoldConnection(agent) {
+    var strAC = localStorage.getItem('activeCall');
+    if (notEmpty(strAC)) {
+        var activeCall = JSON.parse(strAC);
+        if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
+            changeState('hold', false);
+            agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId);
+        }
+    }
+    else
+        infoNoty("No hay Llamada activa!");
+}
+
+function doTransfer(agent) {
+    var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
+    if (notEmpty(heldUcid)) {
+        var strAC = localStorage.getItem('activeCall');
+        if (notEmpty(strAC)) {
+            var activeCall = JSON.parse(strAC);
+            if (notEmpty(deviceId))
+                agent.server.sendTransferCall(heldUcid, activeCall.ucid, deviceId);
+            else
+                infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+        }
+        else
+            infoNoty("No hay llamada activa!");
+    }
+    else
+        infoNoty("Debe seleccionar una llamada en espera!");
+}
+
+function doRetrieve(agent) {
+    var radio = $('#lista_espera input[type="radio"]:checked');
+    var heldUcid = radio.val();
+    if (notEmpty(heldUcid)) {
+        var strAC = localStorage.getItem('activeCall');
+        if (notEmpty(strAC))
+            infoNoty("No se puede recuperar porque hay una llamada activa!");
+        else {
+            agent.server.sendRetrieveCall(heldUcid, deviceId);
+        }
+    }
+    else
+        infoNoty("Debe seleccionar una llamada en espera!");
+}
+
+function doConference() {
+    var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
+    if (notEmpty(heldUcid)) {
+        var strAC = localStorage.getItem('activeCall');
+        if (notEmpty(strAC)) {
+            var activeCall = JSON.parse(strAC);
+            if (notEmpty(deviceId))
+                agent.server.sendConferenceCall(heldUcid, activeCall.ucid, deviceId);
+            else
+                infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+        }
+        else
+            infoNoty("No hay llamada activa!");
+    }
+    else
+        infoNoty("Debe seleccionar una llamada en espera!");
+}
+
+function endCall(agent) {
+    var strAC = localStorage.getItem('activeCall');
+    if (notEmpty(strAC)) {
+        var activeCall = JSON.parse(strAC);
+        agent.server.sendCTIClearCallRequest(activeCall.ucid);
+    }
+    else
+        infoNoty("No hay llamada activa!");
+}
 
 function changeState(alias, enable) {
     var map = {
