@@ -25,11 +25,11 @@
 
             var buttom = "";
             if (flag === "true") {
-                var btn1 = "<button type='button' onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-sm fa fa-headphones info' title='" + Resources.Listen + "'></button>";
-                var btn2 = '<button type="button" onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-info btn-sm fa fa-headphones info" title="' + Resources.Whisper + '"></button>';
-                buttom = '<td><div class="row"><div class="col-md-6">' + btn1 + '</div><div class="col-md-6">' + btn2 + '</div></div></td>';
+                var btn1 = "<a type='button' onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-md fa fa-headphones info' title='" + Resources.Listen + "'></a>";
+                var btn2 = '<a type="button" onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-warning btn-md fa fa-bullhorn info" title="' + Resources.Whisper + '"></a>';
+                buttom = '<td><div class="row"><div class="col-md-12">' + btn1 + btn2 + '</div></div></td>';
             } else {
-                var btn = '<button type=button" onclick=makeCall("' + agents[i].DeviceId + '") class="btn btn-info btn-sm fa fa-headphones info" title="' + Resources.Call + '"></button>';
+                var btn = '<a type=button" onclick=makeCall("' + agents[i].DeviceId + '") class="btn btn-success btn-md fa fa-phone info" title="' + Resources.Call + '"></a>';
                 buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
             }
 
@@ -86,18 +86,7 @@ function pintarQueueCalls(queueCalls, selector) {
         wrapper.append('<h3 class="text-muted">No hay llamadas en cola</h3>');
 }
 
-function showPhoneView() {
-    $.ajax({
-        url: 'GetTelephone',
-        contentType: 'application/html; charset=utf-8',
-        type: 'GET',
-        dataType: 'html'
-    }).then(function (result) {
-        $("#showPhone").html(result);
-    }).fail(function (xhr, status) {
-        errorNoty("Error charging phone partial");
-    });
-}
+
 
 function showListOfQueueCalls() {
     var user = localStorage.getItem('user');
@@ -155,6 +144,61 @@ $(function () {
             showPhoneView();
         }
     }
+
+    function showPhoneView() {
+        $.ajax({
+            url: 'GetTelephone',
+            contentType: 'application/html; charset=utf-8',
+            type: 'GET',
+            dataType: 'html'
+        }).then(function (result) {
+            $("#showPhone").html(result);
+
+            $("#acceptCallRequest").click(function () {
+                acceptCallRequest(agent)
+            });
+
+            $("#hangoutCallRequest").click(function () {
+                hangoutCallRequest(agent)
+            });
+
+            $("#doHoldConnection").click(function () {
+                doHoldConnection(agent)
+            });
+
+            $('#doTransfer').click(function () {
+                doTransfer(agent)
+            });
+
+            $('#doRetrieve').click(function () {
+                doRetrieve(agent)
+            });
+
+            $('#doConference').click(function () {
+                doConference(agent)
+            });
+
+            $('#doEndConference').click(function () {
+                endCall(agent)
+            });
+
+            $("#doCallBtn").click(function () {
+                var deviceId = $('#inputPhone').val();
+                makeCall(deviceId);
+            });
+
+            $('#inputPhone').keyup(function () {
+                console.log('put a value ' + $(this).val());
+                if ($(this).val())
+                    $("#doCallBtn").removeAttr("disabled");
+                else
+                    $("#doCallBtn").attr("disabled", "disabled");
+            });
+        }).fail(function (xhr, status) {
+            errorNoty("Error charging phone partial");
+        });
+    }
+
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
 
@@ -200,7 +244,7 @@ $(function () {
 
     agent.client.receiveAcceptCallRequest = function (response) {
         receiveAcceptCallRequest(response);
-    } 
+    }
 
     // Start the connection.
     $.connection.hub.start().done(function () {
@@ -221,37 +265,9 @@ $(function () {
         $('#get-agent-list').click(function () {
             agent.server.getAllUserConnected();
         });
-        
+
         $('#get-queue-call-list').click(function () {
             showListOfQueueCalls();
-        });
-        
-        $("#acceptCallRequest").click(function () {
-            acceptCallRequest(agent)
-        });
-
-        $("#hangoutCallRequest").click(function () {
-            hangoutCallRequest(agent)
-        });
-
-        $("#doHoldConnection").click(function () {
-            doHoldConnection(agent)
-        });
-
-        $('#doTransfer').click(function () {
-            doTransfer(agent)
-        });
-
-        $('#doRetrieve').click(function () {
-            doRetrieve(agent)
-        });
-
-        $('#doConference').click(function () {
-            doConference(agent)
-        });
-
-        $('#doEndConference').click(function () {
-            endCall(agent)
         });
 
         $('#LogOutCore').click(function () {

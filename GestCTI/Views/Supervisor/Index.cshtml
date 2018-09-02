@@ -55,7 +55,7 @@
                         <div class="tab-pane" id="tab-third">
                             @Html.Partial("_PartialAgentsConnected")
                         </div>
-                    </div>                    
+                    </div>
                 </div>
 
             </form>
@@ -67,11 +67,10 @@
 @Html.Partial("_PartialActionOverAgent");
 @section scripts{
     <script type="text/javascript">
-        $('#inputPhone').keyup(function () {
-            if ($(this).val())
-                $("#doCallBtn").removeAttr("disabled");
-            else
-                $("#doCallBtn").attr("disabled", "disabled");
+        $('#lista_espera').on("ifChanged", "input", function (event) {
+            changeState('retrieve', true);
+            changeState('transfer', true);
+            changeState('conference', true);
         });
     </script>
 

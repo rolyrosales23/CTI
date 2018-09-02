@@ -46,6 +46,7 @@ function enEspera(call, holdList) {
 
 //###########    ACTION BUTTON    ############################
 function acceptCallRequest(agent) {
+    var deviceId = localStorage.getItem('deviceId');
     var strAC = localStorage.getItem('activeCall');
     if (notEmpty(strAC)) {
         var activeCall = JSON.parse(strAC);
@@ -59,6 +60,7 @@ function acceptCallRequest(agent) {
 };
 
 function hangoutCallRequest(agent) {
+    var deviceId = localStorage.getItem('deviceId');
     var strAC = localStorage.getItem('activeCall');
     if (notEmpty(strAC)) {
         var activeCall = JSON.parse(strAC);
@@ -72,6 +74,7 @@ function hangoutCallRequest(agent) {
 };
 
 function doHoldConnection(agent) {
+    var deviceId = localStorage.getItem('deviceId');
     var strAC = localStorage.getItem('activeCall');
     if (notEmpty(strAC)) {
         var activeCall = JSON.parse(strAC);
@@ -85,6 +88,7 @@ function doHoldConnection(agent) {
 };
 
 function doTransfer(agent) {
+    var deviceId = localStorage.getItem('deviceId');
     var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
     if (notEmpty(heldUcid)) {
         var strAC = localStorage.getItem('activeCall');
@@ -103,6 +107,7 @@ function doTransfer(agent) {
 };
 
 function doRetrieve(agent) {
+    var deviceId = localStorage.getItem('deviceId');
     var radio = $('#lista_espera input[type="radio"]:checked');
     var heldUcid = radio.val();
     if (notEmpty(heldUcid)) {
@@ -118,6 +123,7 @@ function doRetrieve(agent) {
 };
 
 function doConference() {
+    var deviceId = localStorage.getItem('deviceId');
     var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
     if (notEmpty(heldUcid)) {
         var strAC = localStorage.getItem('activeCall');
@@ -166,6 +172,7 @@ function changeState(alias, enable) {
 };
 
 function handlingEvent(response, data) {
+    var deviceId = localStorage.getItem('deviceId');
     json = JSON.parse(response);
     var eventName = json.request.request;
     var eventArgs = json.request.args;
@@ -190,8 +197,8 @@ function handlingEvent(response, data) {
 
             localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
-            printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
-            localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[4] }));
+            // printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
+            // localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[4] }));
 
             infoNoty(Resources.IncomingCall);
 
@@ -205,9 +212,8 @@ function handlingEvent(response, data) {
 
             localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
-
             // printDisposition(eventArgs[9]);
-            localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
+            // localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
 
             tempNoty('onCallExternalDelivered');
             break;
@@ -231,7 +237,6 @@ function handlingEvent(response, data) {
             changeState('hold', true);
             changeState('answer', false);
             changeState('pause', false);
-            changeState('whisper', false);
 
             tempNoty('onEstablishedConnection');
             break;
@@ -269,7 +274,6 @@ function handlingEvent(response, data) {
             changeState('hangout', false);
             changeState('hold', false);
             changeState('pause', true);
-            changeState('whisper', true);
 
             if (localStorage.getItem('IsCampaignCall') === 'true') {
                 $('#modal-dispositions').modal('show');
@@ -288,7 +292,6 @@ function handlingEvent(response, data) {
             changeState('hangout', false);
             changeState('hold', false);
             changeState('pause', true);
-            changeState('whisper', true);
             //changeState('ready', true);
             $("#inputPhone").val('').removeAttr("disabled");
 

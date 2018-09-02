@@ -287,6 +287,21 @@ namespace GestCTI.Hubs
                     Agent.Add(websocks.CtiUser);
                 }
             }
+            //Agent.Add(new CtiUser
+            //{
+            //    ConnectionId = "2345",
+            //    DeviceId = "8016",
+            //    Role = "agent",
+            //    user_name = "3000"
+            //});
+            //Agent.Add(new CtiUser
+            //{
+            //    ConnectionId = "2345",
+            //    DeviceId = "8016",
+            //    Role = "agent",
+            //    user_name = "3000",
+            //    CurrentUCID = "234567890"
+            //});
             Clients.Client(Context.ConnectionId).listOfAgent(Agent);
         }
 
