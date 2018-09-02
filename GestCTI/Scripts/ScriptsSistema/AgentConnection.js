@@ -62,7 +62,7 @@ function pintarScriptByVDN(vdn, data) {
             pintarScript(url, data);
         },
         error: function (error) {
-            errorNoty(error.responseText);
+            errorNoty("No se pudo obterner el script de la campaña.");
         }
     });
 }
@@ -199,8 +199,8 @@ $(function () {
         spinnerHide();
     };
 
-    agent.client.Notification = function (message, type = "success") {
-        notify(message, type);
+    agent.client.Notification = function (message, type = "success", DebugMode = true) {
+        notify(message, type, DebugMode);
     };
 
     // Logout from web app
@@ -234,9 +234,8 @@ $(function () {
         if (json.success === false) {
             changeState('answer', false);
             localStorage.removeItem('ucid');
-            successNoty(Resources.InCall);
+            errorNoty(json.response);
         }
-        // Do nothing or check is fail call request 
     };
 
     agent.client.onEventHandler = function (response, data) {
@@ -255,6 +254,7 @@ $(function () {
             case 'onCallOriginated':
 
                 tempNoty('onCallOriginated');
+                infoNoty(Resources.Calling);
                 break;
 
             case 'onCallDelivered':
@@ -301,13 +301,15 @@ $(function () {
                 break;
 
             case 'onCallDiverted':
-
+                changeState('answer', false);
                 tempNoty('onCallDiverted');
+                infoNoty('Llamada transferida al voice mail');
                 break;
 
             case 'onCallFailed':
 
                 tempNoty('onCallFailed');
+                infoNoty('La llamada falló.');
                 break;
 
             case 'onEstablishedConnection':
@@ -329,6 +331,7 @@ $(function () {
                 $('#inputPhone').text('').removeAttr('disabled');
                 localStorage.removeItem('activeCall');
 
+                infoNoty("Llamada puesta en hold.");
                 tempNoty('onHoldConnection');
                 break;
 
@@ -344,6 +347,7 @@ $(function () {
                 }));
                 pintarListaEspera(data);
 
+                infoNoty('Llamada recuperada de hold');
                 tempNoty('onRetrieveConnection');
                 break;
 
@@ -364,10 +368,11 @@ $(function () {
                 $("#inputPhone").val('').removeAttr("disabled");
 
                 tempNoty('onEndConnection');
+                infoNoty("La llamada ha finalizado");
                 break;
 
             case 'onEndPartyConnection':
-
+                changeState('answer', false);
                 tempNoty('onEndPartyConnection');
                 break;
 
@@ -392,6 +397,7 @@ $(function () {
                 pintarListaEspera(data);
 
                 tempNoty('onTransferredCall');
+                infoNoty("Llamada transferida.");
                 break;
 
             case 'onConferencedCall':
@@ -402,6 +408,7 @@ $(function () {
                 pintarListaEspera(data);
 
                 tempNoty('onConferencedCall');
+                infoNoty('Se ha añadido un usuario a la conferencia.');
                 break;
 
             case 'onAgentChangedState': {

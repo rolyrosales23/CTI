@@ -87,7 +87,10 @@ function infoDebug(message, options = null) {
         }, options));
 }
 
-function notify(message, type = 'success') {
+function notify(message, type = 'success', DebugMode = true) {
+    if (!IsDebugMode && DebugMode) {
+        return;
+    }
     switch (type) {
         case 'success': successNoty(message); break;
         case 'info': infoNoty(message); break;
