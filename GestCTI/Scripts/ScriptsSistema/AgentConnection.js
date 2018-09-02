@@ -62,7 +62,7 @@ function pintarScriptByVDN(vdn, data) {
             pintarScript(url, data);
         },
         error: function (error) {
-            errorNoty(error.responseText);
+            errorNoty("No se pudo obterner el script de la campaña.");
         }
     });
 }
@@ -97,6 +97,7 @@ function printDisposition(vdn) {
             }
         });
     }
+    localStorage.setItem('IsCampaignCall', 'false');
 }
 
 
@@ -198,8 +199,8 @@ $(function () {
         spinnerHide();
     }
 
-    agent.client.Notification = function (message, type = "success") {
-        notify(message, type);
+    agent.client.Notification = function (message, type = "success", DebugMode = true) {
+        notify(message, type, DebugMode);
     };
 
     // Logout from web app
@@ -233,9 +234,8 @@ $(function () {
         if (json.success === false) {
             changeState('answer', false);
             localStorage.removeItem('ucid');
-            successNoty(Resources.InCall);
+            errorNoty(json.response);
         }
-        // Do nothing or check is fail call request 
     };
 
     agent.client.onEventHandler = function (response, data) {
@@ -254,6 +254,7 @@ $(function () {
             case 'onCallOriginated':
 
                 tempNoty('onCallOriginated');
+                infoNoty(Resources.Calling);
                 break;
 
             case 'onCallDelivered':
@@ -262,7 +263,7 @@ $(function () {
                 changeState('answer', true);
 
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
-
+                
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 pintarScriptByVDN(eventArgs[9], {
                     'ucid': eventArgs[0],
@@ -300,13 +301,15 @@ $(function () {
                 break;
 
             case 'onCallDiverted':
-
+                changeState('answer', false);
                 tempNoty('onCallDiverted');
+                infoNoty('Llamada transferida al voice mail');
                 break;
 
             case 'onCallFailed':
 
                 tempNoty('onCallFailed');
+                infoNoty('La llamada falló.');
                 break;
 
             case 'onEstablishedConnection':
@@ -328,6 +331,7 @@ $(function () {
                 $('#inputPhone').text('').removeAttr('disabled');
                 localStorage.removeItem('activeCall');
 
+                infoNoty("Llamada puesta en hold.");
                 tempNoty('onHoldConnection');
                 break;
 
@@ -343,6 +347,7 @@ $(function () {
                 }));
                 pintarListaEspera(data);
 
+                infoNoty('Llamada recuperada de hold');
                 tempNoty('onRetrieveConnection');
                 break;
 
@@ -363,10 +368,11 @@ $(function () {
                 $("#inputPhone").val('').removeAttr("disabled");
 
                 tempNoty('onEndConnection');
+                infoNoty("La llamada ha finalizado");
                 break;
 
             case 'onEndPartyConnection':
-
+                changeState('answer', false);
                 tempNoty('onEndPartyConnection');
                 break;
 
@@ -391,6 +397,7 @@ $(function () {
                 pintarListaEspera(data);
 
                 tempNoty('onTransferredCall');
+                infoNoty("Llamada transferida.");
                 break;
 
             case 'onConferencedCall':
@@ -401,6 +408,7 @@ $(function () {
                 pintarListaEspera(data);
 
                 tempNoty('onConferencedCall');
+                infoNoty('Se ha añadido un usuario a la conferencia.');
                 break;
 
             case 'onAgentChangedState': {
@@ -652,8 +660,8 @@ $(function () {
             var IdCampaign = $('#SelCampaigns').val();
             if (notEmpty(IdCampaign)) {
                 localStorage.setItem('IsCampaignCall', 'true');
-                //cuando llega evento de llamada saliente cambiar localstorage.CallForSave
-                //en OnExternalCallDelivered
+
+                //Enviar campaña de la llamada al core...
             }
             else
                 localStorage.setItem('IsCampaignCall', 'false');

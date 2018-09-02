@@ -25,11 +25,12 @@ function notyBase(message, options = null) {
 }
 
 function tempNoty(message, options = null) {
-    notyBase(message, merge({
-        layout: 'topLeft',
-        timeout: null,
-        maxVisible: 20
-    }, options));
+    if (IsDebugMode)
+        notyBase(message, merge({
+            layout: 'topLeft',
+            timeout: null,
+            maxVisible: 20
+        }, options));
 }
 
 function successNoty(message, options = null) {
@@ -57,7 +58,39 @@ function infoNoty(message, options = null) {
     }, options));
 }
 
-function notify(message, type = 'success') {
+function successDebug(message, options = null) {
+    if (IsDebugMode)
+        notyBase(message, options);
+}
+
+function errorDebug(message, options = null) {
+    if (IsDebugMode)
+        notyBase(message, merge({
+            type: 'error',
+            timeout: null
+        }, options));
+}
+
+function warningDebug(message, options = null) {
+    if (IsDebugMode)
+        notyBase(message, merge({
+            type: 'warning',
+            timeout: 4000
+        }, options));
+}
+
+function infoDebug(message, options = null) {
+    if (IsDebugMode)
+        notyBase(message, merge({
+            type: 'information',
+            timeout: 5000
+        }, options));
+}
+
+function notify(message, type = 'success', DebugMode = true) {
+    if (!IsDebugMode && DebugMode) {
+        return;
+    }
     switch (type) {
         case 'success': successNoty(message); break;
         case 'info': infoNoty(message); break;

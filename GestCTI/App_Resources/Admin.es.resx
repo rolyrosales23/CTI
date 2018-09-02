@@ -315,4 +315,16 @@
   <data name="UrlScript" xml:space="preserve">
     <value>Url del script</value>
   </data>
+  <data name="TimeSec" xml:space="preserve">
+    <value>Tiempo en segundos</value>
+  </data>
+  <data name="ExistUsername" xml:space="preserve">
+    <value>Ya existe un usuario con ese nombre.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>ya existe en la campaña</value>
+  </data>
+  <data name="TheDisposition" xml:space="preserve">
+    <value>La disposición</value>
+  </data>
 </root>

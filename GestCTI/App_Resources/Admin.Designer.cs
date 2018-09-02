@@ -304,6 +304,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to already exists in campaign.
+        /// </summary>
+        public static string ExistIntheCampaign {
+            get {
+                return ResourceManager.GetString("ExistIntheCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There is already a user with that username..
+        /// </summary>
+        public static string ExistUsername {
+            get {
+                return ResourceManager.GetString("ExistUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FirstName.
         /// </summary>
         public static string FirstName {
@@ -570,6 +588,24 @@ namespace Resources {
         public static string SwitchCompany {
             get {
                 return ResourceManager.GetString("SwitchCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The disposition.
+        /// </summary>
+        public static string TheDisposition {
+            get {
+                return ResourceManager.GetString("TheDisposition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time in seconds.
+        /// </summary>
+        public static string TimeSec {
+            get {
+                return ResourceManager.GetString("TimeSec", resourceCulture);
             }
         }
         

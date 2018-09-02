@@ -86,5 +86,9 @@
 
     <script type="text/javascript">
         $('#myform').validate({});
+
+        var msj = '@TempData["MsjError"]';
+        if (msj != '')
+            errorNoty(msj);
     </script>
 }

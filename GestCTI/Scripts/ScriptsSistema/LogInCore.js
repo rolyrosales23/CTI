@@ -69,7 +69,6 @@
     agent.client.addInitialize = function (message) {
         json = JSON.parse(message);
         if (json['success'] === true) {
-            console.log("Login Core sucess");
             // Save deviceId
             localStorage.setItem('deviceId', $("#LoginPhoneExtension").val());
             localStorage.setItem('user', $("#LoginUsername").val());
@@ -90,7 +89,7 @@
             agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
         } else {
             spinnerHide();
-            errorNoty("Debes autenticarte con un dispositivo");
+            errorNoty(Resources.AuthDevice);
         }
     }
 
@@ -104,7 +103,7 @@
             $("#LogInForm").submit().done(function () {
                 spinnerHide();
             }).fail(function () {
-                errorNoty("Error to login Supervisor");
+                errorNoty(Resources.ErrorLogSuper);
             });
         }
     }
@@ -120,7 +119,7 @@
         $('#LogInCore').click(function () {
             var UserName = $("#LoginUsername").val();
             if (!notEmpty(UserName)) {
-                errorNoty("Debe introducir un usuario");
+                errorNoty(Resources.EnterUsername);
                 return;
             }
 
@@ -142,12 +141,12 @@
                             break;
                         default:
                             spinnerHide();
-                            errorNoty("El rol del usuario no es válido");
+                            errorNoty(Resources.UnknownUsername);
                     }
                 },
                 'error': function () {
                     spinnerHide();
-                    errorNoty("No se pudo obtener el rol del usuario");
+                    errorNoty(Resources.ErrorObtUserData);
                 }
             });
         });

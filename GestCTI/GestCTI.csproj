@@ -234,6 +234,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Agent.es.resx</DependentUpon>
     </Compile>
+    <Compile Include="App_Resources\Supervisor.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Supervisor.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\IdentityConfig.cs" />
@@ -1930,7 +1935,6 @@
     <Content Include="Scripts\ScriptsSistema\PauseCounter.js" />
     <Content Include="Scripts\ScriptsSistema\SupervisorConnection-v0.0.1.js" />
     <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
-    <Content Include="Scripts\ScriptsSistema\Login.js" />
     <Content Include="Scripts\ScriptsSistema\LogInCore.js" />
     <Content Include="Scripts\ScriptsSistema\notyTypes.js" />
     <Content Include="Scripts\ScriptsSistema\spinner.js" />
@@ -2055,6 +2059,12 @@
     <EmbeddedResource Include="App_Resources\Agent.es.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Agent.es.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources</CustomToolNamespace>
+    </EmbeddedResource>
+    <EmbeddedResource Include="App_Resources\Supervisor.es.resx" />
+    <EmbeddedResource Include="App_Resources\Supervisor.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Supervisor.Designer.cs</LastGenOutput>
       <CustomToolNamespace>Resources</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

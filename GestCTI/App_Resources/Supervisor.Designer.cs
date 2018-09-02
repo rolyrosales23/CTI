@@ -59,5 +59,23 @@ namespace Resources {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Listen.
+        /// </summary>
+        public static string Listen {
+            get {
+                return ResourceManager.GetString("Listen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Whisper.
+        /// </summary>
+        public static string Whisper {
+            get {
+                return ResourceManager.GetString("Whisper", resourceCulture);
+            }
+        }
     }
 }

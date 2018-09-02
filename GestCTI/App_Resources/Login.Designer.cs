@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must authenticate with a device..
+        /// </summary>
+        public static string AuthDevice {
+            get {
+                return ResourceManager.GetString("AuthDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calling....
         /// </summary>
         public static string Calling {
@@ -102,6 +111,33 @@ namespace Resources {
         public static string Desea {
             get {
                 return ResourceManager.GetString("Desea", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must enter a username..
+        /// </summary>
+        public static string EnterUsername {
+            get {
+                return ResourceManager.GetString("EnterUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error logging the supervisor..
+        /// </summary>
+        public static string ErrorLogSuper {
+            get {
+                return ResourceManager.GetString("ErrorLogSuper", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to obtain user data.
+        /// </summary>
+        public static string ErrorObtUserData {
+            get {
+                return ResourceManager.GetString("ErrorObtUserData", resourceCulture);
             }
         }
         
@@ -381,6 +417,15 @@ namespace Resources {
         public static string SelectVal2 {
             get {
                 return ResourceManager.GetString("SelectVal2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unknown username..
+        /// </summary>
+        public static string UnknownUsername {
+            get {
+                return ResourceManager.GetString("UnknownUsername", resourceCulture);
             }
         }
         
