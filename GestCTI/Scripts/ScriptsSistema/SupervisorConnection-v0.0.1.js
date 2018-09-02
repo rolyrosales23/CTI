@@ -1,16 +1,4 @@
-﻿// Cuando se seleccione un agente del listado
-// de agentes ejecutar esta función
-function showModalActionOverAgent() {
-    var device = localStorage.getItem('deviceId');
-    if (!notEmpty(device)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
-        return;
-    }
-    // mostrar modal
-    $('#modal-action-over-agent').modal('show');
-}
-
-function pintarAgentList(agents, selector) {
+﻿function pintarAgentList(agents, selector) {
     var wrapper = $(selector);
     wrapper.find('.panel-body').remove();
     wrapper.find('h3').remove();
@@ -37,11 +25,11 @@ function pintarAgentList(agents, selector) {
 
             var buttom = "";
             if (flag === "true") {
-                var btn1 = '<button type="button" onclick="listener(' + agents[i].CurrentUCID + ')">listener</button>';
-                var btn2 = '<button type="button" onclick="whisper(' + agents[i].CurrentUCID + ',' + agents[i].DeviceId + ')">whisper</button>';
+                var btn1 = "<button type='button' onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-sm fa fa-headphones info' title='" + Resources.Listen + "'></button>";
+                var btn2 = '<button type="button" onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-info btn-sm fa fa-headphones info" title="' + Resources.Whisper + '"></button>';
                 buttom = '<td><div class="row"><div class="col-md-6">' + btn1 + '</div><div class="col-md-6">' + btn2 + '</div></div></td>';
             } else {
-                var btn = '<button type="button" onclick="makeCall(' + agents[i].DeviceId + ')">call</button>';
+                var btn = '<button type=button" onclick=makeCall("' + agents[i].DeviceId + '") class="btn btn-info btn-sm fa fa-headphones info" title="' + Resources.Call + '"></button>';
                 buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
             }
 
@@ -233,50 +221,38 @@ $(function () {
         $('#get-agent-list').click(function () {
             agent.server.getAllUserConnected();
         });
-
-        // Esta función permite hablarle al agente seleccionado
-        $('#whisper').click(function () {
-            var device = localStorage.getItem('deviceId');
-            if (!notEmpty(device)) {
-                warningNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
-                return;
-            }
-            // En este paso encontrar el id de todos los elementos necesarios para pasarlos por esta función
-            // auxiliarse de la función pintarAgentList que escribe en el listado correspondiente 
-            // los identificadores de los campos necesitados
-            agent.server.sendCtiWhisperRequest(deviceId, ucid, selectedParty);
-        });
-
-        // Esta función permite escuchar la conversación del agente seleccionado
-        $('#listener').click(function () {
-            var device = localStorage.getItem('deviceId');
-            if (!notEmpty(device)) {
-                warningNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
-                return;
-            }
-            // En este paso encontrar el id de todos los elementos necesarios para pasarlos por esta función
-            // auxiliarse de la función pintarAgentList que escribe en el listado correspondiente 
-            // los identificadores de los campos necesitados
-            agent.server.sendCTIListenHoldAllRequest(deviceId, ucid);
-        });
-
+        
         $('#get-queue-call-list').click(function () {
             showListOfQueueCalls();
         });
         
-        $("#acceptCallRequest").click(acceptCallRequest(agent));
+        $("#acceptCallRequest").click(function () {
+            acceptCallRequest(agent)
+        });
 
-        $("#hangoutCallRequest").click(hangoutCallRequest(agent));
+        $("#hangoutCallRequest").click(function () {
+            hangoutCallRequest(agent)
+        });
 
-        $("#doHoldConnection").click(doHoldConnection(agent));
+        $("#doHoldConnection").click(function () {
+            doHoldConnection(agent)
+        });
 
-        $('#doTransfer').click(doTransfer(agent));
+        $('#doTransfer').click(function () {
+            doTransfer(agent)
+        });
 
-        $('#doRetrieve').click(doRetrieve(agent));
+        $('#doRetrieve').click(function () {
+            doRetrieve(agent)
+        });
 
-        $('#doConference').click(doConference(agent));
+        $('#doConference').click(function () {
+            doConference(agent)
+        });
 
-        $('#doEndConference').click(endCall(agent));
+        $('#doEndConference').click(function () {
+            endCall(agent)
+        });
 
         $('#LogOutCore').click(function () {
             var deviceId = localStorage.getItem('deviceId');

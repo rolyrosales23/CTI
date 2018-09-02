@@ -345,7 +345,15 @@ namespace GestCTI.Hubs
             }
             else
             {
-                Clients.Client(Context.ConnectionId).Notification("NO_CONNECTION_WEBSOCKET");
+                if (messageType == MessageType.CTILogOut)
+                {
+                    Clients.Client(Context.ConnectionId).logOutCore(null);
+                }
+                else
+                {
+                    Clients.Client(Context.ConnectionId).Notification("NO_CONNECTION_WEBSOCKET");
+                }
+
             }
         }
 
@@ -439,11 +447,11 @@ namespace GestCTI.Hubs
         /// <returns></returns>
         public override Task OnDisconnected(bool stopCalled)
         {
-            WebsocketCore core;
+            /*WebsocketCore core;
             if (socks.TryRemove(Context.User.Identity.Name, out core))
             {
                 core.Disconnect();
-            }
+            }*/
             // Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_DISCONECTED");
             return base.OnDisconnected(stopCalled);
         }

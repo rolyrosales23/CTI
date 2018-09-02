@@ -37,7 +37,7 @@ function changeState(alias, enable) {
         'end_conference': 'doEndConference',
         'hangout': 'hangoutCallRequest'
     };
-    var id = map[alias] !== undefined ? map[alias] : alias;
+    var id = (map[alias] !== undefined) ? map[alias] : alias;
 
     if (enable)
         $('#' + id).removeAttr('disabled');
@@ -164,7 +164,7 @@ $(function () {
             var deviceData = result[1];
             var state = agentData['State'];
 
-            if (state !== AgentState.AS_READY)
+            if (state != AgentState.AS_READY)
                 updateControlsState(['ready']);
             else if (deviceData['Busy']) {
                 updateControlsState(['hold', 'end_conference', 'hangout']);
@@ -176,11 +176,11 @@ $(function () {
         }
 
         spinnerHide();
-    };
+    }
 
     function enEspera(call, holdList) {
         for (var i in holdList)
-            if (call[1] === holdList[i].ucid)
+            if (call[1] == holdList[i].ucid)
                 return true;
         return false;
     }
@@ -196,7 +196,7 @@ $(function () {
             }
 
         spinnerHide();
-    };
+    }
 
     agent.client.Notification = function (message, type = "success") {
         notify(message, type);
@@ -311,7 +311,7 @@ $(function () {
 
             case 'onEstablishedConnection':
                 var myId = localStorage.getItem('deviceId');
-                var activeCall = { 'ucid': eventArgs[0], 'deviceId': eventArgs[4] !== myId ? eventArgs[4] : eventArgs[5] };
+                var activeCall = { 'ucid': eventArgs[0], 'deviceId': ((eventArgs[4] != myId) ? eventArgs[4] : eventArgs[5]) };
                 localStorage.setItem('activeCall', JSON.stringify(activeCall));
 
                 changeState('hangout', true);
@@ -357,7 +357,7 @@ $(function () {
                 changeState('hold', false);
                 changeState('pause', true);
 
-                if (localStorage.getItem('IsCampaignCall')  === 'true') {
+                if (localStorage.getItem('IsCampaignCall')  == 'true') {
                     $('#modal-dispositions').modal('show');
                 }
                 $("#inputPhone").val('').removeAttr("disabled");
@@ -386,7 +386,7 @@ $(function () {
             case 'onTransferredCall':
                 localStorage.setItem('activeCall', JSON.stringify({
                     'ucid': eventArgs[4],
-                    'deviceId': eventArgs[5] !== deviceId ? eventArgs[5] : eventArgs[6]
+                    'deviceId': ((eventArgs[5] != deviceId) ? eventArgs[5] : eventArgs[6])
                 }));
                 pintarListaEspera(data);
 
@@ -396,7 +396,7 @@ $(function () {
             case 'onConferencedCall':
                 localStorage.setItem('activeCall', JSON.stringify({
                     'ucid': eventArgs[4],
-                    'deviceId': eventArgs[5] !== deviceId ? eventArgs[5] : eventArgs[6]
+                    'deviceId': ((eventArgs[5] != deviceId) ? eventArgs[5] : eventArgs[6])
                 }));
                 pintarListaEspera(data);
 
@@ -405,7 +405,7 @@ $(function () {
 
             case 'onAgentChangedState': {
                 var agentState = eventArgs[1];
-                if (agentState === AgentState.AS_READY) {
+                if (agentState == AgentState.AS_READY) {
                     updateControlsState(['pause']);
 
                     var timeout_id = localStorage.getItem('timeout_id');
@@ -447,6 +447,11 @@ $(function () {
         }
     };
 
+    //$.connection.hub.disconnected(function () {
+    //    setTimeout(function () {
+    //        $.connection.hub.start();
+    //    }, 5000); // Restart connection after 5 seconds.
+    //});
 
     // Start the connection.
     $.connection.hub.start().done(function () {

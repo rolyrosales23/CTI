@@ -24,7 +24,7 @@ namespace GestCTI.Core.Message
         {
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
             var client = hubContext.Clients.Client(clientId);
-            
+
             //decoding the message into a json
             JObject json_msg = JObject.Parse(message);
 
@@ -39,7 +39,8 @@ namespace GestCTI.Core.Message
                         CTIErrorResponse response = JsonConvert.DeserializeObject<CTIErrorResponse>(message);
                         client.Notification(response.result, "error");
                     }
-                    catch (Exception) {
+                    catch (Exception)
+                    {
                         client.Notification("DESZERIALIZE ERROR: " + message, "error");
                     }
                 }
@@ -80,11 +81,12 @@ namespace GestCTI.Core.Message
                     break;
                 case MessageType.ON_EVENT:
                     CTIEvent evento = JsonConvert.DeserializeObject<CTIEvent>(message);
-                    String   eventName = evento.request.request;
+                    String eventName = evento.request.request;
                     String[] eventArgs = evento.request.args;
                     String username = core.CtiUser.user_name;
 
-                    switch (eventName) {
+                    switch (eventName)
+                    {
                         case "onEndCall":
                             {
                                 // Delete current call
@@ -95,7 +97,12 @@ namespace GestCTI.Core.Message
                                 client.onEventHandler(message, hl.getList(username));
                                 return;
                             }
-
+                        case "onEndConnection":
+                            {
+                                core.CtiUser.CurrentUCID = null;
+                                client.onEventHandler(message);
+                                return;
+                            }
                         case "onHoldConnection":
                             {
                                 // Delete current call
@@ -107,7 +114,8 @@ namespace GestCTI.Core.Message
                                 client.onEventHandler(message, hl.getList(username));
                                 return;
                             }
-                        case "onRetrieveConnection": {
+                        case "onRetrieveConnection":
+                            {
                                 // Add ucid of call
                                 core.CtiUser.CurrentUCID = eventArgs[0];
                                 String ucid = eventArgs[0];
@@ -116,14 +124,16 @@ namespace GestCTI.Core.Message
                                 client.onEventHandler(message, hl.getList(username));
                                 return;
                             }
-                        case "onTransferredCall": {
-                                String ucid = eventArgs[0];
+                        case "onTransferredCall":
+                            {
+                                String ucid = null;
                                 HoldList hl = Websocket.holdConnections;
                                 hl.removeElement(username, ucid);
                                 client.onEventHandler(message, hl.getList(username));
                                 return;
                             }
-                        case "onConferenceCall": {
+                        case "onConferenceCall":
+                            {
                                 core.CtiUser.CurrentUCID = eventArgs[0];
                                 String ucid = eventArgs[0];
                                 HoldList hl = Websocket.holdConnections;
@@ -131,9 +141,11 @@ namespace GestCTI.Core.Message
                                 client.onEventHandler(message, hl.getList(username));
                                 return;
                             }
-                        case "onEstablishedConnection": {
+                        case "onEstablishedConnection":
+                            {
                                 // Add ucid of call
                                 core.CtiUser.CurrentUCID = eventArgs[0];
+                                client.onEventHandler(message);
                                 return;
                             }
                     }
@@ -151,12 +163,14 @@ namespace GestCTI.Core.Message
                     break;
                 case MessageType.CTIConferenceRequest:
                     break;
-                case MessageType.InicializarAppFase1:{
+                case MessageType.InicializarAppFase1:
+                    {
                         HoldList hl = Websocket.holdConnections;
                         client.inicializarAppFase1(message, hl.getList(core.CtiUser.user_name));
                         break;
                     }
-                case MessageType.InicializarAppFase2:{
+                case MessageType.InicializarAppFase2:
+                    {
                         HoldList hl = Websocket.holdConnections;
                         client.inicializarAppFase2(message, hl.getList(core.CtiUser.user_name));
                         break;

@@ -15,7 +15,7 @@
             $(".icheckbox,.iradio").iCheck({ checkboxClass: 'icheckbox_minimal-grey', radioClass: 'iradio_minimal-grey' });
         }
     }
-}
+};
 //############ HANDLING ACTION BUTTON ########################
 
 function addCTIMakeCallRequest(response) {
@@ -42,7 +42,7 @@ function enEspera(call, holdList) {
         if (call[1] === holdList[i].ucid)
             return true;
     return false;
-}
+};
 
 //###########    ACTION BUTTON    ############################
 function acceptCallRequest(agent) {
@@ -56,7 +56,7 @@ function acceptCallRequest(agent) {
         }
     }
     else infoNoty("No hay llamada activa!");
-}
+};
 
 function hangoutCallRequest(agent) {
     var strAC = localStorage.getItem('activeCall');
@@ -69,7 +69,7 @@ function hangoutCallRequest(agent) {
         }
     }
     else infoNoty("No hay llamada activa!");
-}
+};
 
 function doHoldConnection(agent) {
     var strAC = localStorage.getItem('activeCall');
@@ -82,7 +82,7 @@ function doHoldConnection(agent) {
     }
     else
         infoNoty("No hay Llamada activa!");
-}
+};
 
 function doTransfer(agent) {
     var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
@@ -100,7 +100,7 @@ function doTransfer(agent) {
     }
     else
         infoNoty("Debe seleccionar una llamada en espera!");
-}
+};
 
 function doRetrieve(agent) {
     var radio = $('#lista_espera input[type="radio"]:checked');
@@ -115,7 +115,7 @@ function doRetrieve(agent) {
     }
     else
         infoNoty("Debe seleccionar una llamada en espera!");
-}
+};
 
 function doConference() {
     var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
@@ -133,7 +133,7 @@ function doConference() {
     }
     else
         infoNoty("Debe seleccionar una llamada en espera!");
-}
+};
 
 function endCall(agent) {
     var strAC = localStorage.getItem('activeCall');
@@ -143,7 +143,7 @@ function endCall(agent) {
     }
     else
         infoNoty("No hay llamada activa!");
-}
+};
 
 function changeState(alias, enable) {
     var map = {
@@ -156,7 +156,6 @@ function changeState(alias, enable) {
         'conference': 'doConference',
         'end_conference': 'doEndConference',
         'hangout': 'hangoutCallRequest',
-        'whisper': 'doWhisperRequest'
     };
     var id = map[alias] !== undefined ? map[alias] : alias;
 
@@ -164,14 +163,14 @@ function changeState(alias, enable) {
         $('#' + id).removeAttr('disabled');
     else
         $('#' + id).attr('disabled', 'disabled');
-}
+};
 
 function handlingEvent(response, data) {
     json = JSON.parse(response);
     var eventName = json.request.request;
     var eventArgs = json.request.args;
     var deviceId = localStorage.getItem('deviceId');
-
+    console.log(response);
     switch (eventName) {
         case 'onServiceInitiated':
             changeState('hangout', true);
