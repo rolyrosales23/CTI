@@ -67,6 +67,7 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
+                campaign.Active = false;
                 db.Campaign.Add(campaign);
                 db.SaveChanges();
                 return RedirectToAction("Index");
