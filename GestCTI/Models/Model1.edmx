@@ -101,6 +101,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Value" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Description" Type="nvarchar" MaxLength="50" />
+          <Property Name="Extension" Type="nchar" MaxLength="10" Nullable="false" />
         </EntityType>
         <EntityType Name="Switch">
           <Key>
@@ -151,6 +152,7 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdSkill" Type="int" Nullable="false" />
           <Property Name="IdUser" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="VDN">
           <Key>
@@ -520,6 +522,7 @@
           <Property Name="IdUser" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Users" Relationship="DBCTIModel.FK_UserSkill_User" FromRole="UserSkill" ToRole="Users" />
           <NavigationProperty Name="Skills" Relationship="DBCTIModel.FK_UserSkill_Skill" FromRole="UserSkill" ToRole="Skills" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityContainer Name="DBCTIEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Switch" EntityType="Self.Switch" />
@@ -718,6 +721,7 @@
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="CampaignSkills" Relationship="DBCTIModel.FK_CampaingSkills_Skills" FromRole="Skills" ToRole="CampaignSkills" />
           <NavigationProperty Name="UserSkill" Relationship="DBCTIModel.FK_UserSkill_Skill" FromRole="Skills" ToRole="UserSkill" />
+          <Property Name="Extension" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="VDN">
           <Key>
@@ -1050,6 +1054,7 @@
           <EntitySetMapping Name="UserSkill">
             <EntityTypeMapping TypeName="DBCTIModel.UserSkill">
               <MappingFragment StoreEntitySet="UserSkill">
+                <ScalarProperty Name="Level" ColumnName="Level" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="IdSkill" ColumnName="IdSkill" />
                 <ScalarProperty Name="IdUser" ColumnName="IdUser" />
@@ -1109,6 +1114,7 @@
           <EntitySetMapping Name="Skills">
             <EntityTypeMapping TypeName="DBCTIModel.Skills">
               <MappingFragment StoreEntitySet="Skills">
+                <ScalarProperty Name="Extension" ColumnName="Extension" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
