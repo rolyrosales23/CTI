@@ -20,7 +20,7 @@ namespace GestCTI.Controllers
         /// <returns>List<Calls></returns>
         public async Task<String> QueuedCalls(String id)
         {
-            var result = await ServiceCoreHttp.QueueCallsResult(id);
+            var result = await ServiceCoreHttp.CampaignQueuedCalls(id);
             JsonConvert.SerializeObject(result);
             return JsonConvert.SerializeObject(result);
         }

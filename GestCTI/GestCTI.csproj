@@ -259,6 +259,7 @@
     <Compile Include="Controllers\ScriptsController.cs" />
     <Compile Include="Controllers\WebServiceController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
+    <Compile Include="Core\Service\Sinchronize.cs" />
     <Compile Include="Core\Service\ServiceCoreHttp.cs" />
     <Compile Include="Core\Util\Call.cs" />
     <Compile Include="Core\WebsocketClient\CtiEvent.cs" />
