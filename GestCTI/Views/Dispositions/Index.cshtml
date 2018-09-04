@@ -54,10 +54,20 @@
                         <td>
                             @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
 
-                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
+                            @if (item.Active)
+                            {
+                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
 
-                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.Disposition }, { "Action", "Delete" }, { "Controller", "Dispositions" }, { "Menssage", Resources.Admin.QuestionDeactivateF + " " + Resources.Admin.Disposition + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
-                        </td></tr>
+                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Admin.Disposition }, { "Action", "Delete" }, { "Controller", "Dispositions" }, { "Menssage", Resources.Admin.QuestionDeactivateF + " " + Resources.Admin.Disposition + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
+                            }
+                            else
+                            {
+                                <a class="btn btn-warning btn-sm info glyphicon glyphicon-play mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Activate"></a>
+
+                                    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "glyphicon glyphicon-play" }, { "Title", Resources.Admin.Activate + " " + Resources.Admin.Disposition }, { "Action", "Activate" }, { "Controller", "Dispositions" }, { "Menssage", Resources.Admin.QuestionActivateM + " " + Resources.Admin.Disposition + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Name + "?" } })
+                            }
+                        </td>
+                    </tr>
                 }
 
             </table>

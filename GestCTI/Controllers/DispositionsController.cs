@@ -88,6 +88,17 @@ namespace GestCTI.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: Dispositions/Activate/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Activate(int id)
+        {
+            Dispositions dispositions = db.Dispositions.Find(id);
+            dispositions.Active = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

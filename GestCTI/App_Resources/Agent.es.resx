@@ -177,4 +177,7 @@
   <data name="SelectPauseCode" xml:space="preserve">
     <value>Seleccione un Código de Pausa...</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Estado</value>
+  </data>
 </root>

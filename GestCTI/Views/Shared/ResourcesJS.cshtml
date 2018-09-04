@@ -27,7 +27,13 @@
             SelectCampaign: '@Resources.Agent.SelectCampaign',
             Call: '@Resources.Agent.Call',
             Listen: '@Resources.Supervisor.Listen',
-            Whisper: '@Resources.Supervisor.Whisper'
+            Whisper: '@Resources.Supervisor.Whisper',
+            InCall: '@Resources.Supervisor.InCall',
+            Connected: '@Resources.Supervisor.Connected',
+            Username: '@Resources.Admin.Username',
+            PhoneExtension: '@Resources.Login.PhoneExtension',
+            Options: '@Resources.Admin.Options',
+            Status: '@Resources.Agent.Status'
 
         };
 
@@ -36,4 +42,17 @@
     };
 
     var IsDebugMode = true;
+
+    var msj = '@TempData["successNoty"]';
+    if (msj != '')
+        successNoty(msj);
+    msj = '@TempData["errorNoty"]';
+    if (msj != '')
+        errorNoty(msj);
+    msj = '@TempData["warningNoty"]';
+    if (msj != '')
+        warningNoty(msj);
+    msj = '@TempData["infoNoty"]';
+    if (msj != '')
+        infoNoty(msj);
 </script>

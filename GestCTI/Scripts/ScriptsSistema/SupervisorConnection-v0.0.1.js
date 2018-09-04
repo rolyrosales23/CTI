@@ -5,15 +5,15 @@
     if (notEmpty(agents)) {
         var panelbody = $('<div class="panel-body panel-body-table"></div>')
             .append('<div class="table-responsive"></div>').find('div')
-            .append('<table class="table table-bordered table-striped table-actions"></table>').end();
+            .append('<table class="table table-bordered table-striped table-actions Mydatatable"></table>').end();
 
         var table = wrapper.append(panelbody).find('table');
 
         var header = $('<thead><tr></tr></thead>').find('tr')
-            .append('<th width="50">UserName</th>')
-            .append('<th width="100">status</th>')
-            .append('<th width="100">phone_extension</th>')
-            .append('<th width="100">action</th>')
+            .append('<th width="50">' + Resources.Username + '</th>')
+            .append('<th width="100">' + Resources.Status + '</th > ')
+            .append('<th width="100">' + Resources.PhoneExtension + '</th > ')
+            .append('<th width="100">' + Resources.Options + '</th > ')
             .end();
 
         var body = $('<tbody></tbody>');
@@ -24,18 +24,23 @@
                 .append('<input type="checkbox" class="icheckbox" id="' + i + '-check"/>')
 
             var buttom = "";
+            var status = "";
             if (flag === "true") {
-                var btn1 = "<a type='button' onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-md fa fa-headphones info' title='" + Resources.Listen + "'></a>";
-                var btn2 = '<a type="button" onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-warning btn-md fa fa-bullhorn info" title="' + Resources.Whisper + '"></a>';
-                buttom = '<td><div class="row"><div class="col-md-12">' + btn1 + btn2 + '</div></div></td>';
+                var btn1 = "<a onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-md fa fa-headphones info mb-control' title='" + Resources.Listen + "'></a>";
+                var btn2 = '<a onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-warning btn-md fa fa-bullhorn info mb-control" title="' + Resources.Whisper + '"></a>';
+                buttom = '<td>' + btn1 + btn2 + '</td>';
+
+                status = '<td><span class="label label-success" >' + Resources.InCall + '</span></td>';
             } else {
                 var btn = '<a type=button" onclick=makeCall("' + agents[i].DeviceId + '") class="btn btn-success btn-md fa fa-phone info" title="' + Resources.Call + '"></a>';
-                buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
+                buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>';
+
+                status = '<td><span class="label label-warning" >' + Resources.Connected + '</span></td>';
             }
 
             var fila = $('<tr></tr>')
                 .append('<td>' + agents[i].user_name + '</td>')
-                .append('<td>' + "connected" + '</td>')
+                .append(status)
                 .append('<td id="' + i + '-deviceId">' + agents[i].DeviceId + '</td>')
                 .append(buttom);
             body.append(fila);

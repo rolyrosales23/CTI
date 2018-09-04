@@ -65,18 +65,17 @@ namespace GestCTI.Controllers
                 if (db.Users.FirstOrDefault(p => p.Username == users.Username) == null)
                 {
                     users.Password = Seguridad.EncryptMD5(users.Password);
-                    db.Users.Add(users);
+                    Users new_user = db.Users.Add(users);
                     db.SaveChanges();
                     if (users.Role == "agent")
                     {
-                        int idUser = db.Users.FirstOrDefault(p => p.Username == users.Username).Id;
                         if (IdSkill != null)
                         {
                             for (int i = 0; i < IdSkill.Count(); i++)
                             {
                                 UserSkill newskill = new UserSkill();
                                 newskill.IdSkill = IdSkill[i];
-                                newskill.IdUser = idUser;
+                                newskill.IdUser = new_user.Id;
                                 db.UserSkill.Add(newskill);
                             }
                             db.SaveChanges();
@@ -85,11 +84,12 @@ namespace GestCTI.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                    TempData["MsjError"] = Resources.Admin.ExistUsername;
+                    TempData["errorNoty"] = Resources.Admin.ExistUsername;
             }
 
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
             return View(users);
         }
 
@@ -157,7 +157,7 @@ namespace GestCTI.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                    TempData["MsjError"] = Resources.Admin.ExistUsername;
+                    TempData["errorNoty"] = Resources.Admin.ExistUsername;
         }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
@@ -172,7 +172,17 @@ namespace GestCTI.Controllers
         {
             Users users = db.Users.Find(id);
             users.Active = false;
-            //db.Users.Remove(users);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Users/Activate/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Activate(int id)
+        {
+            Users users = db.Users.Find(id);
+            users.Active = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

@@ -87,6 +87,17 @@ namespace GestCTI.Controllers
             return RedirectToAction("Index");
         }
 
+        // POST: PauseCodes/Activate/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Activate(int id)
+        {
+            PauseCodes pauseCodes = db.PauseCodes.Find(id);
+            pauseCodes.Active = true;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

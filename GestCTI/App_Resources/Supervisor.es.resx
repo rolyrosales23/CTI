@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Connected" xml:space="preserve">
+    <value>Conectado</value>
+  </data>
+  <data name="InCall" xml:space="preserve">
+    <value>En una llamada</value>
+  </data>
   <data name="Listen" xml:space="preserve">
     <value>Escuchar</value>
   </data>

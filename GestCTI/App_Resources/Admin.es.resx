@@ -289,7 +289,7 @@
     <value>Tipos</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Opciones</value>
+    <value>Acciones</value>
   </data>
   <data name="NotDispositions" xml:space="preserve">
     <value>(No tiene disposiciones asociadas.)</value>
@@ -330,7 +330,22 @@
   <data name="Start" xml:space="preserve">
     <value>Iniciar</value>
   </data>
+  <data name="StartCampaign" xml:space="preserve">
+    <value>¿Seguro que desea iniciar la campaña</value>
+  </data>
   <data name="Stop" xml:space="preserve">
     <value>Detener</value>
+  </data>
+  <data name="StopCampaign" xml:space="preserve">
+    <value>¿Seguro que desea detener la campaña</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="QuestionActivateF" xml:space="preserve">
+    <value>¿Seguro que desea activar la</value>
+  </data>
+  <data name="QuestionActivateM" xml:space="preserve">
+    <value>¿Seguro que desea activar el</value>
   </data>
 </root>

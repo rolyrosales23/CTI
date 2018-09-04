@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datails.
+        ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string ActionDetails {
             get {
@@ -102,6 +102,15 @@ namespace Resources {
         public static string ActionEdit {
             get {
                 return ResourceManager.GetString("ActionEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate.
+        /// </summary>
+        public static string Activate {
+            get {
+                return ResourceManager.GetString("Activate", resourceCulture);
             }
         }
         
@@ -448,7 +457,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Options.
+        ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string Options {
             get {
@@ -489,6 +498,24 @@ namespace Resources {
         public static string PauseCodes {
             get {
                 return ResourceManager.GetString("PauseCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to activate.
+        /// </summary>
+        public static string QuestionActivateF {
+            get {
+                return ResourceManager.GetString("QuestionActivateF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to activate.
+        /// </summary>
+        public static string QuestionActivateM {
+            get {
+                return ResourceManager.GetString("QuestionActivateM", resourceCulture);
             }
         }
         
@@ -592,11 +619,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to start the campaign.
+        /// </summary>
+        public static string StartCampaign {
+            get {
+                return ResourceManager.GetString("StartCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string Stop {
             get {
                 return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to stop the campaign.
+        /// </summary>
+        public static string StopCampaign {
+            get {
+                return ResourceManager.GetString("StopCampaign", resourceCulture);
             }
         }
         

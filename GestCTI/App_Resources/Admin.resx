@@ -124,7 +124,7 @@
     <value>Delete</value>
   </data>
   <data name="ActionDetails" xml:space="preserve">
-    <value>Datails</value>
+    <value>Details</value>
   </data>
   <data name="ActionEdit" xml:space="preserve">
     <value>Edit</value>
@@ -289,7 +289,7 @@
     <value>Types</value>
   </data>
   <data name="Options" xml:space="preserve">
-    <value>Options</value>
+    <value>Actions</value>
   </data>
   <data name="NotDispositions" xml:space="preserve">
     <value>(Does not have associated dispositions.)</value>
@@ -330,7 +330,22 @@
   <data name="Start" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="StartCampaign" xml:space="preserve">
+    <value>Are you sure you want to start the campaign</value>
+  </data>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="StopCampaign" xml:space="preserve">
+    <value>Are you sure you want to stop the campaign</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Activate</value>
+  </data>
+  <data name="QuestionActivateF" xml:space="preserve">
+    <value>Are you sure you want to activate</value>
+  </data>
+  <data name="QuestionActivateM" xml:space="preserve">
+    <value>Are you sure you want to activate</value>
   </data>
 </root>

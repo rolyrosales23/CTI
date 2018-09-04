@@ -47,6 +47,11 @@ namespace GestCTI.Controllers
 
             ViewBag.vdns = (from v in db.VDN where v.IdCampaign == id select v).ToList();
 
+            ViewBag.skills = (from s in db.Skills
+                              join cs in db.CampaignSkills on s.Id equals cs.IdSkill
+                              where cs.IdCampaign == id
+                              select cs).ToList();
+
             return View(campaign);
         }
 
@@ -55,6 +60,7 @@ namespace GestCTI.Controllers
         {
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value");
             return View();
         }
 
@@ -63,18 +69,31 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign)
+        public ActionResult Create([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign, int[] IdSkill)
         {
             if (ModelState.IsValid)
             {
                 campaign.Active = false;
-                db.Campaign.Add(campaign);
+                Campaign new_campaign = db.Campaign.Add(campaign);
                 db.SaveChanges();
+
+                if (IdSkill != null)
+                {
+                    for (int i = 0; i < IdSkill.Count(); i++)
+                    {
+                        CampaignSkills newskill = new CampaignSkills();
+                        newskill.IdSkill = IdSkill[i];
+                        newskill.IdCampaign = new_campaign.Id;
+                        db.CampaignSkills.Add(newskill);
+                    }
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
 
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
             return View(campaign);
         }
 
@@ -92,6 +111,8 @@ namespace GestCTI.Controllers
             }
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
+            var skills = from s in db.Skills join cs in db.CampaignSkills on s.Id equals cs.IdSkill where cs.IdCampaign == id select s.Id;
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", skills);
             return View(campaign);
         }
 
@@ -100,26 +121,73 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign)
+        public ActionResult Edit([Bind(Include = "Id,Code,Name,IdType,UrlScript,IdCompany")] Campaign campaign, int[] IdSkill)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(campaign).State = EntityState.Modified;
+
+                List<CampaignSkills> actual = db.CampaignSkills.Where(p => p.IdCampaign == campaign.Id).ToList();                
+                if (IdSkill != null)
+                    for (int i = 0; i < IdSkill.Count(); i++)
+                    {
+                        if (actual.FirstOrDefault(p => p.IdSkill == IdSkill[i]) != null)
+                            actual.RemoveAll(p => p.IdSkill == IdSkill[i]);
+                        else
+                        {
+                            CampaignSkills newskill = new CampaignSkills();
+                            newskill.IdSkill = IdSkill[i];
+                            newskill.IdCampaign = campaign.Id;
+                            db.CampaignSkills.Add(newskill);
+                        }
+                    }
+                for (int i = 0; i < actual.Count(); i++)
+                    db.CampaignSkills.Remove(actual[i]);
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
             return View(campaign);
         }
 
-        // POST: Campaigns/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // POST: Campaigns/Start/5
+        [HttpPost, ActionName("Start")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Start(int id)
         {
             Campaign campaign = db.Campaign.Find(id);
-            db.Campaign.Remove(campaign);
+
+            // Llamar Start Campaign de web services
+            campaign.Active = true;
+            db.SaveChanges();
+            TempData["successNoty"] = "La campaña " + campaign.Name + " ha sido iniciada correctamente.";
+            return RedirectToAction("Index");
+        }
+
+        // POST: Campaigns/Stop/5
+        [HttpPost, ActionName("Stop")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Stop(int id)
+        {
+            Campaign campaign = db.Campaign.Find(id);
+
+            // Llamar Stop Campaign de web service
+            campaign.Active = false;
+            db.SaveChanges();
+            TempData["successNoty"] = "La campaña " + campaign.Name + " ha sido detenida correctamente.";
+            return RedirectToAction("Index");
+        }
+
+        // POST: Users/DeleteSkill/5
+        [HttpPost, ActionName("DeleteSkill")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteSkillConfirmed(int id)
+        {
+            CampaignSkills cs = db.CampaignSkills.Find(id);
+            db.CampaignSkills.Remove(cs);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
