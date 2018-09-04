@@ -47,7 +47,7 @@ namespace GestCTI.Hubs
             }
             else
             {
-                Clients.Client(Context.ConnectionId).Notification("SERVER_LOGIN_ERROR");
+                Clients.Client(Context.ConnectionId).Notification("SERVER_LOGIN_ERROR", "error");
             }
         }
 
@@ -349,12 +349,12 @@ namespace GestCTI.Hubs
                     else if (Context.ConnectionId != ws.CtiUser.ConnectionId)
                     {
                         // Another client user is logued with your credentials
-                        Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET_FROM_OLD_CONNECTION");
+                        Clients.Client(Context.ConnectionId).Notification("ERROR SEND MESSAGE TO WEBSOCKET FROM OLD CONNECTION", "error", false);
                     }
                     else
                     {
                         // You don't have connection with websocket
-                        Clients.Client(Context.ConnectionId).Notification("ERROR_SEND_MESSAGE_TO_WEBSOCKET");
+                        Clients.Client(Context.ConnectionId).Notification("ERROR SEND MESSAGE TO WEBSOCKET", "error", false);
                     }
                 }
             }
@@ -366,7 +366,7 @@ namespace GestCTI.Hubs
                 }
                 else
                 {
-                    Clients.Client(Context.ConnectionId).Notification("NO_CONNECTION_WEBSOCKET");
+                    Clients.Client(Context.ConnectionId).Notification("NO CONNECTION WEBSOCKET", "error", false);
                 }
 
             }
@@ -415,7 +415,7 @@ namespace GestCTI.Hubs
                 else
                 {
                     socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
-                    Clients.Client(Context.ConnectionId).Notification("SERVER_CORE_WEBSOCKET_CONNECTED");
+                    Clients.Client(Context.ConnectionId).Notification("SERVER CORE WEBSOCKET CONNECTED");
                 }
             }
             else
@@ -451,7 +451,7 @@ namespace GestCTI.Hubs
                     }
                 }
             }
-            Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_CONNECTED");
+            Clients.Client(Context.ConnectionId).Notification("SERVER WEBSOCKET CONNECTED", "success", false);
             return base.OnConnected();
         }
 
@@ -497,7 +497,7 @@ namespace GestCTI.Hubs
 
                 }
             }
-            Clients.Client(Context.ConnectionId).Notification("SERVER_WEBSOCKET_RECONNECTED");
+            Clients.Client(Context.ConnectionId).Notification("SERVER WEBSOCKET RECONNECTED", "info", false);
             return base.OnReconnected();
         }
     }

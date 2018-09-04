@@ -348,4 +348,7 @@
   <data name="QuestionActivateM" xml:space="preserve">
     <value>Are you sure you want to activate</value>
   </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extension</value>
+  </data>
 </root>

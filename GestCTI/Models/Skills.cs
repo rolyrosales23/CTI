@@ -24,6 +24,7 @@ namespace GestCTI.Models
         public int Id { get; set; }
         public string Value { get; set; }
         public string Description { get; set; }
+        public string Extension { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CampaignSkills> CampaignSkills { get; set; }

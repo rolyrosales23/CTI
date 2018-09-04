@@ -30,6 +30,9 @@
                            @Resources.Admin.Description
                         </th>
                         <th>
+                            @Resources.Admin.Extension
+                        </th>
+                        <th>
                             @Resources.Admin.Options
                         </th>
                     </tr>
@@ -43,6 +46,9 @@
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Extension)
                             </td>
                             <td>
                                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
