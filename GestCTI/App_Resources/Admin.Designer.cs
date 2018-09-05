@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debe asociar Disposiciones a esta campaña para poder iniciarla..
+        /// </summary>
+        public static string AssocDispositions {
+            get {
+                return ResourceManager.GetString("AssocDispositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto Ready.
         /// </summary>
         public static string AutoReady {
@@ -228,6 +237,15 @@ namespace Resources {
         public static string ControlPanel {
             get {
                 return ResourceManager.GetString("ControlPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start campaign.
+        /// </summary>
+        public static string CouldNotStart {
+            get {
+                return ResourceManager.GetString("CouldNotStart", resourceCulture);
             }
         }
         
