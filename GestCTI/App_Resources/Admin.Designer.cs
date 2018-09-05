@@ -376,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LOGOUT.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Max Daily events.
         /// </summary>
         public static string MaxDailyEvents {
@@ -597,6 +606,15 @@ namespace Resources {
         public static string Save {
             get {
                 return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SINCHRONIZE DB.
+        /// </summary>
+        public static string Sinchronize {
+            get {
+                return ResourceManager.GetString("Sinchronize", resourceCulture);
             }
         }
         

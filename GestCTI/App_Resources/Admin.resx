@@ -351,4 +351,10 @@
   <data name="Extension" xml:space="preserve">
     <value>Extension</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>LOGOUT</value>
+  </data>
+  <data name="Sinchronize" xml:space="preserve">
+    <value>SINCHRONIZE DB</value>
+  </data>
 </root>
