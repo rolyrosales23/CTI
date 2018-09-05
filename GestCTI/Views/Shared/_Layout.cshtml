@@ -39,9 +39,11 @@
                         <img src="~/assets/img/no-image.jpg" alt="User" />
                     </a>
                     <div class="profile">
+                        <!-- 
                         <div class="profile-image">
                             <img src="~/assets/img/no-image.jpg" alt="User" />
                         </div>
+                        -->
                         <div class="profile-data">
                             <div class="profile-data-name">@this.User.Identity.Name</div>
                             @if (this.User.IsInRole("admin"))
@@ -57,10 +59,12 @@
                                 <div class="profile-data-title">Supervisor</div>
                             }
                         </div>
+                        <!--
                         <div class="profile-controls">
                             <a href="#" class="profile-control-left"><span class="fa fa-info"></span></a>
                             <a href="#" class="profile-control-right"><span class="fa fa-envelope"></span></a>
                         </div>
+                        -->
                     </div>
                 </li>
                 <li class="xn-title">Menu</li>
@@ -132,7 +136,7 @@
             <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
                 <!-- TOGGLE NAVIGATION -->
                 <li class="xn-icon-button">
-                    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                    <a href="#" class="x-navigation-minimize" id="toggleMenu"><span class="fa fa-dedent"></span></a>
                 </li>
                 <!-- END TOGGLE NAVIGATION -->
                 <!-- SEARCH -->
@@ -439,6 +443,21 @@
 
             });
         }
+
+        $('document').ready(function () {
+            if (localStorage.getItem('minimizedMenu'))
+                $(".x-navigation-minimize").trigger('click');
+        });
+        
+        $('#toggleMenu').click(function () {
+            //como el onclick mio se ejecuta antes parece estar al revés
+            //pero hay que tener en cuenta que luego de quue se ejecute este código
+            //el estado del menú cambia
+            if ($(".page-sidebar .x-navigation").hasClass("x-navigation-minimized"))
+                localStorage.removeItem('minimizedMenu');
+            else
+                localStorage.setItem('minimizedMenu', true);
+        });
     </script>
 </body>
 </html>

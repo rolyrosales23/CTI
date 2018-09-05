@@ -169,7 +169,7 @@ namespace GestCTI.Controllers
                     {
                         if (campaign.DispositionCampaigns.Count > 0)
                         {
-                            string url = "";
+                            string url = "http://" + Request.Url.Host;
                             if (ServiceCoreHttp.CampaignStart(id, url, campaign.IdType).Result)
                             {
                                 campaign.Active = true;
