@@ -9,7 +9,6 @@
         <EntityTypeShape EntityType="DBCTIModel.UserLocation" Width="1.5" PointX="2.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBCTIModel.UserSkill" Width="1.5" PointX="2.75" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBCTIModel.Users" Width="1.5" PointX="0.625" PointY="1.25" />
-        <AssociationConnector Association="DBCTIModel.FK_Users_Location" />
         <AssociationConnector Association="DBCTIModel.FK_UserSkill_User" />
         <EntityTypeShape EntityType="DBCTIModel.Campaign" Width="1.5" PointX="5.375" PointY="0.5" />
         <EntityTypeShape EntityType="DBCTIModel.CampaignSkills" Width="1.5" PointX="7.75" PointY="2.75" />
@@ -22,7 +21,6 @@
         <AssociationConnector Association="DBCTIModel.FK_CampaingSkills_Skills" />
         <AssociationConnector Association="DBCTIModel.FK_Company_Switch" />
         <AssociationConnector Association="DBCTIModel.FK_Company_Users" />
-        <AssociationConnector Association="DBCTIModel.FK_Users_Company" />
         <AssociationConnector Association="DBCTIModel.FK_UserSkill_Skill" />
         <EntityTypeShape EntityType="DBCTIModel.CampaignType" Width="1.5" PointX="7.625" PointY="0.5" />
         <AssociationConnector Association="DBCTIModel.FK_Campaing_CampaingType" />
@@ -40,6 +38,8 @@
         <EntityTypeShape EntityType="DBCTIModel.UserPauseCodes" Width="1.5" PointX="14.75" PointY="0.75" />
         <AssociationConnector Association="DBCTIModel.FK_UserPauseCodes_PauseCodes" />
         <AssociationConnector Association="DBCTIModel.FK_UserPauseCodes_Users" />
+        <AssociationConnector Association="DBCTIModel.FK_Users_Company" />
+        <AssociationConnector Association="DBCTIModel.FK_Users_Location" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
