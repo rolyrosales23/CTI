@@ -26,7 +26,7 @@ namespace GestCTI.Core.Service
                 Skills skill = new Skills();
                 skill.Value = Group_Number[i].ToString();
                 skill.Description = Group_Name[i].ToString();
-                skill.extension = Group_Extension[i].ToString();
+                skill.Extension = Group_Extension[i].ToString();
                 db.Skills.Add(skill);
                 db.SaveChanges();
             }
