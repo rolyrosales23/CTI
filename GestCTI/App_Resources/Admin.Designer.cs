@@ -403,7 +403,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to SALIR.
+        ///   Looks up a localized string similar to LOGOUT.
         /// </summary>
         public static string Logout {
             get {
