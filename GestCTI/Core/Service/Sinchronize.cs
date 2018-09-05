@@ -14,7 +14,7 @@ namespace GestCTI.Core.Service
 {
     public class Sinchronize
     {
-        public static void loadSkills() {
+        private static void loadSkills() {
             DBCTIEntities db = new DBCTIEntities();
 
             String result = ServiceCoreHttp.SkillList().Result;
@@ -51,7 +51,7 @@ namespace GestCTI.Core.Service
             db.SaveChanges();
         }
 
-        public static void loadAgents() {
+        private static void loadAgents() {
             DBCTIEntities db = new DBCTIEntities();
 
             String result = ServiceCoreHttp.AgentList().Result;
@@ -93,12 +93,12 @@ namespace GestCTI.Core.Service
             db.SaveChanges();
         }
 
-        public static void loadAgentsSkills() {
+        private static void loadAgentsSkills() {
             DBCTIEntities db = new DBCTIEntities();
             List<String> agents = db.Users.Where(u => u.Role == "agent" && u.Active).Select(u => u.Username).ToList<String>();
 
             String result = ServiceCoreHttp.AgentGetSkills(agents).Result;
-            JObject lista = JObject.Parse(result);
+            JArray lista = JArray.Parse(result);
 
             List<UserSkill> actual = db.UserSkill.Where(us => us.Users.Active).ToList();
             for (int i = 0; i < lista.Count; i++)
@@ -111,8 +111,8 @@ namespace GestCTI.Core.Service
                 if (user == null) continue;
 
                 for (int j = 0; j < skillNumber.Count; j++) {
-                    String sn = skillNumber[i].ToString();
-                    String sl = skillLevel[i].ToString();
+                    String sn = skillNumber[j].ToString();
+                    String sl = skillLevel[j].ToString();
 
                     Skills skill = db.Skills.FirstOrDefault(s => s.Value == sn);
                     if (skill == null) continue;
@@ -143,6 +143,12 @@ namespace GestCTI.Core.Service
             String result = ServiceCoreHttp.AgentDetail(username).Result;
             JObject json = JObject.Parse(result);
             return json["Password"].ToString();
+        }
+
+        public static void sincronizar() {
+            loadSkills();
+            loadAgents();
+            loadAgentsSkills();
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using GestCTI.Models;
 using GestCTI.Controllers.Auth;
+using GestCTI.Core.Service;
 
 namespace GestCTI.Controllers
 {
@@ -29,6 +30,11 @@ namespace GestCTI.Controllers
             ViewBag.UserLocationsCount = db.UserLocation.Count();
 
             return View();
+        }
+
+        [HttpPost]
+        public void Sincronizar() {
+            Sinchronize.sincronizar();
         }
     }
 }

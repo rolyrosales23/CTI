@@ -366,4 +366,10 @@
   <data name="TheCampaign" xml:space="preserve">
     <value>La campaña</value>
   </data>
+  <data name="Logout" xml:space="preserve">
+    <value>SALIR</value>
+  </data>
+  <data name="Sinchronize" xml:space="preserve">
+    <value>SINCRONIZAR BD</value>
+  </data>
 </root>

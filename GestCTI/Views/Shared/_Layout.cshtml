@@ -145,7 +145,7 @@
                 <!-- SIGN OUT -->
                 @if (Request.IsAuthenticated)
                 {
-                    <li class="xn-icon-button pull-right">
+                    <li class="xn-icon-button pull-right info" title="@Resources.Admin.Logout">
                         <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
                     </li>
                 }
@@ -240,6 +240,12 @@
                         </div>
                     </li>
                     <!-- END TASKS -->*@
+                @if (this.User.IsInRole("admin"))
+                {
+                    <li class="xn-icon-button pull-right info" title="@Resources.Admin.Sinchronize">
+                        <a href="#" data-box="#Modal_sinchronize" class="mb-control"><span class="fa fa-refresh"></span></a>
+                    </li>
+                }
 
                 <li class="xn-logo pull-right" id="pause-counter" style="display: none">
                     <a><span style="font-weight: bold; font-size: 0.9em"></span></a>
@@ -297,6 +303,8 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", "sinchronize" }, { "Icon", "fa fa-refresh" }, { "Title", "Sincronizar su base de datos!" }, { "Action", "Sincronizar" }, { "Controller", "Admin" }, { "Menssage", "Está a punto de actualizar su base de datos. ¿Desea Continuar?" } })
     <!-- END MESSAGE BOX-->
     <!-- START PRELOADS -->
     <audio id="audio-alert" src="~/assets/audio/alert.mp3" preload="auto"></audio>
@@ -405,6 +413,32 @@
             if ($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');
             $(obj).tooltip({ placement: placement, html: true });
         });
+
+        if ($('#Modal_sinchronize form').length) {
+            $('#Modal_sinchronize form').submit(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                spinnerShow();
+                $('#Modal_sinchronize').modal('hide');
+
+                $.ajax({
+                    url: '@Url.Action("Sincronizar", "Admin")',
+                    type: 'POST',
+                    success: function () {
+                        window.location = '@Url.Action("Index", "Admin")';
+                        successNoty("La base de datos se sincronizó correctamente.");
+                    },
+                    error: function () {
+                        errorNoty("Ocurrió un error mientras se sincronizaba la base de datos. Por favor, intente de nuevamente.");
+                    },
+                    complete: function () {
+                        spinnerHide();
+                    }
+                });
+
+            });
+        }
     </script>
 </body>
 </html>
