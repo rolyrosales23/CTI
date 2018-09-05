@@ -357,6 +357,9 @@
   <data name="CouldNotStart" xml:space="preserve">
     <value>Could not start campaign</value>
   </data>
+  <data name="Sinchronize" xml:space="preserve">
+    <value>SINCHRONIZE DB</value>
+  </data>
   <data name="Level" xml:space="preserve">
     <value>Level</value>
   </data>
@@ -366,10 +369,5 @@
   <data name="TheCampaign" xml:space="preserve">
     <value>The Campaign</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>SALIR</value>
-  </data>
-  <data name="Sinchronize" xml:space="preserve">
-    <value>SINCHRONIZE DB</value>
   </data>
 </root>
