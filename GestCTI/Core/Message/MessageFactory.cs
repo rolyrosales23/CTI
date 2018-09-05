@@ -145,6 +145,7 @@ namespace GestCTI.Core.Message
                             {
                                 // Add ucid of call
                                 core.CtiUser.CurrentUCID = eventArgs[0];
+                                core.CtiUser.CurrentUserInCall = eventArgs[4] != core.CtiUser.DeviceId ? eventArgs[4] : eventArgs[5];
                                 client.onEventHandler(message);
                                 return;
                             }
