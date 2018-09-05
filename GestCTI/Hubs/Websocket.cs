@@ -152,6 +152,36 @@ namespace GestCTI.Hubs
         }
 
         /// <summary>
+        /// Retrive all connection from listen action
+        /// </summary>
+        /// <param name="deviceId"></param>
+        /// <param name="ucid"></param>
+        /// <returns></returns>
+        public async Task sendCTIListenRetrieveAllRequest(String deviceId, String ucid)
+        {
+            var toSend = CallHandling.CTIListenRetrieveAllRequest(deviceId, ucid);
+            String I18n = "COMMAND_HOLD_CONNECTION";
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIListenRetrieveAllRequest, I18n, Context.User.Identity.Name);
+        }
+
+        /// <summary>
+        /// Send configuration from client in server
+        /// </summary>
+        public void getConfiguration()
+        {
+            var element = socks.Where(item => item.Value.CtiUser.user_name == Context.User.Identity.Name).FirstOrDefault();
+            if (element.Value == null)
+            {
+                Clients.Client(Context.ConnectionId).receiveConfiguration(null, null);
+            }
+            else
+            {
+                Clients.Client(Context.ConnectionId).receiveConfiguration(element.Value.CtiUser, holdConnections.getList(Context.User.Identity.Name));
+            }
+            
+        }
+
+        /// <summary>
         /// Log out
         /// </summary>
         /// <param name="deviceId">Device id</param>

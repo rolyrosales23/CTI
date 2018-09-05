@@ -72,7 +72,15 @@
                         </dt>
 
                         <dd>
-                            <label class="control-label" style="font-size:medium">@Model.Active</label>
+                            
+                            @if (Model.Active)
+                            {
+                                <input type="checkbox" class="icheckbox" checked="checked" disabled>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="icheckbox" disabled>
+                            }
                         </dd>
 
                         <dt>

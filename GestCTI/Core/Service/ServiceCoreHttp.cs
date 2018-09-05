@@ -50,7 +50,7 @@ namespace GestCTI.Core.Service
             {
                 var response = await GetRequest(Campaign_Start + "?campaignId=" + campaignId + "&host=" + host + "&campaignTypeId=" + campaignTypeId);
                 JObject result = JObject.Parse(response.ToString());
-                return (result["success"].ToString().ToUpper() == "TRUE");
+                return (result["Success"].ToString().ToUpper() == "TRUE");
             }
             catch (Exception)
             {
@@ -64,7 +64,7 @@ namespace GestCTI.Core.Service
             {
                 var response = await GetRequest(Campaign_Stop + "?campaignId=" + campaignId);
                 JObject result = JObject.Parse(response.ToString());
-                return (result["success"].ToString().ToUpper() == "TRUE");
+                return (result["Success"].ToString().ToUpper() == "TRUE");
             }
             catch (Exception)
             {
@@ -147,7 +147,7 @@ namespace GestCTI.Core.Service
 
                 var response = await GetRequest(Campaign_AssignCall + "?campaignHost=" + campaignHost + "&campaignId=" + campaignId + "&ucid=" + ucid, httpHost);
                 JObject result = JObject.Parse(response.ToString());
-                return (result["success"].ToString().ToUpper() == "TRUE");
+                return (result["Success"].ToString().ToUpper() == "TRUE");
             }
 
             return false;
@@ -178,7 +178,7 @@ namespace GestCTI.Core.Service
         public static async Task<Boolean> AgentAdd(String agentId, String name, string password){
             var response = await GetRequest(Agent_Add + "?agentId=" + agentId + "&name=" + name + "&password=" + password);
             JObject result = JObject.Parse(response.ToString());
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         public static async Task<string> AgentGetSkills(List<String> agentId){
@@ -192,19 +192,19 @@ namespace GestCTI.Core.Service
             String qSkillLevels = GenerateQueryFromList(skillLevels, "skillLevels");
             var response = await GetRequest(Agent_SetSkills + "?" + qAgentId + "&" + qSkillNumbers + "&" + qSkillLevels);
             JObject result = JObject.Parse(response.ToString());
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         public static async Task<Boolean> AgentEdit(String agentId, String name, String password) {
             var response = await GetRequest(Agent_Edit + "?agentId=" + agentId + "&name=" + name + "&password=" + password);
             JObject result = JObject.Parse(response.ToString());
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         public static async Task<Boolean> AgentDelete(String agentId){
             var response = await GetRequest(Agent_Delete + "?agentId=" + agentId);
             JObject result = JObject.Parse(response.ToString());
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         // -------------------------------------------------- SKILLS METHODS --------------------------------------------------
@@ -220,7 +220,7 @@ namespace GestCTI.Core.Service
         public static async Task<Boolean> SkillAdd(String skillNumber, String name, String extension){
             var response = await GetRequest(Skill_Add + "?=skillNumber" + skillNumber + "&name=" + name + "&extension=" + extension);
             JObject result = JObject.Parse( response.ToString() );
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         public static async Task<string> SkillDetail(string skillNumber) {
@@ -230,13 +230,13 @@ namespace GestCTI.Core.Service
         public static async Task<Boolean> SkillEdit(string skillNumber, string name, string extension) {
             var response = await GetRequest(Skill_Edit + "?=skillNumber" + skillNumber + "&name=" + name + "&extension=" + extension);
             JObject result = JObject.Parse(response.ToString());
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         public static async Task<Boolean> SkillDelete(string skillNumber) {
             var response = await GetRequest(Skill_Delete + "?=skillNumber" + skillNumber);
             JObject result = JObject.Parse(response.ToString());
-            return (result["success"].ToString().ToUpper() == "TRUE");
+            return (result["Success"].ToString().ToUpper() == "TRUE");
         }
 
         // -------------------------------------------------- GENERAL PURPOSE METHODS --------------------------------------------------

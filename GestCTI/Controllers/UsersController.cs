@@ -121,38 +121,43 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.Users.FirstOrDefault(p => p.Username == users.Username) == null)
+                if (db.Users.FirstOrDefault(p => p.Username == users.Username && p.Id != users.Id) == null)
                 { 
                     Users temp_User = db.Users.Find(users.Id);
-                    temp_User.Username = users.Username;
                     temp_User.email = users.email;
-                    temp_User.FirstName = users.FirstName;
-                    temp_User.MiddleName = users.MiddleName;
-                    temp_User.LastName = users.LastName;
-                    temp_User.Role = users.Role;
                     temp_User.IdLocation = users.IdLocation;
                     temp_User.IdCompany = users.IdCompany;
-                    temp_User.Active = users.Active;
-
-                    List<UserSkill> actual = db.UserSkill.Where(p => p.IdUser == users.Id).ToList();
-                    if (users.Role == "agent")
+                    if (temp_User.Role != "agent")
                     {
-                        if (IdSkill != null)
-                            for (int i = 0; i < IdSkill.Count(); i++)
-                            {
-                                if (actual.FirstOrDefault(p => p.IdSkill == IdSkill[i]) != null)
-                                    actual.RemoveAll(p => p.IdSkill == IdSkill[i]);
-                                else
-                                {
-                                    UserSkill newskill = new UserSkill();
-                                    newskill.IdSkill = IdSkill[i];
-                                    newskill.IdUser = users.Id;
-                                    db.UserSkill.Add(newskill);
-                                }
-                            }
+                        temp_User.Username = users.Username;
+                        temp_User.FirstName = users.FirstName;
+                        temp_User.MiddleName = users.MiddleName;
+                        temp_User.LastName = users.LastName;
+                        temp_User.Role = users.Role;
+                        temp_User.Active = users.Active;
                     }
-                    for (int i = 0; i < actual.Count(); i++)
-                        db.UserSkill.Remove(actual[i]);
+
+                    
+                    //if (users.Role == "agent")
+                    //{
+                    //    List<UserSkill> actual = db.UserSkill.Where(p => p.IdUser == users.Id).ToList();
+                    //    if (IdSkill != null)
+                    //        for (int i = 0; i < IdSkill.Count(); i++)
+                    //        {
+                    //            if (actual.FirstOrDefault(p => p.IdSkill == IdSkill[i]) != null)
+                    //                actual.RemoveAll(p => p.IdSkill == IdSkill[i]);
+                    //            else
+                    //            {
+                    //                UserSkill newskill = new UserSkill();
+                    //                newskill.IdSkill = IdSkill[i];
+                    //                newskill.IdUser = users.Id;
+                    //                db.UserSkill.Add(newskill);
+                    //            }
+                    //        }
+                    //    for (int i = 0; i < actual.Count(); i++)
+                    //        db.UserSkill.Remove(actual[i]);
+                    //}
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }

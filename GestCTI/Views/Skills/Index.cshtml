@@ -17,9 +17,9 @@
 <div class="panel panel-default tabs">
     <div class="panel-body tab-content">
         <div class="tab-pane active" id="tab-first">
-            <h3 style="padding-bottom:15px">
+            @*<h3 style="padding-bottom:15px">
                 @Html.ActionLink(Resources.Admin.ActionCreateNew, "Create", null, new { @class = "fa fa-plus" })
-            </h3>
+            </h3>*@
             <table class="table Mydatatable" id="tabla-index">
                 <thead>
                     <tr>
@@ -32,9 +32,9 @@
                         <th>
                             @Resources.Admin.Extension
                         </th>
-                        <th>
+                        @*<th>
                             @Resources.Admin.Options
-                        </th>
+                        </th>*@
                     </tr>
                 </thead>
                 <tbody>
@@ -50,13 +50,13 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Extension)
                             </td>
-                            <td>
+                            @*<td>
                                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
 
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
                                 @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Skills" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Value + "?" } })
-                            </td>
+                            </td>*@
                         </tr>
                     }
                 </tbody>
