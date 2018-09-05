@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using GestCTI.Models;
 using GestCTI.Controllers.Auth;
+using GestCTI.Core.Service;
 
 namespace GestCTI.Controllers
 {
@@ -60,7 +61,7 @@ namespace GestCTI.Controllers
         {
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value");
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description");
             return View();
         }
 
@@ -93,7 +94,7 @@ namespace GestCTI.Controllers
 
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", IdSkill);
             return View(campaign);
         }
 
@@ -112,7 +113,7 @@ namespace GestCTI.Controllers
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
             var skills = from s in db.Skills join cs in db.CampaignSkills on s.Id equals cs.IdSkill where cs.IdCampaign == id select s.Id;
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", skills);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", skills);
             return View(campaign);
         }
 
@@ -149,7 +150,7 @@ namespace GestCTI.Controllers
             }
             ViewBag.IdType = new SelectList(db.CampaignType, "Id", "Name", campaign.IdType);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", campaign.IdCompany);
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", IdSkill);
             return View(campaign);
         }
 
@@ -160,10 +161,36 @@ namespace GestCTI.Controllers
         {
             Campaign campaign = db.Campaign.Find(id);
 
-            // Llamar Start Campaign de web services
-            campaign.Active = true;
-            db.SaveChanges();
-            TempData["successNoty"] = "La campaña " + campaign.Name + " ha sido iniciada correctamente.";
+            if (campaign.CampaignSkills.Count > 0)
+            {
+                if (campaign.VDN.Count > 0)
+                {
+                    if (campaign.CampaignPauseCodes.Count > 0)
+                    {
+                        if (campaign.DispositionCampaigns.Count > 0)
+                        {
+                            string url = "";
+                            if (ServiceCoreHttp.CampaignStart(id, url, campaign.IdType).Result)
+                            {
+                                campaign.Active = true;
+                                db.SaveChanges();
+                                TempData["successNoty"] = Resources.Admin.TheCampaign + " " + campaign.Name + " " + Resources.Admin.StartOk;
+                            }
+                            else
+                                TempData["errorNoty"] = "No se pudo iniciar la campaña " + campaign.Name;
+                        }
+                        else
+                            TempData["errorNoty"] = "Debe asociar Dispositions a esta campaña para poder iniciarla.";
+                    }
+                    else
+                        TempData["errorNoty"] = "Debe asociar Pause Codes a esta campaña para poder iniciarla.";
+                }
+                else
+                    TempData["errorNoty"] = "Debe asociar VDNs a esta campaña para poder iniciarla.";
+            }
+            else
+                TempData["errorNoty"] = "Debe asociar Skills a esta campaña para poder iniciarla.";
+
             return RedirectToAction("Index");
         }
 
@@ -174,10 +201,14 @@ namespace GestCTI.Controllers
         {
             Campaign campaign = db.Campaign.Find(id);
 
-            // Llamar Stop Campaign de web service
-            campaign.Active = false;
-            db.SaveChanges();
-            TempData["successNoty"] = "La campaña " + campaign.Name + " ha sido detenida correctamente.";
+            if (ServiceCoreHttp.CampaignStop(id).Result)
+            {
+                campaign.Active = false;
+                db.SaveChanges();
+                TempData["successNoty"] = "La campaña " + campaign.Name + " ha sido detenida correctamente.";
+            }
+            else
+                TempData["errorNoty"] = "No se pudo detener la campaña " + campaign.Name;
             return RedirectToAction("Index");
         }
 

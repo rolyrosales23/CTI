@@ -142,6 +142,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Debe asociar Disposiciones a esta campaña para poder iniciarla..
+        /// </summary>
+        public static string AssocDispositions {
+            get {
+                return ResourceManager.GetString("AssocDispositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto Ready.
         /// </summary>
         public static string AutoReady {
@@ -228,6 +237,15 @@ namespace Resources {
         public static string ControlPanel {
             get {
                 return ResourceManager.GetString("ControlPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start campaign.
+        /// </summary>
+        public static string CouldNotStart {
+            get {
+                return ResourceManager.GetString("CouldNotStart", resourceCulture);
             }
         }
         
@@ -367,6 +385,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         public static string Location {
@@ -376,7 +403,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to LOGOUT.
+        ///   Looks up a localized string similar to SALIR.
         /// </summary>
         public static string Logout {
             get {
@@ -655,6 +682,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to started successfully..
+        /// </summary>
+        public static string StartOk {
+            get {
+                return ResourceManager.GetString("StartOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Stop.
         /// </summary>
         public static string Stop {
@@ -678,6 +714,15 @@ namespace Resources {
         public static string SwitchCompany {
             get {
                 return ResourceManager.GetString("SwitchCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Campaign.
+        /// </summary>
+        public static string TheCampaign {
+            get {
+                return ResourceManager.GetString("TheCampaign", resourceCulture);
             }
         }
         
