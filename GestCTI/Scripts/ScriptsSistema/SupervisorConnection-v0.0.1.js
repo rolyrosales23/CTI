@@ -124,7 +124,7 @@ function showListOfQueueCalls() {
 function whisper(ucid, selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty("Para realizar esta acción debe loguearse con un dispositivo.");
         return;
     }
     var agent = $.connection.websocket;
@@ -135,7 +135,7 @@ function whisper(ucid, selectedParty) {
 function listener(ucid) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty('Para realizar esta acción debe loguearse con un dispositivo.');
         return;
     }
     var agent = $.connection.websocket;
@@ -146,7 +146,7 @@ function listener(ucid) {
 function makeCall(selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty('Para realizar esta acción debe loguearse con un dispositivo.');
         return;
     }
     var agent = $.connection.websocket;

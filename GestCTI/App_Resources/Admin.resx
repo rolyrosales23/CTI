@@ -352,7 +352,7 @@
     <value>Extension</value>
   </data>
   <data name="AssocDispositions" xml:space="preserve">
-    <value>Debe asociar Disposiciones a esta campaña para poder iniciarla.</value>
+    <value>You must associate Dispositions to this campaign to start it</value>
   </data>
   <data name="CouldNotStart" xml:space="preserve">
     <value>Could not start campaign</value>
@@ -371,5 +371,20 @@
   </data>
   <data name="Sinchronize" xml:space="preserve">
     <value>SINCHRONIZE DB</value>
+  </data>
+  <data name="AsoccPauseCodes" xml:space="preserve">
+    <value>You must associate Pause Codes to this campaign to start it.</value>
+  </data>
+  <data name="AsocSkill" xml:space="preserve">
+    <value>You must associate Skills to this campaign to start it.</value>
+  </data>
+  <data name="AsocVDN" xml:space="preserve">
+    <value>You must associate VDNs to this campaign to start it.</value>
+  </data>
+  <data name="StopCampFail" xml:space="preserve">
+    <value>could not be stopped.</value>
+  </data>
+  <data name="StopCampOK" xml:space="preserve">
+    <value>has been stopped correctly.</value>
   </data>
 </root>

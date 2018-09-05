@@ -142,7 +142,34 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debe asociar Disposiciones a esta campaña para poder iniciarla..
+        ///   Looks up a localized string similar to You must associate Pause Codes to this campaign to start it..
+        /// </summary>
+        public static string AsoccPauseCodes {
+            get {
+                return ResourceManager.GetString("AsoccPauseCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate Skills to this campaign to start it..
+        /// </summary>
+        public static string AsocSkill {
+            get {
+                return ResourceManager.GetString("AsocSkill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate VDNs to this campaign to start it..
+        /// </summary>
+        public static string AsocVDN {
+            get {
+                return ResourceManager.GetString("AsocVDN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate Dispositions to this campaign to start it.
         /// </summary>
         public static string AssocDispositions {
             get {
@@ -705,6 +732,24 @@ namespace Resources {
         public static string StopCampaign {
             get {
                 return ResourceManager.GetString("StopCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to could not be stopped..
+        /// </summary>
+        public static string StopCampFail {
+            get {
+                return ResourceManager.GetString("StopCampFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to has been stopped correctly..
+        /// </summary>
+        public static string StopCampOK {
+            get {
+                return ResourceManager.GetString("StopCampOK", resourceCulture);
             }
         }
         

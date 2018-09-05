@@ -177,19 +177,19 @@ namespace GestCTI.Controllers
                                 TempData["successNoty"] = Resources.Admin.TheCampaign + " " + campaign.Name + " " + Resources.Admin.StartOk;
                             }
                             else
-                                TempData["errorNoty"] = "No se pudo iniciar la campaña " + campaign.Name;
+                                TempData["errorNoty"] = Resources.Admin.CouldNotStart + campaign.Name;
                         }
                         else
-                            TempData["errorNoty"] = "Debe asociar Dispositions a esta campaña para poder iniciarla.";
+                            TempData["errorNoty"] = Resources.Admin.AssocDispositions;
                     }
                     else
-                        TempData["errorNoty"] = "Debe asociar Pause Codes a esta campaña para poder iniciarla.";
+                        TempData["errorNoty"] = Resources.Admin.AsoccPauseCodes;
                 }
                 else
-                    TempData["errorNoty"] = "Debe asociar VDNs a esta campaña para poder iniciarla.";
+                    TempData["errorNoty"] = Resources.Admin.AsocVDN;
             }
             else
-                TempData["errorNoty"] = "Debe asociar Skills a esta campaña para poder iniciarla.";
+                TempData["errorNoty"] = Resources.Admin.AsocSkill;
 
             return RedirectToAction("Index");
         }
@@ -205,10 +205,10 @@ namespace GestCTI.Controllers
             {
                 campaign.Active = false;
                 db.SaveChanges();
-                TempData["successNoty"] = "La campaña " + campaign.Name + " ha sido detenida correctamente.";
+                TempData["successNoty"] = Resources.Admin.TheCampaign + " " + campaign.Name + " " + Resources.Admin.StopCampOK;
             }
             else
-                TempData["errorNoty"] = "No se pudo detener la campaña " + campaign.Name;
+                TempData["errorNoty"] = Resources.Admin.TheCampaign + " " + campaign.Name + " " + Resources.Admin.StopCampFail;
             return RedirectToAction("Index");
         }
 
