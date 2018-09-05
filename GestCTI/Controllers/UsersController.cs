@@ -49,7 +49,7 @@ namespace GestCTI.Controllers
         {
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value");
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description");
             return View();
         }
 
@@ -89,7 +89,7 @@ namespace GestCTI.Controllers
 
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", IdSkill);
             return View(users);
         }
 
@@ -108,7 +108,7 @@ namespace GestCTI.Controllers
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
             var skills = from s in db.Skills join us in db.UserSkill on s.Id equals us.IdSkill where us.IdUser == id select s.Id;
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", skills);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", skills);
             return View(users);
         }
 
@@ -166,7 +166,7 @@ namespace GestCTI.Controllers
         }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", IdSkill);
             return View(users);
         }
 

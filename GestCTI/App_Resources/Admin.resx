@@ -357,4 +357,10 @@
   <data name="Sinchronize" xml:space="preserve">
     <value>SINCHRONIZE DB</value>
   </data>
+    <data name="StartOk" xml:space="preserve">
+    <value>started successfully.</value>
+  </data>
+  <data name="TheCampaign" xml:space="preserve">
+    <value>The Campaign</value>
+  </data>
 </root>

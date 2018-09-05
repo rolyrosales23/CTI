@@ -24,10 +24,10 @@
                 <thead>
                     <tr>
                         <th>
-                            @Resources.Admin.Name
+                            @Resources.Admin.Value
                         </th>
                         <th>
-                           @Resources.Admin.Description
+                           @Resources.Admin.Name
                         </th>
                         <th>
                             @Resources.Admin.Extension
@@ -55,7 +55,7 @@
 
                                 <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
 
-                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Skills" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Value + "?" } })
+                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "Delete" }, { "Controller", "Skills" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Description + "?" } })
                             </td>*@
                         </tr>
                     }

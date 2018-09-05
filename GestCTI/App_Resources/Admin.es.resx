@@ -308,6 +308,357 @@
   </data>
   <data name="ByCampaign" xml:space="preserve">
     <value>por campañas</value>
+    <value>generales</value>
+  </data>
+  <data name="UrlScript" xml:space="preserve">
+    <value>Url del script</value>
+  </data>
+  <data name="TimeSec" xml:space="preserve">
+    <value>Tiempo en segundos</value>
+  </data>
+  <data name="ExistUsername" xml:space="preserve">
+    <value>Ya existe un usuario con ese nombre.</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value>ya existe en la campaña</value>
+  </data>
+  <data name="TheDisposition" xml:space="preserve">
+    <value>La disposición</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Iniciar</value>
+  </data>
+  <data name="StartCampaign" xml:space="preserve">
+    <value>¿Seguro que desea iniciar la campaña</value>
+  </data>
+  <data name="Stop" xml:space="preserve">
+    <value>Detener</value>
+  </data>
+  <data name="StopCampaign" xml:space="preserve">
+    <value>¿Seguro que desea detener la campaña</value>
+  </data>
+  <data name="Activate" xml:space="preserve">
+    <value>Activar</value>
+  </data>
+  <data name="QuestionActivateF" xml:space="preserve">
+    <value>¿Seguro que desea activar la</value>
+  </data>
+  <data name="QuestionActivateM" xml:space="preserve">
+    <value>¿Seguro que desea activar el</value>
+  </data>
+  <data name="Extension" xml:space="preserve">
+    <value>Extensión</value>
+  </data>
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ActionCreateNew" xml:space="preserve">
+    <value> Añadir</value>
+  </data>
+  <data name="ActionDelete" xml:space="preserve">
+    <value>Eliminar</value>
+  </data>
+  <data name="ActionDetails" xml:space="preserve">
+    <value>Detalles</value>
+  </data>
+  <data name="ActionEdit" xml:space="preserve">
+    <value>Editar</value>
+  </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrador</value>
+  </data>
+  <data name="Campaign" xml:space="preserve">
+    <value>Campaña</value>
+  </data>
+  <data name="Campaigns" xml:space="preserve">
+    <value>Campañas</value>
+  </data>
+  <data name="CampaignType" xml:space="preserve">
+    <value>Tipo de Campaña</value>
+  </data>
+  <data name="CampaignTypes" xml:space="preserve">
+    <value>Tipos de Campañas</value>
+  </data>
+  <data name="Companies" xml:space="preserve">
+    <value>Compañías</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Compañía</value>
+  </data>
+  <data name="Location" xml:space="preserve">
+    <value>Ubicación</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Guardar</value>
+  </data>
+  <data name="Skill" xml:space="preserve">
+    <value>Habilidad</value>
+  </data>
+  <data name="Skills" xml:space="preserve">
+    <value>Habilidades</value>
+  </data>
+  <data name="UserLocation" xml:space="preserve">
+    <value>Ubicaciones</value>
+  </data>
+  <data name="Users" xml:space="preserve">
+    <value>Usuarios</value>
+  </data>
+  <data name="DeleteRecord" xml:space="preserve">
+    <value>Eliminar registro</value>
+  </data>
+  <data name="QuestionDeleteF" xml:space="preserve">
+    <value>¿Seguro que desea eliminar la</value>
+  </data>
+  <data name="QuestionDeleteM" xml:space="preserve">
+    <value>¿Seguro que desea eliminar el</value>
+  </data>
+  <data name="With" xml:space="preserve">
+    <value>con</value>
+  </data>
+  <data name="Active" xml:space="preserve">
+    <value>Activo</value>
+  </data>
+  <data name="ApiServerIP" xml:space="preserve">
+    <value>IP del servidor API</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Código</value>
+  </data>
+  <data name="CretedBy" xml:space="preserve">
+    <value>Añadida por</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Descripción</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Correo electrónico</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>Primer Nombre</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Apellidos</value>
+  </data>
+  <data name="MiddleName" xml:space="preserve">
+    <value>Segundo Nombre</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="RePassword" xml:space="preserve">
+    <value>Confirmar Contraseña</value>
+  </data>
+  <data name="Role" xml:space="preserve">
+    <value>Rol</value>
+  </data>
+  <data name="SwitchCompany" xml:space="preserve">
+    <value>Switch de la Compañía</value>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Tipo</value>
+  </data>
+  <data name="Username" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+  <data name="Value" xml:space="preserve">
+    <value>Valor</value>
+  </data>
+  <data name="WebSocketIP" xml:space="preserve">
+    <value>IP del WebSocket</value>
+  </data>
+  <data name="Deactivate" xml:space="preserve">
+    <value>Desactivar</value>
+  </data>
+  <data name="QuestionDeactivateM" xml:space="preserve">
+    <value>¿Seguro que desea desactivar el</value>
+  </data>
+  <data name="ActionChangePass" xml:space="preserve">
+    <value>Cambiar contraseña</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>Nueva Contraseña</value>
+  </data>
+  <data name="AutoReady" xml:space="preserve">
+    <value>Listo automaticamente</value>
+  </data>
+  <data name="DispositionCampaign" xml:space="preserve">
+    <value>Disposición por campaña</value>
+  </data>
+  <data name="DispositionCampaigns" xml:space="preserve">
+    <value>Disposiciones por campañas</value>
+  </data>
+  <data name="Disposition" xml:space="preserve">
+    <value>Disposición</value>
+  </data>
+  <data name="Dispositions" xml:space="preserve">
+    <value>Disposiciones</value>
+  </data>
+  <data name="MaxDailyEvents" xml:space="preserve">
+    <value>Máximo de ocurrencias diarias</value>
+  </data>
+  <data name="MaxDuration" xml:space="preserve">
+    <value>Duración máxima</value>
+  </data>
+  <data name="OfF" xml:space="preserve">
+    <value>de la</value>
+  </data>
+  <data name="PauseCode" xml:space="preserve">
+    <value>Código de Pausa</value>
+  </data>
+  <data name="PauseCodeCampaign" xml:space="preserve">
+    <value>Código de pausa de campaña</value>
+  </data>
+  <data name="PauseCodeCampaigns" xml:space="preserve">
+    <value>Códigos de pausa de las campañas</value>
+  </data>
+  <data name="PauseCodes" xml:space="preserve">
+    <value>Códigos de Pausa</value>
+  </data>
+  <data name="Result" xml:space="preserve">
+    <value>Resultado</value>
+  </data>
+  <data name="QuestionDeactivateF" xml:space="preserve">
+    <value>¿Seguro que desea desactivar la</value>
+  </data>
+  <data name="Types" xml:space="preserve">
+    <value>Tipos</value>
+  </data>
+  <data name="Options" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="NotDispositions" xml:space="preserve">
+    <value>(No tiene disposiciones asociadas.)</value>
+  </data>
+  <data name="NotPauseCodes" xml:space="preserve">
+    <value>(No tiene códigos de pausa asociados.)</value>
+  </data>
+  <data name="NotVDN" xml:space="preserve">
+    <value>(No tiene VDNs asociados.)</value>
+  </data>
+  <data name="NotSkills" xml:space="preserve">
+    <value>(No tiene habilidades asociadas.)</value>
+  </data>
+  <data name="ControlPanel" xml:space="preserve">
+    <value>Panel de Control</value>
+  </data>
+  <data name="ByCampaign" xml:space="preserve">
+    <value>por campañas</value>
   </data>
   <data name="Generals" xml:space="preserve">
     <value>generales</value>
@@ -356,5 +707,11 @@
   </data>
   <data name="Sinchronize" xml:space="preserve">
     <value>SINCRONIZAR BD</value>
+  </data>
+  <data name="StartOk" xml:space="preserve">
+    <value>se ha iniciado correctamente.</value>
+  </data>
+  <data name="TheCampaign" xml:space="preserve">
+    <value>La campaña</value>
   </data>
 </root>
