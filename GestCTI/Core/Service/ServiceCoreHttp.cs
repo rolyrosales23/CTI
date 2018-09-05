@@ -1,6 +1,7 @@
 ﻿using GestCTI.Core.Util;
 using GestCTI.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,17 +44,13 @@ namespace GestCTI.Core.Service
         private static readonly DBCTIEntities db = new DBCTIEntities();
 
         // -------------------------------------------------- CAMPAIGN METHODS --------------------------------------------------
-        public static async Task<bool> CampaignStart(int campaignId, String host, int campaignTypeId)
+        public static async Task<Boolean> CampaignStart(int campaignId, String host, int campaignTypeId)
         {
-            var campaign = db.Campaign.Where(item => item.Id == campaignId).FirstOrDefault();
             try
             {
-                String QueryParam =
-                    "campaignId=" + campaignId.ToString() +
-                    "&campaignTypeId=" + campaignTypeId +
-                    "&host=" + host;
-                var raw = await GetRequest(campaign.Company.Switch.ApiServerIP + Campaign_Start + "?" + QueryParam);
-                return true;
+                var response = await GetRequest(Campaign_Start + "?campaignId=" + campaignId + "&host=" + host + "&campaignTypeId=" + campaignTypeId);
+                JObject result = JObject.Parse(response.ToString());
+                return (result["success"].ToString().ToUpper() == "TRUE");
             }
             catch (Exception)
             {
@@ -61,14 +58,13 @@ namespace GestCTI.Core.Service
             }
         }
 
-        public static async Task<bool> CampaignStop(int campaignId)
+        public static async Task<Boolean> CampaignStop(int campaignId)
         {
-            var campaign = db.Campaign.Where(item => item.Id == campaignId).FirstOrDefault();
             try
             {
-                String QueryParam = "campaignId=" + campaignId.ToString();
-                var raw = await GetRequest(campaign.Company.Switch.ApiServerIP + Campaign_Stop + "?" + QueryParam);
-                return true;
+                var response = await GetRequest(Campaign_Stop + "?campaignId=" + campaignId);
+                JObject result = JObject.Parse(response.ToString());
+                return (result["success"].ToString().ToUpper() == "TRUE");
             }
             catch (Exception)
             {
@@ -78,24 +74,16 @@ namespace GestCTI.Core.Service
 
         public static async Task<List<Call>> CampaignQueuedCalls(String userName)
         {
-            var user = db.Users.Where(item => item.Username == userName).FirstOrDefault();
-            var campaigns = db.Campaign.Where(item => item.IdCompany == user.IdCompany).ToList();
-            List<String> campaignIds = new List<string>();
-            foreach (var item in campaigns)
-            {
-                campaignIds.Add(item.Id.ToString());
-            }
-
-            if (campaignIds == null || campaignIds.Count == 0)
+            List<String> campaigns = db.GetCampaigns(userName).Select(c => c.Id.ToString()).ToList<String>();
+            if (campaigns == null || campaigns.Count == 0)
             {
                 return new List<Call>();
             }
 
-            String apiServer = user.Company1.Switch.ApiServerIP;
-            String QueryParam = GenerateQueryFromList(campaignIds, "campaigns");
+            String query = GenerateQueryFromList(campaigns, "campaigns");
             try
             {
-                var raw = await GetRequest(apiServer + Campaign_QueuedCalls + "?" + QueryParam);
+                var raw = await GetRequest(Campaign_QueuedCalls + "?" + query);
                 return JsonConvert.DeserializeObject<List<Call>>((string)raw);
             }
             catch (Exception)
@@ -143,7 +131,7 @@ namespace GestCTI.Core.Service
                     if (list != null && list.Count > 0)
                     {
                         QueryParam = GenerateQueryFromList(list, "campaigns");
-                        var raw = await GetRequest(coreHttp + Campaign_QueuedCalls + "?" + QueryParam);
+                        var raw = await GetRequest(Campaign_QueuedCalls + "?" + QueryParam, coreHttp);
                         var response = JsonConvert.DeserializeObject<List<Calls>>((string)raw);
                         result.Concat(response);
                     }
@@ -152,46 +140,104 @@ namespace GestCTI.Core.Service
             return result;
         }
 
-        // -------------------------------------------------- AGENT METHODS --------------------------------------------------
-        public static async Task<Boolean> AgentAdd(String agentId, String name, string password)
-        {
-            var user = db.Users.Where(item => item.Id.ToString() == agentId).FirstOrDefault();
-            var ApiServerIp = user.Company.FirstOrDefault().Switch.ApiServerIP;
-            return await AgentAdd(agentId, name, password, ApiServerIp);
+        public static async Task<Boolean> CampaignAssignCall(String campaignHost, String campaignId, String ucid){
+            Campaign campaign = db.Campaign.Find(campaignId);
+            if (campaign != null) {
+                String httpHost = campaign.Company.Switch.ApiServerIP;
+
+                var response = await GetRequest(Campaign_AssignCall + "?campaignHost=" + campaignHost + "&campaignId=" + campaignId + "&ucid=" + ucid, httpHost);
+                JObject result = JObject.Parse(response.ToString());
+                return (result["success"].ToString().ToUpper() == "TRUE");
+            }
+
+            return false;
         }
 
-        public static async Task<Boolean> AgentAdd(String agentId, String name, string password, String ApiServerIp)
-        {
-            var result = await GetRequest(Agent_Add + "/" + agentId + "/" + name + "/" + password);
-            return true;
+        // -------------------------------------------------- AGENT METHODS --------------------------------------------------
+        public static async Task<string> AgentGetAgentsByState(List<String> agents){
+            String query = GenerateQueryFromList(agents, "agents");
+            return await GetRequest(Agent_GetAgentsByState + "?" + query);
+        }
+
+        public static async Task<string> AgentList(String filter = ""){
+            return await GetRequest(Agent_List + "?filter=" + filter);
+        }
+
+        public static async Task<string> AgentRange(int fromAgentId, int toAgentId) {
+            return await GetRequest(Agent_Range + "?fromAgentId=" + fromAgentId + "&toAgentId=" + toAgentId);
+        }
+
+        public static async Task<string> AgentDetail(String agentId){
+            return await GetRequest(Agent_Detail + "?agentId=" + agentId);
+        }
+
+        public static async Task<string> AgentLoggedList(string filter = ""){
+            return await GetRequest(Agent_LoggedList + "?filter=" + filter);
+        }
+
+        public static async Task<Boolean> AgentAdd(String agentId, String name, string password){
+            var response = await GetRequest(Agent_Add + "?agentId=" + agentId + "&name=" + name + "&password=" + password);
+            JObject result = JObject.Parse(response.ToString());
+            return (result["success"].ToString().ToUpper() == "TRUE");
+        }
+
+        public static async Task<string> AgentGetSkills(List<String> agentId){
+            String query = GenerateQueryFromList(agentId, "agentId");
+            return await GetRequest(Agent_GetSkills + "?" + query);
+        }
+
+        public static async Task<Boolean> SetSkills(List<String> agentId, List<String> skillNumbers, List<String> skillLevels){
+            String qAgentId = GenerateQueryFromList(agentId, "agentId");
+            String qSkillNumbers = GenerateQueryFromList(skillNumbers, "skillNumbers");
+            String qSkillLevels = GenerateQueryFromList(skillLevels, "skillLevels");
+            var response = await GetRequest(Agent_SetSkills + "?" + qAgentId + "&" + qSkillNumbers + "&" + qSkillLevels);
+            JObject result = JObject.Parse(response.ToString());
+            return (result["success"].ToString().ToUpper() == "TRUE");
+        }
+
+        public static async Task<Boolean> AgentEdit(String agentId, String name, String password) {
+            var response = await GetRequest(Agent_Edit + "?agentId=" + agentId + "&name=" + name + "&password=" + password);
+            JObject result = JObject.Parse(response.ToString());
+            return (result["success"].ToString().ToUpper() == "TRUE");
+        }
+
+        public static async Task<Boolean> AgentDelete(String agentId){
+            var response = await GetRequest(Agent_Delete + "?agentId=" + agentId);
+            JObject result = JObject.Parse(response.ToString());
+            return (result["success"].ToString().ToUpper() == "TRUE");
         }
 
         // -------------------------------------------------- SKILLS METHODS --------------------------------------------------
-        public static async Task<Object> SkillGetAgentsByState(List<String> devices) {
+        public static async Task<string> SkillGetAgentsByState(List<String> devices) {
             String query = GenerateQueryFromList(devices, "devices");
-            return await GetRequest(Agent_GetAgentsByState + "?" + query);
+            return await GetRequest(Skill_GetAgentsByState + "?" + query);
         }
 
         public static async Task<string> SkillList(String filter = ""){
             return await GetRequest(Skill_List + "?filter=" + filter);
         }
 
-       /* public static async Task<Boolean> SkillAdd(String skillNumber, String name, String extension){
-            Object status = await GetRequest(Skill_Add + "?=skillNumber" + skillNumber + "&name=" + name + "&extension=" + extension);
-            
+        public static async Task<Boolean> SkillAdd(String skillNumber, String name, String extension){
+            var response = await GetRequest(Skill_Add + "?=skillNumber" + skillNumber + "&name=" + name + "&extension=" + extension);
+            JObject result = JObject.Parse( response.ToString() );
+            return (result["success"].ToString().ToUpper() == "TRUE");
         }
 
-        public static async Task<Object> SkillDetail(string skillNumber) {
+        public static async Task<string> SkillDetail(string skillNumber) {
             return await GetRequest(Skill_Detail + "?=skillNumber" + skillNumber);
         }
 
         public static async Task<Boolean> SkillEdit(string skillNumber, string name, string extension) {
-            return await GetRequest(Skill_Edit + "?=skillNumber" + skillNumber + "&name=" + name + "&extension=" + extension);
+            var response = await GetRequest(Skill_Edit + "?=skillNumber" + skillNumber + "&name=" + name + "&extension=" + extension);
+            JObject result = JObject.Parse(response.ToString());
+            return (result["success"].ToString().ToUpper() == "TRUE");
         }
 
         public static async Task<Boolean> SkillDelete(string skillNumber) {
-            return await GetRequest(Skill_Delete + "?=skillNumber" + skillNumber);
-        }*/
+            var response = await GetRequest(Skill_Delete + "?=skillNumber" + skillNumber);
+            JObject result = JObject.Parse(response.ToString());
+            return (result["success"].ToString().ToUpper() == "TRUE");
+        }
 
         // -------------------------------------------------- GENERAL PURPOSE METHODS --------------------------------------------------
         /// <summary>
@@ -199,22 +245,26 @@ namespace GestCTI.Core.Service
         /// </summary>
         /// <param name="url">Object</param>
         /// <returns></returns>
-        private static async Task<string> GetRequest(String url)
+        private static async Task<string> GetRequest(String url, String coreHttp = "")
         {
-            String username = System.Web.HttpContext.Current.User.Identity.Name;
-            Users user = db.Users.Where(u => u.Username == username).FirstOrDefault();
-            if (user != null) {
-                String ApiServerIp = user.Company.FirstOrDefault().Switch.ApiServerIP;
-                url = ApiServerIp + url;
-
-                HttpClient httpClient = new HttpClient();
-                httpClient.BaseAddress = new Uri(url);
-                HttpResponseMessage response = httpClient.GetAsync(url).Result;
-                response.EnsureSuccessStatusCode();
-                return response.Content.ReadAsStringAsync().Result;
+            if (coreHttp != "")
+                url = coreHttp + url;
+            else {
+                String username = System.Web.HttpContext.Current.User.Identity.Name;
+                Users user = db.Users.Where(u => u.Username == username).FirstOrDefault();
+                if (user != null && user.Company1 != null)
+                {
+                    String ApiServerIp = user.Company1.Switch.ApiServerIP;
+                    url = ApiServerIp + url;
+                }
+                else return null;
             }
 
-            return null;
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri(url);
+            HttpResponseMessage response = httpClient.GetAsync(url).Result;
+            response.EnsureSuccessStatusCode();
+            return response.Content.ReadAsStringAsync().Result;
         }
 
         /// <summary>
