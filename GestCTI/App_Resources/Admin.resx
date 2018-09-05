@@ -351,4 +351,13 @@
   <data name="Extension" xml:space="preserve">
     <value>Extension</value>
   </data>
+  <data name="Level" xml:space="preserve">
+    <value>Level</value>
+  </data>
+  <data name="StartOk" xml:space="preserve">
+    <value>started successfully.</value>
+  </data>
+  <data name="TheCampaign" xml:space="preserve">
+    <value>The Campaign</value>
+  </data>
 </root>

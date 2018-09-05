@@ -72,7 +72,7 @@
                         <div class="form-group" id="SelSkills">
                             <label class="control-label col-md-3" for="IdSkill" style="font-size:small; font-weight: bold">@Resources.Admin.Skills</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdSkill", null, htmlAttributes: new { @class = "form-control select", multiple = "multiple", style = "font-size:small" })
+                                @Html.DropDownList("IdSkill", null, htmlAttributes: new { @class = "form-control select", multiple = "multiple", style = "font-size:small", data_live_search = "true" })
                             </div>
                         </div>
 

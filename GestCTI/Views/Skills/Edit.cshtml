@@ -31,7 +31,7 @@
                         @Html.HiddenFor(model => model.Id)
 
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="Value" style="font-size:small; font-weight: bold">@Resources.Admin.Name</label>
+                            <label class="control-label col-md-3" for="Value" style="font-size:small; font-weight: bold">@Resources.Admin.Value</label>
                             <div class="col-md-9">
                                 @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control", style = "font-size:small", required = "required" } })
                                 @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3" for="Description" style="font-size:small; font-weight: bold">@Resources.Admin.Description</label>
+                            <label class="control-label col-md-3" for="Description" style="font-size:small; font-weight: bold">@Resources.Admin.Name</label>
                             <div class="col-md-9">
                                 @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control", style = "font-size:small" } })
                                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
