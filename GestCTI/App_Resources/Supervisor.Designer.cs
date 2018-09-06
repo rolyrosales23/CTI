@@ -70,6 +70,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The device should not be empty..
+        /// </summary>
+        public static string DeviceEmpty {
+            get {
+                return ResourceManager.GetString("DeviceEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading phone partial..
+        /// </summary>
+        public static string ErrorLoadPhonePartial {
+            get {
+                return ResourceManager.GetString("ErrorLoadPhonePartial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading list of queue calls..
+        /// </summary>
+        public static string ErrorLoadQueueCall {
+            get {
+                return ResourceManager.GetString("ErrorLoadQueueCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In a call.
         /// </summary>
         public static string InCall {
@@ -84,6 +111,24 @@ namespace Resources {
         public static string Listen {
             get {
                 return ResourceManager.GetString("Listen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The device has not been initialized. Reasons:.
+        /// </summary>
+        public static string NotDeviceInitialized {
+            get {
+                return ResourceManager.GetString("NotDeviceInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To perform this action you must log in with a device..
+        /// </summary>
+        public static string NotDeviceLog {
+            get {
+                return ResourceManager.GetString("NotDeviceLog", resourceCulture);
             }
         }
         

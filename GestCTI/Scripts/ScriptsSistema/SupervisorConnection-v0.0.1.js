@@ -117,14 +117,14 @@ function showListOfQueueCalls() {
             panel_refresh(panel);
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        errorNoty("Error charging list of queue calls");
+        errorNoty(Resources.ErrorLoadQueueCall);
     });
 }
 
 function whisper(ucid, selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty("Para realizar esta acción debe loguearse con un dispositivo.");
+        errorNoty(Resources.NotDeviceLog);
         return;
     }
     var agent = $.connection.websocket;
@@ -135,7 +135,7 @@ function whisper(ucid, selectedParty) {
 function listener(ucid) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('Para realizar esta acción debe loguearse con un dispositivo.');
+        errorNoty(Resources.NotDeviceLog);
         return;
     }
     var agent = $.connection.websocket;
@@ -146,7 +146,7 @@ function listener(ucid) {
 function makeCall(selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('Para realizar esta acción debe loguearse con un dispositivo.');
+        errorNoty(Resources.NotDeviceLog);
         return;
     }
     var agent = $.connection.websocket;
@@ -216,8 +216,8 @@ $(function () {
                 else
                     $("#doCallBtn").attr("disabled", "disabled");
             });
-        }).fail(function (xhr, status) {
-            errorNoty("Error charging phone partial");
+            }).fail(function (xhr, status) {
+                errorNoty(Resources.ErrorLoadPhonePartial);
         });
     }
 
@@ -265,7 +265,7 @@ $(function () {
         } else {
             localStorage.removeItem('deviceId');
             spinnerHide();
-            errorNoty('No se ha inicializado el dispositivo. Razones ' + json('reason'));
+            errorNoty(Resources.NotDeviceInitialized + " " + json('reason'));
         }
     };
 
@@ -301,7 +301,7 @@ $(function () {
                 spinnerShow();
                 agent.server.initilizeSupervisorDevice($('#deviceIdPhone').val());
             } else {
-                errorNoty('El dispositivo no debe ser vacio');
+                errorNoty(Resources.DeviceEmpty);
             }
         });
 

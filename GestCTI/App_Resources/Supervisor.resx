@@ -120,11 +120,26 @@
   <data name="Connected" xml:space="preserve">
     <value>Connected</value>
   </data>
+  <data name="DeviceEmpty" xml:space="preserve">
+    <value>The device should not be empty.</value>
+  </data>
+  <data name="ErrorLoadPhonePartial" xml:space="preserve">
+    <value>Error loading phone partial.</value>
+  </data>
+  <data name="ErrorLoadQueueCall" xml:space="preserve">
+    <value>Error loading list of queue calls.</value>
+  </data>
   <data name="InCall" xml:space="preserve">
     <value>In a call</value>
   </data>
   <data name="Listen" xml:space="preserve">
     <value>Listen</value>
+  </data>
+  <data name="NotDeviceInitialized" xml:space="preserve">
+    <value>The device has not been initialized. Reasons:</value>
+  </data>
+  <data name="NotDeviceLog" xml:space="preserve">
+    <value>To perform this action you must log in with a device.</value>
   </data>
   <data name="Whisper" xml:space="preserve">
     <value>Whisper</value>
