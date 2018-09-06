@@ -290,11 +290,27 @@ $(function () {
                 changeState('inputPhone', false);
                 changeState('doCallBtn', false);
                 //changeState('answer', true);
-
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
-                
-                printDisposition(eventArgs[9]);
+                //asignar la llamada a la campaña
+                var campaignId = localStorage.getItem('campaignId');
+                if (notEmpty(campaignId)) {
+                    $.ajax({
+                        url: '../CoreHttp/CampaignAssignCall/',
+                        data: { campaignId: campaignId, ucid: eventArgs[0] },
+                        success: function (response) {
+                            if (response)
+                                localStorage.setItem('IsCampaignCall', true);
+                            else
+                                localStorage.setItem('IsCampaignCall', false);
+                        },
+                        error: function () {
+                            localStorage.setItem('IsCampaignCall', false);
+                        }
+                    });
+                }
+
+                printDisposition(campaignId);
                 localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
 
                 tempNoty('onCallExternalDelivered');
@@ -658,13 +674,8 @@ $(function () {
 
         $('#BtnCampaignCall').click(function () {
             var IdCampaign = $('#SelCampaigns').val();
-            if (notEmpty(IdCampaign)) {
-                localStorage.setItem('IsCampaignCall', 'true');
-
-                //Enviar campaña de la llamada al core...
-            }
-            else
-                localStorage.setItem('IsCampaignCall', 'false');
+            if (notEmpty(IdCampaign))
+                localStorage.setItem('campaignId', IdCampaign);
 
             $('#modal-Campaigns').modal('hide');
             var toDevice = $('#inputPhone').val();
