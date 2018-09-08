@@ -403,6 +403,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Insert the device number..
+        /// </summary>
+        public static string InsertDevice {
+            get {
+                return ResourceManager.GetString("InsertDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to LastName.
         /// </summary>
         public static string LastName {
@@ -525,6 +534,15 @@ namespace Resources {
         public static string OfF {
             get {
                 return ResourceManager.GetString("OfF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to OK.
+        /// </summary>
+        public static string OK {
+            get {
+                return ResourceManager.GetString("OK", resourceCulture);
             }
         }
         

@@ -126,11 +126,32 @@
   <data name="Call" xml:space="preserve">
     <value>Llamar</value>
   </data>
+  <data name="CallConferenced" xml:space="preserve">
+    <value>Un usuario ha sido añadido a la conferencia.</value>
+  </data>
+  <data name="CallDiverted" xml:space="preserve">
+    <value>¡La llamada ha sido desviada!</value>
+  </data>
+  <data name="CallEnded" xml:space="preserve">
+    <value>La llamada ha finalizado.</value>
+  </data>
+  <data name="CallFailed" xml:space="preserve">
+    <value>¡La llamada falló!</value>
+  </data>
+  <data name="CallOnHold" xml:space="preserve">
+    <value>La llamada ha sido puesta en espera.</value>
+  </data>
+  <data name="CallRetrieved" xml:space="preserve">
+    <value>La llamada ha sido recuperada.</value>
+  </data>
   <data name="CallSavedFail" xml:space="preserve">
     <value>No se puedieron guardar los datos de la llamada.</value>
   </data>
   <data name="CallSavedOK" xml:space="preserve">
     <value>Llamada guardada correctamente.</value>
+  </data>
+  <data name="CallTransferred" xml:space="preserve">
+    <value>La llamada ha sido transferida satisfactoriamente.</value>
   </data>
   <data name="Confer" xml:space="preserve">
     <value>Confer...</value>
@@ -214,7 +235,7 @@
     <value>Seleccione la Disposición de la llamada...</value>
   </data>
   <data name="SelectHoldCall" xml:space="preserve">
-    <value>Debe seleccionar una llamada en espera!</value>
+    <value>Debe seleccionar una llamada en espera.</value>
   </data>
   <data name="SelectPauseCode" xml:space="preserve">
     <value>Seleccione un Código de Pausa...</value>
@@ -224,6 +245,9 @@
   </data>
   <data name="Status" xml:space="preserve">
     <value>Estado</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transferir</value>
   </data>
   <data name="UserNotCampaign" xml:space="preserve">
     <value>El usuario no está asociado a ninguna campaña.</value>

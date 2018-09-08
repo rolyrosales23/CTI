@@ -71,7 +71,7 @@
         table.append(body);
     }
     else
-        wrapper.append('<h3 class="text-muted">No hay agentes conectados</h3>');
+        wrapper.append('<h3 class="text-muted">' + Resources.NoAgentsConnected + ' </h3>');
 }
 
 function pintarQueueCalls(queueCalls, selector) {
@@ -86,11 +86,11 @@ function pintarQueueCalls(queueCalls, selector) {
         var table = wrapper.append(panelbody).find('table');
 
         var header = $('<thead><tr></tr></thead>').find('tr')
-            .append('<th width="50">ucid</th>')
-            .append('<th width="100">call id</th>')
-            .append('<th width="100">vdn</th>')
-            .append('<th width="100">split</th>')
-            .append('<th width="100">tiempo en espera</th>').end();
+            .append('<th width="50">Ucid</th>')
+            .append('<th width="100">Call Id</th>')
+            .append('<th width="100">VDN</th>')
+            .append('<th width="100">Split</th>')
+            .append('<th width="100">' + Resources.WaitTime + '</th>').end();
 
         var body = $('<tbody></tbody>');
 
@@ -109,7 +109,7 @@ function pintarQueueCalls(queueCalls, selector) {
         table.append(body);
     }
     else
-        wrapper.append('<h3 class="text-muted">No hay llamadas en cola</h3>');
+        wrapper.append('<h3 class="text-muted">' + Resources.NoQueuedCalls + '</h3>');
 }
 
 function showListOfQueueCalls() {
@@ -123,14 +123,14 @@ function showListOfQueueCalls() {
             panel_refresh(panel);
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        errorNoty(Resources.ErrorLoadQueueCall);
+        errorNoty(Resources.ErrorLoadQueueCall, false);
     });
 }
 
 function whisper(ucid, selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty(Resources.NotDeviceLog);
+        errorNoty(Resources.NotDeviceLog, false);
         return;
     }
     var agent = $.connection.websocket;
@@ -141,7 +141,7 @@ function whisper(ucid, selectedParty) {
 function listener(ucid) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty(Resources.NotDeviceLog);
+        errorNoty(Resources.NotDeviceLog, false);
         return;
     }
     var agent = $.connection.websocket;
@@ -152,7 +152,7 @@ function listener(ucid) {
 function makeCall(selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty(Resources.NotDeviceLog);
+        errorNoty(Resources.NotDeviceLog, false);
         return;
     }
     var agent = $.connection.websocket;
@@ -223,7 +223,7 @@ $(function () {
                     $("#doCallBtn").attr("disabled", "disabled");
             });
             }).fail(function (xhr, status) {
-                errorNoty(Resources.ErrorLoadPhonePartial);
+                errorNoty(Resources.ErrorLoadPhonePartial, false);
         });
     }
 
@@ -255,8 +255,8 @@ $(function () {
         spinnerHide();
     }
 
-    agent.client.Notification = function (response, type = "success") {
-        notify(response, type);
+    agent.client.Notification = function (response, type = "success", MsgDebugMode = true) {
+        notify(response, type, MsgDebugMode);
     };
 
     agent.client.sendUserConnected = function (CtiAgentList) {
@@ -271,7 +271,7 @@ $(function () {
         } else {
             localStorage.removeItem('deviceId');
             spinnerHide();
-            errorNoty(Resources.NotDeviceInitialized + " " + json('reason'));
+            errorNoty(Resources.NotDeviceInitialized + " " + json('reason'), false);
         }
     };
 
@@ -311,7 +311,7 @@ $(function () {
                 spinnerShow();
                 agent.server.initilizeSupervisorDevice($('#deviceIdPhone').val());
             } else {
-                errorNoty(Resources.DeviceEmpty);
+                errorNoty(Resources.DeviceEmpty, false);
             }
         });
 

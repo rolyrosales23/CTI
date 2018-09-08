@@ -126,11 +126,32 @@
   <data name="Call" xml:space="preserve">
     <value>Call</value>
   </data>
+  <data name="CallConferenced" xml:space="preserve">
+    <value>An user has been added to the conference.</value>
+  </data>
+  <data name="CallDiverted" xml:space="preserve">
+    <value>The call has been diverted.</value>
+  </data>
+  <data name="CallEnded" xml:space="preserve">
+    <value>Call ended!</value>
+  </data>
+  <data name="CallFailed" xml:space="preserve">
+    <value>Call failed!</value>
+  </data>
+  <data name="CallOnHold" xml:space="preserve">
+    <value>The call has been put on hold.</value>
+  </data>
+  <data name="CallRetrieved" xml:space="preserve">
+    <value>The call has been retrieved.</value>
+  </data>
   <data name="CallSavedFail" xml:space="preserve">
     <value>The call data could not be saved.</value>
   </data>
   <data name="CallSavedOK" xml:space="preserve">
-    <value>Call stored correctly.</value>
+    <value>Call stored successfully.</value>
+  </data>
+  <data name="CallTransferred" xml:space="preserve">
+    <value>Call transferred successfully.</value>
   </data>
   <data name="Confer" xml:space="preserve">
     <value>Confer...</value>
@@ -226,7 +247,7 @@
     <value>Status</value>
   </data>
   <data name="Transfer" xml:space="preserve">
-    <value>Transferir</value>
+    <value>Transfer</value>
   </data>
   <data name="UserNotCampaign" xml:space="preserve">
     <value>The user is not associated with any campaign.</value>
