@@ -161,7 +161,7 @@ $(function () {
     function initDeviceAction() {
         var phoneExtension = localStorage.getItem('deviceId');
         if (notEmpty(phoneExtension)) {
-            $('#right-side').removeClass('col-md-12').addClass('col-md-8');
+            $('#right-side').removeClass('col-md-12').addClass('col-md-9');
             $("#loginExtension").remove();
             showPhoneView();
         }
@@ -175,6 +175,8 @@ $(function () {
             dataType: 'html'
         }).then(function (result) {
             $("#showPhone").html(result);
+
+            loadTooltip();
 
             $("#acceptCallRequest").click(function () {
                 acceptCallRequest(agent)
