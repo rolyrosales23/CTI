@@ -24,10 +24,34 @@
                 .append('<input type="checkbox" class="icheckbox" id="' + i + '-check"/>')
 
             var buttom = "";
+
             if (flag === "true") {
-                var btn1 = "<a type='button' onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-md fa fa-headphones info' title='" + Resources.Listen + "'></a>";
-                var btn2 = '<a type="button" onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-warning btn-md fa fa-bullhorn info" title="' + Resources.Whisper + '"></a>';
-                buttom = '<td><div class="row"><div class="col-md-12">' + btn1 + btn2 + '</div></div></td>';
+                var ucidListen = localStorage.getItem('ucid-listener');
+                var ucidWhisper = localStorage.getItem('ucid-whisper');
+
+                var tmp = localStorage.getItem('activeCall');
+                var activeCall = null;
+
+                if (notEmpty(tmp)) {
+                    activeCall = JSON.parse(tmp);
+                }
+                
+                var content = '';
+
+                if (ucidListen === agents[i].CurrentUCID ||
+                    ucidWhisper === agents[i].CurrentUCID ||
+                    notEmpty(activeCall) && activeCall.ucid === agents[i].CurrentUCID) {
+
+                    content = 'Monitoreado por usted';
+
+                } else {
+
+                    var btn1 = "<a type='button' onclick=listener('" + agents[i].CurrentUCID + "') class='btn btn-info btn-md fa fa-headphones info' title='" + Resources.Listen + "'></a>";
+                    var btn2 = '<a type="button" onclick=whisper("' + agents[i].CurrentUCID + '","' + agents[i].DeviceId + '") class="btn btn-warning btn-md fa fa-bullhorn info" title="' + Resources.Whisper + '"></a>';
+                    content = btn1 + btn2;
+
+                }
+                buttom = '<td><div class="row"><div class="col-md-12">' + content + '</div></div></td>';
             } else {
                 var btn = '<a type=button" onclick=makeCall("' + agents[i].DeviceId + '") class="btn btn-success btn-md fa fa-phone info" title="' + Resources.Call + '"></a>';
                 buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
@@ -86,8 +110,6 @@ function pintarQueueCalls(queueCalls, selector) {
         wrapper.append('<h3 class="text-muted">No hay llamadas en cola</h3>');
 }
 
-
-
 function showListOfQueueCalls() {
     var user = localStorage.getItem('user');
 
@@ -110,6 +132,7 @@ function whisper(ucid, selectedParty) {
         return;
     }
     var agent = $.connection.websocket;
+    localStorage.setItem('ucid-whisper', ucid);
     agent.server.sendCtiWhisperRequest(deviceId, ucid, selectedParty);
 }
 
@@ -120,6 +143,7 @@ function listener(ucid) {
         return;
     }
     var agent = $.connection.websocket;
+    localStorage.setItem('ucid-listener', ucid);
     agent.server.sendCTIListenHoldAllRequest(deviceId, ucid);
 }
 
@@ -134,7 +158,9 @@ function makeCall(selectedParty) {
 }
 
 $(function () {
-    initDeviceAction();
+    // initDeviceAction();
+    // show spinner
+    spinnerShow();
 
     function initDeviceAction() {
         var phoneExtension = localStorage.getItem('deviceId');
@@ -188,7 +214,7 @@ $(function () {
             });
 
             $('#inputPhone').keyup(function () {
-                console.log('put a value ' + $(this).val());
+                // console.log('put a value ' + $(this).val());
                 if ($(this).val())
                     $("#doCallBtn").removeAttr("disabled");
                 else
@@ -209,6 +235,23 @@ $(function () {
             panel_refresh(panel);
         }
     };
+
+    agent.client.receiveConfiguration = function (user, holdedList) {
+        if (notEmpty(user) && notEmpty(user.DeviceId)) {
+            localStorage.setItem('deviceId', user.DeviceId);
+        }
+
+        initDeviceAction();
+
+        pintarListaEspera(holdedList);
+
+        if (notEmpty(user) && notEmpty(user.CurrentUCID)) {
+            onEstablishedConnection(user.CurrentUCID, user.DeviceId, user.CurrentUserInCall);
+        }
+
+        // Hide spinner
+        spinnerHide();
+    }
 
     agent.client.Notification = function (response, type = "success") {
         notify(response, type);
@@ -246,10 +289,18 @@ $(function () {
         receiveAcceptCallRequest(response);
     }
 
+    agent.client.doDisconectionSupervisor = function () {
+        $('#LogOutForm').submit();
+    }
+
     // Start the connection.
     $.connection.hub.start().done(function () {
         agent.server.getAllUserConnected();
         showListOfQueueCalls();
+
+        // Configuration init supervisor
+        agent.server.getConfiguration();
+
         $('#init-device-btn').click(function () {
             var deviceId = $('#deviceIdPhone').val();
             $('#modal-init-phone').modal('hide');
@@ -275,7 +326,7 @@ $(function () {
             if (notEmpty(deviceId)) {
                 localStorage.removeItem('deviceId');
             }
-            $('#LogOutForm').submit();
+            agent.server.sendLogOutSupervisor();
         });
     });
 });

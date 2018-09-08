@@ -62,10 +62,19 @@ function acceptCallRequest(agent) {
 function hangoutCallRequest(agent) {
     var deviceId = localStorage.getItem('deviceId');
     var strAC = localStorage.getItem('activeCall');
+    var superListener = localStorage.getItem('ucid-listener');
+    // var superWhisper = localStorage.getItem('ucid-whisper');
+    var superWhisper = null;
     if (notEmpty(strAC)) {
         var activeCall = JSON.parse(strAC);
-        if (notEmpty(activeCall.ucid)) {
-            agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
+        if (notEmpty(activeCall) && notEmpty(activeCall.ucid)) {
+            if (notEmpty(superWhisper)) {
+                // agent.server.sendCTIListenRetrieveAllRequest(deviceId, activeCall.ucid);
+            } else if (notEmpty(superListener)) {
+                agent.server.sendCTIListenRetrieveAllRequest(deviceId, activeCall.ucid);
+            } else {
+                agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
+            }
         } else {
             errorNoty(Resources.NotUcid);
         }
@@ -171,6 +180,15 @@ function changeState(alias, enable) {
         $('#' + id).attr('disabled', 'disabled');
 };
 
+function onEstablishedConnection(ucid, deviceId, partyDeviceId) {
+    var activeCall = { 'ucid': ucid, 'deviceId': partyDeviceId };
+    localStorage.setItem('activeCall', JSON.stringify(activeCall));
+    changeState('hangout', true);
+    changeState('hold', true);
+    changeState('answer', false);
+    changeState('pause', false);
+}
+
 function handlingEvent(response, data) {
     var deviceId = localStorage.getItem('deviceId');
     json = JSON.parse(response);
@@ -227,16 +245,12 @@ function handlingEvent(response, data) {
 
             tempNoty('onCallFailed');
             break;
-
+            
         case 'onEstablishedConnection':
             var myId = localStorage.getItem('deviceId');
-            var activeCall = { 'ucid': eventArgs[0], 'deviceId': eventArgs[4] !== myId ? eventArgs[4] : eventArgs[5] };
-            localStorage.setItem('activeCall', JSON.stringify(activeCall));
+            var anotherPartyDeviceId = eventArgs[4] !== myId ? eventArgs[4] : eventArgs[5];
 
-            changeState('hangout', true);
-            changeState('hold', true);
-            changeState('answer', false);
-            changeState('pause', false);
+            onEstablishedConnection(eventArgs[0], myId, anotherPartyDeviceId);
 
             tempNoty('onEstablishedConnection');
             break;
@@ -270,6 +284,12 @@ function handlingEvent(response, data) {
             break;
 
         case 'onEndConnection':
+            if (localStorage.getItem('ucid-listener') === eventArgs[0] ||
+                localStorage.getItem('ucid-whisper') === eventArgs[0]) {
+                localStorage.removeItem('ucid-listener');
+                localStorage.removeItem('ucid-whisper');
+            }
+
             localStorage.removeItem('activeCall');
             changeState('hangout', false);
             changeState('hold', false);
@@ -278,6 +298,7 @@ function handlingEvent(response, data) {
             if (localStorage.getItem('IsCampaignCall') === 'true') {
                 $('#modal-dispositions').modal('show');
             }
+
             $("#inputPhone").val('').removeAttr("disabled");
 
             tempNoty('onEndConnection');

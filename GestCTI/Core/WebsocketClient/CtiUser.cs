@@ -13,6 +13,9 @@ namespace GestCTI.Core.WebsocketClient
         public String ConnectionId { get; set; }
         public String DeviceId { get; set; }
         public String Role { get; set; }
+
+        // I will change this params to another structure
         public String CurrentUCID { get; set; }
+        public String CurrentUserInCall { get; set; }
     }
 }
