@@ -24,7 +24,7 @@
     <!-- END SPINNER -->
 
     <!-- START PAGE CONTAINER -->
-    <div class="page-container">
+    <div class="page-container page-navigation-top-fixed">
 
         <!-- START PAGE SIDEBAR -->
         <div class="page-sidebar">
@@ -44,7 +44,7 @@
                             <img src="~/assets/img/no-image.jpg" alt="User" />
                         </div>
                         -->
-                        <div class="profile-data">
+                        <div class="profile-data" style="margin-top: 50px">
                             <div class="profile-data-name">@this.User.Identity.Name</div>
                             @if (this.User.IsInRole("admin"))
                             {
@@ -445,7 +445,12 @@
         }
 
         $('document').ready(function () {
-            if (localStorage.getItem('minimizedMenu'))
+            var collapse = false;
+            @if (this.User.IsInRole("agent") || this.User.IsInRole("supervisor")) {
+                @Html.Raw("collapse = true;");
+            }
+
+            if (collapse || localStorage.getItem('minimizedMenu'))
                 $(".x-navigation-minimize").trigger('click');
         });
         

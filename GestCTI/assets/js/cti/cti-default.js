@@ -20,3 +20,11 @@ function pintarListaEspera(lista) {
         }
     }
 }
+
+function loadTooltip() {
+    $.each($('.info'), function (pos, obj) {
+        var placement = 'bottom';
+        if ($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');
+        $(obj).tooltip({ placement: placement, html: true });
+    });
+}
