@@ -133,6 +133,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Supervised by you.
+        /// </summary>
+        public static string Supervise {
+            get {
+                return ResourceManager.GetString("Supervise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Whisper.
         /// </summary>
         public static string Whisper {

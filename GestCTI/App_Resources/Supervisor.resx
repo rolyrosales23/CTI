@@ -141,6 +141,9 @@
   <data name="NotDeviceLog" xml:space="preserve">
     <value>To perform this action you must log in with a device.</value>
   </data>
+  <data name="Supervise" xml:space="preserve">
+    <value>Supervised by you</value>
+  </data>
   <data name="Whisper" xml:space="preserve">
     <value>Whisper</value>
   </data>

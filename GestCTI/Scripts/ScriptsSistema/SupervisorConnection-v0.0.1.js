@@ -31,7 +31,7 @@
 
                 var tmp = localStorage.getItem('activeCall');
                 var activeCall = null;
-
+                status = '<td><span class="label label-success" >' + Resources.InCall + '</span></td>';
                 if (notEmpty(tmp)) {
                     activeCall = JSON.parse(tmp);
                 }
@@ -42,7 +42,7 @@
                     ucidWhisper === agents[i].CurrentUCID ||
                     notEmpty(activeCall) && activeCall.ucid === agents[i].CurrentUCID) {
 
-                    content = 'Monitoreado por usted';
+                    content = Resources.Supervise;
 
                 } else {
 
