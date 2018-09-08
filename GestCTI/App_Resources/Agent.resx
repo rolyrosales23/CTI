@@ -127,13 +127,13 @@
     <value>Call</value>
   </data>
   <data name="Confer" xml:space="preserve">
-    <value>Confer...</value>
+    <value>Conference</value>
   </data>
   <data name="Device" xml:space="preserve">
     <value>Device</value>
   </data>
   <data name="EndConf" xml:space="preserve">
-    <value>End Conf...</value>
+    <value>End Conference</value>
   </data>
   <data name="HangUp" xml:space="preserve">
     <value>Hang Up</value>

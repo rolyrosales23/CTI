@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confer....
+        ///   Looks up a localized string similar to Conference.
         /// </summary>
         public static string Confer {
             get {
@@ -106,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to End Conf....
+        ///   Looks up a localized string similar to End Conference.
         /// </summary>
         public static string EndConf {
             get {

@@ -1,14 +1,23 @@
-﻿.icono-grande {
+﻿/*@media(min-width: 992px){
+}*/
+
+.icono-grande {
     font-size: 20px !important
 }
 
+
 .btn-redondo {
     border-radius: 7px;
-    font-size: 14px;
+    /*font-size: 14px;*/
     width: 100%;
-    background-color: #3b5045;
+    background-color: #0e9696 !important
 }
 
 #options .row {
     margin-bottom: 10px
+}
+
+#options div[title] {
+    padding-left: 2px;
+    padding-right: 2px;
 }
