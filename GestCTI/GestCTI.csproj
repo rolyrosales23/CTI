@@ -259,6 +259,7 @@
     <Compile Include="Controllers\ScriptsController.cs" />
     <Compile Include="Controllers\WebServiceController.cs" />
     <Compile Include="Core\Enum\LoginTypes.cs" />
+    <Compile Include="Core\Service\Sinchronize.cs" />
     <Compile Include="Core\Service\ServiceCoreHttp.cs" />
     <Compile Include="Core\Util\Call.cs" />
     <Compile Include="Core\WebsocketClient\CtiEvent.cs" />
@@ -1934,7 +1935,6 @@
     <Content Include="Scripts\ScriptsSistema\AgentConnection.js" />
     <Content Include="Scripts\ScriptsSistema\PauseCounter.js" />
     <Content Include="Scripts\ScriptsSistema\SupervisorConnection-v0.0.1.js" />
-    <Content Include="Scripts\ScriptsSistema\CTIcore.js" />
     <Content Include="Scripts\ScriptsSistema\LogInCore.js" />
     <Content Include="Scripts\ScriptsSistema\notyTypes.js" />
     <Content Include="Scripts\ScriptsSistema\spinner.js" />
@@ -2023,6 +2023,7 @@
     <Content Include="Views\Home\_Campaigns.cshtml" />
     <Content Include="Views\Supervisor\_PartialActionOverAgent.cshtml" />
     <Content Include="Views\Scripts\Prueba.cshtml" />
+    <Content Include="Views\Users\EditSkill.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\CoreHttp\" />

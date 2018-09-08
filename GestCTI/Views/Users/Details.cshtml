@@ -80,7 +80,14 @@
                     </dt>
 
                     <dd>
-                        <label class="control-label" style="font-size:medium">@Model.UserLocation.Name</label>
+                        @if (Model.IdLocation != null)
+                        {
+                            <label class="control-label" style="font-size:medium">@Model.UserLocation.Name</label>
+                        }
+                        else
+                        {
+                            <label>_</label>
+                        }
                     </dd>
 
                     <dt>
@@ -88,7 +95,14 @@
                     </dt>
 
                     <dd>
-                        <label class="control-label" style="font-size:medium">@Model.Company1.Name</label>
+                        @if (Model.IdLocation != null)
+                        {
+                            <label class="control-label" style="font-size:medium">@Model.Company1.Name</label>
+                        }
+                        else
+                        {
+                            <label>_</label>
+                        }
                     </dd>
 
                     <dt>
@@ -96,57 +110,85 @@
                     </dt>
 
                     <dd>
-                        <label class="control-label" style="font-size:medium">@Model.Active</label>
-                    </dd>
-
-                    <dt>
-                        <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.Skills:</label>
-                    </dt>
-
-                    <dd>
-                        @if (ViewBag.skills.Count > 0)
+                        @if (Model.Active)
                         {
-                            <table class="table " id="tabla-index" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th>
-                                            @Resources.Admin.Value
-                                        </th>
-                                        <th>
-                                            @Resources.Admin.Description
-                                        </th>
-                                        <th>
-                                            @Resources.Admin.Options
-                                        </th>
-                                    </tr>
-                                </thead>
-
-                                @foreach (var item in ViewBag.skills)
-                                {
-                                    <tr>
-                                        <td>
-                                            @item.Skills.Value
-                                        </td>
-                                        <td>
-                                            @item.Skills.Description
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
-
-                                            @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "DeleteSkill" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Value + ": " + item.Skills.Value + " " + Resources.Admin.OfF + " " + Resources.Login.Login_user + ": " + item.Users.Username + "?" } })
-                                        </td>
-                                    </tr>
-                                }
-
-                            </table>
+                            <input type="checkbox" class="icheckbox" checked="checked" disabled>
                         }
                         else
                         {
-                            <label class="control-label" style="font-size:medium">@Resources.Admin.NotSkills</label>
+                            <input type="checkbox" class="icheckbox" disabled>
                         }
                     </dd>
+
+                    @if (Model.Role == "agent")
+                    {
+                        <dt>
+                            <label class="control-label " for="Skills" style="font-size:medium; font-weight: bold">@Resources.Admin.Skills:</label>
+                        </dt>
+
+                        <dd>
+                            @if (ViewBag.skills.Count > 0)
+                            {
+                                <table class="table " id="tabla-index" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Resources.Admin.Value
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Name
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Extension
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Level
+                                            </th>
+                                            @*<th>
+                                                @Resources.Admin.Options
+                                            </th>*@
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (var item in ViewBag.skills)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Skills.Value
+                                            </td>
+                                            <td>
+                                                @item.Skills.Description
+                                            </td>
+                                            <td>
+                                                @item.Skills.Extension
+                                            </td>
+                                            <td>
+                                                @item.Level
+                                            </td>
+                                            @*<td>
+                                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "DeleteSkill" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Skills.Description + " " + Resources.Admin.OfF + " " + Resources.Login.Login_user + ": " + item.Users.Username + "?" } })
+                                            </td>*@
+                                        </tr>
+                                    }
+
+                                </table>
+                            }
+                            else
+                            {
+                                @*<label class="control-label" style="font-size:medium">@Resources.Admin.NotSkills</label>*@
+                                <label>_</label>
+                            }
+                        </dd>
+                    }
                 </dl>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts{
+
+    <script type='text/javascript' src='~/assets/js/plugins/icheck/icheck.min.js'></script>
+}

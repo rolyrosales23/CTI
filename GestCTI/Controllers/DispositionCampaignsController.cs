@@ -46,7 +46,7 @@ namespace GestCTI.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                TempData["MsjError"] = Resources.Admin.TheDisposition + " " + dispositionCampaigns.Dispositions.Name + " " + Resources.Admin.ExistIntheCampaign + " " + dispositionCampaigns.Campaign.Name;
+                TempData["errorNoty"] = Resources.Admin.TheDisposition + " " + dispositionCampaigns.Dispositions.Name + " " + Resources.Admin.ExistIntheCampaign + " " + dispositionCampaigns.Campaign.Name;
             }
 
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositionCampaigns.IdCampaign);
@@ -88,7 +88,7 @@ namespace GestCTI.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                TempData["MsjError"] = Resources.Admin.TheDisposition + " " + dispositionCampaigns.Dispositions.Name + " " + Resources.Admin.ExistIntheCampaign + " " + dispositionCampaigns.Campaign.Name;
+                TempData["errorNoty"] = Resources.Admin.TheDisposition + " " + dispositionCampaigns.Dispositions.Name + " " + Resources.Admin.ExistIntheCampaign + " " + dispositionCampaigns.Campaign.Name;
             }
             ViewBag.IdCampaign = new SelectList(db.Campaign, "Id", "Code", dispositionCampaigns.IdCampaign);
             ViewBag.IdDisposition = new SelectList(db.Dispositions, "Id", "Name", dispositionCampaigns.IdDisposition);
@@ -102,6 +102,17 @@ namespace GestCTI.Controllers
         {
             DispositionCampaigns dispositionCampaigns = db.DispositionCampaigns.Find(id);
             dispositionCampaigns.Active = false;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: DispositionCampaigns/Activate/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Activate(int id)
+        {
+            DispositionCampaigns dispositionCampaigns = db.DispositionCampaigns.Find(id);
+            dispositionCampaigns.Active = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

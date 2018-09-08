@@ -22,8 +22,6 @@
     <!-- START SPINNER -->
     @Html.Partial("Spinner")
     <!-- END SPINNER -->
-    <!-- TRADUCCIONES JS -->
-    @Html.Partial("ResourcesJS")
 
     <!-- START PAGE CONTAINER -->
     <div class="page-container">
@@ -41,9 +39,11 @@
                         <img src="~/assets/img/no-image.jpg" alt="User" />
                     </a>
                     <div class="profile">
+                        <!-- 
                         <div class="profile-image">
                             <img src="~/assets/img/no-image.jpg" alt="User" />
                         </div>
+                        -->
                         <div class="profile-data">
                             <div class="profile-data-name">@this.User.Identity.Name</div>
                             @if (this.User.IsInRole("admin"))
@@ -59,10 +59,12 @@
                                 <div class="profile-data-title">Supervisor</div>
                             }
                         </div>
+                        <!--
                         <div class="profile-controls">
                             <a href="#" class="profile-control-left"><span class="fa fa-info"></span></a>
                             <a href="#" class="profile-control-right"><span class="fa fa-envelope"></span></a>
                         </div>
+                        -->
                     </div>
                 </li>
                 <li class="xn-title">Menu</li>
@@ -134,7 +136,7 @@
             <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
                 <!-- TOGGLE NAVIGATION -->
                 <li class="xn-icon-button">
-                    <a href="#" class="x-navigation-minimize"><span class="fa fa-dedent"></span></a>
+                    <a href="#" class="x-navigation-minimize" id="toggleMenu"><span class="fa fa-dedent"></span></a>
                 </li>
                 <!-- END TOGGLE NAVIGATION -->
                 <!-- SEARCH -->
@@ -147,7 +149,7 @@
                 <!-- SIGN OUT -->
                 @if (Request.IsAuthenticated)
                 {
-                    <li class="xn-icon-button pull-right">
+                    <li class="xn-icon-button pull-right info" title="@Resources.Admin.Logout">
                         <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>
                     </li>
                 }
@@ -242,6 +244,12 @@
                         </div>
                     </li>
                     <!-- END TASKS -->*@
+                @if (this.User.IsInRole("admin"))
+                {
+                    <li class="xn-icon-button pull-right info" title="@Resources.Admin.Sinchronize">
+                        <a href="#" data-box="#Modal_sinchronize" class="mb-control"><span class="fa fa-refresh"></span></a>
+                    </li>
+                }
 
                 <li class="xn-logo pull-right" id="pause-counter" style="display: none">
                     <a><span style="font-weight: bold; font-size: 0.9em"></span></a>
@@ -299,6 +307,8 @@
             </div>
         </div>
     </div>
+
+    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", "sinchronize" }, { "Icon", "fa fa-refresh" }, { "Title", "Sincronizar su base de datos!" }, { "Action", "Sincronizar" }, { "Controller", "Admin" }, { "Menssage", "Está a punto de actualizar su base de datos. ¿Desea Continuar?" } })
     <!-- END MESSAGE BOX-->
     <!-- START PRELOADS -->
     <audio id="audio-alert" src="~/assets/audio/alert.mp3" preload="auto"></audio>
@@ -330,6 +340,9 @@
     <script type="text/javascript" src="~/assets/js/plugins/tagsinput/jquery.tagsinput.min.js"></script>
 
     <script src="~/Scripts/ScriptsSistema/notyTypes.js"></script>
+
+    <!-- GLOBAL VARS JS -->
+    @Html.Partial("ResourcesJS")
 
     <!--Reference the SignalR library. -->
     <script src="~/Scripts/jquery.signalR-2.3.0.min.js"></script>
@@ -403,6 +416,47 @@
             var placement = 'bottom';
             if ($(obj).attr('data-placement') !== undefined) placement = $(obj).attr('data-placement');
             $(obj).tooltip({ placement: placement, html: true });
+        });
+
+        if ($('#Modal_sinchronize form').length) {
+            $('#Modal_sinchronize form').submit(function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+
+                spinnerShow();
+                $('#Modal_sinchronize').modal('hide');
+
+                $.ajax({
+                    url: '@Url.Action("Sincronizar", "Admin")',
+                    type: 'POST',
+                    success: function () {
+                        window.location = '@Url.Action("Index", "Admin")';
+                        successNoty("La base de datos se sincronizó correctamente.");
+                    },
+                    error: function () {
+                        errorNoty("Ocurrió un error mientras se sincronizaba la base de datos. Por favor, intente de nuevamente.");
+                    },
+                    complete: function () {
+                        spinnerHide();
+                    }
+                });
+
+            });
+        }
+
+        $('document').ready(function () {
+            if (localStorage.getItem('minimizedMenu'))
+                $(".x-navigation-minimize").trigger('click');
+        });
+        
+        $('#toggleMenu').click(function () {
+            //como el onclick mio se ejecuta antes parece estar al revés
+            //pero hay que tener en cuenta que luego de quue se ejecute este código
+            //el estado del menú cambia
+            if ($(".page-sidebar .x-navigation").hasClass("x-navigation-minimized"))
+                localStorage.removeItem('minimizedMenu');
+            else
+                localStorage.setItem('minimizedMenu', true);
         });
     </script>
 </body>

@@ -43,13 +43,13 @@
                             @Resources.Admin.Role
                         </th>
                         <th>
-                            @Resources.Admin.Active
-                        </th>
-                        <th>
                             @Resources.Admin.Location
                         </th>
                         <th>
                             @Resources.Admin.Company
+                        </th>
+                        <th>
+                            @Resources.Admin.Active
                         </th>
                         <th>
                             @Resources.Admin.Options
@@ -79,24 +79,36 @@
                                 @Html.DisplayFor(modelItem => item.Role)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Active)
-                            </td>
-                            <td>
                                 @Html.DisplayFor(modelItem => item.UserLocation.Name)
                             </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.Company1.Name)
                             </td>
                             <td>
+                                @Html.DisplayFor(modelItem => item.Active)
+                            </td>
+                            <td>
                                 @Html.ActionLink(" ", "Edit", new { id = item.Id }, new { @class = "btn btn-success btn-sm fa fa-edit info", title = Resources.Admin.ActionEdit })
-
-                                @Html.ActionLink(" ", "ChangePassword", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-eraser info", title = Resources.Admin.ActionChangePass })
+                                
+                                @if (item.Role != "agent")
+                                {
+                                    @Html.ActionLink(" ", "ChangePassword", new { id = item.Id }, new { @class = "btn btn-warning btn-sm fa fa-eraser info", title = Resources.Admin.ActionChangePass })
+                                }
 
                                 @Html.ActionLink(" ", "Details", new { id = item.Id }, new { @class = "btn btn-info btn-sm fa fa-eye info", title = Resources.Admin.ActionDetails })
 
-                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
+                                @if (item.Active && item.Role != "agent")
+                                {
+                                    <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Deactivate"></a>
 
-                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Login.Login_user }, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " " + Resources.Admin.Username + ": " + item.Username + "?" } })
+                                    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.Deactivate + " " + Resources.Login.Login_user }, { "Action", "Delete" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionDeactivateM + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " " + Resources.Admin.Username + ": " + item.Username + "?" } })
+                                }
+                                else if(item.Role != "agent")
+                                {
+                                    <a class="btn btn-primary btn-sm info glyphicon glyphicon-play mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.Activate"></a>
+
+                                    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "glyphicon glyphicon-play" }, { "Title", Resources.Admin.Activate + " " + Resources.Login.Login_user }, { "Action", "Activate" }, { "Controller", "Users" }, { "Menssage", Resources.Admin.QuestionActivateM + " " + Resources.Login.Login_user + " " + Resources.Admin.With + " " + Resources.Admin.Username + ": " + item.Username + "?" } })
+                                }
                             </td>
                         </tr>
                     }

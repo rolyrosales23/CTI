@@ -88,6 +88,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The call data could not be saved..
+        /// </summary>
+        public static string CallSavedFail {
+            get {
+                return ResourceManager.GetString("CallSavedFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call stored correctly..
+        /// </summary>
+        public static string CallSavedOK {
+            get {
+                return ResourceManager.GetString("CallSavedOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confer....
         /// </summary>
         public static string Confer {
@@ -111,6 +129,33 @@ namespace Resources {
         public static string EndConf {
             get {
                 return ResourceManager.GetString("EndConf", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The dispositions for this campaign could not be obtained..
+        /// </summary>
+        public static string ErrorDispositions {
+            get {
+                return ResourceManager.GetString("ErrorDispositions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Pause Code could not be saved. Try it later..
+        /// </summary>
+        public static string ErrorSavePauseCode {
+            get {
+                return ResourceManager.GetString("ErrorSavePauseCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The campaign script could not be obtained..
+        /// </summary>
+        public static string ErrorScript {
+            get {
+                return ResourceManager.GetString("ErrorScript", resourceCulture);
             }
         }
         
@@ -187,11 +232,83 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no active call!.
+        /// </summary>
+        public static string NoActiveCall {
+            get {
+                return ResourceManager.GetString("NoActiveCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to recognize the device associated with the active agent..
+        /// </summary>
+        public static string NoActiveDevice {
+            get {
+                return ResourceManager.GetString("NoActiveDevice", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user does not have pause codes available..
+        /// </summary>
+        public static string NoPasusesAvailable {
+            get {
+                return ResourceManager.GetString("NoPasusesAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to It was not possible to obtain the PauseCodes of this user..
+        /// </summary>
+        public static string NotPausesUser {
+            get {
+                return ResourceManager.GetString("NotPausesUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The call can not be retrieved because there is an active call..
+        /// </summary>
+        public static string NotRetrieve {
+            get {
+                return ResourceManager.GetString("NotRetrieve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user&apos;s campaigns could not be obtained..
+        /// </summary>
+        public static string ObtCampUserError {
+            get {
+                return ResourceManager.GetString("ObtCampUserError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pause.
         /// </summary>
         public static string Pause {
             get {
                 return ResourceManager.GetString("Pause", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The time in pause has ended. It will be automatically logged out..
+        /// </summary>
+        public static string PauseTimeOutLoggout {
+            get {
+                return ResourceManager.GetString("PauseTimeOutLoggout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The time in pause has ended. You will be &quot;Ready&quot; automatically..
+        /// </summary>
+        public static string PauseTimeOutReady {
+            get {
+                return ResourceManager.GetString("PauseTimeOutReady", resourceCulture);
             }
         }
         
@@ -232,6 +349,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must select a call on hold!.
+        /// </summary>
+        public static string SelectHoldCall {
+            get {
+                return ResourceManager.GetString("SelectHoldCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select a Pause Code....
         /// </summary>
         public static string SelectPauseCode {
@@ -241,11 +367,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You must select a valid Pause Code..
+        /// </summary>
+        public static string SelectValidPauseC {
+            get {
+                return ResourceManager.GetString("SelectValidPauseC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        public static string Status {
+            get {
+                return ResourceManager.GetString("Status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transferir.
         /// </summary>
         public static string Transfer {
             get {
                 return ResourceManager.GetString("Transfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user is not associated with any campaign..
+        /// </summary>
+        public static string UserNotCampaign {
+            get {
+                return ResourceManager.GetString("UserNotCampaign", resourceCulture);
             }
         }
     }

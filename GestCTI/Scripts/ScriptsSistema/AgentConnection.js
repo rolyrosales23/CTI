@@ -62,7 +62,7 @@ function pintarScriptByVDN(vdn, data) {
             pintarScript(url, data);
         },
         error: function (error) {
-            errorNoty("No se pudo obterner el script de la campaña.");
+            errorNoty(Resources.ErrorScript);
         }
     });
 }
@@ -89,7 +89,7 @@ function printDisposition(vdn) {
                 }
             },
             error: function () {
-                errorNoty("No se pudieron obtener los dispositions para esta campaña.");
+                errorNoty(Resources.ErrorDispositions);
             },
             complete: function () {
                 select.removeAttr('disabled');
@@ -112,10 +112,10 @@ $('#SendCallDisposition').click(function () {
             type: "post",
             data: { ucid: CallForSave.ucid, disposition: dispositionCamp, username: User.Name, deviceId: CallForSave.deviceId, deviceCustomer: CallForSave.deviceCustomer },
             success: function (resp) {
-                successNoty("Llamada guardada correctamente!");
+                successNoty(Resources.CallSavedOK);
             },
             error: function () {
-                errorNoty("No se pudieron guardar los datos de la llamada.");
+                errorNoty(Resources.CallSavedFail);
             },
             complete: function () {
                 spinnerHide();
@@ -140,10 +140,10 @@ function printCampaignsByUser() {
                 select.selectpicker('refresh');
             }
             else
-                infoNoty("El usuario no está vinculado a ninguna campaña.");
+                infoNoty(Resources.UserNotCampaign);
         },
         error: function () {
-            errorNoty("No se pudieron obtener las campañas del usuario.");
+            errorNoty(Resources.ObtCampUserError);
         },
         complete: function () {
             spinnerHide();
@@ -290,11 +290,27 @@ $(function () {
                 changeState('inputPhone', false);
                 changeState('doCallBtn', false);
                 //changeState('answer', true);
-
                 localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
 
-                
-                printDisposition(eventArgs[9]);
+                //asignar la llamada a la campaña
+                var campaignId = localStorage.getItem('campaignId');
+                if (notEmpty(campaignId)) {
+                    $.ajax({
+                        url: '../CoreHttp/CampaignAssignCall/',
+                        data: { campaignId: campaignId, ucid: eventArgs[0] },
+                        success: function (response) {
+                            if (response)
+                                localStorage.setItem('IsCampaignCall', true);
+                            else
+                                localStorage.setItem('IsCampaignCall', false);
+                        },
+                        error: function () {
+                            localStorage.setItem('IsCampaignCall', false);
+                        }
+                    });
+                }
+
+                printDisposition(campaignId);
                 localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
 
                 tempNoty('onCallExternalDelivered');
@@ -491,11 +507,11 @@ $(function () {
                         $('#modal-PauseCodes').modal('show');
                     }
                     else {
-                        errorNoty("No tienen pause codes disponibles.");
+                        errorNoty(Resources.NoPasusesAvailable);
                     }
                 },
                 error: function () {
-                    errorNoty("No se pudireon obtener los PauseCodes de este usuario.");
+                    errorNoty(Resources.NotPausesUser);
                 },
                 complete: function () {
                     spinnerHide();
@@ -517,7 +533,7 @@ $(function () {
                     console.error(Resources.NotUcid);
                 }
             }
-            else infoNoty("No hay llamada activa!");
+            else infoNoty(Resources.NoActiveCall);
         });
 
         $("#hangoutCallRequest").click(function () {
@@ -530,7 +546,7 @@ $(function () {
                     errorNoty(Resources.NotUcid);
                 }
             }
-            else infoNoty("No hay llamada activa!");
+            else infoNoty(Resources.NoActiveCall);
         });
 
         $("#doCallBtn").click(function () {
@@ -548,7 +564,7 @@ $(function () {
                 }
             }
             else
-                infoNoty("No hay Llamada activa!");
+                infoNoty(Resources.NoActiveCall);
         });
 
         $('#doTransfer').click(function () {
@@ -560,13 +576,13 @@ $(function () {
                     if (notEmpty(deviceId))
                         agent.server.sendTransferCall(heldUcid, activeCall.ucid, deviceId);
                     else
-                        infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                        infoNoty(Resources.NoActiveDevice);
                 }
                 else
-                    infoNoty("No hay llamada activa!");
+                    infoNoty(Resources.NoActiveCall);
             }
             else
-                infoNoty("Debe seleccionar una llamada en espera!");
+                infoNoty(Resources.SelectHoldCall);
         });
 
         $('#doRetrieve').click(function () {
@@ -575,13 +591,13 @@ $(function () {
             if (notEmpty(heldUcid)) {
                 var strAC = localStorage.getItem('activeCall');
                 if (notEmpty(strAC))
-                    infoNoty("No se puede recuperar porque hay una llamada activa!");
+                    infoNoty(Resources.NotRetrieve);
                 else {
                     agent.server.sendRetrieveCall(heldUcid, deviceId);
                 }
             }
             else
-                infoNoty("Debe seleccionar una llamada en espera!");
+                infoNoty(Resources.SelectHoldCall);
         });
 
         $('#doConference').click(function () {
@@ -593,13 +609,13 @@ $(function () {
                     if (notEmpty(deviceId))
                         agent.server.sendConferenceCall(heldUcid, activeCall.ucid, deviceId);
                     else
-                        infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                        infoNoty(Resources.NoActiveDevice);
                 }
                 else
-                    infoNoty("No hay llamada activa!");
+                    infoNoty(Resources.NoActiveCall);
             }
             else
-                infoNoty("Debe seleccionar una llamada en espera!");
+                infoNoty(Resources.SelectHoldCall);
         });
 
         $('#doEndConference').click(function () {
@@ -609,7 +625,7 @@ $(function () {
                 agent.server.sendCTIClearCallRequest(activeCall.ucid);
             }
             else
-                infoNoty("No hay llamada activa!");
+                infoNoty(Resources.NoActiveCall);
         });
 
         $('#SendPauseCode').click(function () {
@@ -631,11 +647,11 @@ $(function () {
                                 stopCounter('#pause-counter');
                                 if (auto) {
                                     $('#ReadyToWork').trigger('click');
-                                    infoNoty("Ha concluido el tiempo en pausa. Se le pondrá en \"Listo\" automáticamente.", {timeout: null});
+                                    infoNoty(PauseTimeOutReady, {timeout: null});
                                 }
                                 else {
                                     $('#LogOutCore').trigger('click');
-                                    infoNoty("Ha concluido el tiempo en pausa. Será deslogueado automáticamente.", {timeout: null});
+                                    infoNoty(Resources.PauseTimeOutLoggout, { timeout: null });
                                 }
                             },
                             duration * 1000
@@ -645,7 +661,7 @@ $(function () {
                         agent.server.sendPause(deviceId, reason);
                     },
                     error: function () {
-                        errorNoty("No se pudo guardar el Pause Code. Intentelo mas tarde.");
+                        errorNoty(Resources.ErrorSavePauseCode);
                     },
                     complete: function () {
                         spinnerHide();
@@ -653,18 +669,13 @@ $(function () {
                 });
             }
             else
-                errorNoty("Debe seleccionar un PauseCode válido.");
+                errorNoty(Resources.SelectValidPauseC);
         });
 
         $('#BtnCampaignCall').click(function () {
             var IdCampaign = $('#SelCampaigns').val();
-            if (notEmpty(IdCampaign)) {
-                localStorage.setItem('IsCampaignCall', 'true');
-
-                //Enviar campaña de la llamada al core...
-            }
-            else
-                localStorage.setItem('IsCampaignCall', 'false');
+            if (notEmpty(IdCampaign))
+                localStorage.setItem('campaignId', IdCampaign);
 
             $('#modal-Campaigns').modal('hide');
             var toDevice = $('#inputPhone').val();

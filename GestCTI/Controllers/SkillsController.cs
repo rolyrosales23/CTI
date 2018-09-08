@@ -33,7 +33,7 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,Value,Description")] Skills skills)
+        public ActionResult Create([Bind(Include = "Id,Value,Description,Extension")] Skills skills)
         {
             if (ModelState.IsValid)
             {
@@ -65,10 +65,11 @@ namespace GestCTI.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Value,Description")] Skills skills)
+        public ActionResult Edit([Bind(Include = "Id,Value,Description,Extension")] Skills skills)
         {
             if (ModelState.IsValid)
             {
+                // Llamar metodo REST EditSkill
                 db.Entry(skills).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -82,6 +83,7 @@ namespace GestCTI.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Skills skills = db.Skills.Find(id);
+            // Llamar metodo REST DeleteSkill
             db.Skills.Remove(skills);
             db.SaveChanges();
             return RedirectToAction("Index");

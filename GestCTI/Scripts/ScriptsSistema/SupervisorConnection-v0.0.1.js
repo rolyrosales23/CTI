@@ -5,15 +5,15 @@
     if (notEmpty(agents)) {
         var panelbody = $('<div class="panel-body panel-body-table"></div>')
             .append('<div class="table-responsive"></div>').find('div')
-            .append('<table class="table table-bordered table-striped table-actions"></table>').end();
+            .append('<table class="table table-bordered table-striped table-actions Mydatatable"></table>').end();
 
         var table = wrapper.append(panelbody).find('table');
 
         var header = $('<thead><tr></tr></thead>').find('tr')
-            .append('<th width="50">UserName</th>')
-            .append('<th width="100">status</th>')
-            .append('<th width="100">phone_extension</th>')
-            .append('<th width="100">action</th>')
+            .append('<th width="50">' + Resources.Username + '</th>')
+            .append('<th width="100">' + Resources.Status + '</th > ')
+            .append('<th width="100">' + Resources.PhoneExtension + '</th > ')
+            .append('<th width="100">' + Resources.Options + '</th > ')
             .end();
 
         var body = $('<tbody></tbody>');
@@ -24,7 +24,7 @@
                 .append('<input type="checkbox" class="icheckbox" id="' + i + '-check"/>')
 
             var buttom = "";
-
+            var status = "";
             if (flag === "true") {
                 var ucidListen = localStorage.getItem('ucid-listener');
                 var ucidWhisper = localStorage.getItem('ucid-whisper');
@@ -54,12 +54,14 @@
                 buttom = '<td><div class="row"><div class="col-md-12">' + content + '</div></div></td>';
             } else {
                 var btn = '<a type=button" onclick=makeCall("' + agents[i].DeviceId + '") class="btn btn-success btn-md fa fa-phone info" title="' + Resources.Call + '"></a>';
-                buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>'
+                buttom = '<td><div class="row"><div class="col-md-6">' + btn + '</div></div></td>';
+
+                status = '<td><span class="label label-warning" >' + Resources.Connected + '</span></td>';
             }
 
             var fila = $('<tr></tr>')
                 .append('<td>' + agents[i].user_name + '</td>')
-                .append('<td>' + "connected" + '</td>')
+                .append(status)
                 .append('<td id="' + i + '-deviceId">' + agents[i].DeviceId + '</td>')
                 .append(buttom);
             body.append(fila);
@@ -121,14 +123,14 @@ function showListOfQueueCalls() {
             panel_refresh(panel);
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
-        errorNoty("Error charging list of queue calls");
+        errorNoty(Resources.ErrorLoadQueueCall);
     });
 }
 
 function whisper(ucid, selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty(Resources.NotDeviceLog);
         return;
     }
     var agent = $.connection.websocket;
@@ -139,7 +141,7 @@ function whisper(ucid, selectedParty) {
 function listener(ucid) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty(Resources.NotDeviceLog);
         return;
     }
     var agent = $.connection.websocket;
@@ -150,7 +152,7 @@ function listener(ucid) {
 function makeCall(selectedParty) {
     var deviceId = localStorage.getItem('deviceId');
     if (!notEmpty(deviceId)) {
-        errorNoty('No se podrá realizar ninguna acción sobre este usuario pues el supervisor no se ha logueado con un dispositivo');
+        errorNoty(Resources.NotDeviceLog);
         return;
     }
     var agent = $.connection.websocket;
@@ -220,8 +222,8 @@ $(function () {
                 else
                     $("#doCallBtn").attr("disabled", "disabled");
             });
-        }).fail(function (xhr, status) {
-            errorNoty("Error charging phone partial");
+            }).fail(function (xhr, status) {
+                errorNoty(Resources.ErrorLoadPhonePartial);
         });
     }
 
@@ -269,7 +271,7 @@ $(function () {
         } else {
             localStorage.removeItem('deviceId');
             spinnerHide();
-            errorNoty('No se ha inicializado el dispositivo. Razones ' + json('reason'));
+            errorNoty(Resources.NotDeviceInitialized + " " + json('reason'));
         }
     };
 
@@ -309,7 +311,7 @@ $(function () {
                 spinnerShow();
                 agent.server.initilizeSupervisorDevice($('#deviceIdPhone').val());
             } else {
-                errorNoty('El dispositivo no debe ser vacio');
+                errorNoty(Resources.DeviceEmpty);
             }
         });
 

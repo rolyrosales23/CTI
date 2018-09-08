@@ -68,6 +68,22 @@
                         </dd>
 
                         <dt>
+                            <label class="control-label " for="Active" style="font-size:medium; font-weight: bold">@Resources.Admin.Active:</label>
+                        </dt>
+
+                        <dd>
+                            
+                            @if (Model.Active)
+                            {
+                                <input type="checkbox" class="icheckbox" checked="checked" disabled>
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="icheckbox" disabled>
+                            }
+                        </dd>
+
+                        <dt>
                             <label class="control-label " for="PauseCodes" style="font-size:medium; font-weight: bold">@Resources.Admin.PauseCodes:</label>
                         </dt>
 
@@ -150,7 +166,7 @@
                             }
                             else
                             {
-                                <label class="control-label" style="font-size:medium">@Resources.Admin.NotPauseCodes</label>
+                                <label>_</label>
                             }
                         </dd>
 
@@ -212,7 +228,7 @@
                             }
                             else
                             {
-                                <label class="control-label" style="font-size:medium">@Resources.Admin.NotDispositions</label>
+                                <label>_</label>
                             }
                         </dd>
                         
@@ -261,7 +277,60 @@
                             }
                             else
                             {
-                                <label class="control-label" style="font-size:medium">@Resources.Admin.NotVDN</label>
+                                <label>_</label>
+                            }
+                        </dd>
+
+                        <dt>
+                            <label class="control-label " for="Skills" style="font-size:medium; font-weight: bold">@Resources.Admin.Skills:</label>
+                        </dt>
+
+                        <dd>
+                            @if (ViewBag.skills.Count > 0)
+                            {
+                                <table class="table " id="tabla-index" style="width:100%">
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                @Resources.Admin.Value
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Name
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Extension
+                                            </th>
+                                            <th>
+                                                @Resources.Admin.Options
+                                            </th>
+                                        </tr>
+                                    </thead>
+
+                                    @foreach (var item in ViewBag.skills)
+                                    {
+                                        <tr>
+                                            <td>
+                                                @item.Skills.Value
+                                            </td>
+                                            <td>
+                                                @item.Skills.Description
+                                            </td>
+                                            <td>
+                                                @item.Skills.Extension
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-danger btn-sm info fa fa-trash-o mb-control" data-box="#Modal_@item.Id" title="@Resources.Admin.ActionDelete"></a>
+
+                                                @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", item.Id }, { "Icon", "fa fa-trash-o" }, { "Title", Resources.Admin.DeleteRecord }, { "Action", "DeleteSkill" }, { "Controller", "Campaigns" }, { "Menssage", Resources.Admin.QuestionDeleteF + " " + Resources.Admin.Skill + " " + Resources.Admin.With + " " + Resources.Admin.Name + ": " + item.Skills.Description + " " + Resources.Admin.OfF + " " + Resources.Admin.Campaign + ": " + item.Campaign.Name + "?" } })
+                                            </td>
+                                        </tr>
+                                    }
+
+                                </table>
+                            }
+                            else
+                            {
+                                <label>_</label>
                             }
                         </dd>
 

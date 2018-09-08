@@ -49,7 +49,7 @@ namespace GestCTI.Controllers
         {
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name");
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name");
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value");
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description");
             return View();
         }
 
@@ -65,18 +65,17 @@ namespace GestCTI.Controllers
                 if (db.Users.FirstOrDefault(p => p.Username == users.Username) == null)
                 {
                     users.Password = Seguridad.EncryptMD5(users.Password);
-                    db.Users.Add(users);
+                    Users new_user = db.Users.Add(users);
                     db.SaveChanges();
                     if (users.Role == "agent")
                     {
-                        int idUser = db.Users.FirstOrDefault(p => p.Username == users.Username).Id;
                         if (IdSkill != null)
                         {
                             for (int i = 0; i < IdSkill.Count(); i++)
                             {
                                 UserSkill newskill = new UserSkill();
                                 newskill.IdSkill = IdSkill[i];
-                                newskill.IdUser = idUser;
+                                newskill.IdUser = new_user.Id;
                                 db.UserSkill.Add(newskill);
                             }
                             db.SaveChanges();
@@ -85,11 +84,12 @@ namespace GestCTI.Controllers
                     return RedirectToAction("Index");
                 }
                 else
-                    TempData["MsjError"] = Resources.Admin.ExistUsername;
+                    TempData["errorNoty"] = Resources.Admin.ExistUsername;
             }
 
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", IdSkill);
             return View(users);
         }
 
@@ -108,7 +108,7 @@ namespace GestCTI.Controllers
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
             var skills = from s in db.Skills join us in db.UserSkill on s.Id equals us.IdSkill where us.IdUser == id select s.Id;
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", skills);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", skills);
             return View(users);
         }
 
@@ -121,47 +121,52 @@ namespace GestCTI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (db.Users.FirstOrDefault(p => p.Username == users.Username) == null)
+                if (db.Users.FirstOrDefault(p => p.Username == users.Username && p.Id != users.Id) == null)
                 { 
                     Users temp_User = db.Users.Find(users.Id);
-                    temp_User.Username = users.Username;
                     temp_User.email = users.email;
-                    temp_User.FirstName = users.FirstName;
-                    temp_User.MiddleName = users.MiddleName;
-                    temp_User.LastName = users.LastName;
-                    temp_User.Role = users.Role;
                     temp_User.IdLocation = users.IdLocation;
                     temp_User.IdCompany = users.IdCompany;
-                    temp_User.Active = users.Active;
-
-                    List<UserSkill> actual = db.UserSkill.Where(p => p.IdUser == users.Id).ToList();
-                    if (users.Role == "agent")
+                    if (temp_User.Role != "agent")
                     {
-                        if (IdSkill != null)
-                            for (int i = 0; i < IdSkill.Count(); i++)
-                            {
-                                if (actual.FirstOrDefault(p => p.IdSkill == IdSkill[i]) != null)
-                                    actual.RemoveAll(p => p.IdSkill == IdSkill[i]);
-                                else
-                                {
-                                    UserSkill newskill = new UserSkill();
-                                    newskill.IdSkill = IdSkill[i];
-                                    newskill.IdUser = users.Id;
-                                    db.UserSkill.Add(newskill);
-                                }
-                            }
+                        temp_User.Username = users.Username;
+                        temp_User.FirstName = users.FirstName;
+                        temp_User.MiddleName = users.MiddleName;
+                        temp_User.LastName = users.LastName;
+                        temp_User.Role = users.Role;
+                        temp_User.Active = users.Active;
                     }
-                    for (int i = 0; i < actual.Count(); i++)
-                        db.UserSkill.Remove(actual[i]);
+
+                    
+                    //if (users.Role == "agent")
+                    //{
+                    //    List<UserSkill> actual = db.UserSkill.Where(p => p.IdUser == users.Id).ToList();
+                    //    if (IdSkill != null)
+                    //        for (int i = 0; i < IdSkill.Count(); i++)
+                    //        {
+                    //            if (actual.FirstOrDefault(p => p.IdSkill == IdSkill[i]) != null)
+                    //                actual.RemoveAll(p => p.IdSkill == IdSkill[i]);
+                    //            else
+                    //            {
+                    //                UserSkill newskill = new UserSkill();
+                    //                newskill.IdSkill = IdSkill[i];
+                    //                newskill.IdUser = users.Id;
+                    //                db.UserSkill.Add(newskill);
+                    //            }
+                    //        }
+                    //    for (int i = 0; i < actual.Count(); i++)
+                    //        db.UserSkill.Remove(actual[i]);
+                    //}
+
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 else
-                    TempData["MsjError"] = Resources.Admin.ExistUsername;
+                    TempData["errorNoty"] = Resources.Admin.ExistUsername;
         }
             ViewBag.IdLocation = new SelectList(db.UserLocation, "Id", "Name", users.IdLocation);
             ViewBag.IdCompany = new SelectList(db.Company, "Id", "Name", users.IdCompany);
-            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Value", IdSkill);
+            ViewBag.IdSkill = new MultiSelectList(db.Skills, "Id", "Description", IdSkill);
             return View(users);
         }
 
@@ -172,7 +177,17 @@ namespace GestCTI.Controllers
         {
             Users users = db.Users.Find(id);
             users.Active = false;
-            //db.Users.Remove(users);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        // POST: Users/Activate/5
+        [HttpPost, ActionName("Activate")]
+        [ValidateAntiForgeryToken]
+        public ActionResult Activate(int id)
+        {
+            Users users = db.Users.Find(id);
+            users.Active = true;
             db.SaveChanges();
             return RedirectToAction("Index");
         }

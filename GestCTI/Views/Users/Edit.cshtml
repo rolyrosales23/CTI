@@ -35,7 +35,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Username" style="font-size:small; font-weight: bold">@Resources.Admin.Username</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", Name = "Username", style = "font-size:small" } })
+                                @if (Model.Role == "agent")
+                                {
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", Name = "Username", style = "font-size:small", @readonly = "readonly" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control", Name = "Username", style = "font-size:small" } })
+                                }
                                 @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -51,15 +58,29 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="FirstName" style="font-size:small; font-weight: bold">@Resources.Admin.FirstName</label>
                             <div class="col-md-9">
+                            @if (Model.Role == "agent")
+                            {
+                                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", Name = "FirstName", style = "font-size:small", @readonly = "readonly" } })
+                            }
+                            else
+                            {
                                 @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", Name = "FirstName", style = "font-size:small" } })
-                                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                            }
+                            @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-3" for="MiddleName" style="font-size:small; font-weight: bold">@Resources.Admin.MiddleName</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", Name = "MiddleName", style = "font-size:small" } })
+                                @if (Model.Role == "agent")
+                                {
+                                @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", Name = "MiddleName", style = "font-size:small", @readonly = "readonly" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.MiddleName, new { htmlAttributes = new { @class = "form-control", Name = "MiddleName", style = "font-size:small" } })
+                                }
                                 @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -67,7 +88,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="LastName" style="font-size:small; font-weight: bold">@Resources.Admin.LastName</label>
                             <div class="col-md-9">
-                                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", Name = "LastName", style = "font-size:small" } })
+                                @if (Model.Role == "agent")
+                                {
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", Name = "LastName", style = "font-size:small", @readonly = "readonly" } })
+                                }
+                                else
+                                {
+                                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", Name = "LastName", style = "font-size:small" } })
+                                }
                                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -75,11 +103,23 @@
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Role" style="font-size:small; font-weight: bold">@Resources.Admin.Role</label>
                             <div class="col-md-9">
-                                <select class="form-control select" name="Role" id="Rol" style = "font-size:small">
-                                    <option value="agent">Agent</option>
-                                    <option value="admin">Administrator</option>
-                                    <option value="supervisor">Supervisor</option>
-                                </select>
+                                @if (Model.Role == "agent")
+                                {
+                                    <select class="form-control select" name="Role" id="Rol" style="font-size:small" disabled>
+                                        <option value="agent">Agent</option>
+                                        <option value="admin">Administrator</option>
+                                        <option value="supervisor">Supervisor</option>
+                                    </select>
+                                }
+                                else
+                                {
+                                    <select class="form-control select" name="Role" id="Rol" style="font-size:small">
+                                        @*<option value="agent">Agent</option>*@
+                                        <option value="admin">Administrator</option>
+                                        <option value="supervisor">Supervisor</option>
+                                    </select>
+                                }
+                                            
                                 @Html.ValidationMessageFor(model => model.Role, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -103,14 +143,21 @@
                         <div class="form-group" id="SelSkills">
                             <label class="control-label col-md-3" for="IdSkill" style="font-size:small; font-weight: bold">@Resources.Admin.Skills</label>
                             <div class="col-md-9">
-                                @Html.DropDownList("IdSkill", null, htmlAttributes: new { @class = "form-control select", multiple="multiple", style = "font-size:small" })
+                                @Html.DropDownList("IdSkill", null, htmlAttributes: new { @class = "form-control select", multiple = "multiple", style = "font-size:small", disabled="disabled" })
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label class="control-label col-md-3" for="Active" style="font-size:small; font-weight: bold">@Resources.Admin.Active</label>
                             <div class="col-md-9" style="padding-top: 5px">
-                                @Html.CheckBoxFor(model => model.Active, new { @class = "icheckbox" })
+                                @if (Model.Role == "agent")
+                                {
+                                    @Html.CheckBoxFor(model => model.Active, new { @class = "icheckbox", disabled="disabled" })
+                                }
+                                else
+                                {
+                                    @Html.CheckBoxFor(model => model.Active, new { @class = "icheckbox" })
+                                }
                                 @Html.ValidationMessageFor(model => model.Active, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -133,10 +180,8 @@
     <script type='text/javascript' src='~/assets/js/plugins/icheck/icheck.min.js'></script>
     <script type="text/javascript" src="~/assets/js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
 
-    <script type='text/javascript' src='~/assets/js/plugins/bootstrap/bootstrap-datepicker.js'></script>
     <script type='text/javascript' src='~/assets/js/plugins/bootstrap/bootstrap-select.js'></script>
     <script type='text/javascript' src='~/assets/js/plugins/jquery-validation/jquery.validate.js'></script>
-    <script type='text/javascript' src='~/assets/js/plugins/maskedinput/jquery.maskedinput.min.js'></script>
 
     <script type="text/javascript">
         var jvalidate = $("#myform").validate({
@@ -181,10 +226,6 @@
             else
                 $('#SelSkills').attr("style", "display:block");
         });
-        
-        var msj = '@TempData["MsjError"]';
-        if (msj != '')
-            errorNoty(msj);
     </script>
 
 }

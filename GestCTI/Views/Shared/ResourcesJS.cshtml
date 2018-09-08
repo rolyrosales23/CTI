@@ -27,7 +27,34 @@
             SelectCampaign: '@Resources.Agent.SelectCampaign',
             Call: '@Resources.Agent.Call',
             Listen: '@Resources.Supervisor.Listen',
-            Whisper: '@Resources.Supervisor.Whisper'
+            Whisper: '@Resources.Supervisor.Whisper',
+            InCall: '@Resources.Supervisor.InCall',
+            Connected: '@Resources.Supervisor.Connected',
+            Username: '@Resources.Admin.Username',
+            PhoneExtension: '@Resources.Login.PhoneExtension',
+            Options: '@Resources.Admin.Options',
+            Status: '@Resources.Agent.Status',
+            ErrorScript: '@Resources.Agent.ErrorScript',
+            ErrorDispositions: '@Resources.Agent.ErrorDispositions',
+            CallSavedOK: '@Resources.Agent.CallSavedOK',
+            CallSavedFail: '@Resources.Agent.CallSavedFail',
+            UserNotCampaign: '@Resources.Agent.UserNotCampaign',
+            ObtCampUserError: '@Resources.Agent.ObtCampUserError',
+            NoPasusesAvailable: '@Resources.Agent.NoPasusesAvailable',
+            NotPausesUser: '@Resources.Agent.NotPausesUser',
+            NoActiveCall: '@Resources.Agent.NoActiveCall',
+            NoActiveDevice: '@Resources.Agent.NoActiveDevice',
+            SelectHoldCall: '@Resources.Agent.SelectHoldCall',
+            NotRetrieve: '@Resources.Agent.NotRetrieve',
+            PauseTimeOutReady: '@Resources.Agent.PauseTimeOutReady',
+            PauseTimeOutLoggout: '@Resources.Agent.PauseTimeOutLoggout',
+            ErrorSavePauseCode: '@Resources.Agent.ErrorSavePauseCode',
+            SelectValidPauseC: '@Resources.Agent.SelectValidPauseC',
+            NotDeviceLog: '@Resources.Supervisor.NotDeviceLog',
+            ErrorLoadQueueCall: '@Resources.Supervisor.ErrorLoadQueueCall',
+            ErrorLoadPhonePartial: '@Resources.Supervisor.ErrorLoadPhonePartial',
+            NotDeviceInitialized: '@Resources.Supervisor.NotDeviceInitialized',
+            DeviceEmpty: '@Resources.Supervisor.DeviceEmpty'
 
         };
 
@@ -35,5 +62,18 @@
         Name: '@this.User.Identity.Name'
     };
 
-    var IsDebugMode = true;
+    var IsDebugMode = false;
+
+    var msj = '@TempData["successNoty"]';
+    if (msj != '')
+        successNoty(msj);
+    msj = '@TempData["errorNoty"]';
+    if (msj != '')
+        errorNoty(msj);
+    msj = '@TempData["warningNoty"]';
+    if (msj != '')
+        warningNoty(msj);
+    msj = '@TempData["infoNoty"]';
+    if (msj != '')
+        infoNoty(msj);
 </script>

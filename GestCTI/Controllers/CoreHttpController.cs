@@ -20,8 +20,7 @@ namespace GestCTI.Controllers
         /// <returns>List<Calls></returns>
         public async Task<String> QueuedCalls(String id)
         {
-            var result = await ServiceCoreHttp.QueueCallsResult(id);
-            JsonConvert.SerializeObject(result);
+            var result = await ServiceCoreHttp.CampaignQueuedCalls(id);
             return JsonConvert.SerializeObject(result);
         }
 
@@ -35,6 +34,10 @@ namespace GestCTI.Controllers
         public async Task<Boolean> AddAgent(String agentId, String name, String passw)
         {
             return await AddAgent(agentId, name, passw);
+        }
+
+        public async Task<Boolean> CampaignAssignCall(String campaignId, String ucid) {
+            return await ServiceCoreHttp.CampaignAssignCall("http://" + Request.Url.Host, campaignId, ucid);
         }
     }
 }

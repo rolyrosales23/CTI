@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datails.
+        ///   Looks up a localized string similar to Details.
         /// </summary>
         public static string ActionDetails {
             get {
@@ -102,6 +102,15 @@ namespace Resources {
         public static string ActionEdit {
             get {
                 return ResourceManager.GetString("ActionEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate.
+        /// </summary>
+        public static string Activate {
+            get {
+                return ResourceManager.GetString("Activate", resourceCulture);
             }
         }
         
@@ -129,6 +138,42 @@ namespace Resources {
         public static string ApiServerIP {
             get {
                 return ResourceManager.GetString("ApiServerIP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate Pause Codes to this campaign to start it..
+        /// </summary>
+        public static string AsoccPauseCodes {
+            get {
+                return ResourceManager.GetString("AsoccPauseCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate Skills to this campaign to start it..
+        /// </summary>
+        public static string AsocSkill {
+            get {
+                return ResourceManager.GetString("AsocSkill", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate VDNs to this campaign to start it..
+        /// </summary>
+        public static string AsocVDN {
+            get {
+                return ResourceManager.GetString("AsocVDN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You must associate Dispositions to this campaign to start it.
+        /// </summary>
+        public static string AssocDispositions {
+            get {
+                return ResourceManager.GetString("AssocDispositions", resourceCulture);
             }
         }
         
@@ -219,6 +264,15 @@ namespace Resources {
         public static string ControlPanel {
             get {
                 return ResourceManager.GetString("ControlPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Could not start campaign.
+        /// </summary>
+        public static string CouldNotStart {
+            get {
+                return ResourceManager.GetString("CouldNotStart", resourceCulture);
             }
         }
         
@@ -322,6 +376,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Extension.
+        /// </summary>
+        public static string Extension {
+            get {
+                return ResourceManager.GetString("Extension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to FirstName.
         /// </summary>
         public static string FirstName {
@@ -349,11 +412,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level.
+        /// </summary>
+        public static string Level {
+            get {
+                return ResourceManager.GetString("Level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Location.
         /// </summary>
         public static string Location {
             get {
                 return ResourceManager.GetString("Location", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LOGOUT.
+        /// </summary>
+        public static string Logout {
+            get {
+                return ResourceManager.GetString("Logout", resourceCulture);
             }
         }
         
@@ -448,7 +529,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Options.
+        ///   Looks up a localized string similar to Actions.
         /// </summary>
         public static string Options {
             get {
@@ -489,6 +570,24 @@ namespace Resources {
         public static string PauseCodes {
             get {
                 return ResourceManager.GetString("PauseCodes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to activate.
+        /// </summary>
+        public static string QuestionActivateF {
+            get {
+                return ResourceManager.GetString("QuestionActivateF", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to activate.
+        /// </summary>
+        public static string QuestionActivateM {
+            get {
+                return ResourceManager.GetString("QuestionActivateM", resourceCulture);
             }
         }
         
@@ -565,6 +664,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to SINCHRONIZE DB.
+        /// </summary>
+        public static string Sinchronize {
+            get {
+                return ResourceManager.GetString("Sinchronize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Skill.
         /// </summary>
         public static string Skill {
@@ -583,11 +691,83 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to start the campaign.
+        /// </summary>
+        public static string StartCampaign {
+            get {
+                return ResourceManager.GetString("StartCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to started successfully..
+        /// </summary>
+        public static string StartOk {
+            get {
+                return ResourceManager.GetString("StartOk", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Stop.
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to stop the campaign.
+        /// </summary>
+        public static string StopCampaign {
+            get {
+                return ResourceManager.GetString("StopCampaign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to could not be stopped..
+        /// </summary>
+        public static string StopCampFail {
+            get {
+                return ResourceManager.GetString("StopCampFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to has been stopped correctly..
+        /// </summary>
+        public static string StopCampOK {
+            get {
+                return ResourceManager.GetString("StopCampOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Switch of Company.
         /// </summary>
         public static string SwitchCompany {
             get {
                 return ResourceManager.GetString("SwitchCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Campaign.
+        /// </summary>
+        public static string TheCampaign {
+            get {
+                return ResourceManager.GetString("TheCampaign", resourceCulture);
             }
         }
         
