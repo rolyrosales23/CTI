@@ -387,4 +387,10 @@
   <data name="StopCampOK" xml:space="preserve">
     <value>has been stopped correctly.</value>
   </data>
+  <data name="InsertDevice" xml:space="preserve">
+    <value>Insert the device number.</value>
+  </data>
+  <data name="OK" xml:space="preserve">
+    <value>OK</value>
+  </data>
 </root>

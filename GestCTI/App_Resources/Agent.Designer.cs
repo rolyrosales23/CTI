@@ -88,6 +88,60 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An user has been added to the conference..
+        /// </summary>
+        public static string CallConferenced {
+            get {
+                return ResourceManager.GetString("CallConferenced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The call has been diverted..
+        /// </summary>
+        public static string CallDiverted {
+            get {
+                return ResourceManager.GetString("CallDiverted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call ended!.
+        /// </summary>
+        public static string CallEnded {
+            get {
+                return ResourceManager.GetString("CallEnded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call failed!.
+        /// </summary>
+        public static string CallFailed {
+            get {
+                return ResourceManager.GetString("CallFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The call has been put on hold..
+        /// </summary>
+        public static string CallOnHold {
+            get {
+                return ResourceManager.GetString("CallOnHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The call has been retrieved..
+        /// </summary>
+        public static string CallRetrieved {
+            get {
+                return ResourceManager.GetString("CallRetrieved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The call data could not be saved..
         /// </summary>
         public static string CallSavedFail {
@@ -97,11 +151,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Call stored correctly..
+        ///   Looks up a localized string similar to Call stored successfully..
         /// </summary>
         public static string CallSavedOK {
             get {
                 return ResourceManager.GetString("CallSavedOK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Call transferred successfully..
+        /// </summary>
+        public static string CallTransferred {
+            get {
+                return ResourceManager.GetString("CallTransferred", resourceCulture);
             }
         }
         
@@ -385,7 +448,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transferir.
+        ///   Looks up a localized string similar to Transfer.
         /// </summary>
         public static string Transfer {
             get {

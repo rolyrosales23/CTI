@@ -445,7 +445,7 @@ namespace GestCTI.Hubs
                 else
                 {
                     socks.AddOrUpdate(nameUser, ws, (key, oldValue) => ws);
-                    Clients.Client(Context.ConnectionId).Notification(Resources.Login.ServerConnected, "info", false);
+                    Clients.Client(Context.ConnectionId).Notification(Resources.Login.ServerConnected, "info", true);
                 }
             }
             else

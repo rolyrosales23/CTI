@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CallsOnHold" xml:space="preserve">
+    <value>Llamadas en espera</value>
+  </data>
   <data name="Connected" xml:space="preserve">
     <value>Conectado</value>
+  </data>
+  <data name="ConnectedAgents" xml:space="preserve">
+    <value>Agentes conectados</value>
   </data>
   <data name="DeviceEmpty" xml:space="preserve">
     <value>El dispositivo no puede ser vacío.</value>
@@ -135,11 +141,32 @@
   <data name="Listen" xml:space="preserve">
     <value>Escuchar</value>
   </data>
+  <data name="LoginPhone" xml:space="preserve">
+    <value>Logear estación telefónica</value>
+  </data>
+  <data name="NoAgentsConnected" xml:space="preserve">
+    <value>No hay agentes conectados.</value>
+  </data>
+  <data name="NoQueuedCalls" xml:space="preserve">
+    <value>No hay llamadas en cola.</value>
+  </data>
   <data name="NotDeviceInitialized" xml:space="preserve">
     <value>El dispositivo no ha sido inicializado. Motivos:</value>
   </data>
   <data name="NotDeviceLog" xml:space="preserve">
     <value>Para realizar esta acción debe logearse con un dispositivo.</value>
+  </data>
+  <data name="QueuedCalls" xml:space="preserve">
+    <value>Llamadas en cola</value>
+  </data>
+  <data name="SelectAction" xml:space="preserve">
+    <value>Seleccione la acción que desea realizar sobre el agente.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="WaitTime" xml:space="preserve">
+    <value>Timepo en espera</value>
   </data>
   <data name="Whisper" xml:space="preserve">
     <value>Susurrar</value>

@@ -61,11 +61,29 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calls on hold.
+        /// </summary>
+        public static string CallsOnHold {
+            get {
+                return ResourceManager.GetString("CallsOnHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connected.
         /// </summary>
         public static string Connected {
             get {
                 return ResourceManager.GetString("Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected agents.
+        /// </summary>
+        public static string ConnectedAgents {
+            get {
+                return ResourceManager.GetString("ConnectedAgents", resourceCulture);
             }
         }
         
@@ -115,6 +133,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Login phone extension.
+        /// </summary>
+        public static string LoginPhone {
+            get {
+                return ResourceManager.GetString("LoginPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No connected agents..
+        /// </summary>
+        public static string NoAgentsConnected {
+            get {
+                return ResourceManager.GetString("NoAgentsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No queued calls..
+        /// </summary>
+        public static string NoQueuedCalls {
+            get {
+                return ResourceManager.GetString("NoQueuedCalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The device has not been initialized. Reasons:.
         /// </summary>
         public static string NotDeviceInitialized {
@@ -129,6 +174,42 @@ namespace Resources {
         public static string NotDeviceLog {
             get {
                 return ResourceManager.GetString("NotDeviceLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queued calls.
+        /// </summary>
+        public static string QueuedCalls {
+            get {
+                return ResourceManager.GetString("QueuedCalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the action that you wish to realize on the agent..
+        /// </summary>
+        public static string SelectAction {
+            get {
+                return ResourceManager.GetString("SelectAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait time.
+        /// </summary>
+        public static string WaitTime {
+            get {
+                return ResourceManager.GetString("WaitTime", resourceCulture);
             }
         }
         

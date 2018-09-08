@@ -25,70 +25,55 @@ function notyBase(message, options = null) {
 }
 
 function tempNoty(message, options = null) {
-    if (IsDebugMode)
-        notyBase(message, merge({
-            layout: 'topLeft',
-            timeout: null,
-            maxVisible: 20
-        }, options));
+    if (!IsDebugMode)
+        return;
+
+    notyBase(message, merge({
+        layout: 'topLeft',
+        timeout: null,
+        maxVisible: 20
+    }, options));
 }
 
-function successNoty(message, options = null) {
+function successNoty(message, MsgDebugMode = true, options = null) {
+    if (!IsDebugMode && MsgDebugMode) {
+        return;
+    }
     notyBase(message, options);
 }
 
-function errorNoty(message, options = null) {
+function errorNoty(message, MsgDebugMode = true, options = null) {
+    if (!IsDebugMode && MsgDebugMode) {
+        return;
+    }
     notyBase(message, merge({
         type: 'error',
         timeout: null
     }, options));
 }
 
-function warningNoty(message, options = null) {
+function warningNoty(message, MsgDebugMode = true, options = null) {
+    if (!IsDebugMode && MsgDebugMode) {
+        return;
+    }
     notyBase(message, merge({
         type: 'warning',
         timeout: 4000
     }, options));
 }
 
-function infoNoty(message, options = null) {
+function infoNoty(message, MsgDebugMode = true, options = null) {
+    if (!IsDebugMode && MsgDebugMode) {
+        return;
+    }
     notyBase(message, merge({
         type: 'information',
         timeout: 5000
     }, options));
 }
 
-function successDebug(message, options = null) {
-    if (IsDebugMode)
-        notyBase(message, options);
-}
-
-function errorDebug(message, options = null) {
-    if (IsDebugMode)
-        notyBase(message, merge({
-            type: 'error',
-            timeout: null
-        }, options));
-}
-
-function warningDebug(message, options = null) {
-    if (IsDebugMode)
-        notyBase(message, merge({
-            type: 'warning',
-            timeout: 4000
-        }, options));
-}
-
-function infoDebug(message, options = null) {
-    if (IsDebugMode)
-        notyBase(message, merge({
-            type: 'information',
-            timeout: 5000
-        }, options));
-}
-
-function notify(message, type = 'success', DebugMode = true) {
-    if (!IsDebugMode && DebugMode) {
+function notify(message, type = 'success', MsgDebugMode = true) {
+    if (!IsDebugMode && MsgDebugMode) {
         return;
     }
     switch (type) {
