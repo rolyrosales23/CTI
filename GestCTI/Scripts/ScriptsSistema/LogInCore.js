@@ -11,7 +11,7 @@
         if (json['success'] === true) {
             if (phone === "") {
                 spinnerHide();
-                errorNoty(Resources.NotphoneError);
+                errorNoty(Resources.NotphoneError, false);
             } else {
                 agent.server.sendInitialize(phone, user);
             }
@@ -23,14 +23,14 @@
             } else {
                 // stop spinner and send message error
                 spinnerHide();
-                errorNoty(Resources.RequireDevice);
+                errorNoty(Resources.RequireDevice, false);
             }
         }
     };
 
     agent.client.errorCoreConnection = function (message) {
         spinnerHide();
-        errorNoty(Resources.NotConnectCore);
+        errorNoty(Resources.NotConnectCore, false);
     };
 
     agent.client.getAgentInfo = function (message) {
@@ -47,7 +47,7 @@
             // Do you want to lockout and sing in
             spinnerHide();
             localStorage.removeItem('error');
-            errorNoty(Resources.LoggedOtherDevice + " " + deviceId);
+            errorNoty(Resources.LoggedOtherDevice + " " + deviceId, false);
         } else {
             /*var AS_LOGGED_OUT = 1;
             var State = result[0]['State'];
@@ -61,7 +61,7 @@
             spinnerHide();
             var error = localStorage.getItem('error');
             localStorage.removeItem('error');
-            errorNoty('Error ' + error);
+            errorNoty(error, false);
             // }
         }
     };
@@ -79,7 +79,7 @@
         } else {
             spinnerHide();
             // send message error
-            errorNoty(Resources.CanNotInitialize + " " + $("#LoginPhoneExtension").val());
+            errorNoty(Resources.CanNotInitialize + " " + $("#LoginPhoneExtension").val(), false);
         }
     };
 
@@ -89,7 +89,7 @@
             agent.server.sendLogInAgent(phone, $("#LoginUsername").val(), $("#LoginPassword").val());
         } else {
             spinnerHide();
-            errorNoty(Resources.AuthDevice);
+            errorNoty(Resources.AuthDevice, false);
         }
     }
 
@@ -103,7 +103,7 @@
             $("#LogInForm").submit().done(function () {
                 spinnerHide();
             }).fail(function () {
-                errorNoty(Resources.ErrorLogSuper);
+                errorNoty(Resources.ErrorLogSuper, false);
             });
         }
     }
@@ -119,7 +119,7 @@
         $('#LogInCore').click(function () {
             var UserName = $("#LoginUsername").val();
             if (!notEmpty(UserName)) {
-                errorNoty(Resources.EnterUsername);
+                errorNoty(Resources.EnterUsername, false);
                 return;
             }
 
@@ -141,12 +141,12 @@
                             break;
                         default:
                             spinnerHide();
-                            errorNoty(Resources.UnknownUsername);
+                            errorNoty(Resources.UnknownUsername, false);
                     }
                 },
                 'error': function () {
                     spinnerHide();
-                    errorNoty(Resources.ErrorObtUserData);
+                    errorNoty(Resources.ErrorObtUserData, false);
                 }
             });
         });

@@ -133,6 +133,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error when sending message to websocket..
+        /// </summary>
+        public static string ErrorMsg {
+            get {
+                return ResourceManager.GetString("ErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error when sending message to websocket from old connection..
+        /// </summary>
+        public static string ErrorMsgOldConn {
+            get {
+                return ResourceManager.GetString("ErrorMsgOldConn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to obtain user data.
         /// </summary>
         public static string ErrorObtUserData {
@@ -313,6 +331,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There is no connection to the websocket core..
+        /// </summary>
+        public static string NoConnecion {
+            get {
+                return ResourceManager.GetString("NoConnecion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can not connect to the core..
         /// </summary>
         public static string NotConnectCore {
@@ -417,6 +444,15 @@ namespace Resources {
         public static string SelectVal2 {
             get {
                 return ResourceManager.GetString("SelectVal2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server websocket connected..
+        /// </summary>
+        public static string ServerConnected {
+            get {
+                return ResourceManager.GetString("ServerConnected", resourceCulture);
             }
         }
         

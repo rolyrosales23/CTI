@@ -126,6 +126,33 @@
   <data name="Call" xml:space="preserve">
     <value>Llamar</value>
   </data>
+  <data name="CallConferenced" xml:space="preserve">
+    <value>Un usuario ha sido añadido a la conferencia.</value>
+  </data>
+  <data name="CallDiverted" xml:space="preserve">
+    <value>¡La llamada ha sido desviada!</value>
+  </data>
+  <data name="CallEnded" xml:space="preserve">
+    <value>La llamada ha finalizado.</value>
+  </data>
+  <data name="CallFailed" xml:space="preserve">
+    <value>¡La llamada falló!</value>
+  </data>
+  <data name="CallOnHold" xml:space="preserve">
+    <value>La llamada ha sido puesta en espera.</value>
+  </data>
+  <data name="CallRetrieved" xml:space="preserve">
+    <value>La llamada ha sido recuperada.</value>
+  </data>
+  <data name="CallSavedFail" xml:space="preserve">
+    <value>No se puedieron guardar los datos de la llamada.</value>
+  </data>
+  <data name="CallSavedOK" xml:space="preserve">
+    <value>Llamada guardada correctamente.</value>
+  </data>
+  <data name="CallTransferred" xml:space="preserve">
+    <value>La llamada ha sido transferida satisfactoriamente.</value>
+  </data>
   <data name="Confer" xml:space="preserve">
     <value>Conferencia</value>
   </data>
@@ -134,6 +161,15 @@
   </data>
   <data name="EndConf" xml:space="preserve">
     <value>Finalizar Conferencia</value>
+  </data>
+  <data name="ErrorDispositions" xml:space="preserve">
+    <value>No se puedieron obtener las Disposiciones para esta campaña.</value>
+  </data>
+  <data name="ErrorSavePauseCode" xml:space="preserve">
+    <value>No se pudo guardar el código de pausa. Inténtelo más tarde.</value>
+  </data>
+  <data name="ErrorScript" xml:space="preserve">
+    <value>No se pudo cargar el script de la campaña.</value>
   </data>
   <data name="HangUp" xml:space="preserve">
     <value>Colgar</value>
@@ -159,8 +195,32 @@
   <data name="Menu_Contacts" xml:space="preserve">
     <value>Contactos</value>
   </data>
+  <data name="NoActiveCall" xml:space="preserve">
+    <value>No hay llamada activa!</value>
+  </data>
+  <data name="NoActiveDevice" xml:space="preserve">
+    <value>No se reconoce el dispositivo asociado al usuario actual.</value>
+  </data>
+  <data name="NoPasusesAvailable" xml:space="preserve">
+    <value>El usuario no tiene códigos de pausa disponibles.</value>
+  </data>
+  <data name="NotPausesUser" xml:space="preserve">
+    <value>No se puedieron obtener los códigos de pausa para este usuario.</value>
+  </data>
+  <data name="NotRetrieve" xml:space="preserve">
+    <value>No se puede recuperar la llamada porque ya hay una llamada activa.</value>
+  </data>
+  <data name="ObtCampUserError" xml:space="preserve">
+    <value>No se pudireron obtener las campañas del usuario.</value>
+  </data>
   <data name="Pause" xml:space="preserve">
     <value>Pausa</value>
+  </data>
+  <data name="PauseTimeOutLoggout" xml:space="preserve">
+    <value>El tiempo de pausa ha terminado. El usuario será deslogeado automáticamente.</value>
+  </data>
+  <data name="PauseTimeOutReady" xml:space="preserve">
+    <value>El tiempo de pausa ha terminado. El usuario será puesto en "Listo" automáticamente.</value>
   </data>
   <data name="Ready" xml:space="preserve">
     <value>Listo</value>
@@ -174,10 +234,22 @@
   <data name="SelectDisposition" xml:space="preserve">
     <value>Seleccione la Disposición de la llamada...</value>
   </data>
+  <data name="SelectHoldCall" xml:space="preserve">
+    <value>Debe seleccionar una llamada en espera.</value>
+  </data>
   <data name="SelectPauseCode" xml:space="preserve">
     <value>Seleccione un Código de Pausa...</value>
   </data>
+  <data name="SelectValidPauseC" xml:space="preserve">
+    <value>Debe seleccionar un código de pausa válido.</value>
+  </data>
   <data name="Status" xml:space="preserve">
     <value>Estado</value>
+  </data>
+  <data name="Transfer" xml:space="preserve">
+    <value>Transferir</value>
+  </data>
+  <data name="UserNotCampaign" xml:space="preserve">
+    <value>El usuario no está asociado a ninguna campaña.</value>
   </data>
 </root>

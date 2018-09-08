@@ -246,4 +246,16 @@
   <data name="UnknownUsername" xml:space="preserve">
     <value>Nombre de usuario desconocido.</value>
   </data>
+  <data name="ErrorMsg" xml:space="preserve">
+    <value>Error al enviar un mensaje al websocket.</value>
+  </data>
+  <data name="ErrorMsgOldConn" xml:space="preserve">
+    <value>Error al enviar un mensaje al websocket desde una conexión vieja.</value>
+  </data>
+  <data name="NoConnecion" xml:space="preserve">
+    <value>No hay conexion con el servidor websocket.</value>
+  </data>
+  <data name="ServerConnected" xml:space="preserve">
+    <value>Servidor websocket conectado.</value>
+  </data>
 </root>

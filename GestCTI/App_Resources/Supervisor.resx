@@ -117,14 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CallsOnHold" xml:space="preserve">
+    <value>Calls on hold</value>
+  </data>
   <data name="Connected" xml:space="preserve">
     <value>Connected</value>
+  </data>
+  <data name="ConnectedAgents" xml:space="preserve">
+    <value>Connected agents</value>
+  </data>
+  <data name="DeviceEmpty" xml:space="preserve">
+    <value>The device should not be empty.</value>
+  </data>
+  <data name="ErrorLoadPhonePartial" xml:space="preserve">
+    <value>Error loading phone partial.</value>
+  </data>
+  <data name="ErrorLoadQueueCall" xml:space="preserve">
+    <value>Error loading list of queue calls.</value>
   </data>
   <data name="InCall" xml:space="preserve">
     <value>In a call</value>
   </data>
   <data name="Listen" xml:space="preserve">
     <value>Listen</value>
+  </data>
+  <data name="LoginPhone" xml:space="preserve">
+    <value>Login phone extension</value>
+  </data>
+  <data name="NoAgentsConnected" xml:space="preserve">
+    <value>No connected agents.</value>
+  </data>
+  <data name="NoQueuedCalls" xml:space="preserve">
+    <value>No queued calls.</value>
+  </data>
+  <data name="NotDeviceInitialized" xml:space="preserve">
+    <value>The device has not been initialized. Reasons:</value>
+  </data>
+  <data name="NotDeviceLog" xml:space="preserve">
+    <value>To perform this action you must log in with a device.</value>
+  </data>
+  <data name="QueuedCalls" xml:space="preserve">
+    <value>Queued calls</value>
+  </data>
+  <data name="SelectAction" xml:space="preserve">
+    <value>Select the action that you wish to realize on the agent.</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
+  </data>
+  <data name="WaitTime" xml:space="preserve">
+    <value>Wait time</value>
   </data>
   <data name="Whisper" xml:space="preserve">
     <value>Whisper</value>

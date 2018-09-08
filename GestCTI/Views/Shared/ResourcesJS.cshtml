@@ -33,7 +33,38 @@
             Username: '@Resources.Admin.Username',
             PhoneExtension: '@Resources.Login.PhoneExtension',
             Options: '@Resources.Admin.Options',
-            Status: '@Resources.Agent.Status'
+            Status: '@Resources.Agent.Status',
+            ErrorScript: '@Resources.Agent.ErrorScript',
+            ErrorDispositions: '@Resources.Agent.ErrorDispositions',
+            CallSavedOK: '@Resources.Agent.CallSavedOK',
+            CallSavedFail: '@Resources.Agent.CallSavedFail',
+            UserNotCampaign: '@Resources.Agent.UserNotCampaign',
+            ObtCampUserError: '@Resources.Agent.ObtCampUserError',
+            NoPasusesAvailable: '@Resources.Agent.NoPasusesAvailable',
+            NotPausesUser: '@Resources.Agent.NotPausesUser',
+            NoActiveCall: '@Resources.Agent.NoActiveCall',
+            NoActiveDevice: '@Resources.Agent.NoActiveDevice',
+            SelectHoldCall: '@Resources.Agent.SelectHoldCall',
+            NotRetrieve: '@Resources.Agent.NotRetrieve',
+            PauseTimeOutReady: '@Resources.Agent.PauseTimeOutReady',
+            PauseTimeOutLoggout: '@Resources.Agent.PauseTimeOutLoggout',
+            ErrorSavePauseCode: '@Resources.Agent.ErrorSavePauseCode',
+            SelectValidPauseC: '@Resources.Agent.SelectValidPauseC',
+            NotDeviceLog: '@Resources.Supervisor.NotDeviceLog',
+            ErrorLoadQueueCall: '@Resources.Supervisor.ErrorLoadQueueCall',
+            ErrorLoadPhonePartial: '@Resources.Supervisor.ErrorLoadPhonePartial',
+            NotDeviceInitialized: '@Resources.Supervisor.NotDeviceInitialized',
+            DeviceEmpty: '@Resources.Supervisor.DeviceEmpty',
+            CallDiverted: '@Resources.Agent.CallDiverted',
+            CallFailed: '@Resources.Agent.CallFailed',
+            CallOnHold: '@Resources.Agent.CallOnHold',
+            CallRetrieved: '@Resources.Agent.CallRetrieved',
+            CallEnded: '@Resources.Agent.CallEnded',
+            CallTransferred: '@Resources.Agent.CallTransferred',
+            CallConferenced: '@Resources.Agent.CallConferenced',
+            NoAgentsConnected: '@Resources.Supervisor.NoAgentsConnected',
+            NoQueuedCalls: '@Resources.Supervisor.NoQueuedCalls',
+            WaitTime: '@Resources.Supervisor.WaitTime'
 
         };
 
@@ -45,14 +76,14 @@
 
     var msj = '@TempData["successNoty"]';
     if (msj != '')
-        successNoty(msj);
+        successNoty(msj, false);
     msj = '@TempData["errorNoty"]';
     if (msj != '')
-        errorNoty(msj);
+        errorNoty(msj, false);
     msj = '@TempData["warningNoty"]';
     if (msj != '')
-        warningNoty(msj);
+        warningNoty(msj, false);
     msj = '@TempData["infoNoty"]';
     if (msj != '')
-        infoNoty(msj);
+        infoNoty(msj, false);
 </script>

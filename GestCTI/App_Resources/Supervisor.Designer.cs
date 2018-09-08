@@ -61,11 +61,56 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Calls on hold.
+        /// </summary>
+        public static string CallsOnHold {
+            get {
+                return ResourceManager.GetString("CallsOnHold", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Connected.
         /// </summary>
         public static string Connected {
             get {
                 return ResourceManager.GetString("Connected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connected agents.
+        /// </summary>
+        public static string ConnectedAgents {
+            get {
+                return ResourceManager.GetString("ConnectedAgents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The device should not be empty..
+        /// </summary>
+        public static string DeviceEmpty {
+            get {
+                return ResourceManager.GetString("DeviceEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading phone partial..
+        /// </summary>
+        public static string ErrorLoadPhonePartial {
+            get {
+                return ResourceManager.GetString("ErrorLoadPhonePartial", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error loading list of queue calls..
+        /// </summary>
+        public static string ErrorLoadQueueCall {
+            get {
+                return ResourceManager.GetString("ErrorLoadQueueCall", resourceCulture);
             }
         }
         
@@ -84,6 +129,87 @@ namespace Resources {
         public static string Listen {
             get {
                 return ResourceManager.GetString("Listen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login phone extension.
+        /// </summary>
+        public static string LoginPhone {
+            get {
+                return ResourceManager.GetString("LoginPhone", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No connected agents..
+        /// </summary>
+        public static string NoAgentsConnected {
+            get {
+                return ResourceManager.GetString("NoAgentsConnected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No queued calls..
+        /// </summary>
+        public static string NoQueuedCalls {
+            get {
+                return ResourceManager.GetString("NoQueuedCalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The device has not been initialized. Reasons:.
+        /// </summary>
+        public static string NotDeviceInitialized {
+            get {
+                return ResourceManager.GetString("NotDeviceInitialized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To perform this action you must log in with a device..
+        /// </summary>
+        public static string NotDeviceLog {
+            get {
+                return ResourceManager.GetString("NotDeviceLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Queued calls.
+        /// </summary>
+        public static string QueuedCalls {
+            get {
+                return ResourceManager.GetString("QueuedCalls", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the action that you wish to realize on the agent..
+        /// </summary>
+        public static string SelectAction {
+            get {
+                return ResourceManager.GetString("SelectAction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wait time.
+        /// </summary>
+        public static string WaitTime {
+            get {
+                return ResourceManager.GetString("WaitTime", resourceCulture);
             }
         }
         
