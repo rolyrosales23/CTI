@@ -135,6 +135,9 @@
   <data name="CallEnded" xml:space="preserve">
     <value>Call ended!</value>
   </data>
+  <data name="CallerId" xml:space="preserve">
+    <value>Caller Id:</value>
+  </data>
   <data name="CallFailed" xml:space="preserve">
     <value>Call failed!</value>
   </data>

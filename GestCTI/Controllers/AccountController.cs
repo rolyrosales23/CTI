@@ -97,6 +97,8 @@ namespace GestCTI.Controllers
             DBCTIEntities db = new DBCTIEntities();
             model.Password = Seguridad.EncryptMD5(model.Password);
             user = db.Users.SingleOrDefault(a => a.Username == model.Username && a.Password == model.Password && a.Active == true);
+            if(user == null)
+                user = db.Users.SingleOrDefault(a => a.Username == model.Username && a.Active == true && a.Role == "agent");
 
             if (user != null && (user.Role != "agent" || model.PhoneExtension != ""))
             {

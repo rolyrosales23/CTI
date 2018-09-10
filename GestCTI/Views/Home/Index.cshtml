@@ -61,9 +61,13 @@
         });
 
         $('#lista_espera').on("ifChanged", "input", function (event) {
-            changeState('retrieve', true);
-            changeState('transfer', true);
-            changeState('conference', true);
+            activeCall = localStorage.getItem('activeCall');
+            if (notEmpty(activeCall)) {
+                changeState('transfer', true);
+                changeState('conference', true);
+            } else {
+                changeState('retrieve', true);
+            }
         });
     </script>
 

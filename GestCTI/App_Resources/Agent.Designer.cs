@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Caller Id:.
+        /// </summary>
+        public static string CallerId {
+            get {
+                return ResourceManager.GetString("CallerId", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Call failed!.
         /// </summary>
         public static string CallFailed {
@@ -169,6 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Conference.
         /// </summary>
         public static string Confer {
             get {

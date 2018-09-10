@@ -29,7 +29,7 @@ namespace GestCTI.Core.Service
                 String name = Group_Name[i].ToString();
                 String extension = Group_Extension[i].ToString();
 
-                Skills skill = db.Skills.FirstOrDefault(s => s.Value == number);
+                Skills skill = actual.FirstOrDefault(s => s.Value == number);
                 if (skill == null)
                 {
                     skill = new Skills();
@@ -65,7 +65,7 @@ namespace GestCTI.Core.Service
                 String username = Login_ID[i].ToString();
                 String firstname = Name[i].ToString();
 
-                Users user = db.Users.FirstOrDefault(u => u.Username == username);
+                Users user = actual.FirstOrDefault(u => u.Username == username);
                 if (user == null)
                 {
                     user = new Users();
@@ -73,7 +73,7 @@ namespace GestCTI.Core.Service
                     user.FirstName = firstname;
                     user.Active = true;
                     user.Role = "agent";
-                    user.Password = Seguridad.EncryptMD5( getAgentPassword(username) );
+                    user.Password = "Empty"; //Seguridad.EncryptMD5( getAgentPassword(username) );
                     //user.IdLocation = null;
                     //user.IdCompany = null;
                     db.Users.Add(user);
@@ -81,7 +81,7 @@ namespace GestCTI.Core.Service
                 else
                 {
                     user.FirstName = firstname;
-                    user.Password = Seguridad.EncryptMD5(getAgentPassword(username));
+                    //user.Password = Seguridad.EncryptMD5(getAgentPassword(username));
                     user.Active = true;
                     actual.RemoveAll(u => u.Username == user.Username);
                 }
@@ -95,28 +95,30 @@ namespace GestCTI.Core.Service
 
         private static void loadAgentsSkills() {
             DBCTIEntities db = new DBCTIEntities();
-            List<String> agents = db.Users.Where(u => u.Role == "agent" && u.Active).Select(u => u.Username).ToList<String>();
+            List<Users> users = db.Users.Where(u => u.Role == "agent" && u.Active).ToList<Users>();
+            List<String> agents = users.Select(u => u.Username).ToList<String>();
 
             String result = ServiceCoreHttp.AgentGetSkills(agents).Result;
             JArray lista = JArray.Parse(result);
 
             List<UserSkill> actual = db.UserSkill.Where(us => us.Users.Active).ToList();
+            List<Skills> skills = db.Skills.ToList();
             for (int i = 0; i < lista.Count; i++)
             {
                 String username = lista[i]["Login_ID"].ToString();
                 JArray skillNumber = (JArray)lista[i]["SN"];
                 JArray skillLevel = (JArray)lista[i]["SL"];
 
-                Users user = db.Users.FirstOrDefault(u => u.Username == username);
+                Users user = users.FirstOrDefault(u => u.Username == username);
                 if (user == null) continue;
 
                 for (int j = 0; j < skillNumber.Count; j++) {
                     String sn = skillNumber[j].ToString();
                     String sl = skillLevel[j].ToString();
 
-                    Skills skill = db.Skills.FirstOrDefault(s => s.Value == sn);
+                    Skills skill = skills.FirstOrDefault(s => s.Value == sn);
                     if (skill == null) continue;
-                    UserSkill userSkill = db.UserSkill.FirstOrDefault(us => us.IdUser == user.Id && us.IdSkill == skill.Id);
+                    UserSkill userSkill = actual.FirstOrDefault(us => us.IdUser == user.Id && us.IdSkill == skill.Id);
                     if (userSkill == null)
                     {
                         userSkill = new UserSkill();

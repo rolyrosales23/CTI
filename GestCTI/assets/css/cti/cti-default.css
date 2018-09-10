@@ -10,7 +10,13 @@
     border-radius: 7px;
     /*font-size: 14px;*/
     width: 100%;
-    background-color: #0e9696 !important
+    /*background-color: #0e9696 !important*/
+}
+
+.btn-redondo[disabled] {
+    opacity: .35;
+    /*cursor: not-allowed;
+    pointer-events: all !important;*/
 }
 
 #options .row {

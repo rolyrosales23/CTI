@@ -424,7 +424,7 @@
                 event.stopPropagation();
 
                 spinnerShow();
-                $('#Modal_sinchronize').modal('hide');
+                $('#Modal_sinchronize').removeClass('open');
 
                 $.ajax({
                     url: '@Url.Action("Sincronizar", "Admin")',
