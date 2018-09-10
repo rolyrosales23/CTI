@@ -21,9 +21,9 @@
 function addCTIMakeCallRequest(response) {
     json = JSON.parse(response);
     if (json['success'] === true) {
-        successNoty(Resources.Calling);
+        successNoty(Resources.Calling, false);
     } else {
-        errorNoty(Resources.MakeCallFail);
+        errorNoty(Resources.MakeCallFail, false);
     }
 };
 
@@ -32,9 +32,8 @@ function receiveAcceptCallRequest(response) {
     if (json.success === false) {
         changeState('answer', false);
         localStorage.removeItem('ucid');
-        successNoty(Resources.InCall);
+        errorNoty(json.response, false);
     }
-    // Do nothing or check is fail call request 
 };
 
 function enEspera(call, holdList) {
@@ -53,10 +52,10 @@ function acceptCallRequest(agent) {
         if (notEmpty(activeCall.ucid)) {
             agent.server.sendCTIAnswerCallRequest(activeCall.ucid, deviceId);
         } else {
-            console.error(Resources.NotUcid);
+            errorNoty(Resources.NotUcid, false);
         }
     }
-    else infoNoty("No hay llamada activa!");
+    else infoNoty(Resources.NoActiveCall, false);
 };
 
 function hangoutCallRequest(agent) {
@@ -76,10 +75,10 @@ function hangoutCallRequest(agent) {
                 agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
             }
         } else {
-            errorNoty(Resources.NotUcid);
+            errorNoty(Resources.NotUcid, false);
         }
     }
-    else infoNoty("No hay llamada activa!");
+    else infoNoty(Resources.NoActiveCall, false);
 };
 
 function doHoldConnection(agent) {
@@ -93,7 +92,7 @@ function doHoldConnection(agent) {
         }
     }
     else
-        infoNoty("No hay Llamada activa!");
+        infoNoty(Resources.NoActiveCall, false);
 };
 
 function doTransfer(agent) {
@@ -106,13 +105,13 @@ function doTransfer(agent) {
             if (notEmpty(deviceId))
                 agent.server.sendTransferCall(heldUcid, activeCall.ucid, deviceId);
             else
-                infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                infoNoty(Resources.NoActiveDevice, false);
         }
         else
-            infoNoty("No hay llamada activa!");
+            infoNoty(Resources.NoActiveCall, false);
     }
     else
-        infoNoty("Debe seleccionar una llamada en espera!");
+        infoNoty(Resources.SelectHoldCall, false);
 };
 
 function doRetrieve(agent) {
@@ -122,13 +121,13 @@ function doRetrieve(agent) {
     if (notEmpty(heldUcid)) {
         var strAC = localStorage.getItem('activeCall');
         if (notEmpty(strAC))
-            infoNoty("No se puede recuperar porque hay una llamada activa!");
+            infoNoty(Resources.NotRetrieve, false);
         else {
             agent.server.sendRetrieveCall(heldUcid, deviceId);
         }
     }
     else
-        infoNoty("Debe seleccionar una llamada en espera!");
+        infoNoty(Resources.SelectHoldCall, false);
 };
 
 function doConference() {
@@ -141,13 +140,13 @@ function doConference() {
             if (notEmpty(deviceId))
                 agent.server.sendConferenceCall(heldUcid, activeCall.ucid, deviceId);
             else
-                infoNoty("No se puede reconocer el dispositivo asociado al agente activo!");
+                infoNoty(Resources.NoActiveDevice, false);
         }
         else
-            infoNoty("No hay llamada activa!");
+            infoNoty(Resources.NoActiveCall, false);
     }
     else
-        infoNoty("Debe seleccionar una llamada en espera!");
+        infoNoty(Resources.SelectHoldCall, false);
 };
 
 function endCall(agent) {
@@ -157,7 +156,7 @@ function endCall(agent) {
         agent.server.sendCTIClearCallRequest(activeCall.ucid);
     }
     else
-        infoNoty("No hay llamada activa!");
+        infoNoty(Resources.NoActiveCall, false);
 };
 
 function changeState(alias, enable) {
@@ -195,7 +194,6 @@ function handlingEvent(response, data) {
     var eventName = json.request.request;
     var eventArgs = json.request.args;
     var deviceId = localStorage.getItem('deviceId');
-    console.log(response);
     switch (eventName) {
         case 'onServiceInitiated':
             changeState('hangout', true);
@@ -237,12 +235,13 @@ function handlingEvent(response, data) {
             break;
 
         case 'onCallDiverted':
-
+            changeState('answer', false);
+            infoNoty(Resources.CallDiverted, false);
             tempNoty('onCallDiverted');
             break;
 
         case 'onCallFailed':
-
+            infoNoty(Resources.CallFailed, false);
             tempNoty('onCallFailed');
             break;
             
@@ -260,6 +259,7 @@ function handlingEvent(response, data) {
             $('#inputPhone').text('').removeAttr('disabled');
             localStorage.removeItem('activeCall');
 
+            successNoty(Resources.CallOnHold, false);
             tempNoty('onHoldConnection');
             break;
 
@@ -275,6 +275,7 @@ function handlingEvent(response, data) {
             }));
             pintarListaEspera(data);
 
+            successNoty(Resources.CallRetrieved, false);
             tempNoty('onRetrieveConnection');
             break;
 
@@ -295,17 +296,14 @@ function handlingEvent(response, data) {
             changeState('hold', false);
             changeState('pause', true);
 
-            if (localStorage.getItem('IsCampaignCall') === 'true') {
-                $('#modal-dispositions').modal('show');
-            }
-
             $("#inputPhone").val('').removeAttr("disabled");
 
+            infoNoty(Resources.CallEnded, false);
             tempNoty('onEndConnection');
             break;
 
         case 'onEndPartyConnection':
-
+            changeState('answer', false);
             tempNoty('onEndPartyConnection');
             break;
 
@@ -329,6 +327,7 @@ function handlingEvent(response, data) {
             }));
             pintarListaEspera(data);
 
+            successNoty(Resources.CallTransferred, false);
             tempNoty('onTransferredCall');
             break;
 
@@ -339,6 +338,7 @@ function handlingEvent(response, data) {
             }));
             pintarListaEspera(data);
 
+            successNoty(Resources.CallConferenced, false);
             tempNoty('onConferencedCall');
             break;
 

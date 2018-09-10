@@ -377,7 +377,7 @@ $(function () {
                 changeState('hold', false);
                 changeState('pause', true);
 
-                if (localStorage.getItem('IsCampaignCall')  == 'true') {
+                if (localStorage.getItem('IsCampaignCall')  === 'true') {
                     $('#modal-dispositions').modal('show');
                 }
                 $("#inputPhone").val('').removeAttr("disabled");
@@ -411,8 +411,8 @@ $(function () {
                 }));
                 pintarListaEspera(data);
 
-                tempNoty('onTransferredCall');
                 successNoty(Resources.CallTransferred, false);
+                tempNoty('onTransferredCall');
                 break;
 
             case 'onConferencedCall':
@@ -422,8 +422,8 @@ $(function () {
                 }));
                 pintarListaEspera(data);
 
-                tempNoty('onConferencedCall');
                 successNoty(Resources.CallConferenced, false);
+                tempNoty('onConferencedCall');
                 break;
 
             case 'onAgentChangedState': {
@@ -529,7 +529,7 @@ $(function () {
                 if (notEmpty(activeCall.ucid)) {
                     agent.server.sendCTIAnswerCallRequest(activeCall.ucid, deviceId);
                 } else {
-                    console.error(Resources.NotUcid);
+                    errorNoty(Resources.NotUcid, false);
                 }
             }
             else infoNoty(Resources.NoActiveCall, false);

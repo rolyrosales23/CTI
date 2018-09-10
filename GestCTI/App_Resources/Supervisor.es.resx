@@ -174,4 +174,7 @@
   <data name="Whisper" xml:space="preserve">
     <value>Susurrar</value>
   </data>
+  <data name="IdCall" xml:space="preserve">
+    <value>Id de la llamada</value>
+  </data>
 </root>

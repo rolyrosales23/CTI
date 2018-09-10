@@ -87,7 +87,7 @@ function pintarQueueCalls(queueCalls, selector) {
 
         var header = $('<thead><tr></tr></thead>').find('tr')
             .append('<th width="50">Ucid</th>')
-            .append('<th width="100">Call Id</th>')
+            .append('<th width="100">' + Resources.IdCall + '</th>')
             .append('<th width="100">VDN</th>')
             .append('<th width="100">Split</th>')
             .append('<th width="100">' + Resources.WaitTime + '</th>').end();

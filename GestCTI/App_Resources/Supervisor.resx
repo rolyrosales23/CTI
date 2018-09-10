@@ -174,4 +174,7 @@
   <data name="Whisper" xml:space="preserve">
     <value>Whisper</value>
   </data>
+  <data name="IdCall" xml:space="preserve">
+    <value>Call Id</value>
+  </data>
 </root>

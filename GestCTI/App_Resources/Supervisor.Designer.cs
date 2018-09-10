@@ -115,6 +115,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Call Id.
+        /// </summary>
+        public static string IdCall {
+            get {
+                return ResourceManager.GetString("IdCall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In a call.
         /// </summary>
         public static string InCall {
@@ -196,6 +205,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Supervised by you.
+        /// </summary>
+        public static string Supervise {
+            get {
+                return ResourceManager.GetString("Supervise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
         public static string Update {
@@ -210,15 +228,6 @@ namespace Resources {
         public static string WaitTime {
             get {
                 return ResourceManager.GetString("WaitTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Supervised by you.
-        /// </summary>
-        public static string Supervise {
-            get {
-                return ResourceManager.GetString("Supervise", resourceCulture);
             }
         }
         
