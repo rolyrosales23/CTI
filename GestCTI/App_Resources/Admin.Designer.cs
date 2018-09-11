@@ -286,6 +286,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while the database was being synchronized. Please try again..
+        /// </summary>
+        public static string DbErrorSynchronizing {
+            get {
+                return ResourceManager.GetString("DbErrorSynchronizing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The Database has been successfully synchronized..
+        /// </summary>
+        public static string DbSynchronized {
+            get {
+                return ResourceManager.GetString("DbSynchronized", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Deactivate.
         /// </summary>
         public static string Deactivate {
@@ -777,6 +795,24 @@ namespace Resources {
         public static string SwitchCompany {
             get {
                 return ResourceManager.GetString("SwitchCompany", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This will update your Database. Do you wish to continue?.
+        /// </summary>
+        public static string SynchronizeQuestion {
+            get {
+                return ResourceManager.GetString("SynchronizeQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronize Database.
+        /// </summary>
+        public static string SynchronizeTitle {
+            get {
+                return ResourceManager.GetString("SynchronizeTitle", resourceCulture);
             }
         }
         

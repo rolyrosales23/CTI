@@ -1,4 +1,54 @@
-﻿function pintarListaEspera(lista) {
+﻿
+function changeState(alias, enable) {
+    var map = {
+        'ready': 'ReadyToWork',
+        'pause': 'doPause',
+        'answer': 'acceptCallRequest',
+        'hold': 'doHoldConnection',
+        'retrieve': 'doRetrieve',
+        'transfer': 'doTransfer',
+        'conference': 'doConference',
+        'end_conference': 'doEndConference',
+        'hangout': 'hangoutCallRequest',
+    };
+    var id = map[alias] !== undefined ? map[alias] : alias;
+
+    if (enable)
+        $('#' + id).removeAttr('disabled');
+    else
+        $('#' + id).attr('disabled', 'disabled');
+};
+
+function setActiveCall(ucid) {
+    localStorage.setItem('activeCall', ucid);
+
+    changeState('hangout', true);
+    changeState('hold', true);
+    changeState('retrieve', false);
+    if ($('#lista_espera input:checked').length) {
+        changeState('conference', true);
+        changeState('transfer', true);
+    }
+
+    changeState('inputPhone', false);
+    changeState('doCallBtn', false);
+}
+
+function removeActiveCall() {
+    localStorage.removeItem('activeCall');
+
+    changeState('hangout', false);
+    changeState('hold', false);
+    changeState('conference', false);
+    changeState('transfer', false);
+    changeState('end_conference', false);
+    if ($('#lista_espera input:checked').length)
+        changeState('retrieve', true);
+
+    $('#inputPhone').val('').removeAttr('disabled');
+}
+
+function pintarListaEspera(lista) {
     var panel = $('#lista_espera');
     panel.find('ul').remove();
 
@@ -7,8 +57,16 @@
 
         for (var i in lista) {
             var ind = Number(i) + 1;
-            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
+            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.CallerId + ": " + lista[i].toDevice + "</p></a></li>");
         }
+
+        $('#tab-first').removeClass('active');
+        $('#li_tab-first').removeClass('active');
+        $('#tab-third').removeClass('active');
+        $('#li_tab-third').removeClass('active');
+
+        $('#tab-second').addClass('active');
+        $('#li_tab-second').addClass('active');
 
         //reinicializar el plugin icheck
         if ($(".icheckbox").length > 0) {
@@ -31,7 +89,6 @@ function receiveAcceptCallRequest(response) {
     json = JSON.parse(response);
     if (json.success === false) {
         changeState('answer', false);
-        localStorage.removeItem('ucid');
         errorNoty(json.response, false);
     }
 };
@@ -46,36 +103,26 @@ function enEspera(call, holdList) {
 //###########    ACTION BUTTON    ############################
 function acceptCallRequest(agent) {
     var deviceId = localStorage.getItem('deviceId');
-    var strAC = localStorage.getItem('activeCall');
-    if (notEmpty(strAC)) {
-        var activeCall = JSON.parse(strAC);
-        if (notEmpty(activeCall.ucid)) {
-            agent.server.sendCTIAnswerCallRequest(activeCall.ucid, deviceId);
-        } else {
-            errorNoty(Resources.NotUcid, false);
-        }
+    var activeCall = localStorage.getItem('activeCall');
+    if (notEmpty(activeCall)) {
+        agent.server.sendCTIAnswerCallRequest(activeCall, deviceId);
     }
     else infoNoty(Resources.NoActiveCall, false);
 };
 
 function hangoutCallRequest(agent) {
     var deviceId = localStorage.getItem('deviceId');
-    var strAC = localStorage.getItem('activeCall');
+    var activeCall = localStorage.getItem('activeCall');
     var superListener = localStorage.getItem('ucid-listener');
     // var superWhisper = localStorage.getItem('ucid-whisper');
     var superWhisper = null;
-    if (notEmpty(strAC)) {
-        var activeCall = JSON.parse(strAC);
-        if (notEmpty(activeCall) && notEmpty(activeCall.ucid)) {
-            if (notEmpty(superWhisper)) {
-                // agent.server.sendCTIListenRetrieveAllRequest(deviceId, activeCall.ucid);
-            } else if (notEmpty(superListener)) {
-                agent.server.sendCTIListenRetrieveAllRequest(deviceId, activeCall.ucid);
-            } else {
-                agent.server.sendCTIClearConnectionRequest(activeCall.ucid, deviceId);
-            }
+    if (notEmpty(activeCall)) {
+        if (notEmpty(superWhisper)) {
+            // agent.server.sendCTIListenRetrieveAllRequest(deviceId, activeCall);
+        } else if (notEmpty(superListener)) {
+            agent.server.sendCTIListenRetrieveAllRequest(deviceId, activeCall);
         } else {
-            errorNoty(Resources.NotUcid, false);
+            agent.server.sendCTIClearConnectionRequest(activeCall, deviceId);
         }
     }
     else infoNoty(Resources.NoActiveCall, false);
@@ -83,12 +130,11 @@ function hangoutCallRequest(agent) {
 
 function doHoldConnection(agent) {
     var deviceId = localStorage.getItem('deviceId');
-    var strAC = localStorage.getItem('activeCall');
-    if (notEmpty(strAC)) {
-        var activeCall = JSON.parse(strAC);
-        if (notEmpty(activeCall.ucid) && notEmpty(deviceId)) {
+    var activeCall = localStorage.getItem('activeCall');
+    if (notEmpty(activeCall)) {
+        if (notEmpty(deviceId)) {
             changeState('hold', false);
-            agent.server.sendCTIHoldConnectionRequest(activeCall.ucid, deviceId);
+            agent.server.sendCTIHoldConnectionRequest(activeCall, deviceId);
         }
     }
     else
@@ -99,11 +145,10 @@ function doTransfer(agent) {
     var deviceId = localStorage.getItem('deviceId');
     var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
     if (notEmpty(heldUcid)) {
-        var strAC = localStorage.getItem('activeCall');
-        if (notEmpty(strAC)) {
-            var activeCall = JSON.parse(strAC);
+        var activeCall = localStorage.getItem('activeCall');
+        if (notEmpty(activeCall)) {
             if (notEmpty(deviceId))
-                agent.server.sendTransferCall(heldUcid, activeCall.ucid, deviceId);
+                agent.server.sendTransferCall(heldUcid, activeCall, deviceId);
             else
                 infoNoty(Resources.NoActiveDevice, false);
         }
@@ -134,11 +179,10 @@ function doConference() {
     var deviceId = localStorage.getItem('deviceId');
     var heldUcid = $('#lista_espera input[type="radio"]:checked').val();
     if (notEmpty(heldUcid)) {
-        var strAC = localStorage.getItem('activeCall');
-        if (notEmpty(strAC)) {
-            var activeCall = JSON.parse(strAC);
+        var activeCall = localStorage.getItem('activeCall');
+        if (notEmpty(activeCall)) {
             if (notEmpty(deviceId))
-                agent.server.sendConferenceCall(heldUcid, activeCall.ucid, deviceId);
+                agent.server.sendConferenceCall(heldUcid, activeCall, deviceId);
             else
                 infoNoty(Resources.NoActiveDevice, false);
         }
@@ -150,42 +194,20 @@ function doConference() {
 };
 
 function endCall(agent) {
-    var strAC = localStorage.getItem('activeCall');
-    if (notEmpty(strAC)) {
-        var activeCall = JSON.parse(strAC);
-        agent.server.sendCTIClearCallRequest(activeCall.ucid);
+    var activeCall = localStorage.getItem('activeCall');
+    if (notEmpty(activeCall)) {
+        agent.server.sendCTIClearCallRequest(activeCall);
     }
     else
         infoNoty(Resources.NoActiveCall, false);
 };
 
-function changeState(alias, enable) {
-    var map = {
-        'ready': 'ReadyToWork',
-        'pause': 'doPause',
-        'answer': 'acceptCallRequest',
-        'hold': 'doHoldConnection',
-        'retrieve': 'doRetrieve',
-        'transfer': 'doTransfer',
-        'conference': 'doConference',
-        'end_conference': 'doEndConference',
-        'hangout': 'hangoutCallRequest',
-    };
-    var id = map[alias] !== undefined ? map[alias] : alias;
-
-    if (enable)
-        $('#' + id).removeAttr('disabled');
-    else
-        $('#' + id).attr('disabled', 'disabled');
-};
-
 function onEstablishedConnection(ucid, deviceId, partyDeviceId) {
-    var activeCall = { 'ucid': ucid, 'deviceId': partyDeviceId };
-    localStorage.setItem('activeCall', JSON.stringify(activeCall));
+    setActiveCall(ucid);
     changeState('hangout', true);
     changeState('hold', true);
     changeState('answer', false);
-    changeState('pause', false);
+    //changeState('pause', false);
 }
 
 function handlingEvent(response, data) {
@@ -207,11 +229,9 @@ function handlingEvent(response, data) {
             break;
 
         case 'onCallDelivered':
-            changeState('inputPhone', false);
-            changeState('doCallBtn', false);
             changeState('answer', true);
 
-            localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
+            setActiveCall(eventArgs[0]);
 
             // printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
             // localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[4] }));
@@ -222,11 +242,8 @@ function handlingEvent(response, data) {
             break;
 
         case 'onCallExternalDelivered':
-            changeState('inputPhone', false);
-            changeState('doCallBtn', false);
-            //changeState('answer', true);
 
-            localStorage.setItem('activeCall', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2] }));
+            setActiveCall(eventArgs[0]);
 
             // printDisposition(eventArgs[9]);
             // localStorage.setItem('callforsave', JSON.stringify({ 'ucid': eventArgs[0], 'deviceId': eventArgs[2], 'deviceCustomer': eventArgs[5] }));
@@ -236,6 +253,9 @@ function handlingEvent(response, data) {
 
         case 'onCallDiverted':
             changeState('answer', false);
+            if (eventArgs[3] === deviceId)
+                removeActiveCall();
+
             infoNoty(Resources.CallDiverted, false);
             tempNoty('onCallDiverted');
             break;
@@ -256,8 +276,7 @@ function handlingEvent(response, data) {
 
         case 'onHoldConnection':
             pintarListaEspera(data);
-            $('#inputPhone').text('').removeAttr('disabled');
-            localStorage.removeItem('activeCall');
+            removeActiveCall();
 
             successNoty(Resources.CallOnHold, false);
             tempNoty('onHoldConnection');
@@ -269,11 +288,8 @@ function handlingEvent(response, data) {
             break;
 
         case 'onRetrieveConnection':
-            localStorage.setItem('activeCall', JSON.stringify({
-                'ucid': eventArgs[0],
-                'deviceId': eventArgs[2]
-            }));
             pintarListaEspera(data);
+            setActiveCall(eventArgs[0]);
 
             successNoty(Resources.CallRetrieved, false);
             tempNoty('onRetrieveConnection');
@@ -291,12 +307,8 @@ function handlingEvent(response, data) {
                 localStorage.removeItem('ucid-whisper');
             }
 
-            localStorage.removeItem('activeCall');
-            changeState('hangout', false);
-            changeState('hold', false);
-            changeState('pause', true);
-
-            $("#inputPhone").val('').removeAttr("disabled");
+            removeActiveCall();
+            //changeState('pause', true);
 
             infoNoty(Resources.CallEnded, false);
             tempNoty('onEndConnection');
@@ -308,23 +320,14 @@ function handlingEvent(response, data) {
             break;
 
         case 'onEndCall':
-            changeState('hangout', false);
-            changeState('hold', false);
-            changeState('pause', true);
-            //changeState('ready', true);
-            $("#inputPhone").val('').removeAttr("disabled");
-
             pintarListaEspera(data);
-            localStorage.removeItem('activeCall');
+            removeActiveCall();
 
             tempNoty('onEndCall');
             break;
 
         case 'onTransferredCall':
-            localStorage.setItem('activeCall', JSON.stringify({
-                'ucid': eventArgs[4],
-                'deviceId': eventArgs[5] !== deviceId ? eventArgs[5] : eventArgs[6]
-            }));
+            setActiveCall(eventArgs[4]);
             pintarListaEspera(data);
 
             successNoty(Resources.CallTransferred, false);
@@ -332,10 +335,7 @@ function handlingEvent(response, data) {
             break;
 
         case 'onConferencedCall':
-            localStorage.setItem('activeCall', JSON.stringify({
-                'ucid': eventArgs[4],
-                'deviceId': eventArgs[5] !== deviceId ? eventArgs[5] : eventArgs[6]
-            }));
+            setActiveCall(eventArgs[4]);
             pintarListaEspera(data);
 
             successNoty(Resources.CallConferenced, false);
@@ -343,18 +343,18 @@ function handlingEvent(response, data) {
             break;
 
         case 'onAgentChangedState': {
-            var agentState = eventArgs[1];
-            if (agentState === AgentState.AS_READY) {
-                updateControlsState(['pause']);
+            //var agentState = eventArgs[1];
+            //if (agentState === AgentState.AS_READY) {
+            //    updateControlsState(['pause']);
 
-                var timeout_id = localStorage.getItem('timeout_id');
-                if (notEmpty(timeout_id)) {
-                    clearTimeout(timeout_id);
-                    localStorage.removeItem('timeout_id');
-                }
-            }
-            else
-                updateControlsState(['ready']);
+            //    var timeout_id = localStorage.getItem('timeout_id');
+            //    if (notEmpty(timeout_id)) {
+            //        clearTimeout(timeout_id);
+            //        localStorage.removeItem('timeout_id');
+            //    }
+            //}
+            //else
+            //    updateControlsState(['ready']);
 
             tempNoty('onAgentChangedState');
             break;

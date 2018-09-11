@@ -393,4 +393,16 @@
   <data name="OK" xml:space="preserve">
     <value>Aceptar</value>
   </data>
+  <data name="DbErrorSynchronizing" xml:space="preserve">
+    <value>Ha ocurrido un error mientras se sincronizaba la Base de Datos. Por favor inténtelo de nuevo.</value>
+  </data>
+  <data name="DbSynchronized" xml:space="preserve">
+    <value>La Base de Datos se ha sincronizado correctamente.</value>
+  </data>
+  <data name="SynchronizeQuestion" xml:space="preserve">
+    <value>Esto actualizará su Base de Datos. ¿Desea continuar?</value>
+  </data>
+  <data name="SynchronizeTitle" xml:space="preserve">
+    <value>Sincronizar Base de Datos</value>
+  </data>
 </root>

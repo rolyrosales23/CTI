@@ -308,7 +308,7 @@
         </div>
     </div>
 
-    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", "sinchronize" }, { "Icon", "fa fa-refresh" }, { "Title", "Sincronizar su base de datos!" }, { "Action", "Sincronizar" }, { "Controller", "Admin" }, { "Menssage", "Está a punto de actualizar su base de datos. ¿Desea Continuar?" } })
+    @Html.Partial("Notifications", null, new ViewDataDictionary { { "IdItem", "sinchronize" }, { "Icon", "fa fa-refresh" }, { "Title", Resources.Admin.SynchronizeTitle }, { "Action", "Sincronizar" }, { "Controller", "Admin" }, { "Menssage", Resources.Admin.SynchronizeQuestion } })
     <!-- END MESSAGE BOX-->
     <!-- START PRELOADS -->
     <audio id="audio-alert" src="~/assets/audio/alert.mp3" preload="auto"></audio>
@@ -431,10 +431,10 @@
                     type: 'POST',
                     success: function () {
                         window.location = '@Url.Action("Index", "Admin")';
-                        successNoty("La base de datos se sincronizó correctamente.");
+                        successNoty('@Resources.Admin.DbSynchronized', false);
                     },
                     error: function () {
-                        errorNoty("Ocurrió un error mientras se sincronizaba la base de datos. Por favor, intente de nuevamente.");
+                        errorNoty('@Resources.Admin.DbErrorSynchronizing', false);
                     },
                     complete: function () {
                         spinnerHide();
