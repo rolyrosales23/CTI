@@ -90,7 +90,9 @@ function pintarListaEspera(lista) {
         }
 
         $('#tab-first').removeClass('active');
+        $('#tab1').removeClass('active');
         $('#tab-second').addClass('active');
+        $('#tab2').addClass('active');
         
         //reinicializar el plugin icheck
         if ($(".icheckbox").length > 0) {
@@ -246,7 +248,7 @@ $(function () {
         if (json['success'] === true) {
             successNoty(Resources.ChangeToReadyOk, false);
         } else {
-            errorNoty(Resources.ChangeToReadyFail);
+            errorNoty(Resources.ChangeToReadyFail, false);
             changeState('ready', true);
         }
     };
@@ -334,6 +336,9 @@ $(function () {
 
             case 'onCallDiverted':
                 changeState('answer', false);
+                if (eventArgs[3] === deviceId)
+                    removeActiveCall();
+
                 tempNoty('onCallDiverted');
                 infoNoty(Resources.CallDiverted, false);
                 break;
@@ -373,7 +378,7 @@ $(function () {
             case 'onRetrieveConnection':
                 pintarListaEspera(data);
                 setActiveCall(eventArgs[0]);
-
+                
                 successNoty(Resources.CallRetrieved, false);
                 tempNoty('onRetrieveConnection');
                 break;

@@ -11,8 +11,16 @@ function pintarListaEspera(lista) {
 
         for (var i in lista) {
             var ind = Number(i) + 1;
-            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.Device + ": " + lista[i].toDevice + "</p></a></li>");
+            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.CallerId + ": " + lista[i].toDevice + "</p></a></li>");
         }
+
+        $('#tab-first').removeClass('active');
+        $('#li_tab-first').removeClass('active');
+        $('#tab-third').removeClass('active');
+        $('#li_tab-third').removeClass('active');
+
+        $('#tab-second').addClass('active');
+        $('#li_tab-first').addClass('active');
 
         //reinicializar el plugin icheck
         if ($(".icheckbox").length > 0) {
