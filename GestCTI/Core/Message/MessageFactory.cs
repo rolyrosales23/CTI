@@ -20,7 +20,7 @@ namespace GestCTI.Core.Message
         /// <param name="messageType">Typeof message</param>
         /// <param name="message">Message</param>
         /// <param name="clientId">Client connection id</param>
-        public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId, WebsocketCore core)
+        public static void WebsocksCoreFactory(MessageType messageType, String message, String clientId, WebsocketCore core, Guid invokedId)
         {
             IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<Websocket>();
             var client = hubContext.Clients.Client(clientId);
@@ -80,79 +80,85 @@ namespace GestCTI.Core.Message
                     client.Notification("READY_TO_WORK_SUCCESS");
                     break;
                 case MessageType.ON_EVENT:
-                    CTIEvent evento = JsonConvert.DeserializeObject<CTIEvent>(message);
-                    String eventName = evento.request.request;
-                    String[] eventArgs = evento.request.args;
-                    String username = core.CtiUser.user_name;
-
-                    switch (eventName)
                     {
-                        case "onEndCall":
-                            {
-                                // Delete current call
-                                core.CtiUser.CurrentUCID = null;
-                                String ucid = eventArgs[0];
-                                HoldList hl = Websocket.holdConnections;
-                                hl.removeElement(username, ucid);
-                                client.onEventHandler(message, hl.getList(username));
-                                return;
-                            }
-                        case "onEndConnection":
-                            {
-                                core.CtiUser.CurrentUCID = null;
-                                client.onEventHandler(message);
-                                return;
-                            }
-                        case "onHoldConnection":
-                            {
-                                // Delete current call
-                                core.CtiUser.CurrentUCID = null;
-                                String ucid = eventArgs[0];
-                                String callId = eventArgs[1];
-                                HoldList hl = Websocket.holdConnections;
-                                hl.addElement(username, new HoldConnection(ucid, callId));
-                                client.onEventHandler(message, hl.getList(username));
-                                return;
-                            }
-                        case "onRetrieveConnection":
-                            {
-                                // Add ucid of call
-                                core.CtiUser.CurrentUCID = eventArgs[0];
-                                String ucid = eventArgs[0];
-                                HoldList hl = Websocket.holdConnections;
-                                hl.removeElement(username, ucid);
-                                client.onEventHandler(message, hl.getList(username));
-                                return;
-                            }
-                        case "onTransferredCall":
-                            {
-                                String ucid = null;
-                                HoldList hl = Websocket.holdConnections;
-                                hl.removeElement(username, ucid);
-                                client.onEventHandler(message, hl.getList(username));
-                                return;
-                            }
-                        case "onConferenceCall":
-                            {
-                                core.CtiUser.CurrentUCID = eventArgs[0];
-                                String ucid = eventArgs[0];
-                                HoldList hl = Websocket.holdConnections;
-                                hl.removeElement(username, ucid);
-                                client.onEventHandler(message, hl.getList(username));
-                                return;
-                            }
-                        case "onEstablishedConnection":
-                            {
-                                // Add ucid of call
-                                core.CtiUser.CurrentUCID = eventArgs[0];
-                                core.CtiUser.CurrentUserInCall = eventArgs[4] != core.CtiUser.DeviceId ? eventArgs[4] : eventArgs[5];
-                                client.onEventHandler(message);
-                                return;
-                            }
-                    }
+                        CTIEvent evento = JsonConvert.DeserializeObject<CTIEvent>(message);
+                        String eventName = evento.request.request;
+                        String[] eventArgs = evento.request.args;
+                        String username = core.CtiUser.user_name;
 
-                    client.onEventHandler(message);
-                    break;
+                        switch (eventName)
+                        {
+                            case "onEndCall":
+                                {
+                                    // Delete current call
+                                    core.CtiUser.CurrentUCID = null;
+                                    String ucid = eventArgs[0];
+                                    HoldList hl = Websocket.holdConnections;
+                                    hl.removeElement(username, ucid);
+                                    client.onEventHandler(message, hl.getList(username));
+                                    return;
+                                }
+                            case "onEndConnection":
+                                {
+                                    core.CtiUser.CurrentUCID = null;
+                                    String ucid = eventArgs[0];
+                                    HoldList hl = Websocket.holdConnections;
+                                    hl.removeElement(username, ucid);
+                                    client.onEventHandler(message, hl.getList(username));
+                                    return;
+                                }
+                            case "onHoldConnection":
+                                {
+                                    // Delete current call
+                                    core.CtiUser.CurrentUCID = null;
+                                    String ucid = eventArgs[0];
+                                    HoldList hl = Websocket.holdConnections;
+                                    hl.addElement(username, new HoldConnection(ucid));
+                                    client.onEventHandler(message, hl.getList(username));
+                                    return;
+                                }
+                            case "onRetrieveConnection":
+                                {
+                                    // Add ucid of call
+                                    core.CtiUser.CurrentUCID = eventArgs[0];
+                                    String ucid = eventArgs[0];
+                                    HoldList hl = Websocket.holdConnections;
+                                    hl.removeElement(username, ucid);
+                                    client.onEventHandler(message, hl.getList(username));
+                                    return;
+                                }
+                            case "onTransferredCall":
+                                {
+                                    //revisar yero si hay que poner en null CtiUser.CurrentUCID
+                                    core.CtiUser.CurrentUCID = null;
+                                    String ucid = eventArgs[0];
+                                    HoldList hl = Websocket.holdConnections;
+                                    hl.removeElement(username, ucid);
+                                    client.onEventHandler(message, hl.getList(username));
+                                    return;
+                                }
+                            case "onConferenceCall":
+                                {
+                                    core.CtiUser.CurrentUCID = eventArgs[0];
+                                    String ucid = eventArgs[0];
+                                    HoldList hl = Websocket.holdConnections;
+                                    hl.removeElement(username, ucid);
+                                    client.onEventHandler(message, hl.getList(username));
+                                    return;
+                                }
+                            case "onEstablishedConnection":
+                                {
+                                    // Add ucid of call
+                                    core.CtiUser.CurrentUCID = eventArgs[0];
+                                    core.CtiUser.CurrentUserInCall = eventArgs[4] != core.CtiUser.DeviceId ? eventArgs[4] : eventArgs[5];
+                                    client.onEventHandler(message);
+                                    return;
+                                }
+                        }
+
+                        client.onEventHandler(message);
+                        break;
+                    }
                 case MessageType.CTIAnswerCallRequest:
                     client.receiveAcceptCallRequest(message);
                     break;
@@ -188,6 +194,21 @@ namespace GestCTI.Core.Message
                 case MessageType.CTIListenHoldAllRequest:
                     client.receiveListenRequest(message);
                     break;
+                case MessageType.HoldDetails:
+                    {
+                        HoldList hl = Websocket.holdConnections;
+                        String username = core.CtiUser.user_name;
+
+                        JArray lista = (JArray)json_msg["result"];
+                        List<DeviceState> devices = new List<DeviceState>();
+                        for (int i = 0; i < lista.Count; i++) {
+                            devices.Add(new DeviceState(lista[i][0].ToString(), lista[i][1].ToString()));
+                        }
+                                                
+                        hl.updateElement(username, invokedId, devices);
+                        client.holdDetails(hl.getList(username));
+                        break;
+                    }
             }
         }
     }

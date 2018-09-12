@@ -30,6 +30,7 @@ namespace GestCTI.Core.Enum
         Pause,
         CTIWhisperRequest,
         CTIListenHoldAllRequest,
-        CTIListenRetrieveAllRequest
+        CTIListenRetrieveAllRequest,
+        HoldDetails
     }
 }

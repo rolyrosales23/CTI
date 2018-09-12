@@ -151,6 +151,14 @@ namespace GestCTI.Hubs
             await genericSender(toSend.Item1, toSend.Item2, MessageType.CTIHoldConnectionRequest, I18n, Context.User.Identity.Name);
         }
 
+        public async Task holdDetails(String ucid)
+        {
+            var toSend = CallHandling.CTIGetDevices(ucid);
+            String I18n = "COMMAND_HOLD_DETAILS";
+            holdConnections.addUcid(toSend.Item1, ucid);
+            await genericSender(toSend.Item1, toSend.Item2, MessageType.HoldDetails, I18n, Context.User.Identity.Name);
+        }
+
         /// <summary>
         /// Retrive all connection from listen action
         /// </summary>

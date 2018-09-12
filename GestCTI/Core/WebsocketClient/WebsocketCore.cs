@@ -248,12 +248,12 @@ namespace GestCTI.Core.WebsocketClient
 
                 if (messageType != MessageType.UNDEFINED)
                 {
-                    MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId, this);
+                    MessageFactory.WebsocksCoreFactory(messageType, message, CtiUser.ConnectionId, this, guid);
                 }
                 else
                 {
                     //Handle event
-                    MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId, this);
+                    MessageFactory.WebsocksCoreFactory(MessageType.ON_EVENT, message, CtiUser.ConnectionId, this, guid);
                 }
             }
             catch (Exception)

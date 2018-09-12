@@ -35,19 +35,25 @@ function updateControlsState(list, enable = true) {
         changeState(list[i], enable);
 }
 
-function setActiveCall(ucid) {
+function setActiveCall(ucid, buttons = null) {
     localStorage.setItem('activeCall', ucid);
 
-    changeState('hangout', true);
-    changeState('hold', true);
-    changeState('retrieve', false);
-    if ($('#lista_espera input:checked').length) {
-        changeState('conference', true);
-        changeState('transfer', true);
-    }
+    if (buttons == null) {
+        changeState('hangout', true);
+        changeState('hold', true);
+        changeState('retrieve', false);
+        if ($('#lista_espera input:checked').length) {
+            changeState('conference', true);
+            changeState('transfer', true);
+        }
 
-    changeState('inputPhone', false);
-    changeState('doCallBtn', false);
+        changeState('inputPhone', false);
+        changeState('doCallBtn', false);
+    }
+    else {
+        for (var i in buttons)
+            changeState(buttons[i], true);
+    }
 }
 
 function removeActiveCall() {
@@ -72,8 +78,15 @@ function pintarListaEspera(lista) {
         panel.append("<ul class='list-unstyled'></ul>");
 
         for (var i in lista) {
+            var p = "<p>";
+            var devices = lista[i].devices;
+            for (var d in devices) {
+                p += "(" + devices[d].deviceId + ", " + devices[d].state + ") ";
+            }
+            p += "</p>";
+
             var ind = Number(i) + 1;
-            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label><p>" + Resources.CallerId + ": " + lista[i].toDevice + "</p></a></li>");
+            panel.find('ul').append("<li><a href='#' class='list-group-item form-group'><label class='check contacts-title'><input type='radio' class='icheckbox' name='hold_list' value='" + lista[i].ucid + "' />" + Resources.Llamada + " " + ind + "</label>" + p + "</a></li>");
         }
 
         $('#tab-first').removeClass('active');
@@ -159,6 +172,10 @@ $('#SendCallDisposition').click(function () {
 $(function () {
     // Reference the auto-generated proxy for the hub.
     var agent = $.connection.websocket;
+
+    agent.client.holdDetails = function(holdList){
+        pintarListaEspera(holdList);
+    }
 
     agent.client.inicializarAppFase1 = function (message, holdList) {
         pintarListaEspera(holdList);
@@ -261,11 +278,9 @@ $(function () {
                 break;
 
             case 'onCallDelivered':
-                
-                changeState('answer', true);
+                var buttons = ['answer'];
+                setActiveCall(eventArgs[0], buttons);
 
-                setActiveCall(eventArgs[0]);
-                
                 printDisposition(eventArgs[9]);      //cargo las dispositions segun el VDN de la llamada
                 pintarScriptByVDN(eventArgs[9], {
                     'ucid': eventArgs[0],
@@ -290,7 +305,8 @@ $(function () {
 
             case 'onCallExternalDelivered':
                 //changeState('answer', true);
-                setActiveCall(eventArgs[0]);
+                var buttons = ['hangout'];
+                setActiveCall(eventArgs[0], buttons);
 
                 //asignar la llamada a la campaña
                 var campaignId = localStorage.getItem('campaignId');
@@ -341,6 +357,7 @@ $(function () {
                 break;
 
             case 'onHoldConnection':
+                agent.server.holdDetails(eventArgs[0]);
                 pintarListaEspera(data);
                 removeActiveCall();
 
@@ -354,8 +371,8 @@ $(function () {
                 break;
 
             case 'onRetrieveConnection':
-                setActiveCall(eventArgs[0]);
                 pintarListaEspera(data);
+                setActiveCall(eventArgs[0]);
 
                 successNoty(Resources.CallRetrieved, false);
                 tempNoty('onRetrieveConnection');
@@ -367,6 +384,7 @@ $(function () {
                 break;
 
             case 'onEndConnection':
+                pintarListaEspera(data);
                 removeActiveCall();
                 changeState('pause', true);
 
@@ -384,19 +402,18 @@ $(function () {
                 break;
 
             case 'onEndCall':
-                removeActiveCall();
                 changeState('pause', true);
                 //changeState('ready', true);
 
                 pintarListaEspera(data);
-                
+                removeActiveCall();
 
                 tempNoty('onEndCall');
                 break;
 
             case 'onTransferredCall':
-                setActiveCall(eventArgs[4]);
                 pintarListaEspera(data);
+                setActiveCall(eventArgs[4]);
 
                 successNoty(Resources.CallTransferred, false);
                 tempNoty('onTransferredCall');
@@ -404,8 +421,8 @@ $(function () {
 
             case 'onConferencedCall':
                 changeState('end_conference', true);
-                setActiveCall(eventArgs[4]);
                 pintarListaEspera(data);
+                setActiveCall(eventArgs[4]);
 
                 successNoty(Resources.CallConferenced, false);
                 tempNoty('onConferencedCall');
